@@ -27,7 +27,8 @@
     "test:map": "tsx scripts/test-map.mts",
     "build:bc-dots": "tsx scripts/build-bc-dots.mts",
     "test:auth": "tsx scripts/test-auth.mts",
-    "test:rate": "tsx scripts/test-rate.mts"
+    "test:rate": "tsx scripts/test-rate.mts",
+    "test:ask-sheet": "tsx scripts/test-ask-sheet.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
