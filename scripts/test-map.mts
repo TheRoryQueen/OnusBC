@@ -101,8 +101,14 @@ try {
   check("panel shows the rating counts by source", (await panel.textContent())?.includes("public records") ?? false);
 
   // Ungraded and no-policy schools.
-  await page.goto(`${BASE}/map/sfu`, { waitUntil: "load" });
+  // Every real school is graded now, so a temporary one (policy found, no grades) stands in.
+  await db.query("delete from public.institutions where slug = 'zz-test-ungraded'");
+  const { rows: [tmp] } = await db.query(`insert into public.institutions (slug, name, type, city, lat, lng, policy_found, email_domains)
+    values ('zz-test-ungraded', 'Test Ungraded College', 'college', 'Kamloops', 50.2, -119.9, true, '{ungraded.test}') returning id`);
+  await db.query("select public.refresh_scores($1)", [tmp.id]);
+  await page.goto(`${BASE}/map/zz-test-ungraded`, { waitUntil: "load" });
   check("ungraded school says Grading in progress", await page.getByText("Grading in progress").first().waitFor({ timeout: 10000 }).then(() => true).catch(() => false));
+  await db.query("delete from public.institutions where slug = 'zz-test-ungraded'");
   await page.goto(`${BASE}/map/cotr`, { waitUntil: "load" });
   check("COTR shows the login note", await page.getByText("Policy exists but requires a login to read").waitFor({ timeout: 10000 }).then(() => true).catch(() => false));
   await page.goto(`${BASE}/map/not-a-school`, { waitUntil: "load" });
