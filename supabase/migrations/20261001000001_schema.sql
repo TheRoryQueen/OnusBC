@@ -755,7 +755,7 @@ alter default privileges in schema public revoke execute on functions from publi
 alter publication supabase_realtime add table public.institution_scores;
 
 -- ---------------------------------------------------------------------------
--- The 16 criteria (PRD, Grading system, On paper). Origins as listed in the PRD.
+-- The 17 criteria (PRD, Grading system, On paper). Origins as listed in the PRD.
 -- ---------------------------------------------------------------------------
 
 insert into public.criteria (id, category, label, origin, sort) values
