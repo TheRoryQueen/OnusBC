@@ -178,3 +178,13 @@
 ::view-transition-new(root) {
   z-index: 1;
 }
+
+/* Homepage hero: one breath of a school dot (fade in, hold, fade out) over its own cycle length. */
+@keyframes onus-breathe {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.onus-breathe { animation: onus-breathe var(--onus-breath, 4s) ease-in-out both; }
+@media (prefers-reduced-motion: reduce) { .onus-breathe { animation: none; opacity: 0.4; } }
