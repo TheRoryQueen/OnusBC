@@ -1,0 +1,50 @@
+{
+  "_rules": "Verbatim, published, unnamed, process only, homepage only. Chosen and checked Oct 1, 2026. Do not add or change entries without Farnaz's approval.",
+  "quotes": [
+    {
+      "id": "sfu-2017",
+      "text": "The only response security gave was, 'You should have just walked away.'",
+      "attribution": "Student, Simon Fraser University, 2017",
+      "publication": "Global News",
+      "date": "2017-02-24",
+      "url": "https://globalnews.ca/news/3272473/sfu-students-say-ongoing-sexual-harassment-on-campus-is-being-ignored",
+      "school": "Simon Fraser University",
+      "year": 2017,
+      "note": "Source ends the inner quote with a comma because the sentence continues; the closing period is the only change.",
+      "approved": true
+    },
+    {
+      "id": "uvic-2016-a",
+      "text": "I felt completely invalidated and silenced.",
+      "attribution": "Student, University of Victoria, 2016",
+      "publication": "The Canadian Press",
+      "date": "2016-03-15",
+      "url": "https://globalnews.ca/news/2580695/university-of-victoria-silencing-assault-victims-students",
+      "school": "University of Victoria",
+      "year": 2016,
+      "approved": true
+    },
+    {
+      "id": "ubco-2022",
+      "text": "I felt like I had barely any support when I disclosed it to my managers and they just shuffled me around, making me disclose it several times before passing me off to the sexual violence prevention office.",
+      "attribution": "Former student, UBC Okanagan, 2022",
+      "publication": "Black Press Media",
+      "date": "2022-09-09",
+      "url": "https://clearwatertimes.com/2022/09/09/former-student-files-human-rights-complaint-against-ubco-over-sexual-assault-investigation/",
+      "school": "University of British Columbia, Okanagan",
+      "year": 2022,
+      "approved": true
+    },
+    {
+      "id": "uvic-2016-b",
+      "text": "Most of the time, nothing happens.",
+      "attribution": "Student residence staff member, University of Victoria, 2016",
+      "publication": "The Canadian Press",
+      "date": "2016-03-15",
+      "url": "https://globalnews.ca/news/2580695/university-of-victoria-silencing-assault-victims-students",
+      "school": "University of Victoria",
+      "year": 2016,
+      "approved": true
+    }
+  ]
+}
