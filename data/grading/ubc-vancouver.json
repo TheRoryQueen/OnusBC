@@ -1,0 +1,166 @@
+{
+  "slug": "ubc-vancouver",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "db3c0355e7f49f9627cb90d249a666fb189825d72799d0b89154a99a2ef1844a",
+  "graded_at": "2026-10-03T07:36:13.404Z",
+  "paper_gpa": 2.83,
+  "paper_letter": "B",
+  "accepted": 16,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Reports must be submitted to the Investigations Office, where they will be addressed in accordance with the Procedures to this Policy, which include an initial review as set out under section 4 of the Procedures to determine whether the allegations contained in the Report fall within UBC’s Jurisdiction to Investigate.",
+      "document": "Policy",
+      "section": "9",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Reports must be submitted in writing, and should set out the relevant details with regards to the alleged Sexual Misconduct.",
+      "document": "Policy",
+      "section": "3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "An individual’s sexual reputation or history of sexual activity cannot be submitted as evidence to prove that it was likely that the individual provided Consent.",
+      "document": "Policy",
+      "section": "4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 2,
+      "quote": "They are not adversarial processes and hearings will not be held as part of the investigatory process.",
+      "document": "Policy",
+      "section": "6",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "However, this section does not prevent: 8.2.1 any participants in the Investigation from disclosing information about themselves, or information that they have obtained outside the Investigation;",
+      "document": "Policy",
+      "section": "8",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "UBC is committed to respecting the rights of those who Disclose to make their own decisions about accessing support services and assistance, making a Report, or pursuing external processes such as criminal or civil actions (whether instead of or in addition to pursuing UBC’s processes).",
+      "document": "Policy",
+      "section": "1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "An individual who makes a Disclosure or Report will not be subject to actions for violating any applicable UBC policy, rules, or regulations related to alcohol or drug use at the time the alleged Sexual Misconduct occurred.",
+      "document": "Policy",
+      "section": "1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The Director of Investigations will set the timelines for each Investigation and may adjust the timelines in an Investigation at any time.",
+      "document": "Policy",
+      "section": "2",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Assistance will be available to Members of the UBC Community who have Disclosed or Reported and may include: student residence re-location or short-term emergency student housing; class schedule changes; provision of academic concessions; emergency funding for students; safety planning; temporary work reassignment, location reassignment, or scheduling changes;",
+      "document": "Policy",
+      "section": "8",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "student, defined as any person, including co-op and exchange students, registered or enrolled in any component of a for-credit academic or training program or course at UBC, or any class of learners designated by resolution of the Senate as students;",
+      "document": "Policy",
+      "section": "2",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The Director of Investigations will inform the Complainant of any disciplinary outcomes that the University Counsel has authorized the Director to disclose in accordance with section 7.5 of these Procedures.",
+      "document": "Policy",
+      "section": "7",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 2,
+      "quote": "Annually, UBC will publicly report, in the aggregate and without identifying personal information, the number of: requests for services received by the Sexual Violence Prevention and Response Offices; and Reports received by the Investigations Office;",
+      "document": "Policy",
+      "section": "7",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "UBC is committed to reviewing this Policy at least once every three years, in consultation with students and such other Members of the UBC Community as UBC deems appropriate in accordance with the Regulatory Framework Policy (GA2).",
+      "document": "Policy",
+      "section": "12",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "UBC is committed to reviewing this Policy at least once every three years, in consultation with students and such other Members of the UBC Community as UBC deems appropriate in accordance with the Regulatory Framework Policy (GA2).",
+      "document": "Policy",
+      "section": "12",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "UBC will offer training on a Trauma-informed Approach to persons, including administrative and academic decision makers, responsible for addressing Sexual Misconduct.",
+      "document": "Policy",
+      "section": "1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "UBC is committed to providing comprehensive and inclusive education, prevention, and response initiatives to address Sexual Misconduct.",
+      "document": "Policy",
+      "section": "1",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

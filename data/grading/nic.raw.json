@@ -1,0 +1,141 @@
+{
+  "slug": "nic",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "690ca8b0f3ebcf3a56657c45cb47fe7f18cd1c2b67ff1c0cf6a5a0a2c0742a1b",
+  "graded_at": "2026-10-03T07:30:08.125Z",
+  "usage": {
+    "promptTokenCount": 13900,
+    "candidatesTokenCount": 1512,
+    "totalTokenCount": 23827,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 13900
+      }
+    ],
+    "thoughtsTokenCount": 8415,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "The purpose of these procedures is to support NIC Policy #3-34 Sexualized Violence Prevention and Response.",
+      "section": "Sexualized violence disclosure/reporting procedures",
+      "reason": "The policy is a stand-alone sexualized violence policy with its own dedicated procedures and investigation process."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention a commitment to posting the policy text publicly."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "If the Claimant is an employee or contractor, a Report of sexualized violence should be made through the Human Resources department. If the Claimant is a student a Report of sexualized violence should be made through NIC counselling services or the Office of Student Affairs.",
+      "section": "4.2",
+      "reason": "The policy sets out clear, concrete steps and contacts for students and employees to report."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "investigations will be bound by Rape Shield provisions; survivors or those impacted by sexualized violence will not be asked about their previous sexual history.",
+      "section": "6.4.5",
+      "reason": "The policy explicitly states that survivors will not be asked about their past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protecting the complainant from face-to-face contact with the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "Survivors and those impacted by sexualized violence are free to tell the story of their own experiences.",
+      "section": "12",
+      "reason": "The policy explicitly states that survivors are free to speak about their own experiences."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "NIC will provide support services and accommodations to members of the College Community who Disclose or Report sexualized violence, including supporting the rights of people who make Disclosures to choose whether to access support, whether to make a Report, or whether to pursue external processes such as criminal or civil action.",
+      "section": "7",
+      "reason": "The policy explicitly guarantees the survivor's right to choose between internal and external processes."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "As a result, NIC will not subject any individual who Discloses or Reports sexualized violence to disciplinary action for alcohol or substance use occurring at or near the time of the incident(s).",
+      "section": "9",
+      "reason": "The policy guarantees amnesty from disciplinary action for alcohol or substance use when reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not set out any specific timelines for the complaint or investigation process."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where requested by the Claimant for safety reasons, or where NIC receives information that requires it to act to protect the health or safety of members of the College Community, or to protect NIC property, NIC may impose interim measures before an investigation is concluded.",
+      "section": "7.1",
+      "reason": "The policy states that the institution may impose interim measures, making them discretionary."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "the alleged conduct must have a real and substantial connection to NIC.",
+      "section": "Scope and application",
+      "reason": "Off-campus activities are covered only generally under a 'real and substantial connection' requirement, without explicitly mentioning co-ops or internships."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "A survivor or those impacted by sexualized violence will only be advised of disciplinary outcomes imposed upon a Respondent on a need-to-know basis, for example, compelling health or safety reasons.",
+      "section": "11.4",
+      "reason": "Informing the survivor of disciplinary outcomes is limited to a need-to-know basis."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "Disclosures made to an NIC employee or contractor will be logged anonymously as incidents in the annual report to the President who, in turn, provides an annual report to the Board of Governors.",
+      "section": "3.3",
+      "reason": "The policy commits to annual reporting of numbers internally to the President and Board of Governors, but not publicly."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Date to be Reviewed: September 2026",
+      "section": "Preamble",
+      "reason": "The policy indicates a review cycle of three years (from September 2023 to September 2026)."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention student representation on policy review committees."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "NIC is committed to ensuring that internal investigators and decision makers receive sexualized violence training at least once every 3 years.",
+      "section": "Guidelines",
+      "reason": "Training is required for investigators and decision-makers, but the policy does not specify that it must be trauma-informed."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "NIC is committed to providing comprehensive and inclusive sexualized violence education.",
+      "section": "Principles",
+      "reason": "The policy commits to providing comprehensive sexualized violence education to promote a culture of consent."
+    }
+  ]
+}

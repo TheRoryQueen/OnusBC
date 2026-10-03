@@ -1,0 +1,166 @@
+{
+  "slug": "sfu",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "c71ac0ddf59539bfcccef245ec0a919b9372596fb86bba75dfc2d306d8687a55+ead06e76d571f7ed2afff4a041a34f7a0e7473bf9d9326b6f4fe4708b4732d80",
+  "graded_at": "2026-10-03T07:34:06.631Z",
+  "paper_gpa": 2.16,
+  "paper_letter": "C",
+  "accepted": 13,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "Where the Report is about a Respondent who is a Student, the Student Conduct Policy (S 10.05) will apply and the Office of Student Support, Rights and Responsibilities will respond to the Report in accordance with the processes and procedures under the Student Conduct Policy (S 10.05).",
+      "document": "Procedures",
+      "section": "Conduct",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "maintain a comprehensive, integrated communication strategy, which will include a central web resource with detailed information about:",
+      "document": "Policy",
+      "section": "5.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "A Survivor who has experienced Sexualized Violence by another member of the University Community may choose to Report the Sexualized Violence to the Sexual Violence Support and Prevention Office with the intention of initiating a process under section 8.5 of this policy.",
+      "document": "Policy",
+      "section": "8.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "be provided with information to allow them to make autonomous and informed decisions about which of the options outlined in section 8 to pursue, if any.",
+      "document": "Policy",
+      "section": "7.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University shall deal with all Reports of Sexualized Violence in a fair, unbiased, and timely manner and in accordance with relevant collective agreements and other applicable University policies.",
+      "document": "Policy",
+      "section": "9.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "obtain reasonable and appropriate academic, workplace or other accommodation tailored on a case by case basis;",
+      "document": "Policy",
+      "section": "7.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "At or during an in-person or virtual meeting, event, or activity that is sponsored by or under the auspices of the University, or in furtherance of University business; or",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 2,
+      "quote": "The University will provide a Complainant who initiates a process under section 8.5.2 with the outcome of the Report that was made.",
+      "document": "Policy",
+      "section": "10.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 2,
+      "quote": "systematically collect data and maintain annual statistics, without identifying information, on the number of Disclosed and Reported incidents of Sexualized Violence under this policy for the purposes of community education and for reporting to the University Community;",
+      "document": "Policy",
+      "section": "5.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Reviewing this policy at least once every three years, in consultation with students and other members of the University Community.",
+      "document": "Policy",
+      "section": "15.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "Reviewing this policy at least once every three years, in consultation with students and other members of the University Community.",
+      "document": "Policy",
+      "section": "15.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "An impartial and appropriately qualified and trained person shall investigate Reports of Sexualized Violence.",
+      "document": "Policy",
+      "section": "9.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Provide education and awareness programs and training designed to reduce and prevent Sexualized Violence, and training on responding to Disclosures, for all members of the University Community.",
+      "document": "Policy",
+      "section": "1.0",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

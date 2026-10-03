@@ -1,0 +1,166 @@
+{
+  "slug": "okanagan",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "01f48442442f994b9e6962672459a07f24567eaac4bf6687dae5bfa3b500290d",
+  "graded_at": "2026-10-03T07:31:29.791Z",
+  "paper_gpa": 2.37,
+  "paper_letter": "C",
+  "accepted": 14,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "Procedures under the Student Non-Academic Misconduct Policy will govern the investigation or resolution of a Complaint under this Policy.",
+      "document": "Policy",
+      "section": "4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Click here for the reporting options available to anyone who has experienced or witnessed sexual violence.",
+      "document": "Policy",
+      "section": "10",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 1,
+      "quote": "Questions or evidence regarding a Complainant’s prior sexual history will not be considered unless directly relevant and necessary to determine the matter.",
+      "document": "Policy",
+      "section": "10.6",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Anyone who has experienced Sexual Violence and Misconduct has the right to pursue criminal or civil legal avenues whether or not they choose to file a Complaint or make a Disclosure under this Policy.",
+      "document": "Policy",
+      "section": "4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "A Complainant or Okanagan College Community member acting in good faith, who discloses or reports Sexual Violence and Misconduct will not be subject to penalties for violation of any College policies related to drug and alcohol use at the time that the Sexual Violence and Misconduct took place.",
+      "document": "Policy",
+      "section": "4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "When a Disclosure or Complaint is received the College will make reasonable efforts to: a) acknowledge receipt of a Disclosure or Complaint within five (5) business days; b) provide information regarding supports, accommodations, and reporting options as soon as practicable; c) initiate assessment of a Complaint without undue delay; and d)complete investigations within a reasonable timeframe, recognizing that timelines may vary depending on complexity, availability of participants, and procedural fairness requirements.",
+      "document": "Policy",
+      "section": "10",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The College may implement temporary interim measures or restrictions at any stage before, during or after an investigation where reasonable necessary to protect the safety, wellbeing, learning or working environment of individuals or the wider College Community (see Procedures for Student Non-Academic Conduct Investigations: Initial Review of Complaint (section 3.5).",
+      "document": "Policy",
+      "section": "10.6",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "In exceptional circumstances, incidents which do not occur on College property, or at College sanctioned events and are not conducted under the authority of the College may still be found to have a substantial connection to the College where they adversely affect the Complainant’s course of learning, teaching, or work, and may fall within the scope of this policy.",
+      "document": "Policy",
+      "section": "5",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 2,
+      "quote": "Following the completion of an investigation the Complainant will be informed of the findings and outcomes of the investigation.",
+      "document": "Policy",
+      "section": "10.6",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "On an annual basis, the President will report to the Board regarding implementation of this Policy, including prevention initiatives, training activities, policy review activities, and anonymized information regarding disclosures and consistent with privacy legislation.",
+      "document": "Policy",
+      "section": "11",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "This Policy will be reviewed at least once every three years.",
+      "document": "Policy",
+      "section": "11",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "In accordance with the Sexual Violence and Misconduct Policy Act, the College will consult with students, Indigenous groups, and other appropriate members of the College Community during the development and review of this Policy.",
+      "document": "Policy",
+      "section": "11",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 2,
+      "quote": "Okanagan College will train persons responsible for addressing Sexual Misconduct on Trauma Informed Approaches.",
+      "document": "Policy",
+      "section": "1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The College will address Sexual Violence and Misconduct through support, awareness, training and prevention programs (see Consent & Sexual Violence Training here), and through appropriate handling of Complaints and Disclosures of Sexual Violence and Misconduct.",
+      "document": "Policy",
+      "section": "1",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

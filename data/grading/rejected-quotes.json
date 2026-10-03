@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "slug": "ecuad",
+    "criterion_id": "AC-2",
+    "model_score": 1,
+    "model_section": "Procedures A.10.1",
+    "quote": "The Sexual and Gender-Based Violence Advisory will support the creation of a Sexual and Gender-based Violence Prevention Webpage that will provide information about the Policy as well as support and response options and an up to date list of events, campaigns, and training opportunities.",
+    "reason": "not found verbatim in the policy text"
+  }
+]

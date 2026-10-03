@@ -1,0 +1,141 @@
+{
+  "slug": "uvic",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "3cf651f45cb85859ad0d9a6109a5f40a8a3bf439c062f011aae7e8d0d774044b",
+  "graded_at": "2026-10-03T07:38:53.384Z",
+  "usage": {
+    "promptTokenCount": 27036,
+    "candidatesTokenCount": 1756,
+    "totalTokenCount": 38925,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 27036
+      }
+    ],
+    "thoughtsTokenCount": 10133,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "These procedures set out the process the University will follow to investigate Reports filed under the Sexualized Violence Prevention and Response Policy (“the Policy”).",
+      "section": "Procedures for investigating a report",
+      "reason": "The policy has its own dedicated investigation procedures for reports."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "The University will create and maintain a Sexualized Violence website that provides information about the Policy as well as support and response options and an up-to-date list of Sexualized Violence Education opportunities.",
+      "section": "Sexualized violence education framework",
+      "reason": "The policy commits to providing information about the policy on a website, but does not explicitly state the policy text itself will be publicly posted."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "There are generally three main process options after making a Disclosure to EQHR: (a) requesting no further action beyond keeping a record (see section 13); (b) requesting a Voluntary Process (see Appendix C – Voluntary Process Procedures); or (c) completing and filing a Report (see Appendix D – Procedures for Filing a Report).",
+      "section": "11",
+      "reason": "The policy outlines the general options for reporting but does not provide specific contact details like phone numbers or email addresses in the text."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether a complainant's past sexual history can be raised or considered during the process."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 2,
+      "quote": "The Complainant and Respondent will not be required to meet as part of the investigation.",
+      "section": "Procedures for investigating a report",
+      "reason": "The policy explicitly guarantees that the complainant and respondent will not be required to meet."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "University Community Members who are participating in a Voluntary Process, investigation, or review are free to speak about their own experiences but must not disclose information that they learn solely as a result of their participation in Policy processes, because this Personal Information belongs to another individual.",
+      "section": "Statement on confidentiality and privacy",
+      "reason": "The policy explicitly states that participants are free to speak about their own experiences."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "These additional relevant processes might include: (a) a grievance through their union; (b) a report of a crime directly to the police; (c) a human rights complaint to the BC Human Rights Tribunal; (d) a claim or complaint to WorkSafeBC; and/or (e) a civil suit.",
+      "section": "12",
+      "reason": "External options such as police and civil suits are mentioned, but the explicit right of the survivor to choose between them is not fully articulated."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Hence, the University will not subject any individual who makes a Disclosure or Report or witnesses Sexualized Violence to disciplinary action for their personal use of alcohol or substance use occurring at or near the time of the incident(s).",
+      "section": "18",
+      "reason": "The policy provides a binding guarantee of amnesty for drug or alcohol use at the time of the incident."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The Director will specify an expected timeline for the investigator to complete the investigation and submit the investigation report.",
+      "section": "Procedures for investigating a report",
+      "reason": "Timelines for the overall investigation are discretionary and set on a case-by-case basis."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The University may apply Interim Measures where the University believes it must act to protect a University Community Member’s health or safety or University property.",
+      "section": "16",
+      "reason": "The application of interim measures is discretionary."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "A University Activity includes but is not limited to: (a) in-person and online courses; (b) athletic events; (c) artistic performances; (d) placements (including co-op and practica); (e) meetings to further University business; (f) academic or professional conferences; and (g) academic or research field work.",
+      "section": "Definitions",
+      "reason": "The policy's scope explicitly covers placements, including co-op and practica."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "Therefore, the Complainant is not entitled to know whether the Respondent was disciplined, or which corrective action was imposed.",
+      "section": "Procedures for investigating a report",
+      "reason": "The complainant is informed of the outcome of the investigation, but is explicitly not entitled to know the specific disciplinary actions or sanctions imposed."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 2,
+      "quote": "This report will be publicly available online and will contain: (a) available statistics on Disclosures and Reports to EQHR (including available demographic details); (b) observed trends related to Sexualized Violence at the University; and (c) recommendations based on trends.",
+      "section": "25",
+      "reason": "The policy commits to publishing an annual report online containing statistics on disclosures and reports."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "In any event, the University will review the Policy at least once every three years, and when directed to do so by the provincial government.",
+      "section": "26",
+      "reason": "The policy mandates a review cycle of at least once every three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention a requirement for student representation on the policy review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "General Counsel Office will compile and maintain a roster of investigators who: (a) are trained in Trauma-Informed investigation practices;",
+      "section": "Unit roles and responsibilities",
+      "reason": "The policy requires investigators on the roster to have trauma-informed training, but does not mandate it for all decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The University is committed to addressing and preventing Sexualized Violence by implementing and actively promoting awareness, education, and training programs in multiple formats and tailored to multiple audiences (see Appendix H – Sexualized Violence Education Framework).",
+      "section": "4",
+      "reason": "The policy commits to implementing prevention education and training programs for the university community."
+    }
+  ]
+}

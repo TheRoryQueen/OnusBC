@@ -1,0 +1,166 @@
+{
+  "slug": "nvit",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "16039ae03596d5825653c1bca864222b157041d93dafe532d73f17e1df5577ec",
+  "graded_at": "2026-10-03T07:29:10.391Z",
+  "paper_gpa": 2.31,
+  "paper_letter": "C",
+  "accepted": 12,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "The Hearing Circle will determine if the allegations against the respondent violated the Sexual Violence Prevention and Response Policy and forward their decision to the Associate Vice President, Students Office.",
+      "document": "Policy",
+      "section": "3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "Incidents involving students or NVIT community members can be reported anonymously using NVIT’s online reporting tool, located on the NVIT website, or by contacting the Associate Vice President, Students, Success Centre Manager, or Registrar.",
+      "document": "Policy",
+      "section": "Response procedures",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 1,
+      "quote": "To have reasonable and necessary actions taken to prevent further unwanted contact with the other individual involved in the incident of sexual violence.",
+      "document": "Policy",
+      "section": "Response procedures",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "It is the right of those who experience sexual violence to decide whether to access available services and, if so, which services to access and whether to report to police or campus personnel.",
+      "document": "Policy",
+      "section": "Policy",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Establishing a fair, supportive and effective response to reports or disclosures of sexual violence or misconduct and that they are responded to appropriately and promptly.",
+      "document": "Policy",
+      "section": "Purpose",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "If the victim/survivor or alleged perpetrator lives in residence, alternative housing arrangements may be made during an investigation if necessary to protect the victim/survivors or others.",
+      "document": "Policy",
+      "section": "Interim measures",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "Action is taken to address unacceptable student or employee conduct, which may include any conduct that has the effect of disrupting the learning or work environment or that is a threat or perceived to be a threat to the safety of other students, employees, or members of the NVIT community, whether conducted on or off campus (e.g. field trip, practicum, etc.).",
+      "document": "Policy",
+      "section": "Definitions",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 2,
+      "quote": "The Associate Vice President, Students or Designate will follow up with a decision letter to the complainant and respondent.",
+      "document": "Policy",
+      "section": "3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The President will report to the Board of Governors on implementing this policy annually.",
+      "document": "Policy",
+      "section": "Policy review",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "To maintain the policy’s currency and relevance, the content will be revisited and updated every three (3) years or when relevant social, resource, or legal changes otherwise warrant any updates.",
+      "document": "Policy",
+      "section": "Policy review",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 2,
+      "quote": "NVIT will train persons responsible for addressing sexual misconduct on Trauma-Informed Approaches.",
+      "document": "Policy",
+      "section": "Policy",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "This policy articulates the Institute’s procedures for prevention, support, education, awareness, training, and response to incidents of sexual violence.",
+      "document": "Policy",
+      "section": "Policy",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

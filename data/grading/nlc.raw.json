@@ -1,0 +1,141 @@
+{
+  "slug": "nlc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "378ccb5eebea04304c1f35c298be4700ea10385285a4142ac6f38b8c29fb85e5",
+  "graded_at": "2026-10-03T07:30:56.063Z",
+  "usage": {
+    "promptTokenCount": 5419,
+    "candidatesTokenCount": 916,
+    "totalTokenCount": 14575,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 5419
+      }
+    ],
+    "thoughtsTokenCount": 8240,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "It outlines appropriate and fair processes for handling complaints of sexual violence or misconduct.",
+      "section": "Policy, Section: Purpose",
+      "reason": "The policy is a dedicated sexual misconduct policy with its own processes for handling complaints."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to being publicly posted or available."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A student who has experienced sexual misconduct can make a complaint to the College’s Director of Student Services (see below), or any employee of the College with whom the student feels comfortable.",
+      "section": "Policy, Section: B.1",
+      "reason": "The policy provides clear, concrete steps and contact details for reporting to the Director of Student Services."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protection from face-to-face contact."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy requires everyone involved to maintain confidentiality during the process."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "This policy does not replace the criminal process. Any individual who is a survivor of sexual misconduct or who witnesses criminal behaviour is encouraged to report that behaviour to the RCMP.",
+      "section": "Policy, Section: Scope",
+      "reason": "The policy mentions the criminal process as an option but does not explicitly state the survivor has the right to choose."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address amnesty for drug or alcohol use when reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Where the Director receives an actionable complaint, they will initiate an investigation within five business days.",
+      "section": "Policy, Section: D.2",
+      "reason": "The policy sets a timeline to initiate the investigation but lacks a binding timeline for completing the overall process."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "At any time before or during an investigation, the College may take interim measures to ensure the well-being of any member of the College.",
+      "section": "Policy, Section: D.4",
+      "reason": "The policy states that the College may take interim measures, making them discretionary."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "This policy applies to sexual misconduct involving a student of the College, both on and off campus, that is in any way related to the student being a member of the College community",
+      "section": "Policy, Section: Scope",
+      "reason": "Off-campus activities are covered generally, but co-op, internships, or work placements are not explicitly mentioned."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "If the outcome of the investigation is that the allegation of sexual misconduct is unsubstantiated, the College will promptly notify the individuals involved.",
+      "section": "Policy, Section: D.4",
+      "reason": "The policy commits to notifying the individuals involved if the allegation is unsubstantiated, but does not explicitly guarantee informing the survivor of the specific outcome or sanctions if substantiated."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention public annual reporting of sexual violence statistics."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Next Scheduled Review Date",
+      "section": "Policy, Section: Related policies and references",
+      "reason": "The policy indicates a scheduled review date but does not explicitly state a binding review interval."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation on the policy review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not require trauma-informed training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "NLC will build a culture of consent by offering ongoing education, awareness and training to the members of the college community about prevention and response to sexual misconduct.",
+      "section": "Policy, Section: Purpose",
+      "reason": "The policy commits to offering ongoing education, awareness, and training to the college community."
+    }
+  ]
+}

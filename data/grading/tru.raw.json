@@ -1,0 +1,141 @@
+{
+  "slug": "tru",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "b41ef286c69abe36bfbf6463637b18b96854c8ec9af68de8b1305adb77d91a66",
+  "graded_at": "2026-10-03T07:35:13.090Z",
+  "usage": {
+    "promptTokenCount": 8113,
+    "candidatesTokenCount": 1495,
+    "totalTokenCount": 18153,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 8113
+      }
+    ],
+    "thoughtsTokenCount": 8545,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "In this section, the person making the Report of Sexualized Violence is called the Complainant, and the person against whom the allegations are made is called the Respondent.",
+      "section": "Policy, Section 1",
+      "reason": "The policy has its own dedicated investigation and adjudication process."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "The University will maintain a website that includes information about Sexualized Violence, Consent, Disclosures and Reporting.",
+      "section": "Policy, Section 6",
+      "reason": "The policy mentions maintaining a website with information, but does not explicitly commit to posting the policy text itself."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Victims/Survivors who wish to Report Sexualized Violence to the University can be supported in doing so by the Sexualized Violence Prevention and Response Manager.",
+      "section": "Policy, Section 3",
+      "reason": "The policy identifies who to contact to report, but does not provide concrete contact details or steps on how to reach them."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 1,
+      "quote": "To protect the integrity of the Investigation, the University will normally issue a no-contact order to both the Complainant and the Respondent.",
+      "section": "Policy, Section 1",
+      "reason": "Protection from contact is discretionary as the policy states a no-contact order will normally be issued."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether complainants are free to speak about their experience or are subject to gag orders."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Individuals have the right to pursue legal avenues whether or not they choose to proceed under this policy.",
+      "section": "Policy, Section 2",
+      "reason": "The policy explicitly guarantees the right to choose between institutional and external processes."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention amnesty for drug or alcohol use when reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The investigator will endeavor to complete the investigation within 60 days of being appointed.",
+      "section": "Policy, Section 1",
+      "reason": "The timeline for completing the investigation is non-binding and optional."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 2,
+      "quote": "Assistance will be provided to Victims/Survivors by working with them to determine the level of support, workplace and/or academic accommodations, as well as providing referrals to counseling and medical care or other services as required/requested.",
+      "section": "Policy, Section 4",
+      "reason": "The policy commits to providing academic and workplace accommodations to survivors."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "A Student includes any of the following: an undergraduate who is enrolled at the University for one or more of the last two terms (including in a practicum placement, cooperative education or study abroad) and is eligible to continue in a program of study;",
+      "section": "Policy, Section 9",
+      "reason": "The policy explicitly includes practicum placements and cooperative education in its definition of a student."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The President will arrange for a response letter to be sent to both the Complainant and the Respondent (the “Outcome Letter”) which will contain the following: (a) whether or not a breach of the policy was found to have occurred; and (b) the sanction imposed against the Respondent, which will be redacted from the letter to the Complainant unless knowledge of the sanction is necessary to protect the Complainant’s health or safety.",
+      "section": "Policy, Section 16",
+      "reason": "Informing the complainant of the sanction is limited and redacted unless necessary for health or safety."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The President will report annually to the Board on progress with implementing this policy",
+      "section": "Policy, Section 1",
+      "reason": "The policy mentions annual reporting, but it is internal to the Board of Governors and vague."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention a regular review cycle."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation on policy review committees."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "Mandatory training will be provided to all faculty, staff and administrators on the fundamentals of receiving a disclosure and providing supports.",
+      "section": "Policy, Section 2",
+      "reason": "Training is mentioned but is not specified as trauma-informed for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Sexualized Violence information and education will be provided to new incoming Students and Employees each semester through either online or in-person orientation programming.",
+      "section": "Policy, Section 2",
+      "reason": "The policy commits to providing prevention education and orientation programming to students."
+    }
+  ]
+}

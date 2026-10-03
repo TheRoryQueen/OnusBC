@@ -1,0 +1,166 @@
+{
+  "slug": "ecuad",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "c5c69c6d3e17070cf851dec80e941eb2653c85f5f4aa64cf1228a6be544ac3b6+d8fd2d1804a029346e3273efcb1f8dc46624687992c3baa87100a00e0c927a00",
+  "graded_at": "2026-10-03T07:26:05.580Z",
+  "paper_gpa": 2.28,
+  "paper_letter": "C",
+  "accepted": 14,
+  "rejected": 1,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "These Procedures outline the process the University will follow when a member of the University community chooses to disclose or report an incident(s) of sexual or gender based violence or misconduct",
+      "document": "Procedures",
+      "section": "1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": "Not found in policy."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Reports can be made to, Threat Assessment Team directly or via the Co-Ordinator of the Threat Assessment Team.",
+      "document": "Procedures",
+      "section": "C.3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 2,
+      "quote": "Complainants and Respondents will not have to engage or communicate with each other directly during a report and investigation process. This includes not being in the same space as part of the process.",
+      "document": "Procedures",
+      "section": "C.3.3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Victim/Survivors have the right to determine what and how much they choose to disclose about their experience, and to decide whether they would like to make a Report to the University and/or the police.",
+      "document": "Policy",
+      "section": "Education and training",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Any Student who makes a Disclosure or makes a Report, stating that they were an individual who experienced or witnessed Sexual/Gender-based Violence and Misconduct while under the influence of drugs and/or alcohol will not be cited for violations under any University policies dealing with non-academic misconduct in relation to the use of drugs or alcohol.",
+      "document": "Policy",
+      "section": "Policy principles",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University shall endeavour to complete any investigation it undertakes into a Report of Sexual/Gender-based Violence or Misconduct within a timely manner.",
+      "document": "Policy",
+      "section": "Policy principles",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "As part of an investigation process, the University may impose or facilitate interim measures that are determined as necessary and appropriate for the safety of individuals involved and the University community.",
+      "document": "Procedures",
+      "section": "C.4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "Off-Campus Activity: refers to University-related activity at any location where curricular activities occur. For example – course projects being done in an off-campus studio environment.",
+      "document": "Policy",
+      "section": "Definitions",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The Complainant has the right to be informed of the outcome of the investigation, but not the details of any Sanctions that may have been applied to the Respondent unless sharing that information is necessary for the protection of the Complainant’s health or safety.",
+      "document": "Policy",
+      "section": "Policy principles",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The Threat Assessment Team will provide an annual report to the Board of Governors on the implementation of this policy at the University in accordance with Section 6 (2) of the Sexual Violence and Misconduct Policy Act.",
+      "document": "Policy",
+      "section": "Policy review and annual report",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "This Policy will be reviewed every three years.",
+      "document": "Policy",
+      "section": "Policy review and annual report",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "The University will develop a Sexual/Gender-Based Violence and Misconduct Advisory Committee made up of members of the University community, including students.",
+      "document": "Policy",
+      "section": "Policy principles",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "The University will make every effort to obtain investigators who are trained in trauma, anti-oppression, anti-racism informed approaches.",
+      "document": "Procedures",
+      "section": "C.3.4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The University is committed to providing access to coordinated education and training programs pertaining to preventing and responding to incidents of Sexual/Gender-based Violence and Misconduct to all University community members.",
+      "document": "Policy",
+      "section": "Education and training",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

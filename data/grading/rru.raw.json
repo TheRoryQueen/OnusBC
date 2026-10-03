@@ -1,0 +1,141 @@
+{
+  "slug": "rru",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "26d5a0be6b4a37a66431fee279354bb8f8a00e6e1c2df181bffd6d27c8391663",
+  "graded_at": "2026-10-03T07:32:12.686Z",
+  "usage": {
+    "promptTokenCount": 3328,
+    "candidatesTokenCount": 1389,
+    "totalTokenCount": 11251,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 3328
+      }
+    ],
+    "thoughtsTokenCount": 6534,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "The related procedures are described separately; links to procedures are in the Related Documents section of this policy.",
+      "section": "Policy 3.0",
+      "reason": "The policy is a stand-alone sexual violence policy with its own dedicated procedures."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 2,
+      "quote": "The most up-to-date versions of the University’s policies are posted on the policy and procedure website.",
+      "section": "Policy Preamble",
+      "reason": "The policy commits to being publicly available on the university's website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Investigating reports of sexual violence and/or misconduct with the consent of the survivor.",
+      "section": "Policy 3.2",
+      "reason": "Reporting is mentioned, but the specific steps, contacts, and methods are not detailed in the policy text."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protecting the complainant from face-to-face contact with the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether complainants are required to remain silent or are free to speak."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Survivors may consent to a university investigation without also making a report to the police.",
+      "section": "Policy 3.2",
+      "reason": "The policy explicitly states that survivors can choose to proceed with a university investigation without reporting to the police."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address amnesty for drug or alcohol use when reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not set out any timelines for the complaint or accommodation processes."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Assisting those who have experienced sexual violence and/or misconduct by providing information, choices, and support, such as provision of and/or referral to counselling and medical care, information about legal options, and appropriate academic and other accommodations.",
+      "section": "Policy 3.2",
+      "reason": "The policy commits to providing academic and other accommodations, but does not explicitly describe them as interim measures or specify class, residence, or work changes."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "It also applies to behaviours or conduct occurring in both academic and non-academic settings and may be applied to behaviours or conduct occurring on campus, off campus or online if the rights of members of the university community to use and enjoy the university’s learning, living, or working environments are adversely affected.",
+      "section": "Policy 2.1",
+      "reason": "Off-campus activities are covered generally, but co-op, internships, or work placements are not explicitly mentioned."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address informing the complainant of the outcome or sanctions."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "Collecting and securing data to monitor the incidence of sexual violence and misconduct to sustain an institutional culture in which sexual violence and misconduct is not tolerated and to be transparent with our communities, respecting the confidentiality of those involved.",
+      "section": "Policy 3.2",
+      "reason": "The policy mentions collecting data to be transparent with communities, but does not explicitly commit to publishing annual reports or numbers."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "In any event, this policy will be reviewed at least once every three years.",
+      "section": "Policy 3.3",
+      "reason": "The policy requires review at least once every three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation on the policy review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Engaging in information, education, and prevention activities for the university community, with openness to partnerships with students, employees, and external organizations in a shared approach to preventing sexual violence and misconduct.",
+      "section": "Policy 3.2",
+      "reason": "The university commits to engaging in prevention education and activities for the university community, which includes students."
+    }
+  ]
+}

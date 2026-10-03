@@ -1,0 +1,166 @@
+{
+  "slug": "unbc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "54cd7d323ec1bdf1bb6ad057ad1a50e277316b13feaf012eecc09ba05c3b00cb",
+  "graded_at": "2026-10-03T07:37:54.081Z",
+  "paper_gpa": 2.25,
+  "paper_letter": "C",
+  "accepted": 12,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "This document sets out the University of Northern British Columbia’s Policy and Response Procedures for allegations of Sexual Violence or Misconduct.",
+      "document": "Policy",
+      "section": "Purpose",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Members of the University Community who wish to make a Sexual Violence or Misconduct Report should contact the Response and Support Team at www.unbc.ca/sexual-violence.",
+      "document": "Policy",
+      "section": "7",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "Survivors/persons affected by Sexual Violence or Misconduct are free to tell the story of their own experiences.",
+      "document": "Policy",
+      "section": "12",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Survivors/persons affected by Sexual Violence or Misconduct may choose to proceed with any, all, or none of the following:",
+      "document": "Policy",
+      "section": "5",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University will promptly respond to Reports of Sexual Violence or Misconduct made under this or any other University Policy.",
+      "document": "Policy",
+      "section": "7",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where the University receives information that requires it to act to protect the health and safety of the Members of the University Community, or University property, the University may impose interim measures before an investigation is concluded.",
+      "document": "Policy",
+      "section": "9",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "Co-op, internships and practicum placements",
+      "document": "Policy",
+      "section": "5",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 2,
+      "quote": "The complainant has the right to know the outcome of the investigation, but not the details of any disciplinary actions that may have been taken against the respondent unless disclosing that information is necessary for health or safety reasons or because it affects the Survivor/person affected by Sexual Violence or Misconduct.",
+      "document": "Policy",
+      "section": "11",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The President will provide information to the Board of Governors each year on the implementation of the Policy.",
+      "document": "Policy",
+      "section": "13",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "The University is committed to reviewing the Policy at least once every three years and/or when directed to do so by the Minister of Advanced Education.",
+      "document": "Policy",
+      "section": "14",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "Endeavour to train members of units and offices most likely to receive Sexual Violence or Misconduct Disclosures or Reports.",
+      "document": "Policy",
+      "section": "3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Coordinating education and training programs pertaining to preventing and responding to incidents of Sexual Violence and Misconduct for the Members of the University Community.",
+      "document": "Policy",
+      "section": "3",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

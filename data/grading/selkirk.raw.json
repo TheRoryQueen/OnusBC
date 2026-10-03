@@ -1,0 +1,141 @@
+{
+  "slug": "selkirk",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "6a5557d0f45faf4ead85604648c7b562f357c578e51f311a71cc1bd07a85ca87",
+  "graded_at": "2026-10-03T07:32:56.068Z",
+  "usage": {
+    "promptTokenCount": 5150,
+    "candidatesTokenCount": 1409,
+    "totalTokenCount": 13847,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 5150
+      }
+    ],
+    "thoughtsTokenCount": 7288,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Adopting clear and fair procedures for responding to incidents of sexualized violence, and",
+      "section": "Policy A.4",
+      "reason": "The institution has a dedicated sexualized violence policy with its own procedures."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention committing to make the policy text publicly available."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Information on accessing assistance and external and internal resources is in the Procedures document.",
+      "section": "Policy C.10",
+      "reason": "The policy mentions reporting but refers to a separate procedures document for details on how to access assistance."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "Investigations will be bound by Rape Shield provisions; survivors or those impacted by sexualized violence will not be asked about their previous sexual history.",
+      "section": "Policy C.12",
+      "reason": "The policy explicitly states that survivors will not be asked about their previous sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protecting the complainant from face-to-face contact with the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether complainants are required to maintain confidentiality or are free to speak about their experience."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Selkirk College will provide support services and accommodations to members of the College Community who Disclose or Report sexualized violence, including supporting the rights of people who make Disclosures to choose whether to access support, whether to make a Report, or whether to pursue external processes such as criminal or civil action.",
+      "section": "Policy C.8",
+      "reason": "The policy explicitly supports the right of survivors to choose whether to make a report or pursue external processes like criminal or civil action."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "As a result, Selkirk College will not subject any individual who discloses or reports sexualized violence to disciplinary action for alcohol or substance use occurring at or near the time of the incident(s).",
+      "section": "Policy C.11",
+      "reason": "The policy guarantees that individuals who disclose or report sexualized violence will not face disciplinary action for alcohol or substance use at the time of the incident."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Investigation will be undertaken in a timely manner and may result in disciplinary action.",
+      "section": "Policy D",
+      "reason": "The policy only mentions that investigations will be undertaken in a \"timely manner\" without setting specific, binding timelines."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "During such a time, Selkirk College will continue to provide support to members of the College Community as per the terms of this policy, this could include interim measures pending the outcome of the criminal process.",
+      "section": "Policy B.7",
+      "reason": "The policy states that support \"could include\" interim measures, making them discretionary rather than guaranteed."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "the alleged conduct must have a real and substantial connection to Selkirk College.",
+      "section": "Policy B.2",
+      "reason": "The policy covers off-campus activities only generally through a \"real and substantial connection\" requirement, without explicitly mentioning co-op, internships, or work placements."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address informing the complainant of the outcome of the investigation."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention any requirement for annual reporting of sexual violence statistics."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Next Review: 2027/04/01",
+      "section": "Policy Preamble",
+      "reason": "The policy indicates a review cycle longer than two years, with the next review scheduled for 2027."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation on the policy review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Developing, implementing, and actively promoting education & training programs related to awareness and prevention of sexualized violence, consent, healthy relationships and supports for survivors.",
+      "section": "Policy A.1",
+      "reason": "The policy commits to developing, implementing, and promoting education and training programs on awareness and prevention of sexualized violence."
+    }
+  ]
+}

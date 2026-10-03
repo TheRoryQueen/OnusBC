@@ -1,0 +1,141 @@
+{
+  "slug": "ufv",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "14e5b2410eda648288eaa2c92bb26e09ecd040223d34c54eab35b2e8e06f3d2e",
+  "graded_at": "2026-10-03T07:37:05.323Z",
+  "usage": {
+    "promptTokenCount": 8691,
+    "candidatesTokenCount": 1706,
+    "totalTokenCount": 18573,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 8691
+      }
+    ],
+    "thoughtsTokenCount": 8176,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "A complaint of Sexual Violence against a Student will follow the process outlined in the Sexual Violence Complaint Procedures document (to be developed).",
+      "section": "Policy, Section: Response and resource information",
+      "reason": "The policy has its own dedicated complaint procedures rather than running through the general student code of conduct."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "providing information to the UFV Community about our Sexualized Violence policy and protocols;",
+      "section": "Policy, Section: Responsibility for prevention, awareness and response",
+      "reason": "The policy commits to providing information about the policy to the community but does not explicitly state that the policy text itself will be publicly posted."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "Complaints are submitted to the UFV Office of Safety and Security reporting portal https://www.ufv.ca/safety-and-security/security/ where they will be addressed in accordance with the procedures to this policy.",
+      "section": "Policy, Section: Complaints",
+      "reason": "The policy provides a specific online portal link for submitting complaints."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "A person’s sexual reputation or history of sexual activity cannot be submitted as evidence to prove that it was likely that Consent had been given.",
+      "section": "Policy, Section: Definitions",
+      "reason": "The policy explicitly prohibits submitting a person's sexual reputation or history of sexual activity as evidence of consent."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protection from face-to-face contact or guarantee separate processes during the investigation."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether complainants are free to speak about their experience or if non-disclosure agreements are prohibited."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "An individual can submit a report to the UFV Office of Safety and Security portal and pursue other processes external to UFV against the individual alleged to have committed Sexualized Violence.",
+      "section": "Policy, Section: Complaints",
+      "reason": "The policy explicitly states that individuals can pursue both the internal reporting process and external processes like police or civil action."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "UFV will not bring policy related Student disciplinary charges against Students who are witnesses to or victims of Sexualized Violence and will not report such conduct, except as required by law, and/or Students receiving assistance as a result of a report as described above.",
+      "section": "Policy, Section: Rights and responsibilities of students, employees, and the university",
+      "reason": "The policy explicitly guarantees amnesty from student disciplinary charges related to drug or alcohol use for witnesses or victims reporting sexualized violence."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "ensuring that persons in a position of authority, including persons directing the activities of others, shall take immediate action to respond to or to prevent Sexualized Violence from occurring.",
+      "section": "Policy, Section: Responsibility for prevention, awareness and response",
+      "reason": "The policy mentions \"immediate action\" but does not set specific, binding timelines for completing the complaint or investigation process."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Support services and assistance may include but is not limited to: student residence re-location or short-term emergency student housing; class schedule changes; provision of academic concessions; emergency funding for students; safety planning; temporary work reassignment, location reassignment, or scheduling changes; and the implementation of safety measures which may include temporary Interim Measures.",
+      "section": "Policy, Section: Accommodations",
+      "reason": "The policy lists interim measures such as residence relocation, class schedule changes, and work reassignment, but presents them as discretionary (\"may include\")."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "off-campus in connection with a course, activity or event offered and/or organized by the University, including but not limited to Co-op or work placements, study abroad, field study, athletic competition;",
+      "section": "Policy, Section: Scope and jurisdiction",
+      "reason": "The policy's scope explicitly includes off-campus activities such as co-op or work placements."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address informing the complainant of the final outcome or sanctions of an investigation."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "annual aggregate reporting of Sexualized Violence Disclosures and Complaints, to the Office of the President and the UFV Board of Governors;",
+      "section": "Policy, Section: Responsibility for prevention, awareness and response",
+      "reason": "The policy commits to annual reporting of disclosures and complaints, but only internally to the President and the Board of Governors."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "UFV commits to reviewing this policy every three (3) years to maintain currency and relevance, or as directed by the Minister of Post-Secondary Education and Future Skills.",
+      "section": "Policy, Section: Review",
+      "reason": "The policy requires a review every three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "Under the direction of the VP, Students, a committee will be formed, to include students, faculty, administrators, and staff, to review this policy.",
+      "section": "Policy, Section: Review",
+      "reason": "The policy requires student representation on the review committee but does not specify a minimum of 30% student membership."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address mandatory trauma-informed training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "providing education designed to prevent Sexual Violence. This training will be provided to all new Students and Employees, within their first semester on campus, and re-training will be required for Employees every three years;",
+      "section": "Policy, Section: Responsibility for prevention, awareness and response",
+      "reason": "The policy commits to providing mandatory prevention education to all new students within their first semester."
+    }
+  ]
+}

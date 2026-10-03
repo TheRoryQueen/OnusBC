@@ -1,0 +1,166 @@
+{
+  "slug": "rru",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "26d5a0be6b4a37a66431fee279354bb8f8a00e6e1c2df181bffd6d27c8391663",
+  "graded_at": "2026-10-03T07:32:12.686Z",
+  "paper_gpa": 1.69,
+  "paper_letter": "C",
+  "accepted": 9,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "The related procedures are described separately; links to procedures are in the Related Documents section of this policy.",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 2,
+      "quote": "The most up-to-date versions of the University’s policies are posted on the policy and procedure website.",
+      "document": "Policy",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Investigating reports of sexual violence and/or misconduct with the consent of the survivor.",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Survivors may consent to a university investigation without also making a report to the police.",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Assisting those who have experienced sexual violence and/or misconduct by providing information, choices, and support, such as provision of and/or referral to counselling and medical care, information about legal options, and appropriate academic and other accommodations.",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "It also applies to behaviours or conduct occurring in both academic and non-academic settings and may be applied to behaviours or conduct occurring on campus, off campus or online if the rights of members of the university community to use and enjoy the university’s learning, living, or working environments are adversely affected.",
+      "document": "Policy",
+      "section": "2.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "Collecting and securing data to monitor the incidence of sexual violence and misconduct to sustain an institutional culture in which sexual violence and misconduct is not tolerated and to be transparent with our communities, respecting the confidentiality of those involved.",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "In any event, this policy will be reviewed at least once every three years.",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Engaging in information, education, and prevention activities for the university community, with openness to partnerships with students, employees, and external organizations in a shared approach to preventing sexual violence and misconduct.",
+      "document": "Policy",
+      "section": "3.0",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

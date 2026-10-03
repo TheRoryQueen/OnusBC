@@ -1,0 +1,141 @@
+{
+  "slug": "sfu",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "c71ac0ddf59539bfcccef245ec0a919b9372596fb86bba75dfc2d306d8687a55+ead06e76d571f7ed2afff4a041a34f7a0e7473bf9d9326b6f4fe4708b4732d80",
+  "graded_at": "2026-10-03T07:34:06.631Z",
+  "usage": {
+    "promptTokenCount": 12748,
+    "candidatesTokenCount": 1626,
+    "totalTokenCount": 26692,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 12748
+      }
+    ],
+    "thoughtsTokenCount": 12318,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "Where the Report is about a Respondent who is a Student, the Student Conduct Policy (S 10.05) will apply and the Office of Student Support, Rights and Responsibilities will respond to the Report in accordance with the processes and procedures under the Student Conduct Policy (S 10.05).",
+      "section": "Procedures 7.1",
+      "reason": "Reports against students are directed to and handled under the general Student Conduct Policy."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "maintain a comprehensive, integrated communication strategy, which will include a central web resource with detailed information about:",
+      "section": "Policy 5.2.8",
+      "reason": "The policy commits to maintaining a central web resource with information, but does not explicitly state the policy itself will be publicly posted."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "A Survivor who has experienced Sexualized Violence by another member of the University Community may choose to Report the Sexualized Violence to the Sexual Violence Support and Prevention Office with the intention of initiating a process under section 8.5 of this policy.",
+      "section": "Policy 8.1",
+      "reason": "The policy directs survivors to report to the Sexual Violence Support and Prevention Office but does not provide specific contact details or concrete steps on how to reach them."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not guarantee protection from face-to-face contact or direct cross-examination during the process."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the right of complainants to speak about their experience or prohibit non-disclosure agreements."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "be provided with information to allow them to make autonomous and informed decisions about which of the options outlined in section 8 to pursue, if any.",
+      "section": "Policy 7.4.8",
+      "reason": "The policy explicitly guarantees the survivor's right to make autonomous decisions about which options to pursue, if any."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention amnesty for drug or alcohol use at the time of reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University shall deal with all Reports of Sexualized Violence in a fair, unbiased, and timely manner and in accordance with relevant collective agreements and other applicable University policies.",
+      "section": "Policy 9.1",
+      "reason": "Timelines are described using vague terms like 'timely' rather than specific, binding day limits."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "obtain reasonable and appropriate academic, workplace or other accommodation tailored on a case by case basis;",
+      "section": "Policy 7.4.4",
+      "reason": "Accommodations and interim measures are available but are discretionary and tailored on a case-by-case basis."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "At or during an in-person or virtual meeting, event, or activity that is sponsored by or under the auspices of the University, or in furtherance of University business; or",
+      "section": "Policy 3.5.2",
+      "reason": "Off-campus activities are covered generally under activities sponsored by or under the auspices of the University, but co-op, internships, or work placements are not explicitly named."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 2,
+      "quote": "The University will provide a Complainant who initiates a process under section 8.5.2 with the outcome of the Report that was made.",
+      "section": "Policy 10.2",
+      "reason": "The policy explicitly commits to providing the complainant with the outcome of the report."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 2,
+      "quote": "systematically collect data and maintain annual statistics, without identifying information, on the number of Disclosed and Reported incidents of Sexualized Violence under this policy for the purposes of community education and for reporting to the University Community;",
+      "section": "Policy 5.2.10",
+      "reason": "The policy commits to maintaining annual statistics and reporting them to the University Community."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Reviewing this policy at least once every three years, in consultation with students and other members of the University Community.",
+      "section": "Policy 15.1.3",
+      "reason": "The policy requires a review at least once every three years, which is longer than the 2-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "Reviewing this policy at least once every three years, in consultation with students and other members of the University Community.",
+      "section": "Policy 15.1.3",
+      "reason": "The policy requires consultation with students during reviews but does not mandate a specific 30% student representation on a review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "An impartial and appropriately qualified and trained person shall investigate Reports of Sexualized Violence.",
+      "section": "Policy 9.2",
+      "reason": "The policy requires investigators to be trained, but does not explicitly mandate that this training be trauma-informed."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Provide education and awareness programs and training designed to reduce and prevent Sexualized Violence, and training on responding to Disclosures, for all members of the University Community.",
+      "section": "Policy 1.1.6",
+      "reason": "The policy commits to providing prevention education and training for all members of the university community, which includes students."
+    }
+  ]
+}

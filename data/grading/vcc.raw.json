@@ -1,0 +1,141 @@
+{
+  "slug": "vcc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "fab03feb37c1f03916267f3215e064bd9af6068798f15cbf1121f3421bc7ebee+d699b8aa325df3388e1bd48fa717868816822a00a51a9bf5bf67118cfd7b149f",
+  "graded_at": "2026-10-03T07:39:38.610Z",
+  "usage": {
+    "promptTokenCount": 11219,
+    "candidatesTokenCount": 1544,
+    "totalTokenCount": 19125,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 11219
+      }
+    ],
+    "thoughtsTokenCount": 6362,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "It outlines a process for Disclosing and Reporting incidents of Sexual Violence or Misconduct to the College and makes clear the College’s responsibilities and procedures for reporting and investigating those incidents.",
+      "section": "Policy, Context and purpose",
+      "reason": "The policy is a stand-alone document with its own dedicated reporting and investigation procedures."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to being publicly posted or available on the website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "College Members who wish to make a Report of Sexual Violence or Misconduct must contact the Department of Safety, Security, Risk and Privacy. Reports can be made in person, through phone or email, or through the College’s secure and encrypted online reporting system.",
+      "section": "Procedures, 17",
+      "reason": "The policy provides clear, concrete steps on who to contact and how to make a report."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "VCC will never inquire about a survivor's sexual history when they Disclose or Report Sexual Violence or Misconduct.",
+      "section": "Policy, Statement of policy principles",
+      "reason": "The policy explicitly states that the survivor's sexual history will never be inquired about."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 2,
+      "quote": "At no time during the investigation or any appeal process will the Survivor be required to be present at the same time and place as the Person Accused/Respondent.",
+      "section": "Procedures, 36",
+      "reason": "The policy guarantees that the survivor will not be required to be in the same place as the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether complainants are free to speak about their experience or are protected from non-disclosure agreements."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "VCC is committed to respecting the rights of those who Disclose Sexual Violence or Misconduct to make their own decisions about accessing support services, making a Report, or pursuing external processes such as criminal or civil actions.",
+      "section": "Policy, Statement of policy principles",
+      "reason": "The policy explicitly states that survivors have the right to choose between institutional and external processes."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Survivors who experience Sexual Violence or Misconduct while engaging in activities that violate other College policies will not be subject to sanctions for those violations that took place at the same time as the Sexual Violence or Misconduct.",
+      "section": "Policy, Statement of policy principles",
+      "reason": "The policy guarantees amnesty from disciplinary action for other policy violations occurring at the same time as the sexual violence."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Any investigation resulting from a Report will be conducted in as timely a manner as possible.",
+      "section": "Procedures, 19",
+      "reason": "The timeline for conducting investigations is vague and non-binding."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where appropriate to do so, the College may put Interim Measures and/or Accommodations into place pending the disposition of the complaint.",
+      "section": "Procedures, 21",
+      "reason": "The implementation of interim measures and accommodations is discretionary."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "The activity must have a real and substantial connection to the College or College-related functions, whether it occurs on campus, at an external location, or online.",
+      "section": "Policy, Definitions",
+      "reason": "Off-campus activities are covered generally, but co-op, internships, or work placements are not explicitly mentioned."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 2,
+      "quote": "The relevant Vice President or Associate Vice President will inform the Survivor and Person Accused/Respondent in writing of the outcome of the investigation with detail and rationale, up to what is permitted under individuals’ privacy and confidentiality rights.",
+      "section": "Procedures, 40",
+      "reason": "The policy commits to informing the survivor of the outcome of the investigation in writing."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The President will report to the Board of Governors on the implementation of this Policy on an annual basis.",
+      "section": "Policy, Context and purpose",
+      "reason": "The policy mentions annual reporting to the Board of Governors, but does not commit to public reporting of numbers."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "In accordance with the Sexual Violence and Misconduct Policy Act, this Policy will be reviewed at least once every three years.",
+      "section": "Policy, Context and purpose",
+      "reason": "The policy is reviewed on a three-year cycle rather than every two years."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention student representation on the policy review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address mandatory trauma-informed training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "VCC is committed to providing comprehensive and inclusive Sexual Violence or Misconduct prevention and response training to College Members.",
+      "section": "Policy, 10",
+      "reason": "The policy commits to providing prevention and response training to all college members, which includes students."
+    }
+  ]
+}
