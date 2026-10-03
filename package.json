@@ -9,7 +9,9 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "screenshots": "tsx scripts/screenshots.ts",
-    "test:theme": "tsx scripts/test-theme.ts"
+    "test:theme": "tsx scripts/test-theme.ts",
+    "migrate": "tsx scripts/migrate.mts",
+    "test:db": "tsx scripts/test-db.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
@@ -33,11 +35,13 @@
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^18.0.5",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
+    "pg": "^8.23.1",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"
