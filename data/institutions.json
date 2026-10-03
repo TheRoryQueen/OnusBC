@@ -129,7 +129,7 @@
       "alumni_domains": [],
       "blocked_domains": [],
       "website": "https://www.coastmountaincollege.ca",
-      "policy_url": "https://www.coastmountaincollege.ca/docs/default-source/policies/education-policies-and-procedures/education-policies/edu-007-sexual-violence-and-misconduct-policy.pdf",
+      "policy_url": "https://www.coastmountaincollege.ca/docs/default-source/policies/administrative-policies-and-procedures/administrative-policies/adm-007-sexual-violence-prevention-and-response-policy.pdf",
       "support_url": "https://www.coastmountaincollege.ca/student-services/student-safety-reporting",
       "contact_office": "Coast Mountain College (general line)",
       "contact_email": null,
@@ -138,10 +138,13 @@
         "coordinates": "https://www.openstreetmap.org/way/778189496",
         "domains": "https://cmtn.teamdynamix.com/TDClient/75/Portal/KB/ArticleDet?ID=4796",
         "contact": "https://www.coastmountaincollege.ca/student-services/student-safety-reporting/formal-complaint",
-        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+        "policy": "https://coastmountaincollege.ca/about-cmtn/policies-and-procedures"
       },
       "flags": [
         "No dedicated sexual violence office or contact is published; the formal complaint page lists only the college's general toll-free line. Province's support link goes to a general counselling page."
+      ],
+      "notes": [
+        "Province policy link (EDU-007) returns 404; the college now lists ADM-007 Sexual Violence Prevention and Response Policy on its policies page."
       ]
     },
     {
@@ -539,7 +542,7 @@
       "alumni_domains": [],
       "blocked_domains": [],
       "website": "https://www.royalroads.ca",
-      "policy_url": "https://www.royalroads.ca/policies/sexual-violence-and-misconduct",
+      "policy_url": "https://www.royalroads.ca/sites/default/files/2024-08/SexualViolenceMisconduct-POL-BoardApproved-2024Jun20_0.pdf",
       "support_url": "https://www.royalroads.ca/student-life/counselling-accessibility-wellness/sexual-violence-prevention-response",
       "contact_office": "Counselling (24-hour Sexual Violence Support Line)",
       "contact_email": "counselling@royalroads.ca",
@@ -548,10 +551,11 @@
         "coordinates": "https://www.openstreetmap.org/relation/2379502",
         "domains": "https://royalroads.atlassian.net/wiki/spaces/ITKNOW/pages/5834387",
         "contact": "https://www.royalroads.ca/student-life/counselling-accessibility-wellness/sexual-violence-prevention-response",
-        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+        "policy": "https://www.royalroads.ca/policies/sexual-violence-and-misconduct"
       },
       "notes": [
-        "Province's support link redirects; new URL recorded. Page read in a browser (it blocks scripted requests)."
+        "Province's support link redirects; new URL recorded. Page read in a browser (it blocks scripted requests).",
+        "Province policy link is a summary page (policy 1073, effective June 20, 2024); the policy text is the linked PDF."
       ]
     },
     {
@@ -677,7 +681,7 @@
       ],
       "blocked_domains": [],
       "website": "https://www.ubc.ca",
-      "policy_url": "https://svpro.ubc.ca/education/ubc-sexual-misconduct-policy-and-resources/",
+      "policy_url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
       "support_url": "https://svpro.ubc.ca/",
       "contact_office": "Sexual Violence Prevention and Response Office (SVPRO), Vancouver",
       "contact_email": "svpro.vancouver@ubc.ca",
@@ -686,10 +690,11 @@
         "coordinates": "https://www.openstreetmap.org/relation/1424987",
         "domains": "https://it.ubc.ca/i-am/getting-started-students",
         "contact": "https://svpro.ubc.ca/",
-        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+        "policy": "https://universitycounsel.ubc.ca/policies/sexual-misconduct-policy"
       },
       "notes": [
-        "Shares domains and policy with UBC Okanagan; users pick their campus once at sign-in (PRD)."
+        "Shares domains and policy with UBC Okanagan; users pick their campus once at sign-in (PRD).",
+        "Province policy link is a resources page; the policy itself (SC17) is the PDF on UBC University Counsel."
       ]
     },
     {
@@ -713,7 +718,7 @@
       ],
       "blocked_domains": [],
       "website": "https://ok.ubc.ca",
-      "policy_url": "https://svpro.ubc.ca/education/ubc-sexual-misconduct-policy-and-resources/",
+      "policy_url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
       "support_url": "https://svpro.ok.ubc.ca/get-support/",
       "contact_office": "Sexual Violence Prevention and Response Office (SVPRO), Okanagan",
       "contact_email": "svpro.okanagan@ubc.ca",
@@ -722,10 +727,11 @@
         "coordinates": "https://www.openstreetmap.org/way/123757617",
         "domains": "https://it.ubc.ca/i-am/getting-started-students",
         "contact": "https://svpro.ok.ubc.ca/get-support/",
-        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+        "policy": "https://universitycounsel.ubc.ca/policies/sexual-misconduct-policy"
       },
       "notes": [
-        "Shares domains and policy with UBC Vancouver."
+        "Shares domains and policy with UBC Vancouver.",
+        "Province policy link is a resources page; the policy itself (SC17) is the PDF on UBC University Counsel."
       ]
     },
     {
@@ -783,7 +789,7 @@
       ],
       "blocked_domains": [],
       "website": "https://www.unbc.ca",
-      "policy_url": "https://www.unbc.ca/sexual-violence/sexual-violence-and-misconduct-policy",
+      "policy_url": "https://www.unbc.ca/sites/default/files/sections/policy/sexual-violence-misconduct-prevention-response-policy-procedures.pdf",
       "support_url": "https://www.unbc.ca/sexual-violence-and-misconduct/student-supports-options",
       "contact_office": "Student Conduct and Care Office",
       "contact_email": "studentsvresponse@unbc.ca",
@@ -792,10 +798,11 @@
         "coordinates": "https://www.openstreetmap.org/way/446564130",
         "domains": "https://www.unbc.ca/information-technology-services/email-students",
         "contact": "https://www.unbc.ca/sexual-violence-and-misconduct/student-supports-options",
-        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+        "policy": "https://www.unbc.ca/sexual-violence-and-misconduct/policy-and-procedures"
       },
       "notes": [
-        "Province's support link redirects; new URL recorded. The page also has one link misspelled 'studentsvreponse'; the address shown in the text is used."
+        "Province's support link redirects; new URL recorded. The page also has one link misspelled 'studentsvreponse'; the address shown in the text is used.",
+        "Province policy link redirects to a landing page; the policy and procedures PDF is linked from it."
       ]
     },
     {
