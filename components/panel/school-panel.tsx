@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import NumberFlow from "@number-flow/react";
-import { motion, useAnimation, useReducedMotion, type PanInfo } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ChevronRight, Globe, Phone, PenLine, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useMapState } from "@/components/map/map-state";
@@ -198,8 +198,11 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
   const router = useRouter();
   const desktop = useIsDesktop();
   const reduce = useReducedMotion();
-  const controls = useAnimation();
   const [full, setFull] = useState(false);
+  const [dragHeight, setDragHeight] = useState<number | null>(null);
+  const sheetRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const gesture = useRef<{ y0: number; base: number; decided: boolean; active: boolean; fromHandle: boolean } | null>(null);
   const close = () => router.push("/map", { scroll: false });
 
   useEffect(() => {
@@ -209,35 +212,64 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // One element, laid out by CSS: a bottom sheet by default and a sidebar from 768 px, so the first paint
-  // is already right on every screen (no flash while JavaScript checks the width). On phones the sheet starts
-  // at half height; drag up or tap the grabber for full height, drag down to close.
-  const onDragEnd = (_: unknown, info: PanInfo) => {
-    if (info.offset.y < -60) setFull(true);
-    else if (info.offset.y > 120 && !full) close();
-    else if (info.offset.y > 60) setFull(false);
-    controls.start({ y: 0 });
+  // Phone sheet gestures (desktop is a sidebar and ignores these). At half height a vertical swipe anywhere
+  // moves the sheet (the content doesn't scroll there); at full height the content scrolls, and a swipe down
+  // from the grabber or header, or from the content already scrolled to the top, collapses it to half.
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (desktop || !sheetRef.current) return;
+    const fromHandle = !!(e.target as HTMLElement).closest("[data-sheet-handle]");
+    gesture.current = { y0: e.clientY, base: sheetRef.current.getBoundingClientRect().height, decided: false, active: false, fromHandle };
   };
+  const onPointerMove = (e: React.PointerEvent) => {
+    const g = gesture.current;
+    if (!g || !sheetRef.current) return;
+    const dy = e.clientY - g.y0;
+    if (!g.decided) {
+      if (Math.abs(dy) < 6) return;
+      g.decided = true;
+      g.active = !full || g.fromHandle || (dy > 0 && (scrollRef.current?.scrollTop ?? 0) <= 0);
+      if (g.active) sheetRef.current.setPointerCapture(e.pointerId);
+    }
+    if (g.active) {
+      const max = (sheetRef.current.parentElement?.getBoundingClientRect().height ?? window.innerHeight) - 12;
+      setDragHeight(Math.min(max, Math.max(96, g.base - dy)));
+    }
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    const g = gesture.current;
+    gesture.current = null;
+    setDragHeight(null);
+    if (!g?.active) return;
+    const dy = e.clientY - g.y0;
+    if (dy < -40) setFull(true);
+    else if (dy > 40) { if (full) setFull(false); else if (dy > 120) close(); }
+  };
+
+  // One element, laid out by CSS: a bottom sheet by default and a sidebar from 768 px, so the first paint
+  // is already right on every screen. Opening a school always starts the sheet at half height.
   return (
-    <motion.aside
+    <aside
+      ref={sheetRef}
       aria-label={school.name}
-      drag={!desktop && !reduce ? "y" : false}
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={0.25}
-      onDragEnd={onDragEnd}
-      animate={controls}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={() => { gesture.current = null; setDragHeight(null); }}
+      style={dragHeight !== null && !desktop ? { height: dragHeight, transition: "none" } : undefined}
       className={cn(
-        "glass pointer-events-auto absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-[28px] pb-[env(safe-area-inset-bottom,0px)] transition-[height] duration-300 motion-reduce:transition-none",
-        full ? "h-[calc(100%-12px)]" : "h-[52%]",
-        "md:inset-x-auto md:bottom-4 md:left-4 md:top-4 md:h-auto md:w-[400px] md:rounded-[28px] md:pb-0 md:transition-none"
+        "glass pointer-events-auto absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-[28px] pb-[env(safe-area-inset-bottom,0px)]",
+        !reduce && "transition-[height] duration-300 ease-out",
+        full ? "h-[calc(100%-12px)]" : "h-[52%] touch-none",
+        "md:inset-x-auto md:bottom-4 md:left-4 md:top-4 md:h-auto md:w-[400px] md:touch-auto md:rounded-[28px] md:pb-0 md:transition-none"
       )}
     >
-      <button type="button" onClick={() => setFull((f) => !f)} aria-label={full ? "Show less" : "Show more"} className="mx-auto mt-2 flex h-6 w-16 shrink-0 items-center justify-center md:hidden">
+      <button type="button" data-sheet-handle onClick={() => setFull((f) => !f)} aria-label={full ? "Show less" : "Show more"}
+        className="mx-auto flex h-7 w-full shrink-0 touch-none items-center justify-center md:hidden">
         <span className="h-1.5 w-10 rounded-full bg-text-secondary/40" />
       </button>
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain" onPointerDownCapture={(e) => { if (!desktop && (e.currentTarget as HTMLElement).scrollTop > 0) e.stopPropagation(); }}>
+      <div ref={scrollRef} className={cn("min-h-0 flex-1 overscroll-contain", full || desktop ? "overflow-y-auto" : "overflow-hidden", "md:overflow-y-auto")}>
         <PanelBody school={school} onClose={close} />
       </div>
-    </motion.aside>
+    </aside>
   );
 }
