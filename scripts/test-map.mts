@@ -175,12 +175,14 @@ try {
       return { x: r.left + p.x, y: r.top + p.y };
     });
     await p4.mouse.click(pt.x, pt.y);
-    await p4.waitForTimeout(350);
+    // The flight starts when the route changes; wait for it to start, then sample it mid-way.
+    await p4.waitForFunction(() => (window as unknown as { __onusMap: { isMoving: () => boolean } }).__onusMap.isMoving(), null, { timeout: 10000 }).catch(() => {});
+    await p4.waitForTimeout(300);
     const [zMid, moving] = await p4.evaluate(() => { const m = (window as unknown as { __onusMap: { getZoom: () => number; isMoving: () => boolean } }).__onusMap; return [m.getZoom(), m.isMoving()] as const; });
+    // flyTo arcs (it can pull back slightly before diving in), so check it is mid-flight, not the zoom.
+    check("clicking a school flies to it (still in flight 0.3 s after it starts)", moving && zMid < 12.9, `zoom ${z0.toFixed(1)} -> ${zMid.toFixed(1)}, moving=${moving}`);
     await p4.waitForTimeout(1200);
     const z1 = await p4.evaluate(() => (window as unknown as { __onusMap: { getZoom: () => number } }).__onusMap.getZoom());
-    // flyTo arcs (it can pull back slightly before diving in), so check it is mid-flight, not the zoom.
-    check("clicking a school flies to it (still in flight at 0.35 s)", moving && zMid < 12.9, `zoom ${z0.toFixed(1)} -> ${zMid.toFixed(1)} at 0.35 s, moving=${moving}`);
     check("the flight ends at about campus zoom within ~1.5 s", Math.abs(z1 - 13) < 0.05, z1.toFixed(2));
     await p4.getByRole("button", { name: "Close" }).click();
     // Wait for the navigation back to /map, then for the ease out to start and finish.
