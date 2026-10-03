@@ -34,7 +34,8 @@
     "build:hero-dots": "tsx scripts/build-hero-dots.mts",
     "test:nav": "tsx scripts/test-nav.mts",
     "test:account": "tsx scripts/test-account.mts",
-    "test:states": "tsx scripts/test-states.mts"
+    "test:states": "tsx scripts/test-states.mts",
+    "test:demo": "tsx scripts/test-demo.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
