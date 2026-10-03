@@ -25,8 +25,10 @@ async function main() {
         const errors: string[] = [];
         page.on("pageerror", (e) => errors.push(e.message));
         page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
-        await page.goto(base + path, { waitUntil: "networkidle" });
-        const slug = path === "/" ? "home" : path.replace(/^\//, "").replace(/\//g, "_");
+        await page.goto(base + path, { waitUntil: "load" }); // not networkidle: the map keeps a realtime socket open
+        // Maps and animations settle after network idle; SCREENSHOT_WAIT gives them time (ms).
+        await page.waitForTimeout(Number(process.env.SCREENSHOT_WAIT ?? 0));
+        const slug = path === "/" ? "home" : path.replace(/^\//, "").replace(/[/?=&]/g, "_");
         const file = `screenshots/${slug}-${size.name}-${scheme}.png`;
         await page.screenshot({ path: file, fullPage: false });
         const isDark = await page.evaluate(() => document.documentElement.classList.contains("dark"));
