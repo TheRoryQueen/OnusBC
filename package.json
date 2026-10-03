@@ -24,7 +24,9 @@
     "test:pipeline": "tsx scripts/test-pipeline.mts",
     "predev": "node scripts/copy-maplibre-worker.mjs",
     "prebuild": "node scripts/copy-maplibre-worker.mjs",
-    "test:map": "tsx scripts/test-map.mts"
+    "test:map": "tsx scripts/test-map.mts",
+    "build:bc-dots": "tsx scripts/build-bc-dots.mts",
+    "test:auth": "tsx scripts/test-auth.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
