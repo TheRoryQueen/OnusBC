@@ -10,6 +10,8 @@ export function normalize(s: string) {
     .replace(/[‐-―−]/g, "-")
     .replace(/[•●▪]/g, " ")
     .replace(/(\p{L})-\s+(\p{Ll})/gu, "$1$2")
+    // A hyphenated compound broken across lines ("Trauma-\nInformed") keeps its hyphen.
+    .replace(/(\p{L})-\s+(\p{Lu})/gu, "$1-$2")
     .replace(/\s+/g, " ")
     .trim();
 }

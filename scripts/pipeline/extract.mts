@@ -7,6 +7,23 @@ import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { EXTRACTED, MANIFEST, POLICIES, readManifest, writeJson } from "./common.mts";
 
 const MIN_CHARS = 3000;
+
+// Some PDFs draw letter pairs ("ti", "fi", ...) as one ligature glyph with no Unicode mapping, which
+// comes out as U+FFFD ("inves\uFFFDga\uFFFDon"). Per document, try each common ligature and keep the one
+// that turns the affected words into dictionary words; if no ligature clearly wins, leave the text alone
+// and flag it, so nothing is guessed.
+const DICT = new Set(readFileSync("/usr/share/dict/words", "utf8").split("\n").map((w) => w.toLowerCase()));
+const known = (w: string) => DICT.has(w) || DICT.has(w.replace(/(s|es|ed|ing|ly|al|ally|ness|ive|ives)$/, "")) || DICT.has(w.replace(/(s|es)$/, ""));
+export function repairLigatures(text: string): { text: string; ligature: string | null; words: number; rate: number } {
+  const words = [...new Set(text.match(/[A-Za-z]*\uFFFD[A-Za-z\uFFFD]*/g) ?? [])];
+  if (!words.length) return { text, ligature: null, words: 0, rate: 1 };
+  const scored = ["ti", "fi", "ft", "tt", "fl", "ff", "ffi", "ffl"].map((lig) => ({
+    lig, rate: words.filter((w) => known(w.toLowerCase().replaceAll("\uFFFD", lig))).length / words.length,
+  })).sort((a, b) => b.rate - a.rate);
+  const [best, second] = scored;
+  if (best.rate >= 0.6 && best.rate - second.rate >= 0.4) return { text: text.replaceAll("\uFFFD", best.lig), ligature: best.lig, words: words.length, rate: best.rate };
+  return { text, ligature: null, words: words.length, rate: best.rate };
+}
 type Section = { document?: "Policy" | "Procedures"; section: string; title: string; text: string };
 
 async function pdfLines(path: string): Promise<{ lines: string[]; pages: number }> {
@@ -113,7 +130,10 @@ for (const [slug, m] of Object.entries(manifest)) {
     for (const d of m.documents.filter((x) => x.file)) {
       const document = d.role === "policy" ? "Policy" : "Procedures";
       const { lines, pages } = d.kind === "pdf" ? await pdfLines(POLICIES + d.file) : { lines: htmlLines(POLICIES + d.file!), pages: null };
-      const part = sectionize(lines);
+      const fixed = repairLigatures(lines.join("\n"));
+      if (fixed.ligature) console.log(`  ${slug} ${document.toLowerCase()}: repaired unmapped "${fixed.ligature}" ligature (${fixed.words} words, ${(fixed.rate * 100).toFixed(0)}% dictionary words)`);
+      else if (fixed.words) console.log(`  ${slug} ${document.toLowerCase()}: ${fixed.words} words contain an unmapped glyph; no ligature fits, left as is`);
+      const part = sectionize(fixed.text.split("\n"));
       const text = part.map((x) => x.text).join("\n\n");
       if (text.length < MIN_CHARS) throw new Error(`${document.toLowerCase()} extracted only ${text.length} characters; not a full document`);
       sections.push(...part.map((x) => ({ document, ...x }) as Section));
