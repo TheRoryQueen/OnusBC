@@ -5,7 +5,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 // Judge access: any email plus the event code. Returns a one-time token hash the browser
 // exchanges with supabase.auth.verifyOtp({ type: "magiclink", token_hash }). No email is sent.
 // Judge ratings are stored with is_demo = true (see submit_rating).
-// Rate limiting (10 per IP per 10 minutes) is added in milestone 6.
+// Rate limit: 10 attempts per IP per 10 minutes, so the event code can't be brute-forced.
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -15,7 +15,22 @@ function codeMatches(given: string, expected: string) {
   return timingSafeEqual(a, b);
 }
 
+const WINDOW_MS = 10 * 60_000;
+const LIMIT = 10;
+const attempts = new Map<string, number[]>();
+function limited(ip: string) {
+  const now = Date.now();
+  const recent = (attempts.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  recent.push(now);
+  attempts.set(ip, recent);
+  return recent.length > LIMIT;
+}
+
 export async function POST(request: Request) {
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  if (limited(ip)) {
+    return NextResponse.json({ error: "Too many tries. Try again in a few minutes." }, { status: 429 });
+  }
   const expected = process.env.JUDGE_EVENT_CODE;
   if (!expected) {
     return NextResponse.json({ error: "Judge access isn't open right now." }, { status: 503 });
