@@ -26,6 +26,7 @@ Everything runs locally until now. These are the exact steps to put Onus live at
 | `GEMINI_API_KEY` | Ask answers and embeddings |
 | `ELEVENLABS_API_KEY` | Voice routes |
 | `ELEVENLABS_VOICE_ID` | The Sarah voice |
+| `ONUS_ADMIN_EMAILS` | Comma-separated emails that may use Grade a policy (/grade) besides judges. Server only. |
 | `JUDGE_EVENT_CODE` | The judge access code for the event |
 | `NEXT_PUBLIC_MAP_STYLE_LIGHT` | Optional; defaults to CARTO Positron |
 | `NEXT_PUBLIC_MAP_STYLE_DARK` | Optional; defaults to CARTO Dark Matter |

@@ -6,16 +6,14 @@
 // Usage: npm run verify -- <slug> [...] | --all
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dbClient } from "../lib/db.mts";
-import { EXTRACTED, GRADING, normalize, readManifest, writeJson } from "./common.mts";
+import { EXTRACTED, GRADING, readManifest, writeJson } from "./common.mts";
+import { checkItem, quoteIndex, type Final, type Item } from "../../lib/grading/grader.ts";
 import { RUBRIC } from "./rubric.mts";
 
-const MIN_QUOTE = 20;
 const args = process.argv.slice(2);
 const slugs = args.includes("--all")
   ? readdirSync(GRADING).filter((f) => f.endsWith(".raw.json")).map((f) => f.replace(".raw.json", ""))
   : args;
-type Item = { criterion_id: string; score: number; quote: string; section: string; reason: string };
-type Final = { criterion_id: string; score: number; quote: string | null; document: string | null; section: string | null; verified: boolean; note: string | null };
 
 const manifest = readManifest();
 const db = await dbClient();
@@ -42,36 +40,20 @@ for (const slug of slugs) {
   const raw = JSON.parse(readFileSync(rawPath, "utf8"));
   const doc = JSON.parse(readFileSync(`${EXTRACTED}${slug}.json`, "utf8"));
   if (raw.policy_sha256 !== doc.sha256) { console.log(`skip ${slug}: graded a different version of the policy; re-run grade`); continue; }
-  const fullText = normalize(doc.text);
-  const sections = doc.sections.map((s: { document?: string; section: string; text: string }) => ({ document: s.document ?? "Policy", section: s.section, text: normalize(s.text) }));
+  const index = quoteIndex(doc.sections);
   const items: Item[] = raw.items;
   const finals: Final[] = [];
   let acc = 0, rej = 0;
 
   for (const c of RUBRIC) {
-    const it = items.find((i) => i.criterion_id === c.id);
-    if (!it) { finals.push({ criterion_id: c.id, score: 0, quote: null, document: null, section: null, verified: false, note: "Not graded." }); continue; }
-    const score = Math.max(0, Math.min(2, Math.round(it.score)));
-    if (score === 0) { finals.push({ criterion_id: c.id, score: 0, quote: null, document: null, section: null, verified: false, note: null }); continue; }
+    const { model_score, model_quote, reject_reason, ...f } = checkItem(c.id, items.find((i) => i.criterion_id === c.id), index);
+    finals.push(f);
+    if (f.score === 0 && !reject_reason) continue;
     totals.quotes++;
-    const q = normalize(it.quote ?? "");
-    let reason = "";
-    if (q.length < MIN_QUOTE) reason = "too short to verify";
-    else if (/\.\.\.|…/.test(it.quote)) reason = "contains an ellipsis";
-    else if (!fullText.includes(q)) reason = "not found verbatim in the policy text";
-    if (reason) {
+    if (reject_reason) {
       rej++;
-      finals.push({ criterion_id: c.id, score: 0, quote: null, document: null, section: null, verified: false, note: "Not found in policy." });
-      rejectedExamples.push({ slug, criterion_id: c.id, model_score: score, model_section: it.section, quote: it.quote, reason });
-      continue;
-    }
-    acc++;
-    // The quote can wrap across a section boundary only if it is not inside one section; prefer the section that contains it.
-    // Prefer the document the model named if the same words appear in both.
-    const claimedProcedures = /procedure/i.test(it.section ?? "");
-    const homes = sections.filter((s: { text: string }) => s.text.includes(q));
-    const home = homes.find((s: { document: string }) => (s.document === "Procedures") === claimedProcedures) ?? homes[0];
-    finals.push({ criterion_id: c.id, score, quote: it.quote.trim(), document: home?.document ?? null, section: home?.section ?? null, verified: true, note: home ? null : "Quote spans two sections." });
+      rejectedExamples.push({ slug, criterion_id: c.id, model_score, model_section: items.find((i) => i.criterion_id === c.id)?.section, quote: model_quote, reason: reject_reason });
+    } else acc++;
   }
   totals.schools++; totals.accepted += acc; totals.rejected += rej;
 

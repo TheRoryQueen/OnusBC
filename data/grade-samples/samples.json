@@ -1,0 +1,25 @@
+{
+  "_about": "Real policies from outside BC for the live grading demo (Grade a policy). Downloaded 2026-10-03 from the URLs below; sha256 of each file as downloaded. Never added to the BC map.",
+  "samples": [
+    {
+      "id": "mcmaster",
+      "name": "McMaster University",
+      "province": "Ontario",
+      "title": "Sexual Violence Policy",
+      "url": "https://secretariat.mcmaster.ca/app/uploads/Sexual-Violence-Policy.pdf",
+      "file": "mcmaster.pdf",
+      "sha256": "39b95d5c9aa61472e1a3c758f52f52db217334a171894345c647165d8c267ac8",
+      "fetched_at": "2026-10-03"
+    },
+    {
+      "id": "dalhousie",
+      "name": "Dalhousie University",
+      "province": "Nova Scotia",
+      "title": "Sexualized Violence Policy",
+      "url": "https://www.dal.ca/content/dam/www/about/leadership-and-governance/university-policies/sexualized-violence-policy.pdf",
+      "file": "dalhousie.pdf",
+      "sha256": "762bff98d9691498a3922cb002096a7a29a48e596e195b50a5144879d0841f2e",
+      "fetched_at": "2026-10-03"
+    }
+  ]
+}

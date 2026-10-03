@@ -52,6 +52,11 @@ export function AccountTabs({ username, school, role, maskedEmail, isJudge, rate
             <div className={row}><dt className="text-text-secondary">Email</dt><dd className="text-text">{maskedEmail}</dd></div>
           </dl>
         )}
+        {tab === "Profile" && isJudge && (
+          <p className="mt-6 text-[15px] text-text-secondary">
+            As a judge, you can watch Onus grade a policy from outside BC live. <Link href="/grade" className="text-brand underline-offset-2 hover:underline">Grade a policy</Link>
+          </p>
+        )}
 
         {tab === "Privacy" && (
           <div className="space-y-5 text-[16px] leading-relaxed text-text-secondary">
