@@ -1,48 +1,31 @@
 import Link from "next/link";
-import { SignOutButton } from "@/components/auth/sign-out-button";
+import { NavMenu } from "@/components/nav-menu";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { createClient } from "@/lib/supabase/server";
 
-// Signed in: "Sign out" until My account exists (milestone 11), then My account.
+// The nav: pinned to the top of every page (sticky at the top of the page, so it never hides, slides or moves,
+// and pages keep their layout), on glass so content passes softly beneath it. Phones: the wordmark, the theme
+// toggle and a menu button; from sm, the links in a row.
 export async function SiteNav() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const link = "whitespace-nowrap rounded-full px-3 py-2 transition-colors";
   return (
-    <header className="w-full">
-      <nav
-        aria-label="Main"
-        className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-4 sm:px-6"
-      >
-        <Link href="/" className="text-lg font-semibold tracking-tight text-text">
-          Onus
-        </Link>
-        <div className="flex items-center gap-0 text-sm sm:gap-2">
-          {/* prefetch off until /how-it-works and /support exist (milestone 11); avoids 404 prefetches. */}
-          <Link
-            href="/how-it-works"
-            prefetch={false}
-            className="whitespace-nowrap rounded-full px-2 py-2 text-text-secondary transition-colors hover:text-text sm:px-3"
-          >
-            How it works
-          </Link>
-          <Link
-            href="/support"
-            prefetch={false}
-            className="whitespace-nowrap rounded-full px-2 py-2 text-support sm:px-3 transition-colors hover:bg-support/10"
-          >
-            Get support
-          </Link>
-          {user ? (
-            <SignOutButton className="whitespace-nowrap rounded-full px-2 py-2 text-text-secondary transition-colors hover:text-text sm:px-3" />
-          ) : (
-            <Link
-              href="/signin"
-              className="whitespace-nowrap rounded-full px-2 py-2 text-text-secondary transition-colors hover:text-text sm:px-3"
-            >
-              Sign in
-            </Link>
-          )}
+    <header className="sticky top-0 z-40 w-full border-b border-hairline/70 bg-glass backdrop-blur-xl backdrop-saturate-[1.8]">
+      <nav aria-label="Main" className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
+        <Link href="/" className="text-lg font-semibold tracking-tight text-text">Onus</Link>
+        <div className="flex items-center gap-1 text-sm sm:gap-2">
+          <div className="hidden items-center sm:flex">
+            <Link href="/how-it-works" prefetch={false} className={`${link} text-text-secondary hover:text-text`}>How it works</Link>
+            <Link href="/support" prefetch={false} className={`${link} text-support hover:bg-support/10`}>Get support</Link>
+            {user ? (
+              <Link href="/account" prefetch={false} className={`${link} text-text-secondary hover:text-text`}>My account</Link>
+            ) : (
+              <Link href="/signin" className={`${link} text-text-secondary hover:text-text`}>Sign in</Link>
+            )}
+          </div>
           <AnimatedThemeToggler />
+          <NavMenu signedIn={!!user} />
         </div>
       </nav>
     </header>

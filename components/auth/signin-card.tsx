@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Dialog } from "@base-ui/react/dialog";
 import { createClient } from "@/lib/supabase/client";
+import { trapTab } from "@/lib/trap-tab";
 import { cn } from "@/lib/utils";
 
 type School = { id: string; slug: string; name: string; email_domains: string[]; employee_domains: string[]; alumni_domains: string[] };
@@ -238,7 +239,7 @@ export function SignInCard({ next }: { next: string | null }) {
       <Dialog.Root open={judgeOpen} onOpenChange={(o) => { setJudgeOpen(o); if (!o) setJudgeError(null); }}>
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 z-40 bg-page/70 backdrop-blur-sm transition-opacity data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 motion-reduce:transition-none" />
-          <Dialog.Popup className="fixed bg-raised shadow-[0_24px_64px_-16px_rgb(0_0_0/0.35)] ring-1 ring-hairline left-1/2 top-1/2 z-50 w-[calc(100%-32px)] max-w-xs -translate-x-1/2 -translate-y-1/2 rounded-[28px] p-6 transition-[opacity,transform] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 motion-reduce:transition-none">
+          <Dialog.Popup onKeyDown={trapTab} className="fixed bg-raised shadow-[0_24px_64px_-16px_rgb(0_0_0/0.35)] ring-1 ring-hairline left-1/2 top-1/2 z-50 w-[calc(100%-32px)] max-w-xs -translate-x-1/2 -translate-y-1/2 rounded-[28px] p-6 transition-[opacity,transform] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 motion-reduce:transition-none">
             <Dialog.Title className="text-lg font-semibold text-text">Judge access</Dialog.Title>
             <Dialog.Description className="mt-1 text-sm text-text-secondary">
               Signs in as <span className="break-all text-text">{email.trim().toLowerCase()}</span>
