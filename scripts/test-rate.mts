@@ -67,7 +67,7 @@ try {
   await A.goto(`${BASE}/map/${SLUG}`, { waitUntil: "load" });
   await A.getByRole("complementary").waitFor();
   await A.waitForFunction(() => !!(window as unknown as { __onusMap?: { loaded: () => boolean } }).__onusMap?.loaded(), null, { timeout: 30000 });
-  await A.waitForTimeout(1500); // let the Realtime subscription settle
+  await A.waitForFunction(() => (window as unknown as { __onusRealtime?: string }).__onusRealtime === "SUBSCRIBED", null, { timeout: 20000 });
   check("browser A: panel open with Onus count 0", (await onusCount(A)) === 0);
 
   // Browser B signs in and lands on the form.

@@ -23,9 +23,10 @@ async function features(page: Page): Promise<Feat[]> {
 }
 async function mapReady(page: Page) {
   await page.waitForFunction(() => {
-    const m = (window as unknown as { __onusMap?: { getSource: (id: string) => unknown; loaded: () => boolean } }).__onusMap;
-    return !!m && !!m.getSource("schools") && m.loaded();
-  }, null, { timeout: 30000 });
+    // The schools layer is drawn and clickable; basemap tiles may still be arriving (they don't matter here).
+    const m = (window as unknown as { __onusMap?: { getSource: (id: string) => unknown; getLayer: (id: string) => unknown; isSourceLoaded: (id: string) => boolean } }).__onusMap;
+    return !!m && !!m.getSource("schools") && !!m.getLayer("school-dot") && m.isSourceLoaded("schools");
+  }, null, { timeout: 45000 });
 }
 const css = (page: Page, v: string) => page.evaluate((v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim(), v);
 
@@ -82,7 +83,9 @@ try {
   });
   await page.mouse.click(pt.x, pt.y);
   await page.waitForURL(/\/map\/tru$/, { timeout: 10000 }).catch(() => {});
-  check("clicking a dot opens that school's panel and URL", page.url().endsWith("/map/tru") && await page.getByRole("heading", { name: "Thompson Rivers University" }).isVisible(), page.url());
+  // The URL changes first; the panel streams in behind its loading boundary, so wait for it.
+  const truPanel = await page.getByRole("heading", { name: "Thompson Rivers University" }).waitFor({ timeout: 10000 }).then(() => true).catch(() => false);
+  check("clicking a dot opens that school's panel and URL", page.url().endsWith("/map/tru") && truPanel, page.url());
 
   // Deep link to a graded school: real grades and a verified quote with its document and section.
   await page.goto(`${BASE}/map/uvic`, { waitUntil: "load" });
@@ -121,6 +124,7 @@ try {
 
   // Live update: change a score in the database; the dot recolours without a reload.
   await mapReady(page);
+  await page.waitForFunction(() => (window as unknown as { __onusRealtime?: string }).__onusRealtime === "SUBSCRIBED", null, { timeout: 20000 });
   const uvicId = (await db.query("select id from public.institutions where slug = 'uvic'")).rows[0].id;
   await db.query("update public.institution_scores set gap_label = 'big_gap' where institution_id = $1", [uvicId]);
   const live = await page.waitForFunction((red) => {
@@ -179,7 +183,10 @@ try {
     check("clicking a school flies to it (still in flight at 0.35 s)", moving && zMid < 12.9, `zoom ${z0.toFixed(1)} -> ${zMid.toFixed(1)} at 0.35 s, moving=${moving}`);
     check("the flight ends at about campus zoom within ~1.5 s", Math.abs(z1 - 13) < 0.05, z1.toFixed(2));
     await p4.getByRole("button", { name: "Close" }).click();
-    await p4.waitForTimeout(1000);
+    // Wait for the navigation back to /map, then for the ease out to start and finish.
+    await p4.waitForURL((u) => u.pathname === "/map", { timeout: 10000 });
+    await p4.waitForFunction(() => (window as unknown as { __onusMap: { getZoom: () => number; isMoving: () => boolean } }).__onusMap.getZoom() < 12.9, null, { timeout: 5000 }).catch(() => {});
+    await p4.waitForFunction(() => !(window as unknown as { __onusMap: { isMoving: () => boolean } }).__onusMap.isMoving(), null, { timeout: 5000 }).catch(() => {});
     const z2 = await p4.evaluate(() => (window as unknown as { __onusMap: { getZoom: () => number } }).__onusMap.getZoom());
     check("closing the panel eases out about 2 zoom levels", Math.abs(z1 - z2 - 2) < 0.1, `${z1.toFixed(1)} -> ${z2.toFixed(1)}`);
     await p4.context().close();
@@ -224,6 +231,7 @@ try {
   const h4 = await height();
   check("phone: tapping the grabber still expands", h4 > 700, `${Math.round(h4)} px`);
   await p2.getByRole("button", { name: "Show less" }).click();
+  await height(); // let the 300 ms collapse finish before measuring where the sheet starts
   const top2 = (await sheet.boundingBox())!.y;
   await swipe(top2 + 60, top2 + 300);
   check("phone: a strong swipe down from half closes the panel", await p2.waitForURL((u) => u.pathname === "/map", { timeout: 5000 }).then(() => true).catch(() => false));
