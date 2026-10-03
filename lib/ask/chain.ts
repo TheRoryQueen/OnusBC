@@ -20,7 +20,15 @@ import { normalize } from "../text";
 // Decision Oct 2, 2026: gemini-3.5-flash took 11 to 47 s on the free tier, past the 8 s step limit.
 export const MAIN_MODEL = "gemini-3.5-flash-lite";
 export const LITE_MODEL = "gemini-3.1-flash-lite";
-export const STEP_TIMEOUT_MS = 8000;
+// Each step gets its own time limit, inside one overall deadline. The main model is quick (retrieval is
+// part of its budget). The backup model can take 12 to 15 s (measured 14.1 s with retrieval), so it gets
+// whatever is left of the deadline: about 19 s when the main model fails fast (rate limit, quota, busy),
+// 14 s when it stalls. Past the deadline, the cached answer or the refusal comes back at once, so nobody
+// waits much over 20 s.
+export const STEP_BUDGET_MS = { main: 5_500, lite: 19_000 } as const;
+export const TOTAL_BUDGET_MS = 19_500;
+/** The main step's limit (kept under its old name for scripts that print it). */
+export const STEP_TIMEOUT_MS = STEP_BUDGET_MS.main;
 export const DEMO_QUESTION = "If I report here, who finds out?";
 
 export type Chunk = { id: number; document?: string | null; section: string | null; content: string };
@@ -44,6 +52,7 @@ export type Deps = {
   retrieve: (slug: string, question: string, signal: AbortSignal) => Promise<Chunk[]>;
   cache: (slug: string, question: string) => CachedAnswer | null;
   log: (entry: Record<string, unknown>) => void;
+  /** One limit for every step instead of the step budgets (offline cache builds use a long one). */
   timeoutMs?: number;
   /** Offline cache builds can use a slower, stronger model; the live route always uses the defaults. */
   models?: { main: string; lite: string };
@@ -146,7 +155,6 @@ const isSwitchable = (e: unknown): e is SwitchableError => e instanceof Switchab
 
 export async function ask(deps: Deps, input: { slug: string; school: string; question: string; contact: Contact }): Promise<AskResult> {
   const { slug, school, question, contact } = input;
-  const ms = deps.timeoutMs ?? STEP_TIMEOUT_MS;
   const t0 = Date.now();
   const done = (r: AskResult, extra: Record<string, unknown> = {}) => {
     deps.log({ event: "ask", slug, answered_by: r.answered_by, model: r.model, refused: r.refused, crisis: r.crisis, ms: Date.now() - t0, ...extra });
@@ -165,6 +173,9 @@ export async function ask(deps: Deps, input: { slug: string; school: string; que
   let chunks: Chunk[] | null = null;
 
   for (const step of steps) {
+    const left = TOTAL_BUDGET_MS - (Date.now() - t0);
+    const ms = deps.timeoutMs ?? Math.min(STEP_BUDGET_MS[step.name], left);
+    if (ms < 1_000) { skipped.push(`${step.name}:no_time`); continue; }
     try {
       const result = await withTimeout(ms, async (signal) => {
         // Retrieval (Gemini embeddings, main setup) is part of the first step's time budget.

@@ -1,12 +1,13 @@
 // Tests the /api/ask fallback chain by forcing each step to fail and checking the next one answers.
 // Real Gemini calls (free tier) and real retrieval; failures are injected by wrapping fetch.
 //   main -> lite -> cached demo answer -> refusal with the school's contact
-// Also checks: switching happens only on rate limit, quota, or timeout (8 s); every answer cites
+// Also checks: switching happens only on rate limit, quota, or timeout (each step has its own time limit
+// inside a 19.5 s overall deadline, so a slow backup still answers); every answer cites
 // retrieved text verbatim; off-policy questions are refused; crisis messages get the crisis response;
 // logs name the model and never contain the question.
 // Usage: npm run test:ask
 import { readFileSync } from "node:fs";
-import { DEMO_QUESTION, LITE_MODEL, MAIN_MODEL, STEP_TIMEOUT_MS, ask, normalizeQuestion, validate, type AskResult, type CachedAnswer } from "../lib/ask/chain.ts";
+import { DEMO_QUESTION, LITE_MODEL, MAIN_MODEL, STEP_BUDGET_MS, TOTAL_BUDGET_MS, ask, normalizeQuestion, validate, type AskResult, type CachedAnswer } from "../lib/ask/chain.ts";
 import { normalize } from "../lib/text.ts";
 import { realDeps, school, textSearchRetrieve } from "./lib/ask-deps.mts";
 
@@ -26,7 +27,7 @@ const check = (name: string, ok: boolean, detail = "") => {
   else failed++;
 };
 
-type Fault = "rate_limit" | "quota" | "overloaded" | "timeout" | "server_error";
+type Fault = "rate_limit" | "quota" | "overloaded" | "timeout" | "server_error" | "slow";
 // Wraps fetch: requests whose URL contains a key get that fault instead of reaching Google.
 function faulty(rules: Record<string, Fault>): typeof fetch {
   return (async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -36,6 +37,11 @@ function faulty(rules: Record<string, Fault>): typeof fetch {
     if (rule === "quota") return new Response(JSON.stringify({ error: { code: 429, status: "RESOURCE_EXHAUSTED", message: "You exceeded your current quota" } }), { status: 429 });
     if (rule === "overloaded") return new Response(JSON.stringify({ error: { code: 503, status: "UNAVAILABLE", message: "This model is currently experiencing high demand." } }), { status: 503 });
     if (rule === "server_error") return new Response(JSON.stringify({ error: { code: 500, message: "internal" } }), { status: 500 });
+    if (rule === "slow") {
+      // The backup on a slow day: 2 s more on top of its real 12 to 14 s (about 15 to 16 s in all).
+      await new Promise((res, rej) => { const t = setTimeout(res, 2_000); init?.signal?.addEventListener("abort", () => { clearTimeout(t); rej(new DOMException("aborted", "AbortError")); }); });
+      return fetch(input, init);
+    }
     if (rule === "timeout") {
       // Hang until the chain gives up on this step.
       return new Promise<Response>((_, reject) => init?.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError"))));
@@ -55,7 +61,9 @@ async function run(question: string, faults: Record<string, Fault> = {}): Promis
   const t = Date.now();
   const r = await ask(depsFor(faulty(faults), cache, (e) => logs.push(e)), { slug: SLUG, school: s.name, question, contact: s.contact });
   const ms = Date.now() - t;
-  await new Promise((res) => setTimeout(res, 3000)); // free-tier pacing
+  // Free-tier pacing. The backup model answers 503 "high demand" to back-to-back calls, so leave it longer.
+  const usedBackup = Object.keys(faults).includes(MAIN_MODEL);
+  await new Promise((res) => setTimeout(res, usedBackup ? 15_000 : 3000));
   return { r, log: logs[before], ms };
 }
 // Every answer that is not a refusal must cite text that is really in this school's policy chunks.
@@ -67,7 +75,7 @@ async function citationsAreReal(r: AskResult) {
 }
 
 if (TEXT_RETRIEVAL) console.log("WARNING: retrieval is STUBBED with Postgres full-text search (embedding quota used up).\nModels, timeouts, fallbacks and citation checks are live. Re-run without --text-retrieval after the quota resets.\n");
-console.log(`School: ${s.name} (${SLUG}); main ${MAIN_MODEL}, lite ${LITE_MODEL}, ${STEP_TIMEOUT_MS} ms per step\n`);
+console.log(`School: ${s.name} (${SLUG}); main ${MAIN_MODEL} (${STEP_BUDGET_MS.main} ms), lite ${LITE_MODEL} (${STEP_BUDGET_MS.lite} ms), ${TOTAL_BUDGET_MS} ms overall\n`);
 
 // 1. Healthy chain: the main model answers.
 {
@@ -91,19 +99,26 @@ console.log(`School: ${s.name} (${SLUG}); main ${MAIN_MODEL}, lite ${LITE_MODEL}
   check("3. main out of quota -> lite model answers", r.answered_by === "lite" && !r.refused, `${r.answered_by} ${JSON.stringify(log?.skipped)}`);
 }
 
+// 3a. Main rate-limited and the backup slow (12 to 15 s, as Google's lite model can be): it still answers.
+{
+  const { r, ms } = await run(QUESTION, { [MAIN_MODEL]: "rate_limit", [LITE_MODEL]: "slow" });
+  check("3a. main rate-limited + slow backup -> the backup still answers", r.answered_by === "lite" && !r.refused, `${r.answered_by} in ${(ms / 1000).toFixed(1)} s`);
+  check("   and within the overall limit (under 20 s)", ms < 20_000, `${(ms / 1000).toFixed(1)} s`);
+}
+
 // 3b. Main overloaded (503 high demand): the lite model answers.
 {
   const { r, log } = await run(QUESTION, { [MAIN_MODEL]: "overloaded" });
   check("3b. main overloaded (503) -> lite model answers", r.answered_by === "lite" && !r.refused, `${r.answered_by} ${JSON.stringify(log?.skipped)}`);
 }
 
-// 4. Main times out (8 s) and lite is rate-limited: the cached demo answer is used.
+// 4. Main times out and lite is rate-limited: the cached demo answer is used.
 {
   const hasCache = !!cache(SLUG, DEMO_QUESTION);
   check("   a verified cached demo answer exists for this school", hasCache);
   const { r, log, ms } = await run(DEMO_QUESTION, { [MAIN_MODEL]: "timeout", [LITE_MODEL]: "rate_limit" });
   check("4. main timeout + lite rate-limited -> cached demo answer", r.answered_by === "cache" && !r.refused && r.citations.length > 0, `${r.answered_by} ${JSON.stringify(log?.skipped)}`);
-  check("   main step was abandoned at the 8 s timeout", ms >= STEP_TIMEOUT_MS && ms < STEP_TIMEOUT_MS + 6000, `${(ms / 1000).toFixed(1)} s`);
+  check(`   main step was abandoned at its ${STEP_BUDGET_MS.main / 1000} s limit`, ms >= STEP_BUDGET_MS.main && ms < STEP_BUDGET_MS.main + 4000, `${(ms / 1000).toFixed(1)} s`);
   check("   cached answer's quotes are verbatim in the policy", await citationsAreReal(r));
 }
 
@@ -116,8 +131,9 @@ else {
 
 // 6. Everything fails and the question has no cached answer: refusal with the school's contact.
 {
-  const { r } = await run(QUESTION, { [MAIN_MODEL]: "quota", [LITE_MODEL]: "timeout" });
+  const { r, ms } = await run(QUESTION, { [MAIN_MODEL]: "quota", [LITE_MODEL]: "timeout" });
   check("6. all steps fail, no cache for this question -> refusal with the school's contact", r.answered_by === "fallback" && r.refused && r.citations.length === 0, r.answered_by);
+  check("   the whole wait stays under 20 s", ms < 20_000, `${(ms / 1000).toFixed(1)} s`);
   check("   refusal names the school and its office", r.answer.startsWith(`That's outside what I can answer from ${s.name}'s policy.`) && !!s.contact.office && r.answer.includes(s.contact.office!), r.answer);
 }
 

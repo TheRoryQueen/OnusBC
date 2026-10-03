@@ -8,6 +8,9 @@ import { cachedAnswer } from "@/lib/ask/cache";
 // POST /api/ask { slug, question } -> { answer, citations[{section, quote}], refused, crisis, fallback_contact }
 // The question is never stored or logged. Rate limit: 10 per minute per IP (in memory, per server instance).
 
+// The chain answers, or falls back, within about 20 s; give the function room beyond that.
+export const maxDuration = 30;
+
 const WINDOW_MS = 60_000;
 const LIMIT = 10;
 const hits = new Map<string, number[]>();

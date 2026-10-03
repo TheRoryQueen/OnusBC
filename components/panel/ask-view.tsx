@@ -78,12 +78,19 @@ function AnswerMessage({ data, listen }: { data: Answer; listen: Listen }) {
   );
 }
 
+// While an answer is on its way: three quiet dots, and after a few seconds a calm line, because the backup
+// model can take up to about 15 s when the main one is busy.
 function Typing() {
+  const [slow, setSlow] = useState(false);
+  useEffect(() => { const t = window.setTimeout(() => setSlow(true), 5000); return () => window.clearTimeout(t); }, []);
   return (
-    <div role="status" aria-label="Finding the answer in the policy" className="flex h-6 items-center gap-1">
-      {[0, 1, 2].map((i) => (
-        <span key={i} className="size-1.5 animate-pulse rounded-full bg-text-secondary motion-reduce:animate-none" style={{ animationDelay: `${i * 160}ms` }} />
-      ))}
+    <div role="status" aria-label={slow ? "Still looking through the policy" : "Finding the answer in the policy"} className="flex h-6 items-center gap-2">
+      <span className="flex items-center gap-1" aria-hidden>
+        {[0, 1, 2].map((i) => (
+          <span key={i} className="size-1.5 animate-pulse rounded-full bg-text-secondary motion-reduce:animate-none" style={{ animationDelay: `${i * 160}ms` }} />
+        ))}
+      </span>
+      {slow && <span className="text-[13px] text-text-secondary">Still looking through the policy…</span>}
     </div>
   );
 }
@@ -93,12 +100,23 @@ function Typing() {
 // the transcript goes to the same /api/ask and the answer is read aloud.
 type Phase = "idle" | "listening" | "thinking" | "speaking";
 const PHASE_LABEL: Record<Exclude<Phase, "idle">, string> = { listening: "Listening…", thinking: "Thinking…", speaking: "Speaking…" };
+// After a few seconds of thinking, say so calmly (the backup model can take up to about 15 s).
+function useSlow(active: boolean, after = 5000) {
+  const [slow, setSlow] = useState(false);
+  useEffect(() => {
+    if (!active) return;
+    const t = window.setTimeout(() => setSlow(true), after);
+    return () => { window.clearTimeout(t); setSlow(false); };
+  }, [active, after]);
+  return active && slow;
+}
 
 function AskBox({ school, busy, onSend, voice, phase, onStopSpeaking }: {
   school: string; busy: boolean; onSend: (q: string) => void;
   voice: ReturnType<typeof useRecorder>; phase: Phase; onStopSpeaking: () => void;
 }) {
   const live = phase !== "idle";
+  const slowThinking = useSlow(phase === "thinking");
   const [value, setValue] = useState("");
   const ref = useRef<HTMLTextAreaElement>(null);
   useLayoutEffect(() => {
@@ -129,7 +147,7 @@ function AskBox({ school, busy, onSend, voice, phase, onStopSpeaking }: {
               <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
             </span>
           )}
-          {PHASE_LABEL[phase]}
+          {phase === "thinking" && slowThinking ? "Still looking…" : PHASE_LABEL[phase]}
           {phase === "listening" && <span className="tabular-nums text-text-secondary">0:{String(voice.elapsed).padStart(2, "0")}</span>}
         </div>
       )}
