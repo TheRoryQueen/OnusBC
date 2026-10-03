@@ -138,18 +138,98 @@ try {
   check("no page errors on desktop", errors.length === 0, errors.join(" | "));
   await ctx.close();
 
-  // Phone: bottom sheet with a grabber, half height then full.
+  // Globe when zoomed all the way out, flat when zoomed in; still applied after a theme switch.
+  {
+    const p3 = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+    await p3.goto(`${BASE}/map`, { waitUntil: "load" });
+    await mapReady(p3);
+    const projAt = async (z: number) => p3.evaluate(async (z) => {
+      const m = (window as unknown as { __onusMap: { jumpTo: (o: unknown) => void; style: { projection: { name: string; transitionState?: number } }; once: (e: string, f: () => void) => void } }).__onusMap;
+      m.jumpTo({ zoom: z, center: [-123, 52] });
+      await new Promise<void>((r) => m.once("render", () => r()));
+      return { name: m.style.projection.name, t: m.style.projection.transitionState };
+    }, z);
+    const out = await projAt(1), mid = await projAt(2.75), inn = await projAt(6);
+    check("zoomed all the way out: globe projection", out.name.includes("globe") && (out.t ?? 1) > 0.99, JSON.stringify(out));
+    check("in between: blending from globe to flat", (mid.t ?? 0) > 0 && (mid.t ?? 1) < 1, JSON.stringify(mid));
+    check("zoomed in: flat", (inn.t ?? 0) < 0.01, JSON.stringify(inn));
+    await p3.getByRole("button", { name: /switch to dark mode/i }).click();
+    await p3.waitForTimeout(2500);
+    check("dark mode keeps the globe when zoomed out", (await projAt(1)).name.includes("globe"));
+    await p3.context().close();
+  }
+
+  // Clicking flies to the school (about 1 s, campus zoom); closing eases out about 2 zoom levels.
+  {
+    const p4 = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+    await p4.goto(`${BASE}/map`, { waitUntil: "load" });
+    await mapReady(p4);
+    const z0 = await p4.evaluate(() => (window as unknown as { __onusMap: { getZoom: () => number } }).__onusMap.getZoom());
+    const pt = await p4.evaluate(() => {
+      const m = (window as unknown as { __onusMap: { project: (ll: [number, number]) => { x: number; y: number }; getCanvas: () => HTMLCanvasElement } }).__onusMap;
+      const r = m.getCanvas().getBoundingClientRect(); const p = m.project([-120.36403, 50.67245]);
+      return { x: r.left + p.x, y: r.top + p.y };
+    });
+    await p4.mouse.click(pt.x, pt.y);
+    await p4.waitForTimeout(350);
+    const [zMid, moving] = await p4.evaluate(() => { const m = (window as unknown as { __onusMap: { getZoom: () => number; isMoving: () => boolean } }).__onusMap; return [m.getZoom(), m.isMoving()] as const; });
+    await p4.waitForTimeout(1200);
+    const z1 = await p4.evaluate(() => (window as unknown as { __onusMap: { getZoom: () => number } }).__onusMap.getZoom());
+    // flyTo arcs (it can pull back slightly before diving in), so check it is mid-flight, not the zoom.
+    check("clicking a school flies to it (still in flight at 0.35 s)", moving && zMid < 12.9, `zoom ${z0.toFixed(1)} -> ${zMid.toFixed(1)} at 0.35 s, moving=${moving}`);
+    check("the flight ends at about campus zoom within ~1.5 s", Math.abs(z1 - 13) < 0.05, z1.toFixed(2));
+    await p4.getByRole("button", { name: "Close" }).click();
+    await p4.waitForTimeout(1000);
+    const z2 = await p4.evaluate(() => (window as unknown as { __onusMap: { getZoom: () => number } }).__onusMap.getZoom());
+    check("closing the panel eases out about 2 zoom levels", Math.abs(z1 - z2 - 2) < 0.1, `${z1.toFixed(1)} -> ${z2.toFixed(1)}`);
+    await p4.context().close();
+  }
+
+  // Reduced motion: no flying, straight there.
+  {
+    const p5 = await (await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" })).newPage();
+    await p5.goto(`${BASE}/map`, { waitUntil: "load" });
+    await mapReady(p5);
+    await p5.evaluate(() => (window as unknown as { next: { router: { push: (u: string, o: unknown) => void } } }).next.router.push("/map/tru", { scroll: false }));
+    await p5.getByRole("complementary", { name: "Thompson Rivers University" }).waitFor();
+    await p5.waitForTimeout(120);
+    const z = await p5.evaluate(() => (window as unknown as { __onusMap: { getZoom: () => number; isMoving: () => boolean } }).__onusMap.getZoom());
+    check("reduced motion: jumps straight to the school, no flight", Math.abs(z - 13) < 0.05, z.toFixed(2));
+    await p5.context().close();
+  }
+
+  // Phone: bottom sheet. Opens at half height; swipe up expands, swipe down collapses, a strong swipe
+  // down from half closes; tapping the grabber toggles.
   const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, colorScheme: "dark", hasTouch: true, isMobile: true });
   const p2 = await phone.newPage();
   await p2.goto(`${BASE}/map/uvic`, { waitUntil: "load" });
   const sheet = p2.getByRole("complementary", { name: "University of Victoria" });
   await sheet.waitFor();
-  const h1 = (await sheet.boundingBox())?.height ?? 0;
+  const height = async () => { await p2.waitForTimeout(450); return (await sheet.boundingBox())?.height ?? 0; };
+  const swipe = async (fromY: number, toY: number) => {
+    await p2.mouse.move(195, fromY); await p2.mouse.down();
+    for (let i = 1; i <= 8; i++) await p2.mouse.move(195, fromY + ((toY - fromY) * i) / 8);
+    await p2.mouse.up();
+  };
+  const h1 = await height();
+  check("phone: opens as a bottom sheet at about half height", h1 > 300 && h1 < 520, `${Math.round(h1)} px`);
+  const top1 = (await sheet.boundingBox())!.y;
+  await swipe(top1 + 120, top1 - 200);
+  const h2 = await height();
+  check("phone: swipe up expands to full height", h2 > 700, `${Math.round(h2)} px`);
+  await swipe((await sheet.boundingBox())!.y + 12, (await sheet.boundingBox())!.y + 300);
+  const h3 = await height();
+  check("phone: swipe down on the grabber collapses to half", h3 > 300 && h3 < 520, `${Math.round(h3)} px`);
   await p2.getByRole("button", { name: "Show more" }).click();
-  await p2.waitForTimeout(500);
-  const h2 = (await sheet.boundingBox())?.height ?? 0;
-  check("phone: panel is a bottom sheet at about half height", h1 > 300 && h1 < 520, `${Math.round(h1)} px`);
-  check("phone: the grabber expands it to full height", h2 > 700, `${Math.round(h2)} px`);
+  const h4 = await height();
+  check("phone: tapping the grabber still expands", h4 > 700, `${Math.round(h4)} px`);
+  await p2.getByRole("button", { name: "Show less" }).click();
+  const top2 = (await sheet.boundingBox())!.y;
+  await swipe(top2 + 60, top2 + 300);
+  check("phone: a strong swipe down from half closes the panel", await p2.waitForURL((u) => u.pathname === "/map", { timeout: 5000 }).then(() => true).catch(() => false));
+  await p2.goto(`${BASE}/map/tru`, { waitUntil: "load" });
+  const h5 = (await p2.getByRole("complementary").boundingBox())?.height ?? 0;
+  check("phone: opening another school starts at half height", h5 > 300 && h5 < 520, `${Math.round(h5)} px`);
   const hw = await p2.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
   check("phone: no horizontal scrolling", hw);
   await phone.close();
