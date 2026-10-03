@@ -41,3 +41,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /screenshots/
+
+# raw policy downloads (public documents, re-fetched by npm run crawl)
+/data/policies/*.pdf
+/data/policies/*.html
+/data/extracted/
