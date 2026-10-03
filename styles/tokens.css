@@ -1,0 +1,53 @@
+/*
+ * Onus color tokens. Values are the Design system token table in docs/PRD.md.
+ * Components reference these (or the Tailwind names mapped in app/globals.css),
+ * never raw hex.
+ */
+
+:root {
+  --onus-page: #f7f6f3;
+  --onus-surface: #ffffff;
+  --onus-raised: #ffffff;
+  --onus-glass: rgba(255, 255, 255, 0.72);
+  --onus-hairline: #e4e2dc;
+  --onus-text: #1c1b1f;
+  --onus-text-secondary: #6b6875;
+  --onus-brand: #0f766e;
+  --onus-brand-hover: #0b5f58;
+  --onus-brand-tint: #e6f3f1;
+  --onus-some-gap: #b45309;
+  --onus-big-gap: #b91c1c;
+  --onus-no-policy: #9a98a0;
+  --onus-support: #5b4bb7;
+  --onus-info: #3b5b8c;
+  --onus-map-land: #edece8;
+  --onus-map-water: #dce3e6;
+  /* Text on a filled brand surface (the one teal button). */
+  --onus-on-brand: #ffffff;
+  /* Faint bright edge for glass, per the Design system. */
+  --onus-glass-edge: rgba(255, 255, 255, 0.6);
+  color-scheme: light;
+}
+
+.dark {
+  --onus-page: #0e1116;
+  --onus-surface: #161b22;
+  --onus-raised: #1c222b;
+  --onus-glass: rgba(22, 27, 34, 0.72);
+  --onus-hairline: #2a313c;
+  --onus-text: #eceef1;
+  --onus-text-secondary: #9aa3ae;
+  --onus-brand: #2dd4bf;
+  --onus-brand-hover: #5eead4;
+  --onus-brand-tint: #0f2e2b;
+  --onus-some-gap: #f5b546;
+  --onus-big-gap: #f87171;
+  --onus-no-policy: #6b7280;
+  --onus-support: #b4a8f5;
+  --onus-info: #8fb0e0;
+  --onus-map-land: #12161c;
+  --onus-map-water: #0b1a22;
+  --onus-on-brand: #0e1116;
+  --onus-glass-edge: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
+}

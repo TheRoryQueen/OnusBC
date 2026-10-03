@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../styles/tokens.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Type: Apple system stack everywhere; Instrument Serif and Plex Mono only where the PRD says. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-heading: var(--font-sans);
+
+  /* Onus token names, usable as bg-page, text-brand, border-hairline, etc. */
+  --color-page: var(--onus-page);
+  --color-surface: var(--onus-surface);
+  --color-raised: var(--onus-raised);
+  --color-glass: var(--onus-glass);
+  --color-glass-edge: var(--onus-glass-edge);
+  --color-hairline: var(--onus-hairline);
+  --color-text: var(--onus-text);
+  --color-text-secondary: var(--onus-text-secondary);
+  --color-brand: var(--onus-brand);
+  --color-brand-hover: var(--onus-brand-hover);
+  --color-brand-tint: var(--onus-brand-tint);
+  --color-on-brand: var(--onus-on-brand);
+  --color-aligned: var(--onus-brand);
+  --color-some-gap: var(--onus-some-gap);
+  --color-big-gap: var(--onus-big-gap);
+  --color-no-policy: var(--onus-no-policy);
+  --color-support: var(--onus-support);
+  --color-info: var(--onus-info);
+  --color-map-land: var(--onus-map-land);
+  --color-map-water: var(--onus-map-water);
+
+  /* shadcn names, mapped onto the Onus tokens so shadcn components follow the theme. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* One large radius for the panel and sheet; children are concentric (radius minus padding). */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-panel: 1.75rem;
+}
+
+:root,
+.dark {
+  --background: var(--onus-page);
+  --foreground: var(--onus-text);
+  --card: var(--onus-surface);
+  --card-foreground: var(--onus-text);
+  --popover: var(--onus-raised);
+  --popover-foreground: var(--onus-text);
+  --primary: var(--onus-brand);
+  --primary-foreground: var(--onus-on-brand);
+  --secondary: var(--onus-surface);
+  --secondary-foreground: var(--onus-text);
+  --muted: var(--onus-surface);
+  --muted-foreground: var(--onus-text-secondary);
+  --accent: var(--onus-brand-tint);
+  --accent-foreground: var(--onus-text);
+  --destructive: var(--onus-big-gap);
+  --border: var(--onus-hairline);
+  --input: var(--onus-hairline);
+  --ring: var(--onus-brand);
+  --chart-1: var(--onus-brand);
+  --chart-2: var(--onus-some-gap);
+  --chart-3: var(--onus-big-gap);
+  --chart-4: var(--onus-no-policy);
+  --chart-5: var(--onus-info);
+  --radius: 0.75rem;
+  --sidebar: var(--onus-surface);
+  --sidebar-foreground: var(--onus-text);
+  --sidebar-primary: var(--onus-brand);
+  --sidebar-primary-foreground: var(--onus-on-brand);
+  --sidebar-accent: var(--onus-brand-tint);
+  --sidebar-accent-foreground: var(--onus-text);
+  --sidebar-border: var(--onus-hairline);
+  --sidebar-ring: var(--onus-brand);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Glass: frosted blur plus saturation plus a faint bright edge. Floating controls only, never glass on glass.
+   A web approximation of Apple's material, not an Apple-issued style. */
+@utility glass {
+  background-color: var(--onus-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: inset 0 0 0 1px var(--onus-glass-edge), 0 8px 32px rgb(0 0 0 / 0.08);
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: var(--onus-surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Theme toggle circle reveal: the new view sits on top and is clipped open from the button. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  z-index: 1;
+}
