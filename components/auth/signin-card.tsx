@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Dialog } from "@base-ui/react/dialog";
 import { createClient } from "@/lib/supabase/client";
+import { safeNext } from "@/lib/safe-next";
 import { trapTab } from "@/lib/trap-tab";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +21,6 @@ const primaryBtn = "w-full rounded-full bg-brand px-5 py-3 text-[15px] font-medi
 const quietLink = "text-sm text-text-secondary underline-offset-4 hover:text-text hover:underline";
 
 const domainOf = (email: string) => email.trim().toLowerCase().split("@")[1] ?? "";
-const safeNext = (next: string | null) => (next && next.startsWith("/") && !next.startsWith("//") ? next : "/map");
 
 function Capsules<T extends string>({ label, value, options, onChange }: { label: string; value: T | null; options: { value: T; label: string }[]; onChange: (v: T) => void }) {
   return (
@@ -79,11 +79,26 @@ function CodeBoxes({ disabled, onComplete }: { disabled: boolean; onComplete: (c
   );
 }
 
-export function SignInCard({ next }: { next: string | null }) {
+// Which schools an address belongs to, whether the role can't be read from it (shared domains), whether the
+// campus can't either (UBC), and the role when the domain does say it.
+function readEmail(list: School[], email: string) {
+  const domain = domainOf(email);
+  const matches = list.filter((s) => s.email_domains.includes(domain) || s.employee_domains.includes(domain) || s.alumni_domains.includes(domain));
+  const sharedRole = matches.length > 0 && matches.every((s) => s.email_domains.includes(domain) && s.employee_domains.includes(domain));
+  const needsCampus = matches.length > 1;
+  const one = matches.length === 1 ? matches[0] : null;
+  const roleFromDomain: Role | null = !one || sharedRole ? null
+    : one.email_domains.includes(domain) ? "student" : one.employee_domains.includes(domain) ? "staff" : one.alumni_domains.includes(domain) ? "alumni" : null;
+  return { matches, sharedRole, needsCampus, roleFromDomain };
+}
+
+// finishEmail: someone already signed in whose profile is missing a role or a campus. They get a short
+// "finish signing in" step instead of the email step (and instead of a redirect loop).
+export function SignInCard({ next, finishEmail }: { next: string | null; finishEmail?: string }) {
   const router = useRouter();
   const supabase = useMemo(() => createClient(), []);
-  const [step, setStep] = useState<"email" | "code">("email");
-  const [email, setEmail] = useState("");
+  const [step, setStep] = useState<"email" | "code" | "finish">(finishEmail ? "finish" : "email");
+  const [email, setEmail] = useState(finishEmail ?? "");
   const [role, setRole] = useState<Role | null>(null);
   const [campus, setCampus] = useState<string | null>(null);
   const [schools, setSchools] = useState<School[]>([]);
@@ -104,10 +119,16 @@ export function SignInCard({ next }: { next: string | null }) {
     if (typed) setEmail(typed);
   }, []);
 
-  useEffect(() => {
-    supabase.from("institutions").select("id, slug, name, email_domains, employee_domains, alumni_domains").eq("sector", "public").order("name")
-      .then(({ data }) => setSchools((data as School[]) ?? []));
-  }, [supabase]);
+  // The school list decides whether to ask for a role or campus, so sending a code waits for it (someone who
+  // types fast on a slow connection must not skip those questions).
+  const schoolsReady = useRef<Promise<School[]> | null>(null);
+  const loadSchools = () => {
+    schoolsReady.current ??= Promise.resolve(
+      supabase.from("institutions").select("id, slug, name, email_domains, employee_domains, alumni_domains").eq("sector", "public").order("name")
+    ).then(({ data }) => { const list = (data as School[]) ?? []; setSchools(list); return list; });
+    return schoolsReady.current;
+  };
+  useEffect(() => { void loadSchools(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (step !== "code") return;
     const t = setInterval(() => setNow(Date.now()), 1000);
@@ -115,18 +136,16 @@ export function SignInCard({ next }: { next: string | null }) {
   }, [step]);
 
   // Shared domains: the role can't be read from the address. UBC: the campus can't either.
-  const domain = domainOf(email);
-  const matches = schools.filter((s) => s.email_domains.includes(domain) || s.employee_domains.includes(domain) || s.alumni_domains.includes(domain));
-  const sharedRole = matches.length > 0 && matches.every((s) => s.email_domains.includes(domain) && s.employee_domains.includes(domain));
-  const needsCampus = matches.length > 1;
+  const { matches, sharedRole, needsCampus } = readEmail(schools, email);
 
   const finish = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       const { data: profile } = await supabase.from("profiles").select("role, institution_id, is_judge").eq("id", user.id).single();
       if (profile && !profile.is_judge) {
-        const p_role = !profile.role && role ? role : null;
-        const p_institution_id = !profile.institution_id && campus ? campus : null;
+        const read = readEmail(await loadSchools(), user.email ?? email);
+        const p_role = !profile.role ? role ?? read.roleFromDomain : null;
+        const p_institution_id = !profile.institution_id ? campus ?? (read.matches.length === 1 ? read.matches[0].id : null) : null;
         if (p_role || p_institution_id) await supabase.rpc("choose_profile", { p_role, p_institution_id });
       }
     }
@@ -138,8 +157,9 @@ export function SignInCard({ next }: { next: string | null }) {
     e?.preventDefault();
     setError(null);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { setError("Enter your full school email address."); return; }
-    if (sharedRole && !role) { setError("Choose whether you're a student, staff member, or alum."); return; }
-    if (needsCampus && !campus) { setError("Choose your campus."); return; }
+    const read = readEmail(await loadSchools(), email);
+    if (read.sharedRole && !role) { setError("Choose whether you're a student, staff member, or alum."); return; }
+    if (read.needsCampus && !campus) { setError("Choose your campus."); return; }
     setBusy(true);
     const { error } = await supabase.auth.signInWithOtp({ email: email.trim().toLowerCase(), options: { shouldCreateUser: true } });
     setBusy(false);
@@ -189,7 +209,29 @@ export function SignInCard({ next }: { next: string | null }) {
     <div className="w-full max-w-sm">
       <div className="glass rounded-[28px] p-7">
         <p className="text-center text-lg font-semibold tracking-tight text-text">Onus</p>
-        {step === "email" ? (
+        {step === "finish" ? (
+          <form onSubmit={async (e) => {
+            e.preventDefault(); setError(null);
+            if (sharedRole && !role) { setError("Choose whether you're a student, staff member, or alum."); return; }
+            if (needsCampus && !campus) { setError("Choose your campus."); return; }
+            setBusy(true); await finish();
+          }} className="mt-5 space-y-4" noValidate>
+            <h1 className="text-center text-xl font-semibold text-text">Finish signing in</h1>
+            <p className="text-center text-sm text-text-secondary">One more thing before you can rate. Signed in as <span className="text-text">{email}</span>.</p>
+            {sharedRole && (
+              <Capsules<Role> label="You are" value={role} onChange={setRole}
+                options={[{ value: "student", label: "Student" }, { value: "staff", label: "Staff" }, { value: "alumni", label: "Alumni" }]} />
+            )}
+            {needsCampus && (
+              <Capsules<string> label="Your campus" value={campus} onChange={setCampus}
+                options={matches.map((m) => ({ value: m.id, label: m.name.replace(/^University of British Columbia, /, "") }))} />
+            )}
+            {error && <p role="alert" className="text-sm text-big-gap">{error}</p>}
+            <div className="border-t border-hairline pt-4">
+              <button type="submit" disabled={busy || schools.length === 0} className={primaryBtn}>{busy ? "Saving" : "Continue"}</button>
+            </div>
+          </form>
+        ) : step === "email" ? (
           <form onSubmit={sendCode} className="mt-5 space-y-4" noValidate>
             <h1 className="text-center text-xl font-semibold text-text">Sign in with your school email</h1>
             <div>

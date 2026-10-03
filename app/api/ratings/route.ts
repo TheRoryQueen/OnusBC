@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
+import { clientIp } from "@/lib/client-ip";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 // POST /api/ratings { slug, answers } -> { code }          (signed in; one per school; submit_rating)
 // PATCH /api/ratings { code, answers } | { code, withdraw }  (the code alone; edit_rating)
-// Ratings are written only through those two database functions, as the signed-in user (never the
-// service role). The functions validate every answer, so no free text can be stored.
+// Ratings are written only through those two database functions: submit_rating as the signed-in user,
+// edit_rating by the server only (it takes the code alone, so attempts must pass this route's limit). The functions validate every answer, so no free text can be stored.
 
 const ANSWER_KEYS = ["knows_how", "trust", "went_through", "believed", "informed", "time_bucket", "consequence"];
 
@@ -62,7 +64,7 @@ function editLimited(ip: string) {
 }
 
 export async function PATCH(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  const ip = clientIp(request);
   if (editLimited(ip)) return NextResponse.json({ error: "Too many tries. Try again in a few minutes." }, { status: 429 });
   const body = (await request.json().catch(() => null)) as { code?: unknown; answers?: unknown; withdraw?: unknown } | null;
   const code = typeof body?.code === "string" ? body.code.trim().toUpperCase() : "";
@@ -71,8 +73,8 @@ export async function PATCH(request: Request) {
   if (!/^[A-Z0-9]{8}$/.test(code)) return NextResponse.json({ error: MESSAGES.invalid_code.error }, { status: 400 });
   if (!withdraw && !answers) return NextResponse.json({ error: "Send your new answers." }, { status: 400 });
 
-  const supabase = await createClient();
-  const { error } = await supabase.rpc("edit_rating", { p_edit_code: code, p_answers: answers, p_withdraw: withdraw });
+  // edit_rating is callable only by the server (so every code attempt passes the limit above).
+  const { error } = await createAdminClient().rpc("edit_rating", { p_edit_code: code, p_answers: answers, p_withdraw: withdraw });
   if (error) return fail(error.message);
   return NextResponse.json({ ok: true, withdrawn: withdraw });
 }

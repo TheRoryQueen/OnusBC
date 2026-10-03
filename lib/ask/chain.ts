@@ -54,7 +54,9 @@ export class SwitchableError extends Error {
 }
 
 // Strong signals that someone may be in danger or crisis. Checked before any model call.
-const CRISIS = /\b(kill (myself|me)|suicid|end my life|want to die|hurt(ing)? myself|self[- ]harm|in danger|not safe|unsafe right now|being (followed|attacked|hurt)|he'?s here|she'?s here|they'?re here|emergency|help me now)\b/i;
+// Word endings are allowed where they change nothing ("suicide", "suicidal", "self-harming").
+const CRISIS = /\b(kill(ing)? (myself|me)|suicid\w*|end(ing)? my life|want(s|ing)? to die|(hurt|harm)(ing)? myself|self[- ]?harm\w*|in danger|not safe|unsafe right now|being (followed|attacked|hurt)|he'?s here|she'?s here|they'?re here|emergency|help me now)\b/i;
+export const isCrisis = (question: string) => CRISIS.test(question);
 
 export const normalizeQuestion = (q: string) => q.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
 
@@ -151,7 +153,7 @@ export async function ask(deps: Deps, input: { slug: string; school: string; que
     return r;
   };
 
-  if (CRISIS.test(question)) {
+  if (isCrisis(question)) {
     return done({ answer: crisisText(), citations: [], refused: false, crisis: true, fallback_contact: contact, answered_by: "crisis", model: null });
   }
 

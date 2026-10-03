@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { clientIp } from "@/lib/client-ip";
 import { speak, VoiceError } from "@/lib/elevenlabs";
 
 // POST /api/voice/speak { text } -> audio/mpeg stream (ElevenLabs text to speech, the Sarah voice).
@@ -16,7 +17,7 @@ function limited(ip: string) {
 }
 
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  const ip = clientIp(request);
   if (limited(ip)) return NextResponse.json({ error: "Too many requests at once. Try again in a moment." }, { status: 429 });
 
   const body = (await request.json().catch(() => null)) as { text?: unknown } | null;

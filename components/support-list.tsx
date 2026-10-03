@@ -2,18 +2,18 @@
 
 import { useMemo, useState } from "react";
 import { ExternalLink, Mail, Phone, Search } from "lucide-react";
+import { telHref } from "@/lib/tel";
 
 // Support at your school (PRD, Get support): every institution's support office from the institutions table,
 // filtered as you type. Nothing typed here is stored or sent anywhere.
 export type Office = { slug: string; name: string; city: string | null; office: string | null; phone: string | null; email: string | null; url: string | null };
 
-const tel = (p: string) => p.split(/ext/i)[0].replace(/[^\d+]/g, "");
 
 export function SupportList({ offices }: { offices: Office[] }) {
   const [q, setQ] = useState("");
   const shown = useMemo(() => {
     const t = q.trim().toLowerCase();
-    return t ? offices.filter((o) => `${o.name} ${o.city ?? ""} ${o.office ?? ""}`.toLowerCase().includes(t)) : offices;
+    return t ? offices.filter((o) => `${o.name} ${o.slug.replace(/-/g, " ")} ${o.city ?? ""} ${o.office ?? ""}`.toLowerCase().includes(t)) : offices;
   }, [q, offices]);
   return (
     <div>
@@ -31,7 +31,7 @@ export function SupportList({ offices }: { offices: Office[] }) {
             {o.office && <p className="mt-0.5 text-[14px] text-text-secondary">{o.office}</p>}
             <div className="mt-3 flex flex-wrap gap-2">
               {o.phone && (
-                <a href={`tel:${tel(o.phone)}`} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-support/12 px-4 text-[14px] font-medium text-support">
+                <a href={telHref(o.phone)} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-support/12 px-4 text-[14px] font-medium text-support">
                   <Phone className="size-4" aria-hidden />{o.phone}
                 </a>
               )}

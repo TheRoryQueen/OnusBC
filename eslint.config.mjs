@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // MapLibre worker files copied from node_modules at predev/prebuild (third-party, minified):
     "public/maplibre/**",
+    // Local test logs and throwaway scripts (git-ignored):
+    "logs/**",
   ]),
 ]);
 

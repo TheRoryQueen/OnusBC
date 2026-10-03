@@ -188,3 +188,9 @@
 }
 .onus-breathe { animation: onus-breathe var(--onus-breath, 4s) ease-in-out both; }
 @media (prefers-reduced-motion: reduce) { .onus-breathe { animation: none; opacity: 0.4; } }
+
+/* A clear keyboard focus ring everywhere; zero specificity, so a component's own focus style still wins. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--onus-brand);
+  outline-offset: 2px;
+}

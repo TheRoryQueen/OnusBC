@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowUp, ChevronLeft, LoaderCircle, Mic, Phone, Square, Volume2 } from "lucide-react";
 import { usePlayer, useRecorder, unlockAudio } from "./use-voice";
+import { telHref } from "@/lib/tel";
 import { cn } from "@/lib/utils";
 
 // The Ask sheet (PRD, Ask about this policy agent; docs/components.md section 7, Ask box).
@@ -54,7 +55,7 @@ type Listen = { state: "idle" | "loading" | "playing"; onListen: () => void; onS
 
 function AnswerMessage({ data, listen }: { data: Answer; listen: Listen }) {
   const c = data.fallback_contact;
-  const tel = c.phone?.split(/ext/i)[0].replace(/[^\d+]/g, "");
+  const tel = c.phone ? telHref(c.phone) : null;
   return (
     <div className="max-w-[92%]">
       <p className="whitespace-pre-line text-[15px] leading-relaxed text-text">{data.answer}</p>
@@ -69,7 +70,7 @@ function AnswerMessage({ data, listen }: { data: Answer; listen: Listen }) {
       {(data.refused || data.crisis) && (
         <div className="mt-3 flex flex-wrap gap-2">
           {data.crisis && <a href="tel:1-800-563-0808" className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-support/12 px-4 text-sm font-medium text-support"><Phone className="size-4" aria-hidden />VictimLinkBC</a>}
-          {data.refused && tel && <a href={`tel:${tel}`} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-sm font-medium text-text"><Phone className="size-4" aria-hidden />Call {c.phone?.split(/ext/i)[0].trim()}</a>}
+          {data.refused && tel && <a href={tel} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-sm font-medium text-text"><Phone className="size-4" aria-hidden />Call {c.phone}</a>}
           <Link href="/support" prefetch={false} className="inline-flex min-h-10 items-center rounded-full bg-support/12 px-4 text-sm font-medium text-support">Get support</Link>
         </div>
       )}

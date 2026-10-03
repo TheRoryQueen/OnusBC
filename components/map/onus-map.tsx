@@ -4,7 +4,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 // MapLibre (about 1 MB) is imported lazily after hydration, so the page and its controls never wait for it;
 // DotsPreview shows the dots from the server-rendered HTML in the meantime.
 import type { GeoJSONSource, MapLayerMouseEvent, Map as MLMap } from "maplibre-gl";
-import { DotsPreview, INITIAL_BOUNDS, INITIAL_PADDING } from "./dots-preview";
+import { DotsPreview, INITIAL_BOUNDS, initialPadding } from "./dots-preview";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
@@ -100,7 +100,7 @@ export function OnusMap() {
         container: el.current,
         style: isDark() ? STYLE.dark : STYLE.light,
         bounds: INITIAL_BOUNDS,
-        fitBoundsOptions: { padding: INITIAL_PADDING },
+        fitBoundsOptions: { padding: initialPadding() },
         attributionControl: { compact: true },
         dragRotate: false,
         pitchWithRotate: false,
@@ -138,6 +138,16 @@ export function OnusMap() {
       });
       map.on("mouseleave", "school-dot", () => { map.getCanvas().style.cursor = ""; setHover(null); });
       map.on("click", "school-dot", (e: MapLayerMouseEvent) => {
+        // Several schools under the tap (Vancouver, Victoria at the starting zoom): zoom in on them rather
+        // than opening whichever dot happens to be on top.
+        const near = map.queryRenderedFeatures([[e.point.x - 10, e.point.y - 10], [e.point.x + 10, e.point.y + 10]], { layers: ["school-dot"] });
+        const slugs = new Set(near.map((f) => f.properties?.slug));
+        if (slugs.size > 1 && map.getZoom() < 11) {
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          const target = { center: e.lngLat, zoom: Math.min(map.getZoom() + 2.5, 12) };
+          if (reduce) map.jumpTo(target); else map.easeTo({ ...target, duration: 600 });
+          return;
+        }
         const slug = e.features?.[0]?.properties?.slug;
         if (slug) router.push(`/map/${slug}`, { scroll: false });
       });

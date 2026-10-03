@@ -7,6 +7,13 @@ import type { InstitutionSummary } from "@/lib/types";
 // MapLibre will draw them; the map fades this out once its own dots are on screen.
 export const INITIAL_BOUNDS: [[number, number], [number, number]] = [[-129.5, 48.2], [-114.5, 56.5]];
 export const INITIAL_PADDING = 24;
+// On wide screens the caption sits along the bottom, so the starting view keeps clear of it (Victoria's schools
+// would sit under it otherwise). Must match the preview's lg:bottom inset below.
+export const CAPTION_CLEARANCE = 72;
+export const initialPadding = () => {
+  const wide = typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
+  return { top: INITIAL_PADDING, right: INITIAL_PADDING, left: INITIAL_PADDING, bottom: wide ? CAPTION_CLEARANCE : INITIAL_PADDING };
+};
 
 const mx = (lng: number) => (lng + 180) / 360;
 const my = (lat: number) => {
@@ -25,8 +32,8 @@ export function DotsPreview({ schools, hidden }: { schools: InstitutionSummary[]
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute transition-opacity duration-300 motion-reduce:transition-none"
-      style={{ inset: INITIAL_PADDING, opacity: hidden ? 0 : 1 }}
+      className="pointer-events-none absolute inset-[24px] transition-opacity lg:bottom-[72px] duration-300 motion-reduce:transition-none"
+      style={{ opacity: hidden ? 0 : 1 }}
     >
       <svg viewBox={`${r3(x0 * k)} ${r3(y0 * k)} ${r3((x1 - x0) * k)} ${r3((y1 - y0) * k)}`} preserveAspectRatio="xMidYMid meet" className="h-full w-full overflow-visible">
         {schools.map((sch) => {

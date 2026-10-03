@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { useMapState } from "@/components/map/map-state";
 import { gapDisplay, isGraded } from "@/lib/grades";
 import type { Grade, InstitutionDetail } from "@/lib/types";
+import { telHref } from "@/lib/tel";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
@@ -99,7 +100,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
   const live = schools.find((s) => s.slug === school.slug)?.scores ?? school.scores;
   const graded = isGraded(live, school.policy_found);
   const gap = gapDisplay(live?.gap_label ?? null, school.policy_found);
-  const phone = school.contact_phone?.split(/ext/i)[0].replace(/[^\d+]/g, "");
+  const phone = school.contact_phone ? telHref(school.contact_phone) : null; // keeps the extension
   const docs = [
     school.policy_url && { label: "Policy", url: school.policy_url },
     school.procedures_url && { label: "Procedures", url: school.procedures_url },
@@ -112,10 +113,13 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
         <X className="size-4" strokeWidth={2} aria-hidden />
       </button>
 
-      <h2 className="pr-10 text-[26px] font-bold leading-tight tracking-tight text-text">{school.name}</h2>
-      <p className="mt-1 text-sm text-text-secondary">
-        {school.city}{school.city ? " · " : ""}{school.policy_found ? "Policy found" : "No public policy"}
-      </p>
+      {/* Phones: the title area is a drag handle too, so the expanded sheet can be swiped down from here. */}
+      <div data-sheet-handle className="touch-none md:touch-auto">
+        <h2 className="pr-10 text-[26px] font-bold leading-tight tracking-tight text-text">{school.name}</h2>
+        <p className="mt-1 text-sm text-text-secondary">
+          {school.city}{school.city ? " · " : ""}{school.policy_found ? "Policy found" : "No public policy"}
+        </p>
+      </div>
 
       <div className="mt-4 flex gap-2">
         {school.policy_found && (
@@ -132,7 +136,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
               : (school.support_url ?? school.website)!}
             icon={FileQuestion} label="Request policy" external />
         )}
-        {phone && <Action href={`tel:${phone}`} icon={Phone} label="Call" external />}
+        {phone && <Action href={phone} icon={Phone} label="Call" external />}
         {school.website && <Action href={school.website} icon={Globe} label="Website" external />}
         <Action href={`/rate/${school.slug}`} icon={PenLine} label="Review" />
       </div>
@@ -200,7 +204,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
         <ul className="mt-2 overflow-hidden rounded-2xl bg-hairline/40 text-sm">
           {school.contact_office && <li className="border-b border-hairline px-4 py-3 text-text">{school.contact_office}</li>}
           {school.contact_email && <li className="border-b border-hairline px-4 py-3"><a className="text-brand" href={`mailto:${school.contact_email}`}>{school.contact_email}</a></li>}
-          {school.contact_phone && phone && <li className="border-b border-hairline px-4 py-3"><a className="text-brand" href={`tel:${phone}`}>{school.contact_phone}</a></li>}
+          {school.contact_phone && phone && <li className="border-b border-hairline px-4 py-3"><a className="text-brand" href={phone}>{school.contact_phone}</a></li>}
           {school.support_url && <li className="px-4 py-3"><a className="text-brand" href={school.support_url} target="_blank" rel="noopener noreferrer">Support page</a></li>}
         </ul>
       </section>

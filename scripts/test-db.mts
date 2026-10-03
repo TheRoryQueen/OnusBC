@@ -269,20 +269,23 @@ try {
   // -------------------------------------------------------------------------
   console.log("\n== edit_rating and withdraw ==");
   {
-    const wrong = await anon().rpc("edit_rating", { p_edit_code: "ZZZZZZZZ", p_answers: { trust: 1 } });
+    // Only the server (via /api/ratings, which limits attempts) may check codes; the browser can't.
+    const direct = await anon().rpc("edit_rating", { p_edit_code: code, p_answers: { trust: 1 } });
+    check("the browser can't call edit_rating directly (no unlimited code guessing)", !!direct.error && /permission denied/i.test(direct.error.message), direct.error?.message);
+    const wrong = await admin.rpc("edit_rating", { p_edit_code: "ZZZZZZZZ", p_answers: { trust: 1 } });
     check("a wrong code is rejected", !!wrong.error && wrong.error.message.includes("code_not_found"), wrong.error?.message);
-    const free = await anon().rpc("edit_rating", { p_edit_code: code, p_answers: { trust: 1, note: "x" } });
+    const free = await admin.rpc("edit_rating", { p_edit_code: code, p_answers: { trust: 1, note: "x" } });
     check("edit rejects unknown fields too", !!free.error, free.error?.message);
-    const edit = await anon().rpc("edit_rating", { p_edit_code: code.toLowerCase(), p_answers: { knows_how: false, trust: 2, went_through: "no" } });
+    const edit = await admin.rpc("edit_rating", { p_edit_code: code.toLowerCase(), p_answers: { knows_how: false, trust: 2, went_through: "no" } });
     check("edit_rating works with the code alone (any case)", !edit.error && edit.data === true, edit.error?.message);
     const { rows } = await db.query("select * from public.ratings where institution_id = $1", [A]);
     check("edit replaced the answers and cleared step 2",
       rows[0].trust === 2 && rows[0].knows_how === false && rows[0].went_through === false && rows[0].believed === null && rows[0].consequence === null);
-    const wd = await anon().rpc("edit_rating", { p_edit_code: code, p_withdraw: true });
+    const wd = await admin.rpc("edit_rating", { p_edit_code: code, p_withdraw: true });
     check("withdraw works", !wd.error && wd.data === true, wd.error?.message);
     const { rows: w } = await db.query("select withdrawn from public.ratings where institution_id = $1", [A]);
     check("rating marked withdrawn", w[0].withdrawn === true);
-    const after = await anon().rpc("edit_rating", { p_edit_code: code, p_answers: { trust: 5 } });
+    const after = await admin.rpc("edit_rating", { p_edit_code: code, p_answers: { trust: 5 } });
     check("a withdrawn rating can't be edited again", !!after.error, after.error?.message);
     const sA = await scores(A);
     check("withdrawn rating no longer counted (n_onus = 0)", sA?.n_onus === 0, `n_onus=${sA?.n_onus}`);

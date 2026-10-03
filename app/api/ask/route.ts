@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { clientIp } from "@/lib/client-ip";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ask, type Contact } from "@/lib/ask/chain";
 import { makeRetrieve } from "@/lib/ask/retrieve";
@@ -20,17 +21,13 @@ function rateLimited(ip: string) {
 }
 
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  const ip = clientIp(request);
   if (rateLimited(ip)) {
     return NextResponse.json({ error: "Too many questions at once. Try again in a moment." }, { status: 429 });
   }
 
-  let body: { slug?: unknown; question?: unknown };
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Send a school and a question." }, { status: 400 });
-  }
+  const body = (await request.json().catch(() => null)) as { slug?: unknown; question?: unknown } | null;
+  if (!body || typeof body !== "object") return NextResponse.json({ error: "Send a school and a question." }, { status: 400 });
   const slug = typeof body.slug === "string" ? body.slug : "";
   const question = typeof body.question === "string" ? body.question.trim() : "";
   if (!/^[a-z0-9-]{2,40}$/.test(slug) || question.length < 3 || question.length > 500) {

@@ -35,7 +35,9 @@
     "test:nav": "tsx scripts/test-nav.mts",
     "test:account": "tsx scripts/test-account.mts",
     "test:states": "tsx scripts/test-states.mts",
-    "test:demo": "tsx scripts/test-demo.mts"
+    "test:demo": "tsx scripts/test-demo.mts",
+    "test:crisis": "tsx scripts/test-crisis.mts",
+    "test:fixes": "tsx scripts/test-fixes.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

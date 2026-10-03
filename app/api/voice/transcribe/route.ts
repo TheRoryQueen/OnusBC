@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { clientIp } from "@/lib/client-ip";
 import { transcribe, VoiceError } from "@/lib/elevenlabs";
 
 // POST /api/voice/transcribe (multipart: audio) -> { transcript }
@@ -17,7 +18,7 @@ function limited(ip: string) {
 }
 
 export async function POST(request: Request) {
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  const ip = clientIp(request);
   if (limited(ip)) return NextResponse.json({ error: "Too many recordings at once. Try again in a moment." }, { status: 429 });
 
   const form = await request.formData().catch(() => null);
