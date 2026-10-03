@@ -168,8 +168,14 @@ try {
     const ctx = await browser.newContext({ extraHTTPHeaders: { "x-forwarded-for": `10.9.${run.slice(0, 2).charCodeAt(0) % 250}.1` } }); const page = await ctx.newPage(); step("6 judge", page);
     const email = `judge-auth-${run}@notaschool.test`;
     await page.goto(`${BASE}/signin`, { waitUntil: "networkidle" });
+    check("sign-in card has exactly one email field", (await page.locator('input[type="email"]').count()) === 1);
     await page.getByRole("button", { name: "Judge access" }).click();
-    await page.getByLabel("Email", { exact: true }).fill(email);
+    check("Judge access with no email asks for the email first (no dialog)", await page.getByText("Enter your email first, then choose Judge access.").isVisible() && !(await page.getByRole("dialog").isVisible()));
+    await page.getByLabel("School email").fill(email);
+    await page.getByRole("button", { name: "Judge access" }).click();
+    const dialog = page.getByRole("dialog", { name: "Judge access" });
+    await dialog.waitFor();
+    check("Judge access opens a dialog with only the event code field", (await dialog.locator("input").count()) === 1 && await dialog.getByLabel("Event code").isVisible() && await dialog.getByText(email).isVisible());
     await page.getByLabel("Event code").fill("not-the-code");
     await page.getByRole("button", { name: "Continue as a judge" }).click();
     check("wrong event code is refused", await page.getByText("That event code didn't match.").waitFor({ timeout: 10000 }).then(() => true).catch(() => false));
