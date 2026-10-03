@@ -11,7 +11,9 @@
     "screenshots": "tsx scripts/screenshots.ts",
     "test:theme": "tsx scripts/test-theme.ts",
     "migrate": "tsx scripts/migrate.mts",
-    "test:db": "tsx scripts/test-db.mts"
+    "test:db": "tsx scripts/test-db.mts",
+    "check:institutions": "tsx scripts/check-institutions.mts",
+    "seed:institutions": "tsx scripts/seed-institutions.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
