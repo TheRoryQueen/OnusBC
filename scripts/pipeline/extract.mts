@@ -5,6 +5,7 @@
 import { readFileSync } from "node:fs";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { EXTRACTED, MANIFEST, POLICIES, readManifest, writeJson } from "./common.mts";
+import { acronymsIn, formatSectionLabel } from "../../lib/text.ts";
 
 const MIN_CHARS = 3000;
 
@@ -133,7 +134,8 @@ for (const [slug, m] of Object.entries(manifest)) {
       const fixed = repairLigatures(lines.join("\n"));
       if (fixed.ligature) console.log(`  ${slug} ${document.toLowerCase()}: repaired unmapped "${fixed.ligature}" ligature (${fixed.words} words, ${(fixed.rate * 100).toFixed(0)}% dictionary words)`);
       else if (fixed.words) console.log(`  ${slug} ${document.toLowerCase()}: ${fixed.words} words contain an unmapped glyph; no ligature fits, left as is`);
-      const part = sectionize(fixed.text.split("\n"));
+      const acronyms = acronymsIn(fixed.text);
+      const part = sectionize(fixed.text.split("\n")).map((x) => ({ ...x, section: formatSectionLabel(x.section, acronyms), title: formatSectionLabel(x.title, acronyms) }));
       const text = part.map((x) => x.text).join("\n\n");
       if (text.length < MIN_CHARS) throw new Error(`${document.toLowerCase()} extracted only ${text.length} characters; not a full document`);
       sections.push(...part.map((x) => ({ document, ...x }) as Section));
