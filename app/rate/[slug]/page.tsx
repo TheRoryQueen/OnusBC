@@ -21,13 +21,14 @@ export default async function RatePage(props: PageProps<"/rate/[slug]">) {
   const mismatch = !!profile && !profile.is_judge && profile.institution_id !== school.id;
 
   return (
-    <main className="flex-1 px-4 pb-20 pt-6 sm:px-6">
+    // Bottom padding clears the form's floating Get help and submit bar.
+    <main className="flex-1 px-4 pb-36 pt-8 sm:px-6 sm:pt-12">
       <div className="mx-auto w-full max-w-xl">
-        <p className="rounded-2xl bg-hairline/40 px-4 py-3 text-sm leading-relaxed text-text">
+        <p className="text-[15px] leading-relaxed text-text-secondary">
           These questions are about how your school handles reports, not about what happened to you. Skip anything you want.{" "}
           <Link href="/support" prefetch={false} className="font-medium text-support underline-offset-2 hover:underline">Get help</Link>
         </p>
-        <h1 className="mt-6 text-[28px] font-bold leading-tight tracking-tight text-text">Rate {school.name}</h1>
+        <h1 className="mt-5 text-[32px] font-bold leading-tight tracking-tight text-text">Rate {school.name}</h1>
         {mismatch ? (
           <div className="mt-6 space-y-3 text-[15px] text-text">
             <p>Your school email is from {own?.name ?? "a different school"}, so you can rate {own?.name ?? "that school"} on Onus.</p>
