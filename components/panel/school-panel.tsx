@@ -36,7 +36,7 @@ function OnusCount({ value }: { value: number }) {
     if (value !== prev.current) { prev.current = value; setFlash((f) => f + 1); }
   }, [value]);
   return (
-    <span className="relative inline-flex items-center gap-1">
+    <span className="relative inline-flex items-center gap-1" data-onus-count={value}>
       {flash > 0 && !reduce && (
         <motion.span key={flash} className="absolute -left-2.5 size-1.5 rounded-full bg-brand" initial={{ opacity: 1, scale: 1 }} animate={{ opacity: 0, scale: 2.4 }} transition={{ duration: 1.2 }} aria-hidden />
       )}
