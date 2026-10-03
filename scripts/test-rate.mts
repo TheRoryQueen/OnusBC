@@ -78,6 +78,14 @@ try {
   check("progress reads 1 of 2", await B.getByText("1 of 2", { exact: true }).isVisible());
   check("no free-text fields on the form", (await B.locator("textarea, input[type=text], input:not([type])").count()) === 0);
   check("step 2 is hidden until 'went through' is Yes", !(await B.getByText("Did you feel believed?").isVisible()));
+  const submitBtn = B.getByRole("button", { name: "Submit my rating" });
+  check("submit is disabled until at least one question is answered", await submitBtn.isDisabled());
+  await B.getByRole("radiogroup", { name: "Have you been through your school's reporting process?" }).getByRole("radio", { name: "No", exact: true }).click();
+  check("gate 'No' keeps step 2 closed and goes straight to submit", !(await B.getByText("Did you feel believed?").isVisible()) && await submitBtn.isEnabled() && await submitBtn.isVisible());
+  await B.getByRole("radiogroup", { name: "Have you been through your school's reporting process?" }).getByRole("radio", { name: "Prefer not to say" }).click();
+  check("gate 'Prefer not to say' also goes straight to submit", !(await B.getByText("Did you feel believed?").isVisible()) && await submitBtn.isEnabled());
+  await B.getByRole("group", { name: "Have you been through your school's reporting process?" }).getByRole("button", { name: "Clear" }).click();
+  check("any question can be cleared (skipped) again", await submitBtn.isDisabled());
 
   await B.getByRole("radiogroup", { name: "Do you know how to report here?" }).getByRole("radio", { name: "Yes" }).click();
   await B.getByRole("radiogroup", { name: "Would you trust the process?" }).getByRole("radio", { name: /^4/ }).click();
@@ -86,7 +94,13 @@ try {
   await B.getByRole("radiogroup", { name: "Did you feel believed?" }).getByRole("radio", { name: /^3/ }).click();
   await B.getByRole("radiogroup", { name: "Were you kept informed?" }).getByRole("radio", { name: /^2/ }).click();
   await B.getByRole("radio", { name: "1 to 3 months" }).click();
-  await B.getByRole("radiogroup", { name: "Was there a consequence?" }).getByRole("radio", { name: "Still waiting" }).click();
+  check("the action question is reworded with the four options",
+    (await B.getByRole("radiogroup", { name: "Did the school take any action after your report?" }).getByRole("radio").allInnerTexts()).map((t) => t.trim()).join("|") === "Yes|No|Still in progress|Prefer not to say");
+  await B.getByRole("radiogroup", { name: "Did the school take any action after your report?" }).getByRole("radio", { name: "Still in progress" }).click();
+  await B.mouse.wheel(0, 3000); await B.waitForTimeout(300);
+  const help = B.getByRole("link", { name: "Get help" }).last();
+  const box = await help.boundingBox();
+  check("Get help stays on screen after scrolling to the bottom", !!box && box.y > 0 && box.y + box.height <= (B.viewportSize()?.height ?? 720));
   await B.getByRole("button", { name: "Submit my rating" }).click();
 
   await B.getByText("Save this code. It's the only way to change or withdraw your rating, and we can't recover it.").waitFor({ timeout: 15000 });
