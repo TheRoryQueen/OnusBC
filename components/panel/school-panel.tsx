@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import NumberFlow from "@number-flow/react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/components/home/in-view";
 import { ChevronRight, FileQuestion, Globe, MessageCircle, Phone, PenLine, X } from "lucide-react";
 import { AskView, type AskMessage } from "./ask-view";
 import { Badge } from "@/components/ui/badge";
@@ -30,7 +31,7 @@ function useIsDesktop() {
 
 // A small teal dot that pulses once when the Onus count changes (never a constant "live" ping).
 function OnusCount({ value }: { value: number }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const prev = useRef(value);
   const [flash, setFlash] = useState(0);
   useEffect(() => {
@@ -212,7 +213,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
 export function SchoolPanel({ school }: { school: InstitutionDetail }) {
   const router = useRouter();
   const desktop = useIsDesktop();
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const [full, setFull] = useState(false);
   // The Ask sheet opens in place of the school details (same glass panel; never glass on glass).
   // The conversation is kept while you go back and forth, and starts fresh for each school.
