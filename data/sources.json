@@ -7,7 +7,8 @@
       "label": "of women students sexually assaulted in a postsecondary setting told anyone at their school",
       "context": "Men: 6%",
       "source": "Statistics Canada, Survey on Individual Safety in the Postsecondary Student Population, 2019",
-      "url": "https://www150.statcan.gc.ca/n1/pub/85-002-x/2020001/article/00005-eng.htm"
+      "url": "https://www150.statcan.gc.ca/n1/pub/85-002-x/2020001/article/00005-eng.htm",
+      "short_label": "of women students sexually assaulted at school told anyone there"
     },
     {
       "id": "reported-police",
@@ -15,7 +16,8 @@
       "unit": "percent",
       "label": "of sexual assaults in Canada are reported to police, the lowest of any crime measured",
       "source": "Statistics Canada, General Social Survey on Canadians' Safety, 2019 (Criminal victimization in Canada, 2019)",
-      "url": "https://www150.statcan.gc.ca/n1/pub/85-002-x/2021001/article/00014-eng.htm"
+      "url": "https://www150.statcan.gc.ca/n1/pub/85-002-x/2021001/article/00014-eng.htm",
+      "short_label": "of sexual assaults in Canada are reported to police"
     },
     {
       "id": "not-taken-seriously",
@@ -23,7 +25,8 @@
       "unit": "percent",
       "label": "of women students who didn't report said they didn't think their school would take it seriously",
       "source": "Statistics Canada, SISPSP 2019",
-      "url": "https://www150.statcan.gc.ca/n1/pub/85-002-x/2020001/article/00005-eng.htm"
+      "url": "https://www150.statcan.gc.ca/n1/pub/85-002-x/2020001/article/00005-eng.htm",
+      "short_label": "of women who didn't report doubted their school would take it seriously"
     }
   ],
   "chart_clearance": {
@@ -31,9 +34,45 @@
     "geography": "Canada",
     "offence": "Sexual assault, levels 1 to 3",
     "series": {
-      "years": [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
-      "not_cleared_pct": [40, 40, 41, 43, 47, 48, 50, 54, 53, 55, 59],
-      "cleared_by_charge_pct": [41, 42, 42, 39, 35, 34, 36, 35, 37, 35, 31]
+      "years": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "not_cleared_pct": [
+        40,
+        40,
+        41,
+        43,
+        47,
+        48,
+        50,
+        54,
+        53,
+        55,
+        59
+      ],
+      "cleared_by_charge_pct": [
+        41,
+        42,
+        42,
+        39,
+        35,
+        34,
+        36,
+        35,
+        37,
+        35,
+        31
+      ]
     },
     "caption": "Cleared by charge includes charges laid or recommended. Revised clearance categories were introduced in 2018.",
     "source": "Statistics Canada, Juristat, Recent trends in police-reported clearance status of sexual assault and other violent crime in Canada, 2017 to 2022, Data table for Chart 3",
@@ -56,12 +95,25 @@
     "verified": "2026-10-01"
   },
   "crisis_lines": [
-    { "name": "Emergency", "phone": "911" },
-    { "name": "VictimLinkBC (24/7)", "phone": "1-800-563-0808", "url": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/help-on-campus" }
+    {
+      "name": "Emergency",
+      "phone": "911"
+    },
+    {
+      "name": "VictimLinkBC (24/7)",
+      "phone": "1-800-563-0808",
+      "url": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/help-on-campus"
+    }
   ],
   "province_lists": {
     "policies": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies",
     "support": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/help-on-campus"
   },
-  "law_update": "https://news.gov.bc.ca/releases/2026PSFS0034-001092"
+  "law_update": "https://news.gov.bc.ca/releases/2026PSFS0034-001092",
+  "policy_requirement": {
+    "text": "All public post-secondary institutions are legally required to have sexual violence policies in place and to review them regularly.",
+    "source": "BC Ministry of Post-Secondary Education and Future Skills, Consent Awareness Week statement, 2026",
+    "url": "https://news.gov.bc.ca/releases/2026PSFS0034-001092",
+    "verified": "2026-10-03"
+  }
 }

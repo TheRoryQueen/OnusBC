@@ -30,8 +30,8 @@ export function ClearanceChart({ series }: { series: Series }) {
   return (
     <div ref={ref} className="w-full">
       {/* Right padding leaves room for the end labels; bottom for the year axis. */}
-      <div className="relative mr-[7.5rem] mb-8 mt-8 sm:mr-[9rem]">
-        <svg viewBox={`0 0 ${VB.w} ${VB.h}`} preserveAspectRatio="none" className="block aspect-[2/1] w-full overflow-visible" aria-hidden focusable="false">
+      <div className="relative mb-7 mr-[7rem] mt-6 sm:mr-[8.5rem]">
+        <svg viewBox={`0 0 ${VB.w} ${VB.h}`} preserveAspectRatio="none" className="block aspect-[12/5] w-full overflow-visible" aria-hidden focusable="false">
           <line x1={0} x2={VB.w} y1={VB.h} y2={VB.h} className="stroke-hairline" strokeWidth={1} vectorEffect="non-scaling-stroke" />
           {lines.map((l) => (
             <path key={l.key} d={path(l.vals)} pathLength={1} fill="none" className={l.cls} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round"
