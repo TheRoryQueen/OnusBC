@@ -7,7 +7,7 @@ import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { EXTRACTED, MANIFEST, POLICIES, readManifest, writeJson } from "./common.mts";
 
 const MIN_CHARS = 3000;
-type Section = { section: string; title: string; text: string };
+type Section = { document?: "Policy" | "Procedures"; section: string; title: string; text: string };
 
 async function pdfLines(path: string): Promise<{ lines: string[]; pages: number }> {
   const doc = await getDocument({ data: new Uint8Array(readFileSync(path)), useSystemFonts: true, verbosity: 0 }).promise;
@@ -105,22 +105,28 @@ function sectionize(lines: string[]): Section[] {
 const manifest = readManifest();
 let ok = 0;
 for (const [slug, m] of Object.entries(manifest)) {
-  if (!m.policy_found || !m.file) { console.log(`skip     ${slug} (no policy)`); continue; }
+  if (!m.policy_found) { console.log(`skip     ${slug} (no public policy)`); continue; }
   try {
-    const { lines, pages } = m.kind === "pdf" ? await pdfLines(POLICIES + m.file) : { lines: htmlLines(POLICIES + m.file), pages: null };
-    const sections = sectionize(lines);
-    const text = sections.map((s) => s.text).join("\n\n");
-    if (text.length < MIN_CHARS) {
-      m.policy_found = false;
-      m.error = `extracted only ${text.length} characters; not a full policy document`;
-      console.log(`REJECT   ${slug}: ${m.error}`);
-      continue;
+    // Policy first, then its procedures: one combined text, every section tagged with its document.
+    const sections: Section[] = [];
+    const sources: { document: string; url: string; pages: number | null }[] = [];
+    for (const d of m.documents.filter((x) => x.file)) {
+      const document = d.role === "policy" ? "Policy" : "Procedures";
+      const { lines, pages } = d.kind === "pdf" ? await pdfLines(POLICIES + d.file) : { lines: htmlLines(POLICIES + d.file!), pages: null };
+      const part = sectionize(lines);
+      const text = part.map((x) => x.text).join("\n\n");
+      if (text.length < MIN_CHARS) throw new Error(`${document.toLowerCase()} extracted only ${text.length} characters; not a full document`);
+      sections.push(...part.map((x) => ({ document, ...x }) as Section));
+      sources.push({ document, url: d.final_url ?? d.url, pages });
     }
-    writeJson(`${EXTRACTED}${slug}.json`, { slug, source_url: m.final_url ?? m.url, kind: m.kind, sha256: m.sha256, pages, chars: text.length, sections, text });
+    const text = sections.map((x) => x.text).join("\n\n");
+    writeJson(`${EXTRACTED}${slug}.json`, { slug, sha256: m.sha256, documents: sources, chars: text.length, sections, text });
     ok++;
-    console.log(`ok       ${slug.padEnd(15)} ${String(pages ?? "html").padStart(4)} pages  ${String(text.length).padStart(6)} chars  ${String(sections.length).padStart(3)} sections`);
+    console.log(`ok       ${slug.padEnd(15)} ${sources.map((x) => `${x.document} ${x.pages ?? "html"}p`).join(" + ").padEnd(30)} ${String(text.length).padStart(6)} chars  ${String(sections.length).padStart(3)} sections`);
   } catch (e) {
-    console.log(`FAILED   ${slug}: ${(e as Error).message}`);
+    m.policy_found = false;
+    m.error = (e as Error).message;
+    console.log(`REJECT   ${slug}: ${m.error}`);
   }
 }
 writeJson(MANIFEST, manifest);
