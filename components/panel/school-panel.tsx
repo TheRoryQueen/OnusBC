@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import NumberFlow from "@number-flow/react";
 import { motion, useReducedMotion } from "motion/react";
-import { ChevronRight, Globe, Phone, PenLine, X } from "lucide-react";
+import { ChevronRight, Globe, MessageCircle, Phone, PenLine, X } from "lucide-react";
+import { AskView, type AskMessage } from "./ask-view";
 import { Badge } from "@/components/ui/badge";
 import { useMapState } from "@/components/map/map-state";
 import { gapDisplay, isGraded } from "@/lib/grades";
@@ -92,7 +93,7 @@ function Action({ href, icon: Icon, label, external }: { href: string; icon: typ
   return external ? <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>{body}</a> : <Link href={href} className={cls}>{body}</Link>;
 }
 
-function PanelBody({ school, onClose }: { school: InstitutionDetail; onClose: () => void }) {
+function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onClose: () => void; onAsk: () => void }) {
   const { schools } = useMapState();
   const live = schools.find((s) => s.slug === school.slug)?.scores ?? school.scores;
   const graded = isGraded(live, school.policy_found);
@@ -116,6 +117,12 @@ function PanelBody({ school, onClose }: { school: InstitutionDetail; onClose: ()
       </p>
 
       <div className="mt-4 flex gap-2">
+        {school.policy_found && (
+          <button type="button" onClick={onAsk}
+            className="flex flex-1 flex-col items-center gap-1 rounded-2xl bg-brand px-2 py-2.5 text-xs font-medium text-on-brand transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+            <MessageCircle className="size-[18px]" strokeWidth={1.75} aria-hidden />Ask
+          </button>
+        )}
         {phone && <Action href={`tel:${phone}`} icon={Phone} label="Call" external />}
         {school.website && <Action href={school.website} icon={Globe} label="Website" external />}
         <Action href={`/rate/${school.slug}`} icon={PenLine} label="Review" />
@@ -199,6 +206,11 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
   const desktop = useIsDesktop();
   const reduce = useReducedMotion();
   const [full, setFull] = useState(false);
+  // The Ask sheet opens in place of the school details (same glass panel; never glass on glass).
+  // The conversation is kept while you go back and forth, and starts fresh for each school.
+  const [asking, setAsking] = useState(false);
+  const [messages, setMessages] = useState<AskMessage[]>([]);
+  const openAsk = () => { setAsking(true); setFull(true); };
   const [dragHeight, setDragHeight] = useState<number | null>(null);
   const sheetRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -206,17 +218,19 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
   const close = () => router.push("/map", { scroll: false });
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
+    const onKey = (e: KeyboardEvent) => { if (e.key !== "Escape") return; if (asking) setAsking(false); else close(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [asking]);
 
   // Phone sheet gestures (desktop is a sidebar and ignores these). At half height a vertical swipe anywhere
   // moves the sheet (the content doesn't scroll there); at full height the content scrolls, and a swipe down
   // from the grabber or header, or from the content already scrolled to the top, collapses it to half.
   const onPointerDown = (e: React.PointerEvent) => {
     if (desktop || !sheetRef.current) return;
+    // Typing and selecting text in the Ask box never moves the sheet.
+    if ((e.target as HTMLElement).closest("textarea")) return;
     const fromHandle = !!(e.target as HTMLElement).closest("[data-sheet-handle]");
     gesture.current = { y0: e.clientY, base: sheetRef.current.getBoundingClientRect().height, decided: false, active: false, fromHandle };
   };
@@ -255,6 +269,8 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={() => { gesture.current = null; setDragHeight(null); }}
+      // A swipe that starts on a link or image must move the sheet, not start the browser's native drag.
+      onDragStart={(e) => { if (!desktop) e.preventDefault(); }}
       style={dragHeight !== null && !desktop ? { height: dragHeight, transition: "none" } : undefined}
       className={cn(
         "glass pointer-events-auto absolute inset-x-0 bottom-0 z-20 flex flex-col rounded-t-[28px] pb-[env(safe-area-inset-bottom,0px)]",
@@ -267,9 +283,13 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
         className="mx-auto flex h-7 w-full shrink-0 touch-none items-center justify-center md:hidden">
         <span className="h-1.5 w-10 rounded-full bg-text-secondary/40" />
       </button>
-      <div ref={scrollRef} className={cn("min-h-0 flex-1 overscroll-contain", full || desktop ? "overflow-y-auto" : "overflow-hidden", "md:overflow-y-auto")}>
-        <PanelBody school={school} onClose={close} />
-      </div>
+      {asking ? (
+        <AskView slug={school.slug} school={school.name} messages={messages} setMessages={setMessages} onBack={() => setAsking(false)} scrollRef={scrollRef} />
+      ) : (
+        <div ref={scrollRef} className={cn("min-h-0 flex-1 overscroll-contain", full || desktop ? "overflow-y-auto" : "overflow-hidden", "md:overflow-y-auto")}>
+          <PanelBody school={school} onClose={close} onAsk={openAsk} />
+        </div>
+      )}
     </aside>
   );
 }
