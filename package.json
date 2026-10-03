@@ -29,7 +29,8 @@
     "test:auth": "tsx scripts/test-auth.mts",
     "test:rate": "tsx scripts/test-rate.mts",
     "seed:demo": "tsx scripts/seed-demo.mts",
-    "test:ask-sheet": "tsx scripts/test-ask-sheet.mts"
+    "test:ask-sheet": "tsx scripts/test-ask-sheet.mts",
+    "test:voice": "tsx scripts/test-voice.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

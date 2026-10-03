@@ -65,7 +65,7 @@ try {
   check("placeholder reads 'Ask about [School]'s policy'", (await box.getAttribute("placeholder")) === `Ask about ${ubc.name}'s policy`);
   const send = page.getByRole("button", { name: "Send" });
   check("send is disabled until there is text", await send.isDisabled());
-  check("mic button is there (voice comes in milestone 10)", await page.getByRole("button", { name: /Ask by voice/ }).isVisible());
+  check("mic button is there", await page.getByRole("button", { name: /Ask by voice/ }).isVisible());
   check("no-personal-details note and Privacy link under the box", await page.getByText("Please don't share personal details. Questions aren't stored.").isVisible());
   await box.fill("x ".repeat(400));
   const h = (await box.boundingBox())!.height;
