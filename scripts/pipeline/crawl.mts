@@ -1,46 +1,63 @@
-// Step 1: download each school's sexual violence policy into data/policies/ and record a manifest
-// with the source URL and a SHA-256 hash of the document. A changed hash marks the school for
-// re-grading. Pages that block scripts can be saved by hand as data/policies/<slug>.pdf (manual).
+// Step 1: download each school's sexual violence policy, plus its separate procedures document where one
+// exists (graded together as one text), into data/policies/. The manifest records every document's URL
+// and SHA-256 hash; a changed combined hash marks the school for re-grading.
+// Sites that block scripts: save the file by hand as data/policies/<slug>.pdf or <slug>.procedures.pdf
+// and it is used (marked manual). A school whose policy needs a login keeps policy_found = false.
 // Usage: npm run crawl
 import { existsSync, readFileSync, renameSync, statSync, unlinkSync } from "node:fs";
-import { MANIFEST, POLICIES, download, institutions, readManifest, sha256, writeJson, type ManifestEntry } from "./common.mts";
+import { MANIFEST, POLICIES, download, readManifest, sha256, writeJson, type DocEntry, type ManifestEntry } from "./common.mts";
 
-const prev = readManifest();
-const next: Record<string, ManifestEntry> = {};
-let found = 0;
-for (const inst of institutions) {
-  const tmp = `${POLICIES}${inst.slug}.download`;
-  const at = new Date().toISOString();
-  let entry: ManifestEntry;
+type Inst = { slug: string; policy_url: string; procedures_url: string | null; policy_note: string | null };
+const institutions: Inst[] = JSON.parse(readFileSync(new URL("../../data/institutions.json", import.meta.url), "utf8")).institutions;
+
+function fetchDoc(slug: string, role: "policy" | "procedures", url: string): DocEntry {
+  const base = role === "policy" ? slug : `${slug}.procedures`;
+  const tmp = `${POLICIES}${base}.download`;
   try {
-    const r = download(inst.policy_url, tmp);
+    const r = download(url, tmp);
     const buf = existsSync(tmp) ? readFileSync(tmp) : Buffer.alloc(0);
     const isPdf = buf.subarray(0, 5).toString() === "%PDF-";
     const isHtml = !isPdf && /<html|<!doctype html/i.test(buf.subarray(0, 2000).toString());
     if (r.status === 200 && (isPdf || isHtml) && buf.length > 2000) {
       const kind = isPdf ? "pdf" : "html";
-      const file = `${inst.slug}.${kind}`;
-      for (const k of ["pdf", "html"]) if (k !== kind && existsSync(`${POLICIES}${inst.slug}.${k}`)) unlinkSync(`${POLICIES}${inst.slug}.${k}`);
-      renameSync(tmp, POLICIES + file);
-      entry = { url: inst.policy_url, final_url: r.finalUrl, status: r.status, kind, file, bytes: buf.length, sha256: sha256(buf), fetched_at: at, policy_found: true };
-    } else {
-      throw new Error(`status ${r.status}, ${buf.length} bytes, ${isPdf ? "pdf" : isHtml ? "html" : "unknown type"}`);
+      for (const k of ["pdf", "html"]) if (k !== kind && existsSync(`${POLICIES}${base}.${k}`)) unlinkSync(`${POLICIES}${base}.${k}`);
+      renameSync(tmp, `${POLICIES}${base}.${kind}`);
+      return { role, url, final_url: r.finalUrl, status: r.status, kind, file: `${base}.${kind}`, bytes: buf.length, sha256: sha256(buf) };
     }
+    throw new Error(`status ${r.status}, ${buf.length} bytes, ${isPdf ? "pdf" : isHtml ? "html" : "unknown type"}`);
   } catch (e) {
     if (existsSync(tmp)) unlinkSync(tmp);
-    const manual = `${POLICIES}${inst.slug}.pdf`;
-    if (existsSync(manual) && prev[inst.slug]?.manual) {
+    const manual = `${POLICIES}${base}.pdf`;
+    if (existsSync(manual)) {
       const buf = readFileSync(manual);
-      entry = { ...prev[inst.slug], fetched_at: at, sha256: sha256(buf), bytes: statSync(manual).size, policy_found: true, manual: true };
-    } else {
-      entry = { url: inst.policy_url, status: 0, fetched_at: at, policy_found: false, error: (e as Error).message };
+      return { role, url, status: 0, kind: "pdf", file: `${base}.pdf`, bytes: statSync(manual).size, sha256: sha256(buf), manual: true, error: (e as Error).message };
     }
+    return { role, url, status: 0, error: (e as Error).message };
   }
+}
+
+const prev = readManifest();
+const next: Record<string, ManifestEntry> = {};
+let found = 0, withProcedures = 0;
+for (const inst of institutions) {
+  const at = new Date().toISOString();
+  const docs: DocEntry[] = [fetchDoc(inst.slug, "policy", inst.policy_url)];
+  if (inst.procedures_url) docs.push(fetchDoc(inst.slug, "procedures", inst.procedures_url));
+  const policyDoc = docs[0];
+  const policyFound = !!policyDoc.sha256 && !inst.policy_note;
+  const combined = docs.filter((d) => d.sha256).map((d) => d.sha256).join("+");
+  const entry: ManifestEntry = {
+    url: inst.policy_url, fetched_at: at, policy_found: policyFound, documents: docs,
+    sha256: combined || undefined, // policy hash, or policy+procedures hashes joined
+    ...(inst.policy_note ? { note: inst.policy_note } : {}),
+  };
   const old = prev[inst.slug]?.sha256;
   if (entry.sha256 && old && old !== entry.sha256) { entry.changed = true; entry.previous_sha256 = old; }
-  if (entry.policy_found) found++;
+  if (policyFound) found++;
+  if (policyFound && docs.length > 1 && docs[1].sha256) withProcedures++;
   next[inst.slug] = entry;
-  console.log(`${entry.policy_found ? "found " : "MISSING"}  ${inst.slug.padEnd(15)} ${entry.kind ?? ""} ${entry.bytes ?? ""}${entry.changed ? "  CHANGED since last crawl" : ""}${entry.error ? `  (${entry.error})` : ""}`);
+  const show = (d: DocEntry) => d.sha256 ? `${d.role} ${d.kind} ${d.bytes}B${d.manual ? " (manual copy)" : ""}` : `${d.role} MISSING (${d.error})`;
+  console.log(`${policyFound ? "found  " : "MISSING"}  ${inst.slug.padEnd(15)} ${docs.map(show).join(" + ")}${inst.policy_note ? `  [${inst.policy_note}]` : ""}${entry.changed ? "  CHANGED" : ""}`);
 }
 writeJson(MANIFEST, next);
-console.log(`\n${found} of ${institutions.length} policies found`);
+console.log(`\n${found} of ${institutions.length} policies found; ${withProcedures} with a separate procedures document`);

@@ -1,285 +1,569 @@
 {
   "bcit": {
     "url": "https://www.bcit.ca/files/pdf/policies/7103.pdf",
-    "final_url": "https://www.bcit.ca/files/pdf/policies/7103.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "bcit.pdf",
-    "bytes": 307734,
-    "sha256": "3cd57eb82b492d68ba0e0a80f0ea4f03c78b23abbc69ffc4acb06fde1a4e9320",
-    "fetched_at": "2026-10-02T06:00:41.511Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:30.021Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.bcit.ca/files/pdf/policies/7103.pdf",
+        "final_url": "https://www.bcit.ca/files/pdf/policies/7103.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "bcit.pdf",
+        "bytes": 307734,
+        "sha256": "3cd57eb82b492d68ba0e0a80f0ea4f03c78b23abbc69ffc4acb06fde1a4e9320"
+      },
+      {
+        "role": "procedures",
+        "url": "https://www.bcit.ca/files/pdf/policies/7103-pr1.pdf",
+        "final_url": "https://www.bcit.ca/files/pdf/policies/7103-pr1.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "bcit.procedures.pdf",
+        "bytes": 229623,
+        "sha256": "1d08d22635c01dc673adc854be064ba93a3325911b9504e9f348172a004f1d29"
+      }
+    ],
+    "sha256": "3cd57eb82b492d68ba0e0a80f0ea4f03c78b23abbc69ffc4acb06fde1a4e9320+1d08d22635c01dc673adc854be064ba93a3325911b9504e9f348172a004f1d29",
+    "changed": true,
+    "previous_sha256": "3cd57eb82b492d68ba0e0a80f0ea4f03c78b23abbc69ffc4acb06fde1a4e9320"
   },
   "camosun": {
     "url": "http://camosun.ca/about/policies/education-academic/e-2-student-services-and-support/e-2.9.pdf",
-    "final_url": "https://camosun.ca/sites/default/files/2021-05/e-2.9.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "camosun.pdf",
-    "bytes": 915914,
-    "sha256": "2bb60e455beb9c08a0151c8267ea8920c1b36696270dc3575ed11d354f278582",
-    "fetched_at": "2026-10-02T06:00:41.728Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:30.355Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "http://camosun.ca/about/policies/education-academic/e-2-student-services-and-support/e-2.9.pdf",
+        "final_url": "https://camosun.ca/sites/default/files/2021-05/e-2.9.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "camosun.pdf",
+        "bytes": 915914,
+        "sha256": "2bb60e455beb9c08a0151c8267ea8920c1b36696270dc3575ed11d354f278582"
+      },
+      {
+        "role": "procedures",
+        "url": "https://camosun.ca/sites/default/files/2021-05/e-2.9.1.pdf",
+        "final_url": "https://camosun.ca/sites/default/files/2021-05/e-2.9.1.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "camosun.procedures.pdf",
+        "bytes": 287512,
+        "sha256": "ef10931879199f460bf905bb4d36fde30fc1bb0cacf86767361076ef172a17d3"
+      }
+    ],
+    "sha256": "2bb60e455beb9c08a0151c8267ea8920c1b36696270dc3575ed11d354f278582+ef10931879199f460bf905bb4d36fde30fc1bb0cacf86767361076ef172a17d3",
+    "changed": true,
+    "previous_sha256": "2bb60e455beb9c08a0151c8267ea8920c1b36696270dc3575ed11d354f278582"
   },
   "capilano": {
     "url": "https://www.capilanou.ca/media/capilanouca/about-capu/governance/policies-amp-procedures/B.401-Sexual-Violence-Policy.pdf",
-    "final_url": "https://www.capilanou.ca/media/capilanouca/about-capu/governance/policies-amp-procedures/B.401-Sexual-Violence-Policy.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "capilano.pdf",
-    "bytes": 329955,
-    "sha256": "ebbbeb7abafc27e1073f848c097cc796dcdc4af6444876ca4c962eb3d1415b3f",
-    "fetched_at": "2026-10-02T06:00:42.026Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:31.083Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.capilanou.ca/media/capilanouca/about-capu/governance/policies-amp-procedures/B.401-Sexual-Violence-Policy.pdf",
+        "final_url": "https://www.capilanou.ca/media/capilanouca/about-capu/governance/policies-amp-procedures/B.401-Sexual-Violence-Policy.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "capilano.pdf",
+        "bytes": 329955,
+        "sha256": "ebbbeb7abafc27e1073f848c097cc796dcdc4af6444876ca4c962eb3d1415b3f"
+      }
+    ],
+    "sha256": "ebbbeb7abafc27e1073f848c097cc796dcdc4af6444876ca4c962eb3d1415b3f"
   },
   "coast-mountain": {
     "url": "https://www.coastmountaincollege.ca/docs/default-source/policies/administrative-policies-and-procedures/administrative-policies/adm-007-sexual-violence-prevention-and-response-policy.pdf",
-    "final_url": "https://www.coastmountaincollege.ca/docs/default-source/policies/administrative-policies-and-procedures/administrative-policies/adm-007-sexual-violence-prevention-and-response-policy.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "coast-mountain.pdf",
-    "bytes": 280310,
-    "sha256": "f4a3fde6a9f178a56f497b1e7d3375296ea6e227f39cc4eb91734d8d81a38448",
-    "fetched_at": "2026-10-02T06:00:42.461Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:31.600Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.coastmountaincollege.ca/docs/default-source/policies/administrative-policies-and-procedures/administrative-policies/adm-007-sexual-violence-prevention-and-response-policy.pdf",
+        "final_url": "https://www.coastmountaincollege.ca/docs/default-source/policies/administrative-policies-and-procedures/administrative-policies/adm-007-sexual-violence-prevention-and-response-policy.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "coast-mountain.pdf",
+        "bytes": 280310,
+        "sha256": "f4a3fde6a9f178a56f497b1e7d3375296ea6e227f39cc4eb91734d8d81a38448"
+      },
+      {
+        "role": "procedures",
+        "url": "https://www.coastmountaincollege.ca/docs/default-source/policies/administrative-policies-and-procedures/administrative-procedures/adm-007p-sexual-violence-prevention-and-response-procedure.pdf",
+        "final_url": "https://www.coastmountaincollege.ca/docs/default-source/policies/administrative-policies-and-procedures/administrative-procedures/adm-007p-sexual-violence-prevention-and-response-procedure.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "coast-mountain.procedures.pdf",
+        "bytes": 331103,
+        "sha256": "c5ecfb9c603638ca6951c403fcebc9bbc697619502ea99cdbfccfeee3aee417c"
+      }
+    ],
+    "sha256": "f4a3fde6a9f178a56f497b1e7d3375296ea6e227f39cc4eb91734d8d81a38448+c5ecfb9c603638ca6951c403fcebc9bbc697619502ea99cdbfccfeee3aee417c",
+    "changed": true,
+    "previous_sha256": "f4a3fde6a9f178a56f497b1e7d3375296ea6e227f39cc4eb91734d8d81a38448"
   },
   "cnc": {
     "url": "https://cnc.bc.ca/docs/default-source/policies/student-sexual-misconduct.pdf?sfvrsn=4c5fb684_0",
-    "final_url": "https://cnc.bc.ca/docs/default-source/policies/student-sexual-misconduct.pdf?sfvrsn=4c5fb684_0",
-    "status": 200,
-    "kind": "pdf",
-    "file": "cnc.pdf",
-    "bytes": 175943,
-    "sha256": "cc5fc4fd8685802d2531f84f8e2a636d2acb3b70c9aba9e378ae3740564ba555",
-    "fetched_at": "2026-10-02T06:00:43.034Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:32.858Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://cnc.bc.ca/docs/default-source/policies/student-sexual-misconduct.pdf?sfvrsn=4c5fb684_0",
+        "final_url": "https://cnc.bc.ca/docs/default-source/policies/student-sexual-misconduct.pdf?sfvrsn=4c5fb684_0",
+        "status": 200,
+        "kind": "pdf",
+        "file": "cnc.pdf",
+        "bytes": 175943,
+        "sha256": "cc5fc4fd8685802d2531f84f8e2a636d2acb3b70c9aba9e378ae3740564ba555"
+      }
+    ],
+    "sha256": "cc5fc4fd8685802d2531f84f8e2a636d2acb3b70c9aba9e378ae3740564ba555"
   },
   "cotr": {
     "url": "https://cotr.bc.ca/student-services/student-support/sexualized-violence/sexualized-violence-policy/",
-    "final_url": "https://cotr.bc.ca/student-services/student-support/sexualized-violence/sexualized-violence-policy/",
-    "status": 200,
-    "kind": "html",
-    "file": "cotr.html",
-    "bytes": 155157,
-    "sha256": "ba21db64021a02c404f00de9d5f308e444ea3c489a388323673ee1dfe86e3d39",
-    "fetched_at": "2026-10-02T06:00:43.408Z",
+    "fetched_at": "2026-10-02T13:58:33.270Z",
     "policy_found": false,
-    "error": "extracted only 2815 characters; not a full policy document"
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://cotr.bc.ca/student-services/student-support/sexualized-violence/sexualized-violence-policy/",
+        "final_url": "https://cotr.bc.ca/student-services/student-support/sexualized-violence/sexualized-violence-policy/",
+        "status": 200,
+        "kind": "html",
+        "file": "cotr.html",
+        "bytes": 155157,
+        "sha256": "ba21db64021a02c404f00de9d5f308e444ea3c489a388323673ee1dfe86e3d39"
+      }
+    ],
+    "sha256": "ba21db64021a02c404f00de9d5f308e444ea3c489a388323673ee1dfe86e3d39",
+    "note": "Policy exists but requires a login to read"
   },
   "douglas": {
     "url": "https://www.douglascollege.ca/sites/default/files/docs/college-board/A53%20Sexual%20Violence%20and%20Misconduct%20Prevention%20and%20Response%20Policy.pdf",
-    "final_url": "https://www.douglascollege.ca/sites/default/files/docs/college-board/A53%20Sexual%20Violence%20and%20Misconduct%20Prevention%20and%20Response%20Policy.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "douglas.pdf",
-    "bytes": 237514,
-    "sha256": "2e651c67f44de952993b85cb001e2985b1b6421005ef7c764924d64108a13390",
-    "fetched_at": "2026-10-02T06:00:44.034Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:33.444Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.douglascollege.ca/sites/default/files/docs/college-board/A53%20Sexual%20Violence%20and%20Misconduct%20Prevention%20and%20Response%20Policy.pdf",
+        "final_url": "https://www.douglascollege.ca/sites/default/files/docs/college-board/A53%20Sexual%20Violence%20and%20Misconduct%20Prevention%20and%20Response%20Policy.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "douglas.pdf",
+        "bytes": 237514,
+        "sha256": "2e651c67f44de952993b85cb001e2985b1b6421005ef7c764924d64108a13390"
+      }
+    ],
+    "sha256": "2e651c67f44de952993b85cb001e2985b1b6421005ef7c764924d64108a13390"
   },
   "ecuad": {
     "url": "https://ecuad.ca/wp-content/uploads/2025/12/3.6-Sexual-and-Gender-Based-Violence-and-Misconduct-Policy_Approved-July2021.pdf",
-    "status": 0,
-    "fetched_at": "2026-10-02T06:00:44.135Z",
-    "policy_found": false,
-    "error": "status 403, 103 bytes, html"
+    "fetched_at": "2026-10-02T13:58:33.574Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://ecuad.ca/wp-content/uploads/2025/12/3.6-Sexual-and-Gender-Based-Violence-and-Misconduct-Policy_Approved-July2021.pdf",
+        "status": 0,
+        "kind": "pdf",
+        "file": "ecuad.pdf",
+        "bytes": 160749,
+        "sha256": "c5c69c6d3e17070cf851dec80e941eb2653c85f5f4aa64cf1228a6be544ac3b6",
+        "manual": true,
+        "error": "status 403, 103 bytes, html"
+      },
+      {
+        "role": "procedures",
+        "url": "https://ecuad.ca/wp-content/uploads/2025/12/3.6.1-Procedures-for-Students-2024-final_2024-10-22-032636_afsy.pdf",
+        "status": 0,
+        "error": "status 403, 103 bytes, html"
+      }
+    ],
+    "sha256": "c5c69c6d3e17070cf851dec80e941eb2653c85f5f4aa64cf1228a6be544ac3b6"
   },
   "jibc": {
     "url": "http://www.jibc.ca/policy/3213",
-    "final_url": "https://www.jibc.ca/policy/sexual-violence-and-misconduct-students",
-    "status": 200,
-    "kind": "html",
-    "file": "jibc.html",
-    "bytes": 54650,
-    "sha256": "7cdeb056d207ef421bf2cc6de3a123f017636233b9e2c5784516ad85ca48f383",
-    "fetched_at": "2026-10-02T06:00:44.190Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:33.861Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "http://www.jibc.ca/policy/3213",
+        "final_url": "https://www.jibc.ca/policy/sexual-violence-and-misconduct-students",
+        "status": 200,
+        "kind": "html",
+        "file": "jibc.html",
+        "bytes": 54650,
+        "sha256": "022d2aaebdc36652b09ea0267382637faa1a6c9fd781f21da7f1e598425963e8"
+      },
+      {
+        "role": "procedures",
+        "url": "https://www.jibc.ca/procedure/sexual-violence-and-misconduct-students",
+        "final_url": "https://www.jibc.ca/procedure/sexual-violence-and-misconduct-students",
+        "status": 200,
+        "kind": "html",
+        "file": "jibc.procedures.html",
+        "bytes": 71963,
+        "sha256": "b6e6c4ddedaf10c16f6935f13e87fad44ac50900edcc69faf0975990bed065b1"
+      }
+    ],
+    "sha256": "022d2aaebdc36652b09ea0267382637faa1a6c9fd781f21da7f1e598425963e8+b6e6c4ddedaf10c16f6935f13e87fad44ac50900edcc69faf0975990bed065b1",
+    "changed": true,
+    "previous_sha256": "7cdeb056d207ef421bf2cc6de3a123f017636233b9e2c5784516ad85ca48f383"
   },
   "kpu": {
     "url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Policy.pdf",
-    "final_url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Policy.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "kpu.pdf",
-    "bytes": 188867,
-    "sha256": "4e68b2447ed643a051cb31fec6abdee644c19e4575c02601d42f449ba06d16b0",
-    "fetched_at": "2026-10-02T06:00:44.362Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:34.404Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Policy.pdf",
+        "final_url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Policy.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "kpu.pdf",
+        "bytes": 188867,
+        "sha256": "4e68b2447ed643a051cb31fec6abdee644c19e4575c02601d42f449ba06d16b0"
+      },
+      {
+        "role": "procedures",
+        "url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Procedure.pdf",
+        "final_url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Procedure.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "kpu.procedures.pdf",
+        "bytes": 272303,
+        "sha256": "b5b3b850d5c1e08c258b3cd0985a23243af57373cb8c8076670b6ba6cf519504"
+      }
+    ],
+    "sha256": "4e68b2447ed643a051cb31fec6abdee644c19e4575c02601d42f449ba06d16b0+b5b3b850d5c1e08c258b3cd0985a23243af57373cb8c8076670b6ba6cf519504",
+    "changed": true,
+    "previous_sha256": "4e68b2447ed643a051cb31fec6abdee644c19e4575c02601d42f449ba06d16b0"
   },
   "langara": {
     "url": "https://langara.ca/media/11361/download?inline=",
-    "final_url": "https://langara.ca/media/11361/download?inline=",
-    "status": 200,
-    "kind": "pdf",
-    "file": "langara.pdf",
-    "bytes": 672303,
-    "sha256": "78530ff93723cf6e03a85e75f3b8d07db648abd8345fb8410f41593be4b8918b",
-    "fetched_at": "2026-10-02T06:00:44.426Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:34.661Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://langara.ca/media/11361/download?inline=",
+        "final_url": "https://langara.ca/media/11361/download?inline=",
+        "status": 200,
+        "kind": "pdf",
+        "file": "langara.pdf",
+        "bytes": 672303,
+        "sha256": "78530ff93723cf6e03a85e75f3b8d07db648abd8345fb8410f41593be4b8918b"
+      }
+    ],
+    "sha256": "78530ff93723cf6e03a85e75f3b8d07db648abd8345fb8410f41593be4b8918b"
   },
   "nvit": {
     "url": "https://www.nvit.ca/wp-content/uploads/2025/07/C.1.10-Sexual-Violence-Prevention-Response.pdf",
-    "final_url": "https://www.nvit.ca/wp-content/uploads/2025/07/C.1.10-Sexual-Violence-Prevention-Response.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "nvit.pdf",
-    "bytes": 471250,
-    "sha256": "16039ae03596d5825653c1bca864222b157041d93dafe532d73f17e1df5577ec",
-    "fetched_at": "2026-10-02T06:00:44.854Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:35.195Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.nvit.ca/wp-content/uploads/2025/07/C.1.10-Sexual-Violence-Prevention-Response.pdf",
+        "final_url": "https://www.nvit.ca/wp-content/uploads/2025/07/C.1.10-Sexual-Violence-Prevention-Response.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "nvit.pdf",
+        "bytes": 471250,
+        "sha256": "16039ae03596d5825653c1bca864222b157041d93dafe532d73f17e1df5577ec"
+      }
+    ],
+    "sha256": "16039ae03596d5825653c1bca864222b157041d93dafe532d73f17e1df5577ec"
   },
   "nic": {
     "url": "https://www.nic.bc.ca/_resources/pdf/policy-3-34-sexualized-violence-prevention-and-response.pdf",
-    "final_url": "https://www.nic.bc.ca/_resources/pdf/policy-3-34-sexualized-violence-prevention-and-response.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "nic.pdf",
-    "bytes": 723096,
-    "sha256": "690ca8b0f3ebcf3a56657c45cb47fe7f18cd1c2b67ff1c0cf6a5a0a2c0742a1b",
-    "fetched_at": "2026-10-02T06:00:45.351Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:35.690Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.nic.bc.ca/_resources/pdf/policy-3-34-sexualized-violence-prevention-and-response.pdf",
+        "final_url": "https://www.nic.bc.ca/_resources/pdf/policy-3-34-sexualized-violence-prevention-and-response.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "nic.pdf",
+        "bytes": 723096,
+        "sha256": "690ca8b0f3ebcf3a56657c45cb47fe7f18cd1c2b67ff1c0cf6a5a0a2c0742a1b"
+      }
+    ],
+    "sha256": "690ca8b0f3ebcf3a56657c45cb47fe7f18cd1c2b67ff1c0cf6a5a0a2c0742a1b"
   },
   "nlc": {
     "url": "https://www.nlc.bc.ca/wp-content/uploads/a-5_18.pdf",
-    "final_url": "https://www.nlc.bc.ca/wp-content/uploads/a-5_18.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "nlc.pdf",
-    "bytes": 231137,
-    "sha256": "378ccb5eebea04304c1f35c298be4700ea10385285a4142ac6f38b8c29fb85e5",
-    "fetched_at": "2026-10-02T06:00:46.014Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:36.568Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.nlc.bc.ca/wp-content/uploads/a-5_18.pdf",
+        "final_url": "https://www.nlc.bc.ca/wp-content/uploads/a-5_18.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "nlc.pdf",
+        "bytes": 231137,
+        "sha256": "378ccb5eebea04304c1f35c298be4700ea10385285a4142ac6f38b8c29fb85e5"
+      }
+    ],
+    "sha256": "378ccb5eebea04304c1f35c298be4700ea10385285a4142ac6f38b8c29fb85e5"
   },
   "okanagan": {
     "url": "https://www.okanagan.bc.ca/sites/default/files/2020-03/sexual_violence_and_misconduct_policy.pdf",
-    "final_url": "https://www.okanagancollege.ca/sites/default/files/2020-03/sexual_violence_and_misconduct_policy.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "okanagan.pdf",
-    "bytes": 226993,
-    "sha256": "01f48442442f994b9e6962672459a07f24567eaac4bf6687dae5bfa3b500290d",
-    "fetched_at": "2026-10-02T06:00:46.086Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:36.787Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.okanagan.bc.ca/sites/default/files/2020-03/sexual_violence_and_misconduct_policy.pdf",
+        "final_url": "https://www.okanagancollege.ca/sites/default/files/2020-03/sexual_violence_and_misconduct_policy.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "okanagan.pdf",
+        "bytes": 226993,
+        "sha256": "01f48442442f994b9e6962672459a07f24567eaac4bf6687dae5bfa3b500290d"
+      }
+    ],
+    "sha256": "01f48442442f994b9e6962672459a07f24567eaac4bf6687dae5bfa3b500290d"
   },
   "rru": {
     "url": "https://www.royalroads.ca/sites/default/files/2024-08/SexualViolenceMisconduct-POL-BoardApproved-2024Jun20_0.pdf",
-    "status": 0,
-    "fetched_at": "2026-10-02T06:00:46.992Z",
+    "fetched_at": "2026-10-02T13:58:37.675Z",
     "policy_found": false,
-    "error": "status 403, 497 bytes, html"
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.royalroads.ca/sites/default/files/2024-08/SexualViolenceMisconduct-POL-BoardApproved-2024Jun20_0.pdf",
+        "status": 0,
+        "error": "status 403, 497 bytes, html"
+      }
+    ]
   },
   "selkirk": {
     "url": "https://selkirk.ca/sites/default/files/documents/6030-Sexualized-Violence-Prevention-and-Response.pdf",
-    "final_url": "https://selkirk.ca/sites/default/files/documents/6030-Sexualized-Violence-Prevention-and-Response.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "selkirk.pdf",
-    "bytes": 318515,
-    "sha256": "6a5557d0f45faf4ead85604648c7b562f357c578e51f311a71cc1bd07a85ca87",
-    "fetched_at": "2026-10-02T06:00:47.063Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:37.753Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://selkirk.ca/sites/default/files/documents/6030-Sexualized-Violence-Prevention-and-Response.pdf",
+        "final_url": "https://selkirk.ca/sites/default/files/documents/6030-Sexualized-Violence-Prevention-and-Response.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "selkirk.pdf",
+        "bytes": 318515,
+        "sha256": "6a5557d0f45faf4ead85604648c7b562f357c578e51f311a71cc1bd07a85ca87"
+      }
+    ],
+    "sha256": "6a5557d0f45faf4ead85604648c7b562f357c578e51f311a71cc1bd07a85ca87"
   },
   "sfu": {
     "url": "http://www.sfu.ca/policies/gazette/general/gp44.html",
-    "final_url": "http://www.sfu.ca/about/leadership-governance-strategy/policies/gazette/gp44.html",
-    "status": 200,
-    "kind": "html",
-    "file": "sfu.html",
-    "bytes": 136427,
-    "sha256": "9bedc85590ccc742feaba4fbc2554c419f6945728bd8ec7ba2e7f51f3e95f471",
-    "fetched_at": "2026-10-02T06:00:47.137Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:38.015Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "http://www.sfu.ca/policies/gazette/general/gp44.html",
+        "final_url": "http://www.sfu.ca/about/leadership-governance-strategy/policies/gazette/gp44.html",
+        "status": 200,
+        "kind": "html",
+        "file": "sfu.html",
+        "bytes": 136427,
+        "sha256": "9bedc85590ccc742feaba4fbc2554c419f6945728bd8ec7ba2e7f51f3e95f471"
+      },
+      {
+        "role": "procedures",
+        "url": "https://www.sfu.ca/content/dam/sfu/main/about/leadership-governance-strategy/policies/general_policies/gp_44/GP44_Procedures_Sept_2024.pdf",
+        "final_url": "https://www.sfu.ca/content/dam/sfu/main/about/leadership-governance-strategy/policies/general_policies/gp_44/GP44_Procedures_Sept_2024.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "sfu.procedures.pdf",
+        "bytes": 247337,
+        "sha256": "ead06e76d571f7ed2afff4a041a34f7a0e7473bf9d9326b6f4fe4708b4732d80"
+      }
+    ],
+    "sha256": "9bedc85590ccc742feaba4fbc2554c419f6945728bd8ec7ba2e7f51f3e95f471+ead06e76d571f7ed2afff4a041a34f7a0e7473bf9d9326b6f4fe4708b4732d80",
+    "changed": true,
+    "previous_sha256": "9bedc85590ccc742feaba4fbc2554c419f6945728bd8ec7ba2e7f51f3e95f471"
   },
   "tru": {
     "url": "https://www.tru.ca/__shared/assets/BRD_25-0_Sexualized_Violence40359.pdf",
-    "final_url": "https://www.tru.ca/__shared/assets/BRD_25-0_Sexualized_Violence40359.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "tru.pdf",
-    "bytes": 587143,
-    "sha256": "b41ef286c69abe36bfbf6463637b18b96854c8ec9af68de8b1305adb77d91a66",
-    "fetched_at": "2026-10-02T06:00:47.238Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:38.327Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.tru.ca/__shared/assets/BRD_25-0_Sexualized_Violence40359.pdf",
+        "final_url": "https://www.tru.ca/__shared/assets/BRD_25-0_Sexualized_Violence40359.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "tru.pdf",
+        "bytes": 587143,
+        "sha256": "b41ef286c69abe36bfbf6463637b18b96854c8ec9af68de8b1305adb77d91a66"
+      }
+    ],
+    "sha256": "b41ef286c69abe36bfbf6463637b18b96854c8ec9af68de8b1305adb77d91a66"
   },
   "ubc-vancouver": {
     "url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
-    "final_url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "ubc-vancouver.pdf",
-    "bytes": 472889,
-    "sha256": "db3c0355e7f49f9627cb90d249a666fb189825d72799d0b89154a99a2ef1844a",
-    "fetched_at": "2026-10-02T06:00:47.599Z",
+    "fetched_at": "2026-10-02T13:58:38.700Z",
     "policy_found": true,
-    "changed": true,
-    "previous_sha256": "64286de1b80c617a72d70370ddb6fa9c64901aa6051a4c770a9ba70f13f02fe1"
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
+        "final_url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "ubc-vancouver.pdf",
+        "bytes": 472889,
+        "sha256": "db3c0355e7f49f9627cb90d249a666fb189825d72799d0b89154a99a2ef1844a"
+      }
+    ],
+    "sha256": "db3c0355e7f49f9627cb90d249a666fb189825d72799d0b89154a99a2ef1844a"
   },
   "ubc-okanagan": {
     "url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
-    "final_url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "ubc-okanagan.pdf",
-    "bytes": 472889,
-    "sha256": "db3c0355e7f49f9627cb90d249a666fb189825d72799d0b89154a99a2ef1844a",
-    "fetched_at": "2026-10-02T06:00:48.256Z",
+    "fetched_at": "2026-10-02T13:58:39.632Z",
     "policy_found": true,
-    "changed": true,
-    "previous_sha256": "64286de1b80c617a72d70370ddb6fa9c64901aa6051a4c770a9ba70f13f02fe1"
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
+        "final_url": "https://universitycounsel.ubc.ca/sites/default/files/policy-documents/Sexual%20Misconduct%20Policy_SC17.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "ubc-okanagan.pdf",
+        "bytes": 472889,
+        "sha256": "db3c0355e7f49f9627cb90d249a666fb189825d72799d0b89154a99a2ef1844a"
+      }
+    ],
+    "sha256": "db3c0355e7f49f9627cb90d249a666fb189825d72799d0b89154a99a2ef1844a"
   },
   "ufv": {
     "url": "https://www.ufv.ca/media/assets/secretariat/policies/Prevention-Education-and-Response-to-Sexualized-Violence-(236).pdf",
-    "final_url": "https://www.ufv.ca/media/assets/secretariat/policies/Prevention-Education-and-Response-to-Sexualized-Violence-(236).pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "ufv.pdf",
-    "bytes": 275874,
-    "sha256": "14e5b2410eda648288eaa2c92bb26e09ecd040223d34c54eab35b2e8e06f3d2e",
-    "fetched_at": "2026-10-02T06:00:48.922Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:40.297Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.ufv.ca/media/assets/secretariat/policies/Prevention-Education-and-Response-to-Sexualized-Violence-(236).pdf",
+        "final_url": "https://www.ufv.ca/media/assets/secretariat/policies/Prevention-Education-and-Response-to-Sexualized-Violence-(236).pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "ufv.pdf",
+        "bytes": 275874,
+        "sha256": "14e5b2410eda648288eaa2c92bb26e09ecd040223d34c54eab35b2e8e06f3d2e"
+      }
+    ],
+    "sha256": "14e5b2410eda648288eaa2c92bb26e09ecd040223d34c54eab35b2e8e06f3d2e"
   },
   "unbc": {
     "url": "https://www.unbc.ca/sites/default/files/sections/policy/sexual-violence-misconduct-prevention-response-policy-procedures.pdf",
-    "final_url": "https://www.unbc.ca/sites/default/files/sections/policy/sexual-violence-misconduct-prevention-response-policy-procedures.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "unbc.pdf",
-    "bytes": 547145,
-    "sha256": "54cd7d323ec1bdf1bb6ad057ad1a50e277316b13feaf012eecc09ba05c3b00cb",
-    "fetched_at": "2026-10-02T06:00:49.120Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:40.465Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.unbc.ca/sites/default/files/sections/policy/sexual-violence-misconduct-prevention-response-policy-procedures.pdf",
+        "final_url": "https://www.unbc.ca/sites/default/files/sections/policy/sexual-violence-misconduct-prevention-response-policy-procedures.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "unbc.pdf",
+        "bytes": 547145,
+        "sha256": "54cd7d323ec1bdf1bb6ad057ad1a50e277316b13feaf012eecc09ba05c3b00cb"
+      }
+    ],
+    "sha256": "54cd7d323ec1bdf1bb6ad057ad1a50e277316b13feaf012eecc09ba05c3b00cb"
   },
   "uvic": {
     "url": "https://www.uvic.ca/universitysecretary/assets/docs/policies/GV0245.pdf",
-    "final_url": "https://www.uvic.ca/universitysecretary/assets/docs/policies/GV0245.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "uvic.pdf",
-    "bytes": 1114258,
-    "sha256": "3cf651f45cb85859ad0d9a6109a5f40a8a3bf439c062f011aae7e8d0d774044b",
-    "fetched_at": "2026-10-02T06:00:49.192Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:40.654Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.uvic.ca/universitysecretary/assets/docs/policies/GV0245.pdf",
+        "final_url": "https://www.uvic.ca/universitysecretary/assets/docs/policies/GV0245.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "uvic.pdf",
+        "bytes": 1114258,
+        "sha256": "3cf651f45cb85859ad0d9a6109a5f40a8a3bf439c062f011aae7e8d0d774044b"
+      }
+    ],
+    "sha256": "3cf651f45cb85859ad0d9a6109a5f40a8a3bf439c062f011aae7e8d0d774044b"
   },
   "vcc": {
     "url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Policy-A.3.10.pdf",
-    "final_url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Policy-A.3.10.pdf",
-    "status": 200,
-    "kind": "pdf",
-    "file": "vcc.pdf",
-    "bytes": 216906,
-    "sha256": "fab03feb37c1f03916267f3215e064bd9af6068798f15cbf1121f3421bc7ebee",
-    "fetched_at": "2026-10-02T06:00:49.722Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:41.248Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Policy-A.3.10.pdf",
+        "final_url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Policy-A.3.10.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "vcc.pdf",
+        "bytes": 216906,
+        "sha256": "fab03feb37c1f03916267f3215e064bd9af6068798f15cbf1121f3421bc7ebee"
+      },
+      {
+        "role": "procedures",
+        "url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Procedures-A.3.10.pdf",
+        "final_url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Procedures-A.3.10.pdf",
+        "status": 200,
+        "kind": "pdf",
+        "file": "vcc.procedures.pdf",
+        "bytes": 287227,
+        "sha256": "d699b8aa325df3388e1bd48fa717868816822a00a51a9bf5bf67118cfd7b149f"
+      }
+    ],
+    "sha256": "fab03feb37c1f03916267f3215e064bd9af6068798f15cbf1121f3421bc7ebee+d699b8aa325df3388e1bd48fa717868816822a00a51a9bf5bf67118cfd7b149f",
+    "changed": true,
+    "previous_sha256": "fab03feb37c1f03916267f3215e064bd9af6068798f15cbf1121f3421bc7ebee"
   },
   "viu": {
     "url": "https://isapp.viu.ca/PolicyProcedure/docshow.asp?doc_id=34811",
-    "final_url": "https://isapp.viu.ca/PolicyProcedure/docshow.asp?doc_id=34811",
-    "status": 200,
-    "kind": "pdf",
-    "file": "viu.pdf",
-    "bytes": 259891,
-    "sha256": "9b87d60b1262d51cb016a4aaae61c89757609fb266b2aece7258bd70571b4610",
-    "fetched_at": "2026-10-02T06:00:50.273Z",
-    "policy_found": true
+    "fetched_at": "2026-10-02T13:58:42.388Z",
+    "policy_found": true,
+    "documents": [
+      {
+        "role": "policy",
+        "url": "https://isapp.viu.ca/PolicyProcedure/docshow.asp?doc_id=34811",
+        "final_url": "https://isapp.viu.ca/PolicyProcedure/docshow.asp?doc_id=34811",
+        "status": 200,
+        "kind": "pdf",
+        "file": "viu.pdf",
+        "bytes": 259891,
+        "sha256": "9b87d60b1262d51cb016a4aaae61c89757609fb266b2aece7258bd70571b4610"
+      },
+      {
+        "role": "procedures",
+        "url": "https://isapp.viu.ca/PolicyProcedure/docshow.asp?doc_id=34812",
+        "final_url": "https://isapp.viu.ca/PolicyProcedure/docshow.asp?doc_id=34812",
+        "status": 200,
+        "kind": "pdf",
+        "file": "viu.procedures.pdf",
+        "bytes": 476949,
+        "sha256": "1b1f2451e2c2bc8a7dd520bc23ba529a90ca352643325c94a323e6c5a0065f33"
+      }
+    ],
+    "sha256": "9b87d60b1262d51cb016a4aaae61c89757609fb266b2aece7258bd70571b4610+1b1f2451e2c2bc8a7dd520bc23ba529a90ca352643325c94a323e6c5a0065f33",
+    "changed": true,
+    "previous_sha256": "9b87d60b1262d51cb016a4aaae61c89757609fb266b2aece7258bd70571b4610"
   }
 }

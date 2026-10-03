@@ -13,10 +13,13 @@ export const MANIFEST = `${POLICIES}manifest.json`;
 export type Institution = { slug: string; name: string; policy_url: string };
 export const institutions: Institution[] = JSON.parse(readFileSync(`${ROOT}data/institutions.json`, "utf8")).institutions;
 
+export type DocEntry = {
+  role: "policy" | "procedures"; url: string; final_url?: string; status: number; kind?: "pdf" | "html";
+  file?: string; bytes?: number; sha256?: string; manual?: boolean; error?: string;
+};
 export type ManifestEntry = {
-  url: string; final_url?: string; status: number; kind?: "pdf" | "html"; file?: string;
-  bytes?: number; sha256?: string; fetched_at: string; policy_found: boolean; error?: string;
-  changed?: boolean; previous_sha256?: string; manual?: boolean;
+  url: string; fetched_at: string; policy_found: boolean; documents: DocEntry[];
+  sha256?: string; changed?: boolean; previous_sha256?: string; note?: string; error?: string;
 };
 export const readManifest = (): Record<string, ManifestEntry> => (existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")) : {});
 export const writeJson = (path: string, data: unknown) => writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
@@ -40,9 +43,16 @@ export function download(url: string, out: string): { status: number; finalUrl: 
 export async function gemini(path: string, body: unknown, attempts = 6): Promise<any> {
   const key = requireEnv("GEMINI_API_KEY");
   for (let i = 0; i < attempts; i++) {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/${path}`, {
-      method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": key }, body: JSON.stringify(body),
-    });
+    let res: Response;
+    try {
+      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/${path}`, {
+        method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": key }, body: JSON.stringify(body),
+      });
+    } catch (e) {
+      // Dropped connection (ECONNRESET and similar): retry like a rate limit.
+      if (i < attempts - 1) { console.log(`  network error (${(e as Error).message}), retrying in 15s`); await sleep(15_000); continue; }
+      throw e;
+    }
     if (res.ok) return res.json();
     const text = await res.text();
     if ((res.status === 429 || res.status >= 500) && i < attempts - 1) {
