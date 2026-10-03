@@ -149,7 +149,7 @@ export function usePlayer() {
   }, []);
 
   /** Reads an answer aloud. Returns false if it couldn't (the answer stays on screen either way). */
-  const play = useCallback(async (id: string, text: string) => {
+  const play = useCallback(async (id: string, text: string, language = "en") => {
     stop();
     const mine = ++token.current;
     const ctx = unlockAudio();
@@ -159,7 +159,7 @@ export function usePlayer() {
     if (ctx.state !== "running") return false;
     setLoading(id);
     try {
-      const res = await fetch("/api/voice/speak", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text }) });
+      const res = await fetch("/api/voice/speak", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text, language }) });
       if (!res.ok) throw new Error(String(res.status));
       const buffer = await ctx.decodeAudioData(await res.arrayBuffer());
       if (mine !== token.current) return true;

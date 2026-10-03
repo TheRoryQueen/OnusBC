@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 type Citation = { document: string | null; section: string | null; quote: string };
 type Contact = { name: string; office: string | null; phone: string | null; email: string | null };
-type Answer = { answer: string; citations: Citation[]; refused: boolean; crisis: boolean; fallback_contact: Contact };
+type Answer = { answer: string; citations: Citation[]; refused: boolean; crisis: boolean; fallback_contact: Contact; language?: string };
 export type AskMessage =
   | { role: "user"; text: string }
   | { role: "answer"; id: string; data: Answer }
@@ -24,7 +24,7 @@ const STARTERS = ["If I report here, who finds out?", "Can I get support without
 const citeLabel = (c: Citation) =>
   [c.section ? (/^\d/.test(c.section) ? `Section ${c.section}` : c.section) : null, c.document].filter(Boolean).join(", ") || "Policy";
 
-function Citations({ citations }: { citations: Citation[] }) {
+function Citations({ citations, translated }: { citations: Citation[]; translated: boolean }) {
   // One chip per document and section; tapping shows the exact clause the answer rests on.
   const groups = new Map<string, Citation[]>();
   for (const c of citations) groups.set(citeLabel(c), [...(groups.get(citeLabel(c)) ?? []), c]);
@@ -42,8 +42,10 @@ function Citations({ citations }: { citations: Citation[] }) {
       </div>
       {open && (
         <div className="mt-2 space-y-2">
+          {/* Quotes are never translated: they are the policy's exact English words. */}
+          {translated && <p lang="en" dir="ltr" className="px-1 text-[12px] text-text-secondary">Quoted in the policy&apos;s original English.</p>}
           {groups.get(open)!.map((c, i) => (
-            <blockquote key={i} className="rounded-2xl bg-hairline/40 px-4 py-3 font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{c.quote}&rdquo;</blockquote>
+            <blockquote key={i} lang="en" dir="ltr" className="rounded-2xl bg-hairline/40 px-4 py-3 font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{c.quote}&rdquo;</blockquote>
           ))}
         </div>
       )}
@@ -58,8 +60,8 @@ function AnswerMessage({ data, listen }: { data: Answer; listen: Listen }) {
   const tel = c.phone ? telHref(c.phone) : null;
   return (
     <div className="max-w-[92%]">
-      <p className="whitespace-pre-line text-[15px] leading-relaxed text-text">{data.answer}</p>
-      {data.citations.length > 0 && <Citations citations={data.citations} />}
+      <p lang={data.language ?? "en"} dir="auto" className="whitespace-pre-line text-[15px] leading-relaxed text-text">{data.answer}</p>
+      {data.citations.length > 0 && <Citations citations={data.citations} translated={!!data.language && data.language !== "en"} />}
       <button type="button" onClick={listen.state === "idle" ? listen.onListen : listen.onStop}
         aria-label={listen.state === "idle" ? "Listen to this answer" : "Stop reading aloud"}
         className="mt-3 inline-flex min-h-8 items-center gap-1.5 rounded-full bg-hairline/50 px-3 text-xs font-medium text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
@@ -211,7 +213,7 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
         setMessages((m) => [...m, { role: "answer", id, data: json }]);
         // A question asked by voice is answered aloud too; the same cited text stays on screen. If the
         // browser blocks the audio, the answer's Listen button plays it.
-        if (aloud) { setVoiceTurn({ asking: false, answerId: id }); void player.play(id, json.answer); }
+        if (aloud) { setVoiceTurn({ asking: false, answerId: id }); void player.play(id, json.answer, json.language); }
       }
     } catch {
       setMessages((m) => [...m, { role: "error", text: "You seem to be offline. Try again when you're connected." }]);
@@ -253,13 +255,13 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
             {messages.map((m, i) => (
               <li key={i} className={m.role === "user" ? "flex justify-end" : ""}>
                 {m.role === "user" ? (
-                  <p className="max-w-[85%] whitespace-pre-line rounded-[20px] rounded-br-md bg-brand-tint px-4 py-2.5 text-[15px] leading-relaxed text-text">{m.text}</p>
+                  <p dir="auto" className="max-w-[85%] whitespace-pre-line rounded-[20px] rounded-br-md bg-brand-tint px-4 py-2.5 text-[15px] leading-relaxed text-text">{m.text}</p>
                 ) : m.role === "error" ? (
                   <p role="alert" className="text-sm text-big-gap">{m.text}</p>
                 ) : (
                   <AnswerMessage data={m.data} listen={{
                     state: player.playing === m.id ? "playing" : player.loading === m.id ? "loading" : "idle",
-                    onListen: () => { unlockAudio(); void player.play(m.id, m.data.answer); },
+                    onListen: () => { unlockAudio(); void player.play(m.id, m.data.answer, m.data.language); },
                     onStop: player.stop,
                   }} />
                 )}

@@ -15,7 +15,7 @@ export function makeRetrieve(opts: {
   institutionId: (slug: string) => Promise<string | null>;
   k?: number;
 }) {
-  return async (slug: string, question: string, signal: AbortSignal): Promise<Chunk[]> => {
+  return async (slug: string, question: string, signal: AbortSignal, k?: number): Promise<Chunk[]> => {
     const res = await opts.fetch(`https://generativelanguage.googleapis.com/v1beta/models/${EMBED_MODEL}:embedContent`, {
       method: "POST",
       signal,
@@ -32,7 +32,7 @@ export function makeRetrieve(opts: {
     const { data, error } = await opts.rpc("match_policy_chunks", {
       p_institution_id: id,
       query_embedding: `[${values.map((v) => v / n).join(",")}]`,
-      k: opts.k ?? 6,
+      k: k ?? opts.k ?? 6,
     });
     if (error) throw new Error(`match_policy_chunks: ${error.message}`);
     return (data ?? []).map((c) => ({ id: c.id, document: c.document, section: c.section, content: c.content }));

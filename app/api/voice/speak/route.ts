@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { clientIp } from "@/lib/client-ip";
 import { speak, VoiceError } from "@/lib/elevenlabs";
 
-// POST /api/voice/speak { text } -> audio/mpeg stream (ElevenLabs text to speech, the Sarah voice).
+// POST /api/voice/speak { text, language? } -> audio/mpeg stream (ElevenLabs text to speech, the Sarah voice).
 // Used to read an Ask answer aloud. Nothing is stored or logged.
 // Limits: 1,200 characters per answer; 10 per minute per IP.
 
@@ -20,12 +20,13 @@ export async function POST(request: Request) {
   const ip = clientIp(request);
   if (limited(ip)) return NextResponse.json({ error: "Too many requests at once. Try again in a moment." }, { status: 429 });
 
-  const body = (await request.json().catch(() => null)) as { text?: unknown } | null;
+  const body = (await request.json().catch(() => null)) as { text?: unknown; language?: unknown } | null;
+  const language = typeof body?.language === "string" && /^[a-z]{2,3}$/.test(body.language) ? body.language : "en";
   const text = typeof body?.text === "string" ? body.text.trim() : "";
   if (!text || text.length > MAX_CHARS) return NextResponse.json({ error: "Send the answer to read aloud." }, { status: 400 });
 
   try {
-    const audio = await speak(text);
+    const audio = await speak(text, language);
     return new Response(audio, { headers: { "content-type": "audio/mpeg", "cache-control": "no-store" } });
   } catch (e) {
     const status = e instanceof VoiceError && e.status === 429 ? 429 : 502;

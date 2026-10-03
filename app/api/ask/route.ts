@@ -5,7 +5,8 @@ import { ask, type Contact } from "@/lib/ask/chain";
 import { makeRetrieve } from "@/lib/ask/retrieve";
 import { cachedAnswer } from "@/lib/ask/cache";
 
-// POST /api/ask { slug, question } -> { answer, citations[{section, quote}], refused, crisis, fallback_contact }
+// POST /api/ask { slug, question } -> { answer, citations[{section, quote}], refused, crisis, fallback_contact, language }
+// Questions can be in any language; the answer comes back in that language with quotes in the policy's English.
 // The question is never stored or logged. Rate limit: 10 per minute per IP (in memory, per server instance).
 
 // The chain answers, or falls back, within about 20 s; give the function room beyond that.
@@ -75,5 +76,6 @@ export async function POST(request: Request) {
     refused: result.refused,
     crisis: result.crisis,
     fallback_contact: result.fallback_contact,
+    language: result.language,
   });
 }

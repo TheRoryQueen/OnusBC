@@ -7,6 +7,12 @@ import "server-only";
 const API = "https://api.elevenlabs.io/v1";
 export const STT_MODEL = "scribe_v1";
 export const TTS_MODEL = "eleven_flash_v2_5"; // the low-latency voice model
+// Flash covers English, French, Mandarin and 29 other languages but not Farsi or Punjabi; Eleven v3 covers
+// 70+ languages including both (elevenlabs.io/docs/overview/models). Each answer uses the fastest model
+// that speaks its language, always with the Sarah voice.
+export const TTS_MODEL_WIDE = "eleven_v3";
+const FLASH_LANGS = new Set(["en", "ja", "zh", "de", "hi", "fr", "ko", "pt", "it", "es", "id", "nl", "tr", "fil", "pl", "sv", "bg", "ro", "ar", "cs", "el", "fi", "hr", "ms", "sk", "da", "ta", "uk", "ru", "hu", "no", "vi"]);
+export const ttsModelFor = (lang = "en") => (FLASH_LANGS.has(lang.toLowerCase()) ? TTS_MODEL : TTS_MODEL_WIDE);
 const TIMEOUT_MS = 20_000;
 
 function key() {
@@ -30,7 +36,7 @@ export async function transcribe(audio: Blob, filename: string): Promise<string>
   form.append("model_id", STT_MODEL);
   form.append("file", audio, filename);
   form.append("tag_audio_events", "false");
-  form.append("language_code", "en");
+  // No language_code: Scribe detects the language, so a question can be asked in Farsi, Punjabi or Mandarin.
   const res = await fetch(`${API}/speech-to-text`, {
     method: "POST",
     headers: { "xi-api-key": key() },
@@ -43,11 +49,11 @@ export async function transcribe(audio: Blob, filename: string): Promise<string>
 }
 
 /** Text to speech with the configured voice. Returns the MP3 stream to pass straight to the browser. */
-export async function speak(text: string): Promise<ReadableStream<Uint8Array>> {
+export async function speak(text: string, lang = "en"): Promise<ReadableStream<Uint8Array>> {
   const res = await fetch(`${API}/text-to-speech/${voiceId()}/stream?output_format=mp3_44100_128`, {
     method: "POST",
     headers: { "xi-api-key": key(), "content-type": "application/json", accept: "audio/mpeg" },
-    body: JSON.stringify({ text, model_id: TTS_MODEL }),
+    body: JSON.stringify({ text, model_id: ttsModelFor(lang) }),
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
   if (!res.ok || !res.body) throw new VoiceError(res.status, `text-to-speech ${res.status}`);

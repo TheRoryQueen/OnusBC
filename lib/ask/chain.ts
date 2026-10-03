@@ -42,14 +42,16 @@ export type AskResult = {
   fallback_contact: Contact;
   answered_by: "main" | "lite" | "cache" | "fallback" | "crisis";
   model: string | null;
+  /** The answer's language (ISO 639-1). Citations always stay in the policy's original English. */
+  language: string;
 };
-export type CachedAnswer = { slug: string; question: string; answer: string; citations: Citation[]; generated_by: string; generated_at: string };
+export type CachedAnswer = { slug: string; question: string; answer: string; citations: Citation[]; generated_by: string; generated_at: string; language?: string };
 
 export type Deps = {
   fetch: typeof fetch;
   apiKey: () => string;
   /** Embeds the question and returns the closest chunks for this school only. */
-  retrieve: (slug: string, question: string, signal: AbortSignal) => Promise<Chunk[]>;
+  retrieve: (slug: string, question: string, signal: AbortSignal, k?: number) => Promise<Chunk[]>;
   cache: (slug: string, question: string) => CachedAnswer | null;
   log: (entry: Record<string, unknown>) => void;
   /** One limit for every step instead of the step budgets (offline cache builds use a long one). */
@@ -65,24 +67,61 @@ export class SwitchableError extends Error {
 // Strong signals that someone may be in danger or crisis. Checked before any model call.
 // Word endings are allowed where they change nothing ("suicide", "suicidal", "self-harming").
 const CRISIS = /\b(kill(ing)? (myself|me)|suicid\w*|end(ing)? my life|want(s|ing)? to die|(hurt|harm)(ing)? myself|self[- ]?harm\w*|in danger|not safe|unsafe right now|being (followed|attacked|hurt)|he'?s here|she'?s here|they'?re here|emergency|help me now)\b/i;
-export const isCrisis = (question: string) => CRISIS.test(question);
+// The same signals in the other languages Ask is tested in (French; Farsi, Punjabi and Mandarin need no
+// word boundaries). The model also flags crisis in any language; this catches it when no model answers.
+const CRISIS_FR = /\b(me tuer|veux mourir|envie de mourir|en danger|pas en s[ée]curit[ée]|me faire du mal|urgence)\b/i;
+const CRISIS_SCRIPTS = /(خودکشی|خودم را بکشم|می‌?خواهم بمیرم|در خطر|ਦਕੁਸ਼ੀ|ਤਰੇ ਵਿੱਚ|ਮਰਨਾ ਚਾਹੁੰਦ|自杀|自殺|想死|有危险|有危險|伤害自己|傷害自己|紧急|緊急)/;
+export const isCrisis = (question: string) => CRISIS.test(question) || CRISIS_FR.test(question) || CRISIS_SCRIPTS.test(question);
 
-export const normalizeQuestion = (q: string) => q.toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+// Keeps letters and digits in every script (a Farsi or Mandarin question must not normalize to "").
+export const normalizeQuestion = (q: string) => q.normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N} ]/gu, " ").replace(/\s+/g, " ").trim();
 
-export function refusalText(c: Contact) {
-  const reach = c.phone && c.email ? `${c.phone} or ${c.email}` : (c.phone ?? c.email);
-  const who = c.office ? (reach ? `${c.office} at ${reach}` : c.office) : reach;
-  return who
-    ? `That's outside what I can answer from ${c.name}'s policy. For help, contact ${who}, or visit Get support.`
-    : `That's outside what I can answer from ${c.name}'s policy. For help, visit Get support.`;
+// Languages with their own refusal and crisis wording. Answers can be in any language the model handles;
+// these are the ones the fixed messages are written in.
+export type Lang = "en" | "fr" | "fa" | "pa" | "zh";
+export const LANGS: Lang[] = ["en", "fr", "fa", "pa", "zh"];
+/** A best guess from the text alone, for answers given without a model (crisis check, fallbacks). */
+export function guessLang(text: string): Lang {
+  if (/[\u0600-\u06FF]/.test(text)) return "fa";
+  if (/[\u0A00-\u0A7F]/.test(text)) return "pa";
+  if (/[\u4E00-\u9FFF]/.test(text)) return "zh";
+  const fr = text.toLowerCase().match(/\b(je|tu|vous|nous|le|la|les|est|qui|que|quoi|si|une?|des|pour|avec|mon|ma|mes|dois|peut|comment|signalement|suis|veux|sera|ici|faire|mourir)\b/g);
+  return (fr?.length ?? 0) >= 2 || /[éèêàçùœ]/i.test(text) ? "fr" : "en";
 }
 
-export function crisisText() {
-  return "If you're in danger right now, call 911. You can reach VictimLinkBC any time at 1-800-563-0808. You don't have to report to get support. More help is on the Get support page.";
+// Fixed messages in each language. Phone numbers stay in Western digits so they can be dialled as shown.
+const OR: Record<Lang, string> = { en: " or ", fr: " ou ", fa: " یا ", pa: " ਜਾਂ ", zh: "或" };
+const whoText = (c: Contact, lang: Lang) => {
+  const reach = c.phone && c.email ? `${c.phone}${OR[lang]}${c.email}` : (c.phone ?? c.email);
+  if (!c.office) return reach;
+  if (!reach) return c.office;
+  return lang === "en" ? `${c.office} at ${reach}` : lang === "fr" ? `${c.office} au ${reach}` : lang === "zh" ? `${c.office}（${reach}）` : `${c.office} (${reach})`;
+};
+export function refusalText(c: Contact, lang: Lang = "en") {
+  const who = whoText(c, lang);
+  const m: Record<Lang, [string, string]> = {
+    en: [`That's outside what I can answer from ${c.name}'s policy.`, who ? `For help, contact ${who}, or visit Get support.` : "For help, visit Get support."],
+    fr: [`Je ne peux pas répondre à cette question à partir de la politique de ${c.name}.`, who ? `Pour obtenir de l'aide, contactez ${who}, ou consultez la page Get support.` : "Pour obtenir de l'aide, consultez la page Get support."],
+    fa: [`این پرسش بیرون از چیزی است که می‌توانم بر اساس سیاست ${c.name} پاسخ دهم.`, who ? `برای کمک با ${who} تماس بگیرید یا به صفحهٔ Get support بروید.` : "برای کمک به صفحهٔ Get support بروید."],
+    pa: [`ਇਹ ਸਵਾਲ ${c.name} ਦੀ ਨੀਤੀ ਤੋਂ ਜਵਾਬ ਦੇਣ ਦੇ ਦਾਇਰੇ ਤੋਂ ਬਾਹਰ ਹੈ।`, who ? `ਮਦਦ ਲਈ ${who} ਨਾਲ ਸੰਪਰਕ ਕਰੋ, ਜਾਂ Get support ਪੰਨਾ ਵੇਖੋ।` : "ਮਦਦ ਲਈ Get support ਪੰਨਾ ਵੇਖੋ।"],
+    zh: [`这超出了我根据${c.name}政策所能回答的范围。`, who ? `如需帮助，请联系${who}，或访问 Get support 页面。` : "如需帮助，请访问 Get support 页面。"],
+  };
+  return m[lang].join(lang === "zh" ? "" : " ");
 }
 
-function fallback(contact: Contact, answered_by: AskResult["answered_by"] = "fallback", model: string | null = null): AskResult {
-  return { answer: refusalText(contact), citations: [], refused: true, crisis: false, fallback_contact: contact, answered_by, model };
+export function crisisText(lang: Lang = "en") {
+  const m: Record<Lang, string> = {
+    en: "If you're in danger right now, call 911. You can reach VictimLinkBC any time at 1-800-563-0808. You don't have to report to get support. More help is on the Get support page.",
+    fr: "Si vous êtes en danger en ce moment, appelez le 911. Vous pouvez joindre VictimLinkBC à toute heure au 1-800-563-0808. Vous n'avez pas besoin de faire un signalement pour obtenir du soutien. Vous trouverez plus d'aide sur la page Get support.",
+    fa: "اگر همین الان در خطر هستید، با 911 تماس بگیرید. هر زمان می‌توانید با VictimLinkBC به شمارهٔ 1-800-563-0808 تماس بگیرید. برای گرفتن حمایت لازم نیست گزارش بدهید. کمک بیشتر در صفحهٔ Get support است.",
+    pa: "ਜੇ ਤੁਸੀਂ ਇਸ ਵੇਲੇ ਖ਼ਤਰੇ ਵਿੱਚ ਹੋ, ਤਾਂ 911 'ਤੇ ਫ਼ੋਨ ਕਰੋ। ਤੁਸੀਂ ਕਿਸੇ ਵੀ ਵੇਲੇ VictimLinkBC ਨਾਲ 1-800-563-0808 'ਤੇ ਸੰਪਰਕ ਕਰ ਸਕਦੇ ਹੋ। ਸਹਾਇਤਾ ਲੈਣ ਲਈ ਤੁਹਾਨੂੰ ਰਿਪੋਰਟ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ। ਹੋਰ ਮਦਦ Get support ਪੰਨੇ 'ਤੇ ਹੈ।",
+    zh: "如果你现在有危险，请拨打 911。你可以随时拨打 1-800-563-0808 联系 VictimLinkBC。你不需要先举报也能获得支持。更多帮助请见 Get support 页面。",
+  };
+  return m[lang];
+}
+
+function fallback(contact: Contact, lang: Lang, answered_by: AskResult["answered_by"] = "fallback", model: string | null = null): AskResult {
+  return { answer: refusalText(contact, lang), citations: [], refused: true, crisis: false, fallback_contact: contact, answered_by, model, language: lang };
 }
 
 const SYSTEM = `You answer questions about one institution's sexual violence policy, using only the policy excerpts provided.
@@ -93,6 +132,8 @@ Rules:
 - If the excerpts answer only part of the question, or state the closest related fact (for example, when an investigation must start, though not how long it takes), give that part with its quote and say plainly what the policy does not say. Do not guess the rest.
 - If the excerpts say nothing relevant, or the question asks for legal advice, predictions about a case, anything about specific people or incidents, or anything outside the policy, set refused to true and leave answer and citations empty.
 - If the message suggests someone is in immediate danger or crisis, set crisis to true.
+- The question may be in any language. Work out what it means in English and apply every rule above exactly as you would to that English question; the language changes only the words of your answer.
+- Answer in the language the question is written in, and set language to its ISO 639-1 code (for example en, fr, fa, pa, zh). Quotes are always copied exactly from the English excerpts, never translated; explain them in the question's language.
 - Write the answer in plain, calm language, two to four sentences, without em dashes.`;
 
 const SCHEMA = {
@@ -100,10 +141,11 @@ const SCHEMA = {
   properties: {
     refused: { type: "BOOLEAN" },
     crisis: { type: "BOOLEAN" },
+    language: { type: "STRING" },
     answer: { type: "STRING" },
     citations: { type: "ARRAY", items: { type: "OBJECT", properties: { chunk_id: { type: "INTEGER" }, quote: { type: "STRING" } }, required: ["chunk_id", "quote"] } },
   },
-  required: ["refused", "crisis", "answer", "citations"],
+  required: ["refused", "crisis", "language", "answer", "citations"],
 };
 
 async function callModel(deps: Deps, model: string, school: string, question: string, chunks: Chunk[], signal: AbortSignal) {
@@ -127,7 +169,7 @@ async function callModel(deps: Deps, model: string, school: string, question: st
   if (!res.ok) throw new Error(`HTTP ${res.status} from ${model}`);
   const json = await res.json();
   const text = json.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? "").join("") ?? "";
-  return JSON.parse(text) as { refused: boolean; crisis: boolean; answer: string; citations: { chunk_id: number; quote: string }[] };
+  return JSON.parse(text) as { refused: boolean; crisis: boolean; language?: string; answer: string; citations: { chunk_id: number; quote: string }[] };
 }
 
 /** Applies the answer rules to a model's output. Returns null when the answer must become a refusal. */
@@ -157,13 +199,14 @@ const isSwitchable = (e: unknown): e is SwitchableError => e instanceof Switchab
 export async function ask(deps: Deps, input: { slug: string; school: string; question: string; contact: Contact }): Promise<AskResult> {
   const { slug, school, question, contact } = input;
   const t0 = Date.now();
+  const guess = guessLang(question);
   const done = (r: AskResult, extra: Record<string, unknown> = {}) => {
     deps.log({ event: "ask", slug, answered_by: r.answered_by, model: r.model, refused: r.refused, crisis: r.crisis, ms: Date.now() - t0, ...extra });
     return r;
   };
 
   if (isCrisis(question)) {
-    return done({ answer: crisisText(), citations: [], refused: false, crisis: true, fallback_contact: contact, answered_by: "crisis", model: null });
+    return done({ answer: crisisText(guess), citations: [], refused: false, crisis: true, fallback_contact: contact, answered_by: "crisis", model: null, language: guess });
   }
 
   const steps: { name: "main" | "lite"; model: string }[] = [
@@ -180,25 +223,29 @@ export async function ask(deps: Deps, input: { slug: string; school: string; que
     try {
       const result = await withTimeout(ms, async (signal) => {
         // Retrieval (Gemini embeddings, main setup) is part of the first step's time budget.
-        if (!chunks) chunks = await deps.retrieve(slug, question, signal);
+        // Questions in other languages match the English passages a little less closely, so take more of them.
+        if (!chunks) chunks = await deps.retrieve(slug, question, signal, guess === "en" ? undefined : 10);
         return callModel(deps, step.model, school, question, chunks, signal);
       });
+      // The model's language code wins when it's one with fixed messages; otherwise the script-based guess.
+      const said = (result.language ?? "").toLowerCase().slice(0, 2);
+      const lang = (LANGS as string[]).includes(said) ? (said as Lang) : guess;
       if (result.crisis) {
-        return done({ answer: crisisText(), citations: [], refused: false, crisis: true, fallback_contact: contact, answered_by: step.name, model: step.model }, { skipped });
+        return done({ answer: crisisText(lang), citations: [], refused: false, crisis: true, fallback_contact: contact, answered_by: step.name, model: step.model, language: lang }, { skipped });
       }
       const cites = validate(result, chunks ?? []);
-      if (!cites) return done(fallback(contact, step.name, step.model), { skipped, rule: result.refused ? "refused" : "uncited_or_unverified" });
-      return done({ answer: result.answer.trim(), citations: cites, refused: false, crisis: false, fallback_contact: contact, answered_by: step.name, model: step.model }, { skipped });
+      if (!cites) return done(fallback(contact, lang, step.name, step.model), { skipped, rule: result.refused ? "refused" : "uncited_or_unverified" });
+      return done({ answer: result.answer.trim(), citations: cites, refused: false, crisis: false, fallback_contact: contact, answered_by: step.name, model: step.model, language: said || lang }, { skipped });
     } catch (e) {
       if (isSwitchable(e)) { skipped.push(`${step.name}:${e.kind}`); continue; }
       // Not a rate limit, quota, or timeout: do not try other models.
-      return done(fallback(contact), { skipped, error: "non_switchable" });
+      return done(fallback(contact, guess), { skipped, error: "non_switchable" });
     }
   }
 
   const cached = deps.cache(slug, question);
   if (cached) {
-    return done({ answer: cached.answer, citations: cached.citations, refused: false, crisis: false, fallback_contact: contact, answered_by: "cache", model: cached.generated_by }, { skipped });
+    return done({ answer: cached.answer, citations: cached.citations, refused: false, crisis: false, fallback_contact: contact, answered_by: "cache", model: cached.generated_by, language: cached.language ?? "en" }, { skipped });
   }
-  return done(fallback(contact), { skipped });
+  return done(fallback(contact, guess), { skipped });
 }

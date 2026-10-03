@@ -62,6 +62,26 @@
       ],
       "generated_by": "gemini-3.5-flash",
       "generated_at": "2026-10-03T07:41:40.153Z"
+    },
+    {
+      "slug": "sfu",
+      "question": "اگر اینجا گزارش بدهم، چه کسانی از گزارش من مطلع می‌شوند؟",
+      "answer": "دانشگاه اطلاعات مربوط به افراد را به کسانی که در دانشگاه برای انجام وظایف خود به آن نیاز دارند محدود می‌کند. همچنین دفتر مسئول ممکن است دفتر مربوط به شاکی را مطلع کند و با آن مشورت نماید.",
+      "citations": [
+        {
+          "document": "Policy",
+          "section": "12.0",
+          "quote": "limit disclosure of information about individuals to those within the University who need to know to perform their duties; and"
+        },
+        {
+          "document": "Procedures",
+          "section": "Conduct",
+          "quote": "inform the office responsible for the Complainant (based on the Complainant’s affiliation with the University) that a Report has been received and will consult or involve that office in addressing the matter, as appropriate; and"
+        }
+      ],
+      "generated_by": "gemini-3.5-flash-lite",
+      "generated_at": "2026-10-03T23:10:03.061Z",
+      "language": "fa"
     }
   ]
 }
