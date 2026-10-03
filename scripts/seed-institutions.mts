@@ -9,18 +9,18 @@ await c.query("begin");
 for (const i of institutions) {
   await c.query(
     `insert into public.institutions (slug, name, short_name, type, kind, sector, city, lat, lng, email_domains, employee_domains,
-       alumni_domains, blocked_domains, website, policy_url, support_url, contact_office, contact_email, contact_phone, sources, flags)
-     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
+       alumni_domains, blocked_domains, website, policy_url, support_url, contact_office, contact_email, contact_phone, sources, flags, procedures_url, policy_note)
+     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
      on conflict (slug) do update set name = excluded.name, short_name = excluded.short_name, type = excluded.type,
        kind = excluded.kind, sector = excluded.sector, city = excluded.city, lat = excluded.lat, lng = excluded.lng,
        email_domains = excluded.email_domains, employee_domains = excluded.employee_domains,
        alumni_domains = excluded.alumni_domains, blocked_domains = excluded.blocked_domains, website = excluded.website,
        policy_url = excluded.policy_url, support_url = excluded.support_url, contact_office = excluded.contact_office,
        contact_email = excluded.contact_email, contact_phone = excluded.contact_phone, sources = excluded.sources,
-       flags = excluded.flags`,
+       flags = excluded.flags, procedures_url = excluded.procedures_url, policy_note = excluded.policy_note`,
     [i.slug, i.name, i.short_name, i.type, i.kind, i.sector, i.city, i.lat, i.lng, i.email_domains, i.employee_domains,
      i.alumni_domains, i.blocked_domains, i.website, i.policy_url, i.support_url, i.contact_office, i.contact_email,
-     i.contact_phone, JSON.stringify(i.sources), i.flags ?? []]
+     i.contact_phone, JSON.stringify(i.sources), i.flags ?? [], i.procedures_url ?? null, i.policy_note ?? null]
   );
 }
 for (const { id } of (await c.query("select id from public.institutions")).rows) {
