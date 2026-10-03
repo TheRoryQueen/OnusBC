@@ -1,0 +1,906 @@
+{
+  "_about": "All 25 BC public post-secondary institutions (26 map dots: UBC Vancouver and Okanagan). Every field carries a source link in `sources`. Coordinates are the main campus centroid computed by OpenStreetMap Nominatim (link to the exact object). Domains come from docs/PRD.md 'Email domains for sign-in' with the source each row cites. Contacts are copied verbatim from the school's own support page, office-level only: no named individuals or personal mailboxes. Fields that could not be sourced are null and listed in `flags`.",
+  "_checked": "2026-10-01",
+  "_province_lists": {
+    "policies": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies",
+    "support": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/help-on-campus"
+  },
+  "institutions": [
+    {
+      "slug": "bcit",
+      "name": "British Columbia Institute of Technology",
+      "short_name": "BCIT",
+      "type": "college",
+      "kind": "institute",
+      "sector": "public",
+      "city": "Burnaby",
+      "lat": 49.24816,
+      "lng": -123.00122,
+      "email_domains": [
+        "my.bcit.ca"
+      ],
+      "employee_domains": [
+        "bcit.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.bcit.ca",
+      "policy_url": "https://www.bcit.ca/files/pdf/policies/7103.pdf",
+      "support_url": "https://www.bcit.ca/respect/sexualized-violence-prevention-response/get-help/",
+      "contact_office": "Respect, Diversity and Inclusion (RDI)",
+      "contact_email": "rdi@bcit.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/21293437",
+        "domains": "https://kb.bcit.ca/faculty-staff/using-the-right-bcit-account-if-you-are-an-employee-and-a-student-3619/",
+        "contact": "https://www.bcit.ca/respect/contact-rdi/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link redirects to the RDI sexualized violence page; new URL recorded.",
+        "RDI publishes no phone number; students are asked to use a Service BCIT request or email rdi@bcit.ca."
+      ]
+    },
+    {
+      "slug": "camosun",
+      "name": "Camosun College",
+      "short_name": "Camosun",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Victoria",
+      "lat": 48.44807,
+      "lng": -123.3232,
+      "email_domains": [
+        "camosun.ca"
+      ],
+      "employee_domains": [
+        "camosun.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://camosun.ca",
+      "policy_url": "http://camosun.ca/about/policies/education-academic/e-2-student-services-and-support/e-2.9.pdf",
+      "support_url": "https://camosun.ca/services/sexual-violence/supporting-survivors",
+      "contact_office": "Office of Student Support",
+      "contact_email": "oss@camosun.ca",
+      "contact_phone": "250-370-3311",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/1828580",
+        "domains": "https://camosun.ca/services/its/student-logins-and-accounts",
+        "contact": "https://camosun.ca/services/sexual-violence/supporting-survivors",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Coordinates are the Lansdowne campus, which OpenStreetMap places in Oak Bay on the Victoria border.",
+        "Shared student and staff domain: role chosen at sign-in (PRD)."
+      ]
+    },
+    {
+      "slug": "capilano",
+      "name": "Capilano University",
+      "short_name": "CapU",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "North Vancouver",
+      "lat": 49.31798,
+      "lng": -123.01948,
+      "email_domains": [
+        "my.capilanou.ca"
+      ],
+      "employee_domains": [
+        "capilanou.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.capilanou.ca",
+      "policy_url": "https://www.capilanou.ca/media/capilanouca/about-capu/governance/policies-amp-procedures/B.401-Sexual-Violence-Policy.pdf",
+      "support_url": "https://www.capilanou.ca/student-services/community/safety-resources/sexual-violence-support/",
+      "contact_office": "Office of Student Affairs",
+      "contact_email": "disclosures@capilanou.ca",
+      "contact_phone": "604 240 1317",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/485438830",
+        "domains": "https://www.capilanou.ca/mycapu/it-services/students/accounts-logins--passwords/logging-into-your-accounts/",
+        "contact": "https://www.capilanou.ca/student-services/community/safety-resources/sexual-violence-support/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link returns 404; current page found on capilanou.ca and recorded."
+      ]
+    },
+    {
+      "slug": "coast-mountain",
+      "name": "Coast Mountain College",
+      "short_name": "CMTN",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Terrace",
+      "lat": 54.52658,
+      "lng": -128.63376,
+      "email_domains": [
+        "coastmountaincollege.ca"
+      ],
+      "employee_domains": [
+        "coastmountaincollege.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.coastmountaincollege.ca",
+      "policy_url": "https://www.coastmountaincollege.ca/docs/default-source/policies/education-policies-and-procedures/education-policies/edu-007-sexual-violence-and-misconduct-policy.pdf",
+      "support_url": "https://www.coastmountaincollege.ca/student-services/student-safety-reporting",
+      "contact_office": "Coast Mountain College (general line)",
+      "contact_email": null,
+      "contact_phone": "1.877.277.2288",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/778189496",
+        "domains": "https://cmtn.teamdynamix.com/TDClient/75/Portal/KB/ArticleDet?ID=4796",
+        "contact": "https://www.coastmountaincollege.ca/student-services/student-safety-reporting/formal-complaint",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "flags": [
+        "No dedicated sexual violence office or contact is published; the formal complaint page lists only the college's general toll-free line. Province's support link goes to a general counselling page."
+      ]
+    },
+    {
+      "slug": "cnc",
+      "name": "College of New Caledonia",
+      "short_name": "CNC",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Prince George",
+      "lat": 53.90541,
+      "lng": -122.78444,
+      "email_domains": [
+        "cnc.bc.ca"
+      ],
+      "employee_domains": [
+        "cnc.bc.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://cnc.bc.ca",
+      "policy_url": "https://cnc.bc.ca/docs/default-source/policies/student-sexual-misconduct.pdf?sfvrsn=4c5fb684_0",
+      "support_url": "https://cnc.bc.ca/services/counselling/sexual-misconduct",
+      "contact_office": "Lead Sexual Misconduct Coordinator, Student Services (Prince George)",
+      "contact_email": null,
+      "contact_phone": "250-561-5818",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/443237227",
+        "domains": "https://cnc.bc.ca/current-students/technology",
+        "contact": "https://cnc.bc.ca/services/counselling/sexual-misconduct",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "No email is published for the coordinator; the page gives phone and Room 1-753."
+      ]
+    },
+    {
+      "slug": "cotr",
+      "name": "College of the Rockies",
+      "short_name": "COTR",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Cranbrook",
+      "lat": 49.51742,
+      "lng": -115.74299,
+      "email_domains": [
+        "cotr.bc.ca"
+      ],
+      "employee_domains": [
+        "cotr.bc.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://cotr.bc.ca",
+      "policy_url": "https://cotr.bc.ca/student-services/student-support/sexualized-violence/sexualized-violence-policy/",
+      "support_url": "https://cotr.bc.ca/student-services/student-support/sexualized-violence/get-support/",
+      "contact_office": "Counselling and Wellness Services",
+      "contact_email": null,
+      "contact_phone": "250-489-8243",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/11654500",
+        "domains": "https://cotr.bc.ca/student-services/student-resources/technology-support-2/",
+        "contact": "https://cotr.bc.ca/student-services/student-support/sexualized-violence/get-support/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "No dedicated sexualized violence office; support is through Counselling and Wellness Services. No email published."
+      ]
+    },
+    {
+      "slug": "douglas",
+      "name": "Douglas College",
+      "short_name": "Douglas",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "New Westminster",
+      "lat": 49.20368,
+      "lng": -122.91312,
+      "email_domains": [
+        "student.douglascollege.ca"
+      ],
+      "employee_domains": [
+        "douglascollege.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.douglascollege.ca",
+      "policy_url": "https://www.douglascollege.ca/sites/default/files/docs/college-board/A53%20Sexual%20Violence%20and%20Misconduct%20Prevention%20and%20Response%20Policy.pdf",
+      "support_url": "https://www.douglascollege.ca/student-services/student-life/healthy-campus/sexual-violence-prevention-and-education",
+      "contact_office": "Counselling Services (New Westminster Campus)",
+      "contact_email": null,
+      "contact_phone": "604-527-5486",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/83886814",
+        "domains": "https://solutions.douglascollege.ca/TDClient/163/Portal/KB/PrintArticle?ID=6485",
+        "contact": "https://www.douglascollege.ca/student-services/student-life/healthy-campus/sexual-violence-prevention-and-education",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "flags": [
+        "The page's only email is the Sexual Violence Prevention and Education Coordinator's personal staff mailbox, so it is left out. Counselling Services is the on-campus support the page lists with a phone."
+      ]
+    },
+    {
+      "slug": "ecuad",
+      "name": "Emily Carr University of Art and Design",
+      "short_name": "ECU",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Vancouver",
+      "lat": 49.26758,
+      "lng": -123.09218,
+      "email_domains": [
+        "ecuad.ca"
+      ],
+      "employee_domains": [
+        "ecuad.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.ecuad.ca",
+      "policy_url": "https://ecuad.ca/wp-content/uploads/2025/12/3.6-Sexual-and-Gender-Based-Violence-and-Misconduct-Policy_Approved-July2021.pdf",
+      "support_url": "https://ecuad.ca/life-at-ecu/campus-services/safety-incident-reporting/sexual-violence-prevention-support/",
+      "contact_office": "Student Resource Coordinator (SRC)",
+      "contact_email": "src-support@ecuad.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/1388920623",
+        "domains": "https://www.ecuad.ca/about/administration/itservices/about-its/its-departments/it-service-desk/m365-office-for-students",
+        "contact": "https://ecuad.ca/life-at-ecu/campus-services/safety-incident-reporting/sexual-violence-prevention-support/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link redirects to a new page; new URL recorded. The page gives the SRC email only; the phone shown is the university's general footer line, so not used."
+      ]
+    },
+    {
+      "slug": "jibc",
+      "name": "Justice Institute of British Columbia",
+      "short_name": "JIBC",
+      "type": "college",
+      "kind": "institute",
+      "sector": "public",
+      "city": "New Westminster",
+      "lat": 49.22215,
+      "lng": -122.90991,
+      "email_domains": [
+        "myjibc.ca"
+      ],
+      "employee_domains": [
+        "jibc.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.jibc.ca",
+      "policy_url": "http://www.jibc.ca/policy/3213",
+      "support_url": "https://www.jibc.ca/procedure/sexual-violence-and-misconduct-students",
+      "contact_office": "Learning Support and Disability Resources",
+      "contact_email": null,
+      "contact_phone": "604-528-5884",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/41841498",
+        "domains": "https://www.jibc.ca/myjibc",
+        "contact": "https://www.jibc.ca/procedure/sexual-violence-and-misconduct-students",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link is a list of provincial crisis lines. JIBC's own procedure names the Senior Manager of Learning Support and Disability Resources as coordinator of support and gives this phone; no email is shown on that page."
+      ]
+    },
+    {
+      "slug": "kpu",
+      "name": "Kwantlen Polytechnic University",
+      "short_name": "KPU",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Surrey",
+      "lat": 49.13227,
+      "lng": -122.87068,
+      "email_domains": [
+        "student.kpu.ca"
+      ],
+      "employee_domains": [
+        "kpu.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [
+        "email.kpu.ca"
+      ],
+      "website": "https://www.kpu.ca",
+      "policy_url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Policy.pdf",
+      "support_url": "https://www.kpu.ca/sexual-misconduct/support",
+      "contact_office": "Office of Student Rights and Responsibilities",
+      "contact_email": "srr@kpu.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/35352483",
+        "domains": "https://www.kpu.ca/it/unified-login",
+        "contact": "https://www.kpu.ca/student-rights-responsibilities/contact-us",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "The office says email is the best way to reach it; the only phone on the page is KPU's general line."
+      ]
+    },
+    {
+      "slug": "langara",
+      "name": "Langara College",
+      "short_name": "Langara",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Vancouver",
+      "lat": 49.225,
+      "lng": -123.10862,
+      "email_domains": [
+        "mylangara.ca"
+      ],
+      "employee_domains": [
+        "langara.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://langara.ca",
+      "policy_url": "https://langara.ca/media/11361/download?inline=",
+      "support_url": "https://langara.ca/student-services/student-support/support-education-sexual-violence",
+      "contact_office": "Office of Student Support, Rights and Responsibilities (SSRR)",
+      "contact_email": "studentsupport@langara.ca",
+      "contact_phone": "604.323.5151",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/23393992",
+        "domains": "https://langara.teamdynamix.com/TDClient/81/askit/KB/ArticleDet?ID=1395",
+        "contact": "https://langara.ca/student-services/student-support/student-rights-and-responsibilities",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "flags": [
+        "Langara's page is inconsistent: the visible text reads 'studentconduct [at] langara.ca' but the link opens studentsupport@langara.ca. Recorded the link target; confirm with Langara before launch."
+      ]
+    },
+    {
+      "slug": "nvit",
+      "name": "Nicola Valley Institute of Technology",
+      "short_name": "NVIT",
+      "type": "college",
+      "kind": "institute",
+      "sector": "public",
+      "city": "Merritt",
+      "lat": 50.1245,
+      "lng": -120.76773,
+      "email_domains": [
+        "nvit.ca"
+      ],
+      "employee_domains": [
+        "nvit.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.nvit.ca",
+      "policy_url": "https://www.nvit.ca/wp-content/uploads/2025/07/C.1.10-Sexual-Violence-Prevention-Response.pdf",
+      "support_url": "https://www.nvit.ca/students/services/success-centre/",
+      "contact_office": "Nicola Valley Institute of Technology (general line)",
+      "contact_email": "info@nvit.ca",
+      "contact_phone": "1-877-682-3300",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/655236909",
+        "domains": "https://www.nvit.ca/contact-us/",
+        "contact": "https://www.nvit.ca/students/services/success-centre/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "flags": [
+        "No dedicated sexual violence contact found. The Province links to the Success Centre page, which does not mention sexual violence; NVIT's old sexualized-violence contact page returns 404. Using the general line and email shown on that page."
+      ]
+    },
+    {
+      "slug": "nic",
+      "name": "North Island College",
+      "short_name": "NIC",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Courtenay",
+      "lat": 49.71034,
+      "lng": -124.97174,
+      "email_domains": [
+        "northislandcollege.ca"
+      ],
+      "employee_domains": [
+        "nic.bc.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.nic.bc.ca",
+      "policy_url": "https://www.nic.bc.ca/_resources/pdf/policy-3-34-sexualized-violence-prevention-and-response.pdf",
+      "support_url": "https://www.nic.bc.ca/supports-and-services/wellness-and-safety/sexualized-violence.html",
+      "contact_office": "Student Affairs",
+      "contact_email": "studentaffairs@nic.bc.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/8705550",
+        "domains": "https://library.nic.bc.ca/studenttech/myNIC",
+        "contact": "https://www.nic.bc.ca/supports-and-services/wellness-and-safety/sexualized-violence.html",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "The page lists Student Affairs staff by name with personal phones and emails; only the office mailbox is used."
+      ]
+    },
+    {
+      "slug": "nlc",
+      "name": "Northern Lights College",
+      "short_name": "NLC",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Dawson Creek",
+      "lat": 55.74679,
+      "lng": -120.22967,
+      "email_domains": [
+        "students.nlc.bc.ca"
+      ],
+      "employee_domains": [
+        "nlc.bc.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.nlc.bc.ca",
+      "policy_url": "https://www.nlc.bc.ca/wp-content/uploads/a-5_18.pdf",
+      "support_url": "https://www.nlc.bc.ca/student-support/sexual-violence-support-and-education/get-support/",
+      "contact_office": "Learning Support Office",
+      "contact_email": "learningsupport@nlc.bc.ca",
+      "contact_phone": "250-782-5251 ext. 1280",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/745744854",
+        "domains": "https://www.nlc.bc.ca/Login/",
+        "contact": "https://www.nlc.bc.ca/student-support/sexual-violence-support-and-education/get-support/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Phone is the Dawson Creek, Chetwynd, Tumbler Ridge and online line; Fort St. John and Fort Nelson use 250-785-6981 ext. 2005."
+      ]
+    },
+    {
+      "slug": "okanagan",
+      "name": "Okanagan College",
+      "short_name": "OC",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Kelowna",
+      "lat": 49.86182,
+      "lng": -119.48125,
+      "email_domains": [
+        "myokanagan.bc.ca"
+      ],
+      "employee_domains": [
+        "okanagan.bc.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.okanagancollege.ca",
+      "policy_url": "https://www.okanagan.bc.ca/sites/default/files/2020-03/sexual_violence_and_misconduct_policy.pdf",
+      "support_url": "https://www.okanagancollege.ca/sexual-violence-support",
+      "contact_office": "Coordinated Support Services",
+      "contact_email": "occares@okanagan.bc.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/105276517",
+        "domains": "https://okanagan.teamdynamix.com/TDClient/99/Portal/KB/ArticleDet?ID=2904",
+        "contact": "https://www.okanagancollege.ca/sexual-violence-support",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link redirects to okanagancollege.ca; new URL recorded. No office phone published."
+      ]
+    },
+    {
+      "slug": "rru",
+      "name": "Royal Roads University",
+      "short_name": "RRU",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Colwood",
+      "lat": 48.43032,
+      "lng": -123.47965,
+      "email_domains": [
+        "royalroads.ca"
+      ],
+      "employee_domains": [
+        "royalroads.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.royalroads.ca",
+      "policy_url": "https://www.royalroads.ca/policies/sexual-violence-and-misconduct",
+      "support_url": "https://www.royalroads.ca/student-life/counselling-accessibility-wellness/sexual-violence-prevention-response",
+      "contact_office": "Counselling (24-hour Sexual Violence Support Line)",
+      "contact_email": "counselling@royalroads.ca",
+      "contact_phone": "250.391.2600 ext. 8514",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/2379502",
+        "domains": "https://royalroads.atlassian.net/wiki/spaces/ITKNOW/pages/5834387",
+        "contact": "https://www.royalroads.ca/student-life/counselling-accessibility-wellness/sexual-violence-prevention-response",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link redirects; new URL recorded. Page read in a browser (it blocks scripted requests)."
+      ]
+    },
+    {
+      "slug": "selkirk",
+      "name": "Selkirk College",
+      "short_name": "Selkirk",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Castlegar",
+      "lat": 49.30722,
+      "lng": -117.6473,
+      "email_domains": [
+        "edu.selkirk.ca"
+      ],
+      "employee_domains": [
+        "selkirk.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://selkirk.ca",
+      "policy_url": "https://selkirk.ca/sites/default/files/documents/6030-Sexualized-Violence-Prevention-and-Response.pdf",
+      "support_url": "https://selkirk.ca/student-life-support/student-life/healthy-campus/sexualized-violence-prevention",
+      "contact_office": "Welcome Centre",
+      "contact_email": null,
+      "contact_phone": "1 (250) 304-6501",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/989685880",
+        "domains": "https://selkirkcollege.atlassian.net/wiki/spaces/KB/pages/188121125",
+        "contact": "https://selkirk.ca/staff-directory/welcome-centre",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "flags": [
+        "No dedicated sexualized violence office. Selkirk's page says to contact the Welcome Centre to book a counsellor; the Welcome Centre lists this phone (ext. 21501) and an email form, no address."
+      ]
+    },
+    {
+      "slug": "sfu",
+      "name": "Simon Fraser University",
+      "short_name": "SFU",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Burnaby",
+      "lat": 49.27671,
+      "lng": -122.9178,
+      "email_domains": [
+        "sfu.ca"
+      ],
+      "employee_domains": [
+        "sfu.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.sfu.ca",
+      "policy_url": "http://www.sfu.ca/policies/gazette/general/gp44.html",
+      "support_url": "https://www.sfu.ca/sexual-violence/get-help/help-for-students.html",
+      "contact_office": "Sexual Violence Support & Prevention Office (SVSPO)",
+      "contact_email": "sv-support@sfu.ca",
+      "contact_phone": "778.782.7233",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/102254132",
+        "domains": "https://www.sfu.ca/information-systems/services/computing-account/obtaining-and-managing-computing-id.html",
+        "contact": "https://www.sfu.ca/sexual-violence/get-help/help-for-students.html",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "One account per person across roles: role chosen at sign-in (PRD)."
+      ]
+    },
+    {
+      "slug": "tru",
+      "name": "Thompson Rivers University",
+      "short_name": "TRU",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Kamloops",
+      "lat": 50.67245,
+      "lng": -120.36403,
+      "email_domains": [
+        "mytru.ca"
+      ],
+      "employee_domains": [
+        "tru.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.tru.ca",
+      "policy_url": "https://www.tru.ca/__shared/assets/BRD_25-0_Sexualized_Violence40359.pdf",
+      "support_url": "https://www.tru.ca/current/wellness/sexual-violence/get-help.html",
+      "contact_office": "Sexualized Violence Prevention and Response (SVPR) Office",
+      "contact_email": "svpr@tru.ca",
+      "contact_phone": "250-828-5023",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/225179703",
+        "domains": "https://tru.teamdynamix.com/TDClient/84/Portal/KB/ArticleDet?ID=1228",
+        "contact": "https://www.tru.ca/current/wellness/sexual-violence/get-help.html",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "flags": [
+        "TRU's page lists 250-828-5023 both for the SVPR Manager and under Counselling (OM 1631). Recorded as given for SVPR; worth confirming."
+      ]
+    },
+    {
+      "slug": "ubc-vancouver",
+      "name": "University of British Columbia, Vancouver",
+      "short_name": "UBC",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Vancouver",
+      "lat": 49.24846,
+      "lng": -123.23416,
+      "email_domains": [
+        "student.ubc.ca"
+      ],
+      "employee_domains": [
+        "ubc.ca"
+      ],
+      "alumni_domains": [
+        "alum.ubc.ca"
+      ],
+      "blocked_domains": [],
+      "website": "https://www.ubc.ca",
+      "policy_url": "https://svpro.ubc.ca/education/ubc-sexual-misconduct-policy-and-resources/",
+      "support_url": "https://svpro.ubc.ca/",
+      "contact_office": "Sexual Violence Prevention and Response Office (SVPRO), Vancouver",
+      "contact_email": "svpro.vancouver@ubc.ca",
+      "contact_phone": "604-822-1588",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/1424987",
+        "domains": "https://it.ubc.ca/i-am/getting-started-students",
+        "contact": "https://svpro.ubc.ca/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Shares domains and policy with UBC Okanagan; users pick their campus once at sign-in (PRD)."
+      ]
+    },
+    {
+      "slug": "ubc-okanagan",
+      "name": "University of British Columbia, Okanagan",
+      "short_name": "UBCO",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Kelowna",
+      "lat": 49.94218,
+      "lng": -119.39903,
+      "email_domains": [
+        "student.ubc.ca"
+      ],
+      "employee_domains": [
+        "ubc.ca"
+      ],
+      "alumni_domains": [
+        "alum.ubc.ca"
+      ],
+      "blocked_domains": [],
+      "website": "https://ok.ubc.ca",
+      "policy_url": "https://svpro.ubc.ca/education/ubc-sexual-misconduct-policy-and-resources/",
+      "support_url": "https://svpro.ok.ubc.ca/get-support/",
+      "contact_office": "Sexual Violence Prevention and Response Office (SVPRO), Okanagan",
+      "contact_email": "svpro.okanagan@ubc.ca",
+      "contact_phone": "250 807 9640",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/123757617",
+        "domains": "https://it.ubc.ca/i-am/getting-started-students",
+        "contact": "https://svpro.ok.ubc.ca/get-support/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Shares domains and policy with UBC Vancouver."
+      ]
+    },
+    {
+      "slug": "ufv",
+      "name": "University of the Fraser Valley",
+      "short_name": "UFV",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Abbotsford",
+      "lat": 49.02834,
+      "lng": -122.28491,
+      "email_domains": [
+        "student.ufv.ca"
+      ],
+      "employee_domains": [
+        "ufv.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.ufv.ca",
+      "policy_url": "https://www.ufv.ca/media/assets/secretariat/policies/Prevention-Education-and-Response-to-Sexualized-Violence-(236).pdf",
+      "support_url": "https://www.ufv.ca/student-rights-responsibilities-office/safe-student-community/sexualized-violence-prevention/get-help/",
+      "contact_office": "Student Rights and Responsibilities Office (SRRO)",
+      "contact_email": "SRRO@ufv.ca",
+      "contact_phone": "604-504-7441 ext 5105",
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/8909832",
+        "domains": "https://itservicedesk.ufv.ca/TDClient/52/ITServicesPortal/KB/ArticleDet?ID=5851",
+        "contact": "https://www.ufv.ca/student-rights-responsibilities-office/safe-student-community/sexualized-violence-prevention/get-help/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link redirects; new URL recorded."
+      ]
+    },
+    {
+      "slug": "unbc",
+      "name": "University of Northern British Columbia",
+      "short_name": "UNBC",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Prince George",
+      "lat": 53.89257,
+      "lng": -122.81472,
+      "email_domains": [
+        "unbc.ca"
+      ],
+      "employee_domains": [
+        "unbc.ca"
+      ],
+      "alumni_domains": [
+        "alumni.unbc.ca"
+      ],
+      "blocked_domains": [],
+      "website": "https://www.unbc.ca",
+      "policy_url": "https://www.unbc.ca/sexual-violence/sexual-violence-and-misconduct-policy",
+      "support_url": "https://www.unbc.ca/sexual-violence-and-misconduct/student-supports-options",
+      "contact_office": "Student Conduct and Care Office",
+      "contact_email": "studentsvresponse@unbc.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/446564130",
+        "domains": "https://www.unbc.ca/information-technology-services/email-students",
+        "contact": "https://www.unbc.ca/sexual-violence-and-misconduct/student-supports-options",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link redirects; new URL recorded. The page also has one link misspelled 'studentsvreponse'; the address shown in the text is used."
+      ]
+    },
+    {
+      "slug": "uvic",
+      "name": "University of Victoria",
+      "short_name": "UVic",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Victoria",
+      "lat": 48.46206,
+      "lng": -123.31142,
+      "email_domains": [
+        "uvic.ca"
+      ],
+      "employee_domains": [
+        "uvic.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.uvic.ca",
+      "policy_url": "https://www.uvic.ca/universitysecretary/assets/docs/policies/GV0245.pdf",
+      "support_url": "https://www.uvic.ca/sexualizedviolence/get-support/on-campus/index.php",
+      "contact_office": "Sexualized Violence Resource Office (SVRO), Equity and Human Rights",
+      "contact_email": "eqhr01@uvic.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/1373463",
+        "domains": "https://www.uvic.ca/systems/support/emailcalendar/students/index.php",
+        "contact": "https://www.uvic.ca/sexualizedviolence/index.php",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "SVRO books by email; no office phone published. Coordinates fall in Saanich, where the campus sits."
+      ]
+    },
+    {
+      "slug": "vcc",
+      "name": "Vancouver Community College",
+      "short_name": "VCC",
+      "type": "college",
+      "kind": "college",
+      "sector": "public",
+      "city": "Vancouver",
+      "lat": 49.26473,
+      "lng": -123.08037,
+      "email_domains": [
+        "student.vcc.ca"
+      ],
+      "employee_domains": [
+        "vcc.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [],
+      "website": "https://www.vcc.ca",
+      "policy_url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Policy-A.3.10.pdf",
+      "support_url": "https://www.vcc.ca/services/services-for-students/sexual-violence-support-services/getting-support/",
+      "contact_office": "Safety, Security and Risk Management",
+      "contact_email": null,
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/relation/19595511",
+        "domains": "https://library.vcc.ca/using-the-library/vcc-email/",
+        "contact": "https://www.vcc.ca/services/services-for-students/sexual-violence-support-services/contact/",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "flags": [
+        "VCC's sexual violence contact page lists only one named staff member's direct phone and email, so neither is used. No office-level email or phone is published. Coordinates are the Broadway campus; VCC also has a Downtown campus."
+      ]
+    },
+    {
+      "slug": "viu",
+      "name": "Vancouver Island University",
+      "short_name": "VIU",
+      "type": "university",
+      "kind": "university",
+      "sector": "public",
+      "city": "Nanaimo",
+      "lat": 49.15789,
+      "lng": -123.96564,
+      "email_domains": [
+        "my.viu.ca"
+      ],
+      "employee_domains": [
+        "viu.ca"
+      ],
+      "alumni_domains": [],
+      "blocked_domains": [
+        "stumail.viu.ca"
+      ],
+      "website": "https://www.viu.ca",
+      "policy_url": "https://isapp.viu.ca/PolicyProcedure/docshow.asp?doc_id=34811",
+      "support_url": "https://adm.viu.ca/sexualized-violence-and-misconduct/supports",
+      "contact_office": "Diversity, Equity and Human Rights Office",
+      "contact_email": "HumanRights@viu.ca",
+      "contact_phone": null,
+      "sources": {
+        "coordinates": "https://www.openstreetmap.org/way/200091020",
+        "domains": "https://ithelp.viu.ca/TDClient/169/ITPortal/KB/ArticleDet?ID=10267",
+        "contact": "https://adm.viu.ca/sexualized-violence-and-misconduct/supports",
+        "policy": "https://www2.gov.bc.ca/gov/content/safe-campuses-bc/get-informed/sexual-violence-policies"
+      },
+      "notes": [
+        "Province's support link redirects; new URL recorded. No office phone published for the Diversity, Equity and Human Rights Office."
+      ]
+    }
+  ]
+}
