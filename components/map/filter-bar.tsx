@@ -35,7 +35,7 @@ const LEGEND = [
   { token: "bg-no-policy", word: "No public policy" },
 ];
 
-export function FilterBar() {
+export function FilterBar({ reviewLine }: { reviewLine?: string }) {
   const { mode, setMode, typeFilter, setTypeFilter, schools } = useMapState();
   return (
     <>
@@ -67,6 +67,11 @@ export function FilterBar() {
             Not graded yet
           </li>
         </ul>
+      )}
+      {reviewLine && (
+        <p className="glass pointer-events-auto mt-2 rounded-[18px] px-3 py-2 text-xs text-text-secondary">
+          {reviewLine} <a href="/how-it-works#review-clock" className="font-medium text-brand underline-offset-2 hover:underline">How this is counted</a>
+        </p>
       )}
       {/* The map canvas can't be tabbed through; these links give keyboard and screen reader users every school. */}
       <nav aria-label="Schools" className="sr-only focus-within:not-sr-only focus-within:glass focus-within:pointer-events-auto focus-within:mt-2 focus-within:max-h-72 focus-within:overflow-auto focus-within:rounded-[18px] focus-within:p-3">

@@ -13,6 +13,9 @@ import { useMapState } from "@/components/map/map-state";
 import { gapDisplay, isGraded } from "@/lib/grades";
 import type { Grade, InstitutionDetail } from "@/lib/types";
 import { telHref } from "@/lib/tel";
+import { reviewFor } from "@/lib/review-clock";
+import sources from "@/data/sources.json";
+import { ReviewClock } from "./review-clock";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
@@ -184,6 +187,13 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
           </p>
         )}
       </section>
+
+      {school.policy_found && (() => {
+        const review = reviewFor(school.slug);
+        // The three weakest criteria: lowest score first, then rubric order.
+        const weakest = [...school.grades].sort((a, b) => a.score - b.score || a.sort - b.sort).slice(0, 3);
+        return <ReviewClock date={review.date} note={review.note} weakest={graded ? weakest : []} lawUrl={sources.review_law.url} />;
+      })()}
 
       {school.public_records.length > 0 && (
         <section className="mt-6" aria-labelledby="records-heading">

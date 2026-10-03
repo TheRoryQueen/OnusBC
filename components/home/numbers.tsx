@@ -1,4 +1,5 @@
 import sources from "@/data/sources.json";
+import { reviewStat } from "@/lib/review-clock";
 import { ClearanceChart } from "./clearance-chart";
 import { Stat } from "./stat";
 
@@ -18,6 +19,7 @@ export function Numbers() {
   const stats = sources.homepage_stats as StatRow[];
   const chart = sources.chart_clearance;
   const rule = sources.policy_requirement;
+  const review = reviewStat(); // computed from each published policy's printed date
   const sourceLinks = [
     { label: "StatCan SISPSP 2019", url: stats[0].url },
     { label: "StatCan GSS 2019", url: stats[1].url },
@@ -55,6 +57,10 @@ export function Numbers() {
           </p>
           <p className="mt-6 max-w-[22ch] font-serif text-[1.625rem] leading-snug text-text">
             Nobody tracks how each school handles this. Onus does.
+          </p>
+          <p className="mt-4 max-w-[40ch] text-[15px] leading-relaxed text-text">
+            {review.old} of {review.total} published policies are more than three years old.{" "}
+            <a href="/how-it-works#review-clock" className="text-brand underline-offset-2 hover:underline">How this is counted</a>
           </p>
           <p id="sources" className="mt-8 text-[12px] leading-relaxed text-text-secondary">
             Sources:{" "}

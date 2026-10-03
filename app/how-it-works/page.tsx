@@ -113,6 +113,21 @@ export default async function HowItWorks() {
           </ul>
         </Section>
 
+        <Section id="review-clock" title="The review clock">
+          <p>
+            BC law says a school &ldquo;must review its sexual misconduct policy (a) at least once every 3 years&rdquo; (<a href={sources.review_law.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 hover:underline">Sexual Violence and Misconduct Policy Act, s. 3 (1)</a>), and must consult students when it does (s. 4).
+          </p>
+          <p>
+            For each school, Onus reads the effective, approved or last-revised date printed in its published policy (or, if the policy prints none, its procedures) and shows the exact line it came from. The next review date is that date plus three years. When a document prints no date, the panel says &ldquo;No date published.&rdquo;
+          </p>
+          <p>
+            This is about the <strong>published policy</strong> only. A school may have reviewed its policy and decided not to change it, or changed it without republishing a new date, so a passed date doesn&apos;t mean a school broke the law. It means the published policy is older than the review cycle.
+          </p>
+          <p>
+            The 2025 Sexual Violence Policy Act will replace this law, but it is not yet in force; until it is, the 2016 Act&apos;s three-year review applies.
+          </p>
+        </Section>
+
         <Section id="ratings" title="Where ratings come from">
           <p>Each school&apos;s panel counts its ratings by source, so you always know what a grade rests on.</p>
           <p><strong>Onus ({totals.onus} so far).</strong> Real ratings from people who signed in with a school email, including judges during the event.</p>

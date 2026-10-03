@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { reviewStat } from "@/lib/review-clock";
 import { preconnect } from "react-dom";
 import { FilterBar } from "@/components/map/filter-bar";
 import { MapStateProvider } from "@/components/map/map-state";
@@ -15,6 +16,8 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
   preconnect("https://tiles.basemaps.cartocdn.com", { crossOrigin: "anonymous" });
   let schools: Awaited<ReturnType<typeof listInstitutions>> = [];
   let failed = false;
+  // Computed from the dates printed in each published policy (data/review-dates.json), never hardcoded.
+  const stat = reviewStat();
   try {
     schools = await listInstitutions();
   } catch {
@@ -25,7 +28,7 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
       <main className="relative min-h-[calc(100dvh-4rem)] flex-1 overflow-hidden">
         <OnusMap />
         <div className="pointer-events-none absolute inset-x-3 top-3 z-10 md:inset-x-auto md:right-4 md:top-4 md:w-auto">
-          <FilterBar />
+          <FilterBar reviewLine={`${stat.old} of ${stat.total} published policies are more than three years old.`} />
           {failed && (
             <p className="glass pointer-events-auto mt-2 rounded-2xl px-3 py-2 text-sm text-text">
               Couldn&apos;t load the schools. <Link href="/map" className="text-brand">Try again</Link>

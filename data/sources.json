@@ -117,5 +117,15 @@
     "source": "BC Ministry of Post-Secondary Education and Future Skills, Consent Awareness Week statement, 2026",
     "url": "https://news.gov.bc.ca/releases/2026PSFS0034-001092",
     "verified": "2026-10-03"
+  },
+  "review_law": {
+    "act": "Sexual Violence and Misconduct Policy Act, SBC 2016, c. 23",
+    "url": "https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/16023_01",
+    "current_to": "2026-09-22",
+    "s3_1": "A post-secondary institution must review its sexual misconduct policy (a) at least once every 3 years, and (b) when directed to do so by the minister.",
+    "s4": "A post-secondary institution must consult with students and with prescribed persons or prescribed classes of persons, if any, when the post-secondary institution (a) establishes its first sexual misconduct policy under section 2, and (b) reviews its sexual misconduct policy under section 3 (1).",
+    "replacement": "The Sexual Violence Policy Act (Bill 18, 2025) repeals and replaces this Act but is not yet in force: the Ministry 'continues to develop policy to support the implementation of the Sexual Violence Policy Act and to bring it into force' (Consent Awareness Week statement, 2026).",
+    "replacement_url": "https://www.bclaws.gov.bc.ca/civix/document/id/lc/billscurrent/1st43rd:gov18-1",
+    "verified": "2026-10-03"
   }
 }
