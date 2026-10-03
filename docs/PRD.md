@@ -204,7 +204,7 @@ Claude Code uses these exactly; Farnaz edits them here, not in code.
 - Shared domains where the role can't be read from the address: a three-option capsule control, Student / Staff / Alumni.
 - Step 2: "We sent a 6-digit code to \[email\]. It expires in 10 minutes." Six single-digit boxes; pasting fills all six; the sixth digit submits. "Resend code" unlocks after 30 seconds. "Use a different email" goes back.
 - Errors: wrong code "That code didn't match. Check your latest email."; expired code "That code expired. We can send a new one."
-- Judge access: a quiet text link under the card reveals email plus event code fields.
+- Judge access: a quiet text link under the card opens a small dialog that asks only for the event code; it signs in with the email typed on the card (if that field is empty, the card asks for the email first). One email field only.
 - After success, return to where they came from (for example the rating form for that school), otherwise the map.
 
 **Rate your school (/rate/\[slug\]).**
