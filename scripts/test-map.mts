@@ -99,11 +99,11 @@ try {
 
   // Ungraded and no-policy schools.
   await page.goto(`${BASE}/map/sfu`, { waitUntil: "load" });
-  check("ungraded school says Grading in progress", await page.getByText("Grading in progress").first().isVisible());
+  check("ungraded school says Grading in progress", await page.getByText("Grading in progress").first().waitFor({ timeout: 10000 }).then(() => true).catch(() => false));
   await page.goto(`${BASE}/map/cotr`, { waitUntil: "load" });
-  check("COTR shows the login note", await page.getByText("Policy exists but requires a login to read").isVisible());
+  check("COTR shows the login note", await page.getByText("Policy exists but requires a login to read").waitFor({ timeout: 10000 }).then(() => true).catch(() => false));
   await page.goto(`${BASE}/map/not-a-school`, { waitUntil: "load" });
-  check("unknown school shows the not-found page", await page.getByText("This page isn't here.").isVisible());
+  check("unknown school shows the not-found page", await page.getByText("This page isn't here.").waitFor({ timeout: 10000 }).then(() => true).catch(() => false));
 
   // Back button.
   await page.goto(`${BASE}/map`, { waitUntil: "load" });
