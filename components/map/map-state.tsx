@@ -54,7 +54,10 @@ export function MapStateProvider({ initial, children }: { initial: InstitutionSu
           })
         );
       })
-      .subscribe();
+      .subscribe((status) => {
+        // Development only: lets tests wait until the channel is live before changing a score.
+        if (process.env.NODE_ENV !== "production") (window as unknown as { __onusRealtime?: string }).__onusRealtime = status;
+      });
     return () => {
       supabase.removeChannel(channel);
     };
