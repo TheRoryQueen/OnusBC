@@ -127,17 +127,46 @@
 }
 
 /* Glass: frosted blur plus saturation plus a faint bright edge. Floating controls only, never glass on glass.
-   A web approximation of Apple's material, not an Apple-issued style. */
+   A web approximation of Apple's material, not an Apple-issued style. Built from Tailwind's backdrop
+   utilities: hand-written backdrop-filter declarations were dropped by the CSS optimizer. */
 @utility glass {
   background-color: var(--onus-glass);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
   box-shadow: inset 0 0 0 1px var(--onus-glass-edge), 0 8px 32px rgb(0 0 0 / 0.08);
-  @media (prefers-reduced-transparency: reduce) {
+  @apply backdrop-blur-xl backdrop-saturate-[1.8];
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
     background-color: var(--onus-surface);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    --tw-backdrop-blur: ;
+    --tw-backdrop-saturate: ;
   }
+}
+
+/* MapLibre's stock controls become glass capsules in the Onus tokens (map controls float on glass).
+   Scoped under .maplibregl-map because MapLibre's stylesheet loads after this one. */
+.maplibregl-map .maplibregl-ctrl-group:not(:empty) {
+  background-color: var(--onus-glass);
+  box-shadow: inset 0 0 0 1px var(--onus-glass-edge), 0 8px 24px rgb(0 0 0 / 0.08);
+  border-radius: 9999px;
+  overflow: hidden;
+  @apply backdrop-blur-xl backdrop-saturate-[1.8];
+}
+.maplibregl-map .maplibregl-ctrl-group button { width: 36px; height: 36px; }
+.maplibregl-map .maplibregl-ctrl-group button + button { border-top: 1px solid var(--onus-hairline); }
+.maplibregl-map .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: none; }
+.dark .maplibregl-map .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+.maplibregl-map .maplibregl-ctrl.maplibregl-ctrl-attrib,
+.maplibregl-map .maplibregl-ctrl-attrib.maplibregl-compact {
+  background-color: var(--onus-glass);
+  color: var(--onus-text-secondary);
+  border-radius: 9999px;
+  @apply backdrop-blur-xl;
+}
+.maplibregl-map .maplibregl-ctrl-attrib a { color: var(--onus-text-secondary); }
+.dark .maplibregl-map .maplibregl-ctrl-attrib-button { filter: invert(1); }
+/* Phones: pinch to zoom; the buttons would sit under the bottom sheet. */
+@media (max-width: 767px) {
+  .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group { display: none; }
 }
 
 /* Theme toggle circle reveal: the new view sits on top and is clipped open from the button. */
