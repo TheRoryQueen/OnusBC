@@ -10,6 +10,13 @@ import { MANIFEST, POLICIES, download, readManifest, sha256, writeJson, type Doc
 type Inst = { slug: string; policy_url: string; procedures_url: string | null; policy_note: string | null };
 const institutions: Inst[] = JSON.parse(readFileSync(new URL("../../data/institutions.json", import.meta.url), "utf8")).institutions;
 
+const visibleText = (html: string) =>
+  (html.match(/<main[\s\S]*?<\/main>/i)?.[0] ?? html)
+    .replace(/<(script|style|noscript|svg|form)[\s\S]*?<\/\1>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
 function fetchDoc(slug: string, role: "policy" | "procedures", url: string): DocEntry {
   const base = role === "policy" ? slug : `${slug}.procedures`;
   const tmp = `${POLICIES}${base}.download`;
@@ -22,7 +29,10 @@ function fetchDoc(slug: string, role: "policy" | "procedures", url: string): Doc
       const kind = isPdf ? "pdf" : "html";
       for (const k of ["pdf", "html"]) if (k !== kind && existsSync(`${POLICIES}${base}.${k}`)) unlinkSync(`${POLICIES}${base}.${k}`);
       renameSync(tmp, `${POLICIES}${base}.${kind}`);
-      return { role, url, final_url: r.finalUrl, status: r.status, kind, file: `${base}.${kind}`, bytes: buf.length, sha256: sha256(buf) };
+      // HTML pages carry per-request tokens and scripts; hash their visible text so an unchanged policy
+      // isn't flagged as changed (and re-graded) on every crawl.
+      const hash = kind === "pdf" ? sha256(buf) : sha256(visibleText(buf.toString("utf8")));
+      return { role, url, final_url: r.finalUrl, status: r.status, kind, file: `${base}.${kind}`, bytes: buf.length, sha256: hash };
     }
     throw new Error(`status ${r.status}, ${buf.length} bytes, ${isPdf ? "pdf" : isHtml ? "html" : "unknown type"}`);
   } catch (e) {
