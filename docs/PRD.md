@@ -160,7 +160,7 @@ Modeled on CrisisConnect's "How it works" section (code in docs/components.md, s
 **Right: five steps** (circles in the brand tint with the number, hairline between them):
 
 1. **Find your school.** Every public college and university in BC is on the map, colored by the gap between its policy and its practice.
-2. **Read the policy, graded.** Sixteen criteria, each backed by a quote from the school's own policy. If the quote isn't in the policy, the point doesn't count.
+2. **Read the policy, graded.** Seventeen criteria, each backed by a quote from the school's own policy. If the quote isn't in the policy, the point doesn't count.
 3. **Ask it anything.** Type or talk. Answers come only from that school's policy, with the section cited.
 4. **Rate your school.** Sign in with your school email. Your answers are stored with no link to you.
 5. **Get help, anytime.** Support lines and your school's office are one tap away on every page. You don't have to report to get support.
@@ -217,7 +217,7 @@ Claude Code uses these exactly; Farnaz edits them here, not in code.
 - Done screen: the edit code large in IBM Plex Mono with a Copy button, and "Save this code. It's the only way to change or withdraw your rating, and we can't recover it." Then "Back to \[School\]", which opens the panel with the Onus count already ticked up.
 - Already rated: "You've already rated \[School\]. Use your code to change or withdraw it." with a code field.
 
-**How it works (/how-it-works).** Plain sections, no cards: The two grades · The 16 criteria (the rubric table) · The quote check, shown with one real accepted quote and one real rejected quote from the grading output · The gap · Where ratings come from (public, Onus, and sample, explained honestly) · Privacy in plain words · Limits (AI can be wrong; Farnaz hand-graded 3 schools and the agreement rate is shown once measured) · Sources.
+**How it works (/how-it-works).** Plain sections, no cards: The two grades · The 17 criteria (the rubric table), with one line explaining that Onus grades a school's policy and its procedures together as one text when the procedures are a separate document, and every quote shows which document and section it came from · The quote check, shown with one real accepted quote and one real rejected quote from the grading output · The gap · Where ratings come from (public, Onus, and sample, explained honestly) · Privacy in plain words · Limits (AI can be wrong; Farnaz hand-graded 3 schools and the agreement rate is shown once measured) · Sources.
 
 **Get support (/support).** Purple accent, calm, no images.
 
@@ -274,7 +274,7 @@ Every school gets two grades on the same 0 to 4 scale, shown as letters, and the
 
 ### On paper (AI-graded policy)
 
-The rubric has 16 criteria in 5 categories, built from the Students for Consent Culture minimum standards ([source](https://www.sfcccanada.org/provincial)) plus a few Onus additions that make a policy usable. Each criterion scores **0** not addressed, **1** mentioned but vague or optional ("may"), **2** explicit and binding ("will", "must").
+The rubric has 17 criteria in 5 categories, built from the Students for Consent Culture minimum standards ([source](https://www.sfcccanada.org/provincial)) plus a few Onus additions that make a policy usable. Each criterion scores **0** not addressed, **1** mentioned but vague or optional ("may"), **2** explicit and binding ("will", "must").
 
 | Category | Criteria | Origin |
 | --- | --- | --- |
@@ -288,11 +288,11 @@ The rubric has 16 criteria in 5 categories, built from the Students for Consent 
 
 Category score = points earned divided by points possible, times 4. The On paper grade is the average of the 5 category scores, equal weight.
 
-**Grading rules for the AI:** every score must quote the exact clause and its section number. Code checks each quote against the policy text; a quote that is not found is rejected and the criterion scores 0 as "Not found in policy." Grades are precomputed and stored, never generated live. Farnaz hand-grades 3 schools to measure agreement with the AI.
+**Grading rules for the AI:** where a school publishes separate procedures, the policy and procedures are graded together as one combined text. Every score must quote the exact clause and record which document (policy or procedures) and section it came from; the panel shows both. A school whose policy exists but requires a login to read shows grey with the note "Policy exists but requires a login to read", and scores 0 on Publicly posted and easy to find. Code checks each quote against the policy text; a quote that is not found is rejected and the criterion scores 0 as "Not found in policy." Grades are precomputed and stored, never generated live. Farnaz hand-grades 3 schools to measure agreement with the AI.
 
 ### In practice (student ratings)
 
-Shown only when a school has at least 5 ratings; otherwise "Not enough ratings yet." Ratings come from three sources, and the panel shows the count of each under the In practice score: \*\*public\*\* (from public records), \*\*Onus\*\* (real ratings submitted through the app, including judge ratings during the event), and \*\*sample\*\* (seed data, deletable later). All three feed the In practice grade. Each answer converts to 0 to 4:
+Shown only when a school has at least 5 ratings; otherwise "Not enough ratings yet." Ratings come from three sources, and the panel shows the count of each under the In practice score: \*\*public records\*\* (the number of the school's public\_records rows, labeled "public records", never "public ratings"), \*\*Onus\*\* (real ratings submitted through the app, including judge ratings during the event), and \*\*sample\*\* (seed data, deletable later). Only Onus and sample ratings feed the In practice grade; public records do not feed it directly, they only shape the sample ratings. Each answer converts to 0 to 4:
 
 | Question | Asked of | Conversion |
 | --- | --- | --- |
@@ -433,7 +433,7 @@ Onus collects the least it can, never links a rating to a person, and says so in
 
 ## Data sources and seeding
 
-Policies and public records are real; student ratings come from three sources counted separately in each school's panel: public (from public records), Onus (real ratings through the app), and sample (seed accounts Farnaz made where a school had no public data, deletable later). No banner or "Demo data" label.
+Policies and public records are real; student ratings come from three sources counted separately in each school's panel: public records (the count of public\_records rows, which shape the sample ratings but do not feed the grade directly), Onus (real ratings through the app), and sample (seed accounts Farnaz made where a school had no public data, deletable later). No banner or "Demo data" label.
 
 | Layer | Source | Status |
 | --- | --- | --- |
@@ -678,9 +678,9 @@ Every route validates input, returns JSON, and never exposes the service role ke
 
 **Pipeline scripts** (run locally with `npm run <name>`, before the event):
 
-1. `crawl`: for each institution in data/institutions.json, find the sexual violence policy page and PDF; save to data/policies/; mark policy\_found false if nothing is found.
+1. `crawl`: for each institution in data/institutions.json, find the sexual violence policy page and PDF, plus the separate procedures document where one exists (graded together as one text); save to data/policies/; mark policy\_found false if nothing is found.
 2. `extract`: turn each PDF or page into clean text split by section headings; save JSON.
-3. `grade`: send each policy with the 16 criteria to Gemini, temperature 0, structured JSON output: criterion, score, quote, section.
+3. `grade`: send each policy (with its procedures) and the 17 criteria to Gemini, temperature 0, structured JSON output: criterion, score, quote, section.
 4. `verify`: normalize whitespace and check every quote appears in the extracted text; unfound quotes become score 0, "Not found in policy." Write grades and institution\_scores to Supabase.
 5. `embed`: chunk policy text by section, embed with Gemini, store in policy\_chunks.
 6. `seed-demo`: create demo users and ratings shaped by public records, all is\_demo true.
@@ -698,7 +698,7 @@ Filling the holes found in a review pass. Build these as part of the milestones 
 - **Demo seed volume (milestone 8):** give every school 8 to 25 demo ratings (random within that range), weighted by its public record where one exists (a school whose report shows few resolved cases gets lower "consequence" and "believed" scores). Spread submission weeks over the last 3 months. Keep the gap believable: most schools land in "some gap," a few "aligned," a few "big gap," at least one "no public policy" grey.
 - **Accessibility pass (after milestones 5, 7, 11):** run the `design:accessibility-review` skill. Check color contrast in both themes, keyboard navigation through the map and forms, visible focus rings, screen-reader labels on the map controls and the Ask button, and that no meaning is carried by color alone (always the word with the grade).
 
-* **Live rating count, three sources (milestone 5, 7, 8):** under each school's In practice score, show a small grey line: "\[n\] public · \[n\] Onus · \[n\] sample." Public comes from public\_records, Onus is real app ratings (source = 'onus'), sample is seed rows (source = 'sample'). When any rating is submitted, the Onus number ticks up with a brief highlight and the dot pulses, so a judge sees their action land even if the grade barely moves. Judge ratings are source = 'onus' and is\_demo = true: they count in the Onus number live, but can be filtered out after the event so test clicks don't skew a real grade. Sample rows are easy to delete in one query once real ratings arrive.
+* **Live rating count, three sources (milestone 5, 7, 8):** under each school's In practice score, show a small grey line: "\[n\] public records · \[n\] Onus · \[n\] sample." Public records is the number of public\_records rows, Onus is real app ratings (source = 'onus'), sample is seed rows (source = 'sample'). When any rating is submitted, the Onus number ticks up with a brief highlight and the dot pulses, so a judge sees their action land even if the grade barely moves. Judge ratings are source = 'onus' and is\_demo = true: they count in the Onus number live, but can be filtered out after the event so test clicks don't skew a real grade. Sample rows are easy to delete in one query once real ratings arrive.
 
 ## Build handoff: order of work and agent rules
 
@@ -709,7 +709,7 @@ Build in this order and don't start a milestone until the previous one passes it
 | 1 | Project setup: Next.js, Tailwind v4 and shadcn/ui (shadcn theme variables mapped to the Onus tokens), tokens.css, theme toggle, Supabase clients, .env.example, run locally | localhost loads in light and dark |
 | 2 | Schema and security: migrations, RLS, functions, auth hook | A signed-out query to ratings returns nothing; submit\_rating works from a test script |
 | 3 | Institution data: data/institutions.json with every BC public institution | Every school has coordinates, domains, website, contact |
-| 4 | Pipeline: crawl, extract, grade, verify, embed | Every found policy has 16 graded criteria; zero unverified quotes stored |
+| 4 | Pipeline: crawl, extract, grade, verify, embed | Every found policy has 17 graded criteria; zero unverified quotes stored |
 | 5 | Map and panel | Dots colored by gap; filters work; clicking opens the panel with real grades; /map/\[slug\] deep links work; mobile sheet works |
 | 6 | Auth and judge access | School email code sign-in works end to end; judge code works; wrong domain is rejected |
 | 7 | Rating flow | Submit, receive edit code, dot updates live on a second browser |
