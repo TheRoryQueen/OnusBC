@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Dialog } from "@base-ui/react/dialog";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -91,8 +92,9 @@ export function SignInCard({ next }: { next: string | null }) {
   const [now, setNow] = useState(() => Date.now());
   const [codeKey, setCodeKey] = useState(0);
   const [judgeOpen, setJudgeOpen] = useState(false);
-  const [judgeEmail, setJudgeEmail] = useState("");
   const [judgeCode, setJudgeCode] = useState("");
+  const [judgeError, setJudgeError] = useState<string | null>(null);
+  const [hint, setHint] = useState<string | null>(null);
   const emailRef = useRef<HTMLInputElement>(null);
 
   // Someone on a slow connection may type before the page finishes loading; keep what they typed.
@@ -162,15 +164,21 @@ export function SignInCard({ next }: { next: string | null }) {
     await finish();
   };
 
+  // Judge access uses the email typed on the card; the dialog asks only for the event code.
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const openJudge = () => {
+    if (!validEmail) { setError(null); setHint("Enter your email first, then choose Judge access."); emailRef.current?.focus(); return; }
+    setError(null); setHint(null); setJudgeError(null); setJudgeOpen(true);
+  };
   const judgeSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setJudgeError(null);
     setBusy(true);
-    const res = await fetch("/api/judge-login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: judgeEmail, code: judgeCode }) });
+    const res = await fetch("/api/judge-login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: email.trim().toLowerCase(), code: judgeCode }) });
     const body = (await res.json().catch(() => ({}))) as { token_hash?: string; error?: string };
-    if (!res.ok || !body.token_hash) { setBusy(false); setError(body.error ?? "Judge access didn't work. Try again in a moment."); return; }
+    if (!res.ok || !body.token_hash) { setBusy(false); setJudgeError(body.error ?? "Judge access didn't work. Try again in a moment."); return; }
     const { error } = await supabase.auth.verifyOtp({ type: "magiclink", token_hash: body.token_hash });
-    if (error) { setBusy(false); setError("Judge access didn't work. Try again in a moment."); return; }
+    if (error) { setBusy(false); setJudgeError("Judge access didn't work. Try again in a moment."); return; }
     await finish();
   };
 
@@ -185,7 +193,7 @@ export function SignInCard({ next }: { next: string | null }) {
             <h1 className="text-center text-xl font-semibold text-text">Sign in with your school email</h1>
             <div>
               <label htmlFor="email" className="mb-2 block text-sm text-text">School email</label>
-              <input ref={emailRef} id="email" type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => { setEmail(e.target.value); setError(null); }}
+              <input ref={emailRef} id="email" type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => { setEmail(e.target.value); setError(null); setHint(null); }}
                 placeholder="name@my.capilanou.ca" className={inputCls} aria-invalid={!!error} aria-describedby={error ? "signin-error" : undefined} />
             </div>
             {sharedRole && (
@@ -197,6 +205,7 @@ export function SignInCard({ next }: { next: string | null }) {
                 options={matches.map((m) => ({ value: m.id, label: m.name.replace(/^University of British Columbia, /, "") }))} />
             )}
             {error && <p id="signin-error" role="alert" className="text-sm text-big-gap">{error}</p>}
+            {hint && !error && <p role="status" className="text-sm text-text">{hint}</p>}
             <div className="border-t border-hairline pt-4">
               <button type="submit" disabled={busy} className={primaryBtn}>{busy ? "Sending" : "Send code"}</button>
               <p className="mt-3 text-center text-xs leading-relaxed text-text-secondary">
@@ -220,24 +229,33 @@ export function SignInCard({ next }: { next: string | null }) {
         )}
       </div>
 
-      <div className="mt-4 text-center">
-        {!judgeOpen ? (
-          <button type="button" className={quietLink} onClick={() => setJudgeOpen(true)}>Judge access</button>
-        ) : (
-          <form onSubmit={judgeSignIn} className="glass mt-1 space-y-3 rounded-[24px] p-5 text-left" noValidate>
-            <p className="text-sm font-medium text-text">Judge access</p>
-            <div>
-              <label htmlFor="judge-email" className="mb-1.5 block text-sm text-text">Email</label>
-              <input id="judge-email" type="email" autoComplete="email" value={judgeEmail} onChange={(e) => setJudgeEmail(e.target.value)} className={inputCls} />
-            </div>
-            <div>
-              <label htmlFor="judge-code" className="mb-1.5 block text-sm text-text">Event code</label>
-              <input id="judge-code" type="text" autoComplete="off" value={judgeCode} onChange={(e) => setJudgeCode(e.target.value)} className={inputCls} />
-            </div>
-            <button type="submit" disabled={busy || !judgeEmail || !judgeCode} className="w-full rounded-full bg-hairline/70 px-5 py-2.5 text-sm font-medium text-text hover:bg-hairline disabled:opacity-50">Continue as a judge</button>
-          </form>
-        )}
-      </div>
+      {step === "email" && (
+        <div className="mt-4 text-center">
+          <button type="button" className={quietLink} onClick={openJudge}>Judge access</button>
+        </div>
+      )}
+
+      <Dialog.Root open={judgeOpen} onOpenChange={(o) => { setJudgeOpen(o); if (!o) setJudgeError(null); }}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className="fixed inset-0 z-40 bg-page/70 backdrop-blur-sm transition-opacity data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 motion-reduce:transition-none" />
+          <Dialog.Popup className="fixed bg-raised shadow-[0_24px_64px_-16px_rgb(0_0_0/0.35)] ring-1 ring-hairline left-1/2 top-1/2 z-50 w-[calc(100%-32px)] max-w-xs -translate-x-1/2 -translate-y-1/2 rounded-[28px] p-6 transition-[opacity,transform] data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 motion-reduce:transition-none">
+            <Dialog.Title className="text-lg font-semibold text-text">Judge access</Dialog.Title>
+            <Dialog.Description className="mt-1 text-sm text-text-secondary">
+              Signs in as <span className="break-all text-text">{email.trim().toLowerCase()}</span>
+            </Dialog.Description>
+            <form onSubmit={judgeSignIn} className="mt-5 space-y-4" noValidate>
+              <div>
+                <label htmlFor="judge-code" className="mb-2 block text-sm text-text">Event code</label>
+                <input id="judge-code" type="text" autoComplete="off" autoFocus value={judgeCode} onChange={(e) => { setJudgeCode(e.target.value); setJudgeError(null); }}
+                  className={inputCls} aria-invalid={!!judgeError} aria-describedby={judgeError ? "judge-error" : undefined} />
+              </div>
+              {judgeError && <p id="judge-error" role="alert" className="text-sm text-big-gap">{judgeError}</p>}
+              <button type="submit" disabled={busy || !judgeCode} className={primaryBtn}>{busy ? "Checking" : "Continue as a judge"}</button>
+              <Dialog.Close className={cn(quietLink, "block w-full text-center")}>Cancel</Dialog.Close>
+            </form>
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   );
 }
