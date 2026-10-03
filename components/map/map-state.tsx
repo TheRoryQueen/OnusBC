@@ -29,7 +29,8 @@ export function useMapState() {
 // When refresh_scores runs after a rating, the row update arrives here and the dot and panel update.
 export function MapStateProvider({ initial, children }: { initial: InstitutionSummary[]; children: React.ReactNode }) {
   const [schools, setSchools] = useState(initial);
-  const [mode, setMode] = useState<Mode>("gap");
+  // Opens on On paper: real, verified policy grades. In practice is still mostly sample ratings.
+  const [mode, setMode] = useState<Mode>("paper");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [pulse, setPulse] = useState<MapState["pulse"]>(null);
 
