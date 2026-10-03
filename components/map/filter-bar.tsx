@@ -62,8 +62,9 @@ export function FilterBar() {
             </li>
           ))}
           <li className="flex items-center gap-1.5">
+            {/* Neutral grey covers both: no paper grade yet (grading in progress) and too few ratings. */}
             <span className="size-2.5 rounded-full bg-text-secondary/45" aria-hidden />
-            Not enough ratings yet
+            Not graded yet
           </li>
         </ul>
       )}
