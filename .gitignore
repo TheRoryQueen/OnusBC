@@ -47,3 +47,4 @@ next-env.d.ts
 /data/policies/*.html
 /data/extracted/
 /logs/
+/public/maplibre/

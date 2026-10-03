@@ -21,7 +21,10 @@
     "embed": "tsx scripts/pipeline/embed.mts",
     "build:ask-cache": "tsx scripts/build-ask-cache.mts",
     "test:ask": "tsx scripts/test-ask.mts",
-    "test:pipeline": "tsx scripts/test-pipeline.mts"
+    "test:pipeline": "tsx scripts/test-pipeline.mts",
+    "predev": "node scripts/copy-maplibre-worker.mjs",
+    "prebuild": "node scripts/copy-maplibre-worker.mjs",
+    "test:map": "tsx scripts/test-map.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
