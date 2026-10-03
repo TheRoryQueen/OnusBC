@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-// The hero's living dots (PRD, Homepage hero): BC's real school locations breathing on the faded landform.
+// The hero's living dots (PRD, Homepage hero): decorative dots in the map's colours breathing on the faded
+// Vancouver-region landform, a preview of the map's look (they are not real schools).
 // About five are lit at any moment, each on its own fade-in, hold, fade-out cycle of 3 to 6 seconds,
 // started at random times, never right next to the dot that lit before it. With reduced motion they hold
-// still, faint. Drawn in the same viewBox units as BCDottedMap so they sit exactly on it.
+// still, faint. Drawn in the same viewBox units as the land map so they sit exactly on it.
 
-type Spot = { x: number; y: number };
+type Spot = { x: number; y: number; color?: string }; // color: a token name, e.g. "brand", "some-gap"
 const TARGET_LIT = 5;
-const NEAR = 2.5; // viewBox units: closer than this to the last lit dot counts as adjacent
+const NEAR = 9; // viewBox units: closer than this to the last lit dot counts as adjacent
 
 export function LivingDots({ spots, width, height }: { spots: Spot[]; width: number; height: number }) {
   const [lit, setLit] = useState<Record<number, number>>({}); // index -> cycle length in ms
@@ -59,10 +60,10 @@ export function LivingDots({ spots, width, height }: { spots: Spot[]; width: num
         const cycle = lit[i];
         return (
           <g key={i} className={reduce ? "opacity-40" : cycle ? "onus-breathe" : "opacity-0"} style={cycle ? ({ "--onus-breath": `${cycle}ms` } as React.CSSProperties) : undefined}>
-            {/* A soft halo, then the dot: two flat circles, no gradient. */}
-            <circle cx={s.x} cy={s.y} r={1.25} fill="var(--onus-brand)" fillOpacity={0.12} />
-            <circle cx={s.x} cy={s.y} r={0.75} fill="var(--onus-brand)" fillOpacity={0.2} />
-            <circle cx={s.x} cy={s.y} r={0.4} fill="var(--onus-brand)" fillOpacity={0.8} />
+            {/* A soft halo, then the dot: flat circles in one token colour, no gradient. */}
+            <circle cx={s.x} cy={s.y} r={1.5} fill={`var(--onus-${s.color ?? "brand"})`} fillOpacity={0.12} />
+            <circle cx={s.x} cy={s.y} r={0.9} fill={`var(--onus-${s.color ?? "brand"})`} fillOpacity={0.2} />
+            <circle cx={s.x} cy={s.y} r={0.5} fill={`var(--onus-${s.color ?? "brand"})`} fillOpacity={0.9} />
           </g>
         );
       })}

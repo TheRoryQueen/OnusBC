@@ -1,24 +1,26 @@
-import dots from "@/lib/bc-dots.json";
-import { BCDottedMap } from "@/components/bc-dotted-map";
+import dots from "@/lib/hero-dots.json";
 import { LivingDots } from "./living-dots";
 
-// Homepage hero (PRD, Homepage hero): a dictionary entry in front of a faded dotted silhouette of BC, with
-// the real school locations breathing on it. Nothing else on the first screen.
+// Homepage hero (PRD, Homepage hero): a dictionary entry in front of a faded dotted map of the Vancouver
+// region, with decorative dots in the map's colours breathing on it. The same composition on every screen:
+// the map is a background behind the entry, its edges fading out softly, and the hero is one screen tall.
 export function Hero() {
-  const { width, height, schools } = dots as { width: number; height: number; schools: { x: number; y: number }[] };
-  // Campuses in the same city share a spot on a map this coarse; one breathing dot per spot.
-  const spots = [...new Map(schools.map((s) => [`${Math.round(s.x)}:${Math.round(s.y)}`, { x: s.x, y: s.y }])).values()];
+  const { width, height, spots } = dots as { width: number; height: number; spots: { x: number; y: number; color: string }[] };
+  const land = { maskImage: "url(/hero-land.svg)", WebkitMaskImage: "url(/hero-land.svg)", maskSize: "contain", WebkitMaskSize: "contain", maskPosition: "center", WebkitMaskPosition: "center", maskRepeat: "no-repeat", WebkitMaskRepeat: "no-repeat" } as const;
+  // A soft radial fade so the map has no hard edges.
+  const fade = { maskImage: "radial-gradient(closest-side, #000 55%, transparent 100%)", WebkitMaskImage: "radial-gradient(closest-side, #000 55%, transparent 100%)" } as const;
 
   return (
-    <section aria-labelledby="hero-word" className="relative isolate flex min-h-[calc(100dvh-4rem)] items-start overflow-hidden pt-[9vh] sm:items-center sm:pt-0">
-      {/* The watermark: land only, about 12 percent presence. Weighted right so the entry sits on the Pacific. */}
-      {/* Phones: the entry on top, BC filling the lower half. From sm: side by side. */}
-      <div aria-hidden className="pointer-events-none absolute -right-[22%] bottom-[3%] left-[2%] top-[46%] -z-10 sm:inset-y-[6%] sm:-right-[8%] sm:left-[34%] lg:left-[38%] lg:right-[2%]">
-        <BCDottedMap showSchools={false} landOpacity={0.13} />
-        <LivingDots spots={spots} width={width} height={height} />
+    <section aria-labelledby="hero-word" className="relative isolate flex min-h-[calc(100dvh-4rem)] items-center overflow-hidden">
+      {/* The watermark: about 12 percent presence. Centred behind the entry on phones, weighted right from sm. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center sm:justify-end">
+        <div className="relative aspect-[91/86] h-[118%] max-h-[64rem] sm:mr-[-6%] sm:h-[124%] lg:mr-[2%]" style={fade}>
+          <div className="absolute inset-0 bg-text-secondary opacity-[0.16]" style={land} />
+          <LivingDots spots={spots} width={width} height={height} />
+        </div>
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6">
+      <div className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6">
         <article className="max-w-[34rem]">
           <h1 id="hero-word" className="font-serif text-[clamp(5.5rem,22vw,10.5rem)] leading-[0.9] tracking-[-0.02em] text-text">onus</h1>
           <p className="mt-3 flex items-baseline gap-4 font-serif text-[1.375rem] text-text-secondary">
