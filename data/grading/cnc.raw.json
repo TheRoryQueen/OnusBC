@@ -1,0 +1,148 @@
+{
+  "slug": "cnc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "cc5fc4fd8685802d2531f84f8e2a636d2acb3b70c9aba9e378ae3740564ba555",
+  "graded_at": "2026-10-02T14:36:42.602Z",
+  "usage": {
+    "promptTokenCount": 4952,
+    "candidatesTokenCount": 1492,
+    "totalTokenCount": 14359,
+    "cachedContentTokenCount": 1903,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 4952
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 1903
+      }
+    ],
+    "thoughtsTokenCount": 7915,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "section": "Policy, Section: D",
+      "reason": "The policy has its own dedicated procedures for resolving sexual misconduct complaints independent of other investigations."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention a commitment to being publicly posted or available on the website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "This policy and associated procedures are to assist students who experience Sexual Misconduct to: 1. understand the options available to them to respond to and/or address the Sexual Misconduct; 2. facilitate a meeting if they wish to talk to someone privately and/or in confidence; and 3. support them if they wish to talk with police.",
+      "section": "Policy, Section: STUDENT SEXUAL MISCONDUCT POLICY",
+      "reason": "Reporting is mentioned, but the specific steps, contact persons, or methods are not detailed in the provided text."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether a complainant's past sexual history can be raised or considered during the investigation process."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protecting the complainant from face-to-face contact with the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether complainants are permitted to speak about their experience or if they are bound by confidentiality."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Any student who has experienced Sexual Misconduct has the right to pursue criminal or civil legal avenues whether they choose to take any steps under this policy.",
+      "section": "Policy, Section: STUDENT SEXUAL MISCONDUCT POLICY",
+      "reason": "The policy explicitly states that students have the right to pursue criminal or civil avenues regardless of whether they choose to take steps under the policy."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address amnesty for drug or alcohol use for individuals reporting sexual misconduct."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "section": "Policy, Section: D",
+      "reason": "The policy uses the vague term \"prompt\" without setting specific, binding timelines."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where a student experiences Sexual Misconduct in a circumstance not included above, the College will, where appropriate, provide support and reasonable accommodations, including support in reporting to the RCMP if desired.",
+      "section": "Policy, Section: STUDENT SEXUAL MISCONDUCT POLICY",
+      "reason": "Accommodations are mentioned but are discretionary (\"where appropriate\") and specified for circumstances outside the policy's main scope."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "This policy applies to all circumstances involving Sexual Misconduct where a student is involved and there is a reasonable connection to the College.",
+      "section": "Policy, Section: STUDENT SEXUAL MISCONDUCT POLICY",
+      "reason": "Off-campus activities are covered generally through \"reasonable connection to the College\" and \"College sponsored activity or event,\" but co-op or work placements are not explicitly mentioned."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address informing the complainant of the outcome or sanctions of an investigation."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention any commitment to annual reporting of sexual misconduct statistics."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Date of Next Review: November 2026",
+      "section": "Policy, Section: Preamble",
+      "reason": "The policy indicates a review cycle of three years (from November 2023 to November 2026)."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation on the policy review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Delivering education campaigns to students and employees to help them: C.1. identify what behavior constitutes Sexual Misconduct; C.2. understand how to report Sexual Misconduct; C.3. recognize warning signs of potentially abusive behavior and ways to reduce risks, and C.4. learn about safe and positive options for bystander intervention to prevent harm or intervene in situations where another person is at risk of Sexual Misconduct.",
+      "section": "Policy, Section: C",
+      "reason": "The policy commits to delivering education campaigns to students covering identification, reporting, warning signs, and bystander intervention."
+    }
+  ]
+}

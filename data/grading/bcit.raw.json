@@ -1,0 +1,148 @@
+{
+  "slug": "bcit",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "3cd57eb82b492d68ba0e0a80f0ea4f03c78b23abbc69ffc4acb06fde1a4e9320+1d08d22635c01dc673adc854be064ba93a3325911b9504e9f348172a004f1d29",
+  "graded_at": "2026-10-02T14:02:05.402Z",
+  "usage": {
+    "promptTokenCount": 7259,
+    "candidatesTokenCount": 1183,
+    "totalTokenCount": 15219,
+    "cachedContentTokenCount": 3893,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 7259
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 3893
+      }
+    ],
+    "thoughtsTokenCount": 6777,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "If the Respondent is: a) a BCIT student or employee, the person makes a Report under Policy 7507, Harassment and Discrimination; or, b) if a BCIT student, the person makes a Report under Policy 5102, Student Code of Conduct (Non-Academic); or, c) if a BCIT employee, the person reports to the appropriate supervisor, manager, or human resources representative for investigation.",
+      "section": "Procedures Commitment to Persons Who Have Experienced Sexual Violence and Misconduct",
+      "reason": "Reports are processed through the general student code of conduct or harassment policies rather than a dedicated process under this policy."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to being publicly available or posted on the website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "BCIT Community members impacted by Sexualized Violence are encouraged to Disclose their experiences to the Sexualized Violence Response Team (SVRT), or a trusted faculty or staff member.",
+      "section": "Procedures Commitment to Persons Who Have Experienced Sexual Violence and Misconduct",
+      "reason": "It mentions disclosing to the SVRT or a trusted faculty/staff member, but does not provide clear, concrete steps or contact details."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 1,
+      "quote": "When responding to Disclosures, individuals will refrain from questions or comments implying judgment or blaming of the person making the Disclosure (such as questions or comments about the dress, conduct, language, emotional disposition, past sexual history, consumption of alcohol or drugs, or about the timing of the Disclosure).",
+      "section": "Procedures Commitment to Persons Who Have Experienced Sexual Violence and Misconduct",
+      "reason": "It states that individuals will refrain from questions about past sexual history when responding to disclosures, but does not explicitly ban it in formal investigations."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "There is no mention of protecting the complainant from face-to-face contact with the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "There is no mention of gag orders or the complainant's freedom to speak about their experience."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "BCIT respects the right of those who have experienced Sexualized Violence to choose the most appropriate supports and to independently determine whether to contact police or make a Report.",
+      "section": "Policy Guiding Principles",
+      "reason": "It explicitly guarantees the individual's right to choose whether to contact police, make a report, or do neither."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "There is no mention of disciplinary amnesty for drug or alcohol use when reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "BCIT is committed to ensuring all BCIT community members affected by Sexualized Violence receive support, and have their concerns taken seriously and responded to in a Trauma-Informed and timely manner.",
+      "section": "Procedures Commitment to Persons Who Have Experienced Sexual Violence and Misconduct",
+      "reason": "It mentions responding in a timely manner but does not set specific binding timelines."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 2,
+      "quote": "Members can expect to have their workplace and academic needs, as well as living situations where Student Housing residents are impacted, accommodated on a case by case basis.",
+      "section": "Procedures Commitment to Persons Who Have Experienced Sexual Violence and Misconduct",
+      "reason": "It commits to accommodating workplace, academic, and living situations on a case-by-case basis."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "This Policy applies if: • Sexualized Violence is alleged to have occurred on BCIT property, or at BCIT sanctioned activities and events in person or online, including but not limited to practicums, field schools, co-ops, or conferences, or is alleged to have an adverse impact on another person’s reasonable participation in the programs, activities, or employment at the Institute;",
+      "section": "Policy Scope",
+      "reason": "Its scope explicitly includes practicums, field schools, co-ops, or conferences."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "There is no mention of informing the complainant of the outcome of an investigation."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "SVRT will maintain annual statistics on Reports of Sexualized Violence on campus for the purposes of community education and any legislated reporting that may be required.",
+      "section": "Policy Guiding Principles",
+      "reason": "It mentions maintaining annual statistics for community education and legislated reporting, but does not explicitly commit to public reporting of numbers."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "2026 Dec 05 (or sooner, if there are changes to the regulatory context or relevant operational circumstances).",
+      "section": "Policy 4",
+      "reason": "The scheduled review date is set for 3 years after the approval date."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "There is no mention of student representation on the policy review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "There is no mention of mandatory trauma-informed training for decision-makers or investigators."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "BCIT will provide ongoing awareness and education programs for the BCIT Community by collaborating with internal community members.",
+      "section": "Policy Guiding Principles",
+      "reason": "It commits to providing ongoing awareness and education programs for the BCIT community."
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "slug": "douglas",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "2e651c67f44de952993b85cb001e2985b1b6421005ef7c764924d64108a13390",
+  "graded_at": "2026-10-02T14:37:48.107Z",
+  "usage": {
+    "promptTokenCount": 8470,
+    "candidatesTokenCount": 1792,
+    "totalTokenCount": 19162,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 8470
+      }
+    ],
+    "thoughtsTokenCount": 8900,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "A student or any other member of the College Community who has experienced Sexual Violence or Sexual Misconduct, or who is otherwise affected by a violation of this policy, may file a Complaint under this policy with the Director, SSRM.",
+      "section": "Policy E.1",
+      "reason": "The policy is a dedicated sexual violence policy with its own complaint and investigation process."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not contain a commitment to make the policy text itself publicly available."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A student or any other member of the College Community who has experienced Sexual Violence or Sexual Misconduct, or who is otherwise affected by a violation of this policy, may file a Complaint under this policy with the Director, SSRM.",
+      "section": "Policy E.1",
+      "reason": "The policy clearly outlines that complaints should be filed in writing with the Director, SSRM."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "protecting the Complainant from unreasonable and/or irrelevant questions, such as those pertaining to past sexual history or gender expression, complying with collective agreement provisions where applicable, and providing regular updates on the status of the process.",
+      "section": "Policy D",
+      "reason": "The policy explicitly commits to protecting the complainant from irrelevant questions regarding past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 1,
+      "quote": "The Investigator will conduct the investigation using a procedurally fair and sensitive process, taking care to minimize or avoid circumstances that might reasonably be expected to cause participants distress (e.g., the Complainant having to come into direct contact with the Respondent).",
+      "section": "Policy E.1",
+      "reason": "Avoiding direct contact is discretionary, framed as 'taking care to minimize or avoid' rather than guaranteed."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "However, this section does not prevent a. any participants in an investigation from disclosing information about themselves or from disclosing information that they have obtained outside the investigation; or b. College representatives from disclosing investigation-related information as authorized under this policy.",
+      "section": "Policy CONFIDENTIALITY",
+      "reason": "The policy explicitly states that confidentiality requirements do not prevent participants from disclosing information about themselves."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "A student or any other member of the College Community has the right to pursue other processes external to the College in connection with alleged incidents of Sexual Violence and Misconduct, such as reporting the matter to the police, initiating a civil action, or filing a complaint under the BC Human Rights Code.",
+      "section": "Policy D",
+      "reason": "The policy explicitly recognizes the right of community members to pursue external processes such as police or civil action."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "A student or other Community member acting in good faith in making a Disclosure or reporting an incident of Sexual Violence or Sexual Misconduct will not be investigated by the College for consuming alcohol or drugs at the time of the disclosed or reported incident(s), even if they were under the legal age for such consumption or the substance was illegal.",
+      "section": "Policy D",
+      "reason": "The policy guarantees that students reporting sexual violence will not be investigated for drug or alcohol consumption at the time of the incident."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 2,
+      "quote": "Except in exceptional circumstances, investigations (including the preparation of the Investigator’s report) will be completed within sixty (60) calendar days of an Investigator’s receipt of a Complaint.",
+      "section": "Policy E.1",
+      "reason": "The policy sets specific timelines, including a 60-day limit for investigations and a 2-business-day timeline for initial review of interim measures."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The College reserves the right to implement immediate interim measures as it considers appropriate to protect the safety of the College Community or any of its members during an evaluation of a Disclosure or Complaint or pending the completion of an investigation.",
+      "section": "Policy D",
+      "reason": "Interim measures are available but their implementation is discretionary ('reserves the right', 'as it considers appropriate')."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "off College Property in connection with an event or activity sponsored, organized, led or required by the College, including but not limited to off-campus activity that students are required to participate in for successful completion of their studies (e.g., field trips, practicum placements);",
+      "section": "Policy B",
+      "reason": "The policy's scope explicitly includes off-campus activities required for studies, specifically mentioning practicum placements."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "the Complainant and the Respondent will be notified of the Investigator’s findings and the Respondent will be notified of the Responsible Administrator’s decision regarding disciplinary or other measures to be taken against the Respondent;",
+      "section": "Policy E.1",
+      "reason": "The complainant is notified of the investigator's findings, but notification of disciplinary actions is limited and discretionary under confidentiality rules."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "preparation of statistical reports of Disclosures and Complaints of Sexual Violence and Misconduct made under this policy, as required by and in accordance with applicable legislation; and",
+      "section": "Policy E",
+      "reason": "The policy mentions preparing statistical reports as required by legislation, but does not explicitly commit to public annual publication."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "regular reviews to evaluate the effectiveness of this policy, occurring at least once every three (3) years or as advised by the Minister responsible for advanced education.",
+      "section": "Policy E",
+      "reason": "The policy requires reviews at least once every three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation on policy review committees."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not require trauma-informed training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "to create and make available programs and resources to educate students and other members of its Community on the prevention of Sexual Violence and Misconduct; and to provide a fair and effective process for responding to and investigating allegations of Sexual Violence and Misconduct.",
+      "section": "Policy A",
+      "reason": "The policy commits to creating and making available programs and resources to educate students on the prevention of sexual violence."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "slug": "cnc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "cc5fc4fd8685802d2531f84f8e2a636d2acb3b70c9aba9e378ae3740564ba555",
+  "graded_at": "2026-10-02T14:36:42.602Z",
+  "paper_gpa": 1.46,
+  "paper_letter": "C",
+  "accepted": 8,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "This policy and associated procedures are to assist students who experience Sexual Misconduct to: 1. understand the options available to them to respond to and/or address the Sexual Misconduct; 2. facilitate a meeting if they wish to talk to someone privately and/or in confidence; and 3. support them if they wish to talk with police.",
+      "document": "Policy",
+      "section": "STUDENT SEXUAL MISCONDUCT POLICY",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Any student who has experienced Sexual Misconduct has the right to pursue criminal or civil legal avenues whether they choose to take any steps under this policy.",
+      "document": "Policy",
+      "section": "F",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where a student experiences Sexual Misconduct in a circumstance not included above, the College will, where appropriate, provide support and reasonable accommodations, including support in reporting to the RCMP if desired.",
+      "document": "Policy",
+      "section": "F",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "This policy applies to all circumstances involving Sexual Misconduct where a student is involved and there is a reasonable connection to the College.",
+      "document": "Policy",
+      "section": "F",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Date of Next Review: November 2026",
+      "document": "Policy",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Delivering education campaigns to students and employees to help them: C.1. identify what behavior constitutes Sexual Misconduct; C.2. understand how to report Sexual Misconduct; C.3. recognize warning signs of potentially abusive behavior and ways to reduce risks, and C.4. learn about safe and positive options for bystander intervention to prevent harm or intervene in situations where another person is at risk of Sexual Misconduct.",
+      "document": "Policy",
+      "section": "B",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

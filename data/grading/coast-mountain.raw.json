@@ -1,0 +1,148 @@
+{
+  "slug": "coast-mountain",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "f4a3fde6a9f178a56f497b1e7d3375296ea6e227f39cc4eb91734d8d81a38448+c5ecfb9c603638ca6951c403fcebc9bbc697619502ea99cdbfccfeee3aee417c",
+  "graded_at": "2026-10-02T14:26:47.081Z",
+  "usage": {
+    "promptTokenCount": 18082,
+    "candidatesTokenCount": 1683,
+    "totalTokenCount": 28663,
+    "cachedContentTokenCount": 16049,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 18082
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 16049
+      }
+    ],
+    "thoughtsTokenCount": 8898,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Investigations of Formal Allegations of Sexual Violence will be conducted in accordance with the College’s internal investigation guidelines and this procedure.",
+      "section": "Procedures 8.1",
+      "reason": "The policy has its own dedicated process for investigating formal allegations of sexual violence."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to being publicly available or posted on the website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "Where the Formal Allegation involves a Student, the Formal Allegation must be submitted to the Director of Student Health Services.",
+      "section": "Procedures 6.2",
+      "reason": "The policy provides clear, concrete contact information and steps for students and employees to disclose or report."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "An individual’s sexual history or reputation is not relevant to determining whether Consent was given.",
+      "section": "Policy 6.2",
+      "reason": "The policy explicitly states that past sexual history is not relevant to determining consent."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address or guarantee protection from face-to-face contact during the investigation or resolution process."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address whether complainants are free to speak about their experience or are protected from non-disclosure agreements."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "The College respects the right of an individual who has experienced Sexual Violence to choose the services, supports, and options they feel are most appropriate, including whether or not to report the incident to the RCMP, make a Disclosure, submit a Formal Allegation to the College, or pursue other available options.",
+      "section": "Procedures 5.1",
+      "reason": "The policy explicitly guarantees the individual's right to choose between institutional, criminal, both, or no processes."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Where such policy violations are identified solely as a result of an individual seeking support, making a Disclosure, or submitting a Formal Allegation of Sexual Violence, punitive action will not be taken.",
+      "section": "Policy 8.6",
+      "reason": "The policy guarantees that punitive action will not be taken for drug or alcohol policy violations identified through reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The College will make reasonable efforts to respond to Disclosures and Formal Allegations in a timely manner.",
+      "section": "Procedures 7.2",
+      "reason": "The policy uses vague and non-binding language regarding timelines for responding to complaints."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Interim measures may be implemented, modified, or removed at any stage of the process, as appropriate to address safety, wellbeing, privacy, operational, or Procedural Fairness considerations.",
+      "section": "Procedures 6.5",
+      "reason": "The policy states that interim measures are discretionary and may be implemented."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "during College activities, including College-sponsored events, practicums, field education, off-site training and education, work terms required by a program of study at the College, and other activities connected to the College",
+      "section": "Policy 3.1",
+      "reason": "The policy's scope explicitly includes practicums, field education, and work terms required by a program of study."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "be informed of the status of the Formal Allegation and, where appropriate, interim measures the College has taken or plans on taking, and the outcome of the process, subject to privacy and confidentiality obligations",
+      "section": "Policy 11.3",
+      "reason": "Informing the complainant of the outcome is limited by \"where appropriate\" and privacy obligations."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The annual report must include a summary of the College’s:\na. responses to Sexual Violence\nb. efforts to prevent and raise awareness about Sexual Violence",
+      "section": "Policy 17.2",
+      "reason": "The policy commits to publishing an annual report, but does not explicitly specify that it will include numbers of disclosures, reports, and outcomes."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "This policy and its associated procedure, ADM-007P, Sexual Violence Prevention and Response Procedure, will be reviewed at least every three years, or sooner if required due to legislative, regulatory, operational, or organizational changes.",
+      "section": "Policy 19.1",
+      "reason": "The policy requires a review at least every three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "The committee will include:\na. the Director of Student Health Services\nb. the Director of Human Resources\nc. the Director of Indigenization\nd. the Director of the President’s Office, and\ne. at least one Student of the College.",
+      "section": "Policy 14.2",
+      "reason": "The policy requires student representation on the advisory committee but does not guarantee at least 30% representation."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "The College will identify awareness, education, and training programs related to Sexual Violence, including required training for designated members of the College Community.",
+      "section": "Policy 15.2",
+      "reason": "Training is required for designated members, but the policy does not explicitly require it to be trauma-informed for decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The College is committed to addressing and preventing Sexual Violence by making awareness, education, and training opportunities related to Sexual Violence available to members of the College Community and by actively promoting participation in these opportunities.",
+      "section": "Policy 15.1",
+      "reason": "The policy commits to providing awareness, education, and training opportunities to the college community, which includes students."
+    }
+  ]
+}
