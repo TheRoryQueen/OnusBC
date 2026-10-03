@@ -24,7 +24,7 @@ const COLUMNS: { title: string; support?: boolean; order: string; items: Item[] 
   ] },
   { title: "About", order: "order-3", items: [
     { label: "Privacy", href: "/privacy" },
-    { label: "Sources", href: "/how-it-works#sources" },
+    { label: "Sources", href: "/sources" },
   ] },
 ];
 
