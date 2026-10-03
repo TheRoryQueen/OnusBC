@@ -31,7 +31,7 @@ check("is case-sensitive", !accepts(policy, "the university will provide interim
 console.log("\n== Every grade stored in Supabase ==");
 const db = await dbClient();
 const { rows } = await db.query(
-  `select i.slug, g.criterion_id, g.score, g.quote, g.section, g.verified, g.note
+  `select i.slug, i.policy_found, g.criterion_id, g.score, g.quote, g.document, g.section, g.verified, g.note
    from public.grades g join public.institutions i on i.id = g.institution_id order by i.slug, g.criterion_id`
 );
 const bySchool = new Map<string, typeof rows>();
@@ -39,18 +39,27 @@ for (const r of rows) bySchool.set(r.slug, [...(bySchool.get(r.slug) ?? []), r])
 check("zero unverified quotes stored", rows.every((r) => r.quote === null || r.verified === true), `${rows.length} grades`);
 check("every point is backed by a verified quote", rows.every((r) => r.score === 0 || (r.quote && r.verified)));
 for (const [slug, gs] of bySchool) {
+  if (!gs[0].policy_found) {
+    check(`${slug}: login-only policy scores 0 on Publicly posted, nothing else graded`, gs.length === 1 && gs[0].criterion_id === "AC-2" && gs[0].score === 0, gs[0].note ?? "");
+    continue;
+  }
   const file = `data/extracted/${slug}.json`;
   if (!existsSync(file)) { check(`${slug}: extracted text available to re-check`, false); continue; }
   const doc = JSON.parse(readFileSync(file, "utf8"));
-  const sections: { section: string; text: string }[] = doc.sections;
+  const sections: { document?: string; section: string; text: string }[] = doc.sections;
   const bad = gs.filter((g) => g.quote && !accepts(doc.text, g.quote));
   check(`${slug}: all ${RUBRIC.length} criteria graded`, gs.length === RUBRIC.length && RUBRIC.every((c) => gs.some((g) => g.criterion_id === c.id)), `${gs.length}`);
   check(`${slug}: every stored quote is verbatim in the policy`, bad.length === 0, bad.map((b) => b.criterion_id).join(","));
-  const wrongSection = gs.filter((g) => g.quote && g.section && !sections.some((s) => s.section === g.section && normalize(s.text).includes(normalize(g.quote))));
-  check(`${slug}: every cited section really contains its quote`, wrongSection.length === 0, wrongSection.map((b) => b.criterion_id).join(","));
+  const wrongSection = gs.filter((g) => g.quote && g.section && !sections.some((s) => (s.document ?? "Policy") === g.document && s.section === g.section && normalize(s.text).includes(normalize(g.quote))));
+  check(`${slug}: every quote's recorded document and section really contain it`, wrongSection.length === 0, wrongSection.map((b) => b.criterion_id).join(","));
+  check(`${slug}: every quote records its document`, gs.every((g) => !g.quote || g.document === "Policy" || g.document === "Procedures"));
 }
+const graded = [...bySchool.values()].filter((g) => g[0].policy_found).length;
 const scores = (await db.query("select count(*)::int n from public.institution_scores where paper_gpa is not null")).rows[0].n;
-check("graded schools have an On paper score", scores === bySchool.size, `${scores} of ${bySchool.size}`);
+check("graded schools have an On paper score", scores === graded, `${scores} of ${graded}`);
+const grey = (await db.query("select count(*)::int n from public.institutions i join public.institution_scores s on s.institution_id = i.id where not i.policy_found and s.gap_label = 'no_policy'")).rows[0].n;
+const notFound = (await db.query("select count(*)::int n from public.institutions where not policy_found")).rows[0].n;
+check("every school without a public policy shows grey (no_policy)", grey === notFound, `${grey} of ${notFound}`);
 await db.end();
 console.log(`\n${passed} passed, ${failed} failed`);
 process.exit(failed ? 1 : 0);

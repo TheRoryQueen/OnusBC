@@ -26,7 +26,7 @@ const check = (name: string, ok: boolean, detail = "") => {
   else failed++;
 };
 
-type Fault = "rate_limit" | "quota" | "timeout" | "server_error";
+type Fault = "rate_limit" | "quota" | "overloaded" | "timeout" | "server_error";
 // Wraps fetch: requests whose URL contains a key get that fault instead of reaching Google.
 function faulty(rules: Record<string, Fault>): typeof fetch {
   return (async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -34,6 +34,7 @@ function faulty(rules: Record<string, Fault>): typeof fetch {
     const rule = Object.entries(rules).find(([k]) => url.includes(`/models/${k}:`))?.[1];
     if (rule === "rate_limit") return new Response(JSON.stringify({ error: { code: 429, status: "RATE_LIMIT", message: "Too many requests" } }), { status: 429 });
     if (rule === "quota") return new Response(JSON.stringify({ error: { code: 429, status: "RESOURCE_EXHAUSTED", message: "You exceeded your current quota" } }), { status: 429 });
+    if (rule === "overloaded") return new Response(JSON.stringify({ error: { code: 503, status: "UNAVAILABLE", message: "This model is currently experiencing high demand." } }), { status: 503 });
     if (rule === "server_error") return new Response(JSON.stringify({ error: { code: 500, message: "internal" } }), { status: 500 });
     if (rule === "timeout") {
       // Hang until the chain gives up on this step.
@@ -90,6 +91,12 @@ console.log(`School: ${s.name} (${SLUG}); main ${MAIN_MODEL}, lite ${LITE_MODEL}
   check("3. main out of quota -> lite model answers", r.answered_by === "lite" && !r.refused, `${r.answered_by} ${JSON.stringify(log?.skipped)}`);
 }
 
+// 3b. Main overloaded (503 high demand): the lite model answers.
+{
+  const { r, log } = await run(QUESTION, { [MAIN_MODEL]: "overloaded" });
+  check("3b. main overloaded (503) -> lite model answers", r.answered_by === "lite" && !r.refused, `${r.answered_by} ${JSON.stringify(log?.skipped)}`);
+}
+
 // 4. Main times out (8 s) and lite is rate-limited: the cached demo answer is used.
 {
   const hasCache = !!cache(SLUG, DEMO_QUESTION);
@@ -142,11 +149,12 @@ else {
 
 // 11. The citation rule rejects an answer whose quote is not in the retrieved text.
 {
-  const chunks = [{ id: 1, section: "4.2", content: "The Investigations Office will inform the Complainant of the outcome." }];
+  const chunks = [{ id: 1, document: "Procedures", section: "4.2", content: "The Investigations Office will inform the Complainant of the outcome." }];
   check("11. invented quote -> answer rejected", validate({ refused: false, answer: "x", citations: [{ chunk_id: 1, quote: "The University will always expel the respondent." }] }, chunks) === null);
   check("    quote cited from a chunk that was not retrieved -> rejected", validate({ refused: false, answer: "x", citations: [{ chunk_id: 9, quote: "The Investigations Office will inform the Complainant" }] }, chunks) === null);
   check("    answer with no citation -> rejected", validate({ refused: false, answer: "x", citations: [] }, chunks) === null);
-  check("    real quote (curly vs straight quotes, extra spaces) -> accepted", validate({ refused: false, answer: "x", citations: [{ chunk_id: 1, quote: "The Investigations  Office will inform the Complainant of the outcome." }] }, chunks)?.[0].section === "4.2");
+  const ok = validate({ refused: false, answer: "x", citations: [{ chunk_id: 1, quote: "The Investigations  Office will inform the Complainant of the outcome." }] }, chunks)?.[0];
+  check("    real quote (extra spaces) -> accepted, cited with its document and section", ok?.section === "4.2" && ok?.document === "Procedures");
 }
 
 // 12. Logs: model named, question never present.
