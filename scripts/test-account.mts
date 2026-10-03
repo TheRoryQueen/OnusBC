@@ -4,7 +4,7 @@
 // Uses a temporary zz-test school and .test domains (no email sent); removes everything afterwards.
 // Needs the dev server. Usage: npm run test:account
 import { randomBytes } from "node:crypto";
-import { chromium, type Browser, type Page } from "@playwright/test";
+import { chromium, type Browser } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 import { dbClient, requireEnv } from "./lib/db.mts";
 
