@@ -45,6 +45,8 @@ export type Deps = {
   cache: (slug: string, question: string) => CachedAnswer | null;
   log: (entry: Record<string, unknown>) => void;
   timeoutMs?: number;
+  /** Offline cache builds can use a slower, stronger model; the live route always uses the defaults. */
+  models?: { main: string; lite: string };
 };
 
 export class SwitchableError extends Error {
@@ -153,7 +155,10 @@ export async function ask(deps: Deps, input: { slug: string; school: string; que
     return done({ answer: crisisText(), citations: [], refused: false, crisis: true, fallback_contact: contact, answered_by: "crisis", model: null });
   }
 
-  const steps: { name: "main" | "lite"; model: string }[] = [{ name: "main", model: MAIN_MODEL }, { name: "lite", model: LITE_MODEL }];
+  const steps: { name: "main" | "lite"; model: string }[] = [
+    { name: "main", model: deps.models?.main ?? MAIN_MODEL },
+    { name: "lite", model: deps.models?.lite ?? LITE_MODEL },
+  ];
   const skipped: string[] = [];
   let chunks: Chunk[] | null = null;
 
