@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import NumberFlow from "@number-flow/react";
 import { motion, useReducedMotion } from "motion/react";
-import { ChevronRight, Globe, MessageCircle, Phone, PenLine, X } from "lucide-react";
+import { ChevronRight, FileQuestion, Globe, MessageCircle, Phone, PenLine, X } from "lucide-react";
 import { AskView, type AskMessage } from "./ask-view";
 import { Badge } from "@/components/ui/badge";
 import { useMapState } from "@/components/map/map-state";
@@ -122,6 +122,14 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
             className="flex flex-1 flex-col items-center gap-1 rounded-2xl bg-brand px-2 py-2.5 text-xs font-medium text-on-brand transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
             <MessageCircle className="size-[18px]" strokeWidth={1.75} aria-hidden />Ask
           </button>
+        )}
+        {/* No public policy: ask the school for it, by email when it publishes one, otherwise via its support page. */}
+        {!school.policy_found && (school.contact_email || school.support_url || school.website) && (
+          <Action
+            href={school.contact_email
+              ? `mailto:${school.contact_email}?subject=${encodeURIComponent("Request for your sexual violence policy")}`
+              : (school.support_url ?? school.website)!}
+            icon={FileQuestion} label="Request policy" external />
         )}
         {phone && <Action href={`tel:${phone}`} icon={Phone} label="Call" external />}
         {school.website && <Action href={school.website} icon={Globe} label="Website" external />}
