@@ -17,6 +17,8 @@ const STYLE = {
   dark: process.env.NEXT_PUBLIC_MAP_STYLE_DARK ?? "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
 };
 
+const CAMPUS_ZOOM = 13;
+
 const isDark = () => document.documentElement.classList.contains("dark");
 const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
@@ -109,7 +111,14 @@ export function OnusMap() {
       // Development only: lets tests and debugging inspect the map. Never in production.
       if (process.env.NODE_ENV !== "production") (window as unknown as { __onusMap?: MLMap }).__onusMap = map;
       map.on("error", (e) => { if (!map.isStyleLoaded() && String((e as unknown as { error?: Error }).error?.message ?? "").match(/style|fetch|Failed/i)) setFailed(true); });
-      map.on("style.load", () => { addLayers(map); setReady(true); });
+      map.on("style.load", () => {
+        // Globe when zoomed all the way out (zoom 2 and below), blending to flat by zoom 3.5. Every screen's
+        // starting view of BC is zoom 4 or more, so it opens flat (and lines up with the dot preview).
+        // Re-applied on each style load because a theme switch replaces the style.
+        map.setProjection({ type: ["interpolate", ["linear"], ["zoom"], 2, "vertical-perspective", 3.5, "mercator"] });
+        addLayers(map);
+        setReady(true);
+      });
       // Performance marks for load-time measurement (scripts/measure-load.mts):
       //   onus-map-created  MapLibre constructed;  onus-style-loaded  basemap style parsed;
       //   onus-dots-visible the first frame with the school dots drawn;  onus-map-idle  every basemap tile drawn.
@@ -151,17 +160,26 @@ export function OnusMap() {
     if (ready && src) src.setData(features());
   }, [schools, mode, typeFilter, ready, features]);
 
-  // Selection ring, and bring the selected school into view beside the panel.
+  // Selection ring. Opening a school flies to it at about campus zoom (about 1 s); closing the panel eases
+  // back out two zoom levels. With reduced motion, both jump straight there.
+  const prevSelected = useRef<string | null>(null);
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !ready) return;
     if (map.getLayer("school-selected")) map.setFilter("school-selected", ["==", ["get", "slug"], selected ?? ""]);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const desktop = window.matchMedia("(min-width: 768px)").matches;
     const s = schools.find((x) => x.slug === selected);
-    if (s) {
-      const desktop = window.matchMedia("(min-width: 768px)").matches;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      map.easeTo({ center: [s.lng, s.lat], zoom: Math.max(map.getZoom(), 7), offset: desktop ? [200, 0] : [0, -window.innerHeight * 0.2], duration: reduce ? 0 : 700 });
+    if (s && selected !== prevSelected.current) {
+      const target = { center: [s.lng, s.lat] as [number, number], zoom: Math.max(map.getZoom(), CAMPUS_ZOOM), offset: (desktop ? [200, 0] : [0, -window.innerHeight * 0.22]) as [number, number] };
+      if (reduce) map.jumpTo(target);
+      else map.flyTo({ ...target, duration: 1000, essential: true });
+    } else if (!selected && prevSelected.current) {
+      const zoom = Math.max(map.getZoom() - 2, 1);
+      if (reduce) map.jumpTo({ zoom });
+      else map.easeTo({ zoom, duration: 600 });
     }
+    prevSelected.current = selected;
     // Only when the selection changes, not on every score update.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected, ready]);
