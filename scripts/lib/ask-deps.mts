@@ -39,13 +39,13 @@ export function textSearchRetrieve(): Deps["retrieve"] {
     const { dbClient } = await import("./db.mts");
     const db = await dbClient();
     const { rows } = await db.query(
-      `select p.id, p.section, p.content,
+      `select p.id, p.document, p.section, p.content,
               ts_rank(to_tsvector('english', p.content), to_tsquery('english', $2)) as rank
        from public.policy_chunks p join public.institutions i on i.id = p.institution_id
        where i.slug = $1 order by rank desc limit 6`,
       [slug, words.length ? words.join(" | ") : "policy"]
     );
     await db.end();
-    return rows.map((r) => ({ id: Number(r.id), section: r.section, content: r.content }));
+    return rows.map((r) => ({ id: Number(r.id), document: r.document, section: r.section, content: r.content }));
   };
 }
