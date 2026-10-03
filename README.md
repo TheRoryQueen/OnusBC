@@ -2,6 +2,8 @@
 
 A live map that grades how BC's public colleges and universities handle sexual violence: what each school's policy promises, next to what students say happens.
 
+Live at [onusmap.tech](https://onusmap.tech) (onusbc.tech redirects there).
+
 Every school gets two grades on the same 0 to 4 scale. **On paper** is the school's published sexual violence policy, graded by AI against 17 criteria built from the Students for Consent Culture minimum standards, where every point must quote the policy word for word or it doesn't count. **In practice** comes from short, anonymous, multiple-choice ratings by people with a school email. **The gap** is the distance between the two.
 
 ## What's in it

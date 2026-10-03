@@ -564,7 +564,7 @@ Farnaz creates these accounts once, before Saturday; the coding agent does every
 | --- | --- | --- | --- | --- |
 | 1 | GitHub | Code repo, commit history as proof of timing | At the end only: create a public repo named onus and push. Until then, Git runs locally with a commit after each milestone | Nothing |
 | 2 | Supabase | Database, auth, realtime, vector search | New project, region closest to Vancouver (US West). Enable the `vector` extension. Auth: enable Email provider, turn on email OTP, set OTP length 6, disable password sign-up. Open the project weekly so it doesn't pause. | Project URL, anon key, service role key |
-| 3 | Domain | Required for sending emails | Done: onusbc.tech, free for 1 year through the GitHub Student Developer Pack. Sign-in emails send from no-reply@onusbc.tech | Nothing |
+| 3 | Domain | Site and sending emails | Done: onusmap.tech is the primary site domain. onusbc.tech (free for 1 year through the GitHub Student Developer Pack) redirects to it and stays the email sender: sign-in emails send from no-reply@onusbc.tech | Nothing |
 | 4 | Resend | Sending the 6-digit sign-in codes | Add and verify the domain (DNS records). The test sender only delivers to your own address, so a verified domain is required. Then paste Resend's SMTP details into Supabase, Auth, SMTP settings. | Resend API key (for the record; Supabase uses SMTP) |
 | 5 | Vercel | Hosting | At the end only: import the GitHub repo, add every .env value, attach the domain, then run the final deploy checklist | Nothing new |
 | 6 | Google AI Studio | Gemini: grading, Ask answers, embeddings | Create an API key | Gemini API key |
@@ -591,7 +591,7 @@ One Next.js app (App Router, TypeScript) holds the site, the API routes, and the
 | No map key (MapLibre + CARTO need none) | Map | Not needed |
 | NEXT\_PUBLIC\_MAP\_STYLE\_LIGHT, NEXT\_PUBLIC\_MAP\_STYLE\_DARK | Map | Yes |
 | JUDGE\_EVENT\_CODE | /api/judge-login | No |
-| NEXT\_PUBLIC\_SITE\_URL | Auth redirects (http://localhost:3000 locally, https://onusbc.tech in production) | Yes |
+| NEXT\_PUBLIC\_SITE\_URL | Auth redirects (http://localhost:3000 locally, https://onusmap.tech in production) | Yes |
 
 An `.env.example` with every name and no values is committed; `.env.local` is gitignored.
 
@@ -817,7 +817,7 @@ The look is Apple Maps with Liquid Glass: content first, glass only on floating 
 
 Build the must-work tier completely before touching anything else; the voice agent is the one wow layer.
 
-**Prize targets:** Finalist, Best Solo, Best Design, social good categories (Surge's own categories are still "to be revealed"). MLH tracks published Oct 1: enter Best Use of ElevenLabs (the voice agent, strongest fit), Best Use of Gemini API (grading, embeddings, cited answers), and Best .Tech Domain Name (onusbc.tech; pitch it as "The onus is on them, and it's BC, so onusbc.tech"). onusbc.tech was claimed before the event, so Farnaz asks MLH at the event whether it qualifies; if a new .tech must be registered there, register it and forward it to https://onusbc.tech so Resend, Supabase, and email stay unchanged. Skip Solana, Snowflake, and Tiger Data (switching databases this late isn't worth it).
+**Prize targets:** Finalist, Best Solo, Best Design, social good categories (Surge's own categories are still "to be revealed"). MLH tracks published Oct 1: enter Best Use of ElevenLabs (the voice agent, strongest fit), Best Use of Gemini API (grading, embeddings, cited answers), and Best .Tech Domain Name (onusmap.tech, registered for the event; onusbc.tech redirects to it and stays the email sender, so Resend and email are unchanged). Skip Solana, Snowflake, and Tiger Data (switching databases this late isn't worth it).
 
 | Sponsor | How Onus uses it |
 | --- | --- |

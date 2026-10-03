@@ -1,6 +1,6 @@
 # Deploy checklist (Saturday)
 
-Everything runs locally until now. These are the exact steps to put Onus live at onusbc.tech. Values live in the 1Password "Onus" vault and in your `.env.local`; this file lists names only.
+Everything runs locally until now. These are the exact steps to put Onus live at onusmap.tech (the primary domain). onusbc.tech redirects to it and stays the sending domain for sign-in emails (Resend). Values live in the 1Password "Onus" vault and in your `.env.local`; this file lists names only.
 
 ## Before you start
 
@@ -29,22 +29,25 @@ Everything runs locally until now. These are the exact steps to put Onus live at
 | `JUDGE_EVENT_CODE` | The judge access code for the event |
 | `NEXT_PUBLIC_MAP_STYLE_LIGHT` | Optional; defaults to CARTO Positron |
 | `NEXT_PUBLIC_MAP_STYLE_DARK` | Optional; defaults to CARTO Dark Matter |
-| `NEXT_PUBLIC_SITE_URL` | `https://onusbc.tech` (kept for completeness; the app doesn't read it yet) |
+| `NEXT_PUBLIC_SITE_URL` | `https://onusmap.tech` (the base for link previews; defaults to it if unset) |
 
   Not needed on Vercel: `SUPABASE_DB_URL` (local scripts only) and `DEMO_MODE` (demo mode is the `app_settings.demo_mode` row in the database, already on for the event).
 - [ ] Deploy, then open the `*.vercel.app` URL and check the homepage and the map load.
 
-## 3. Domain
+## 3. Domains
 
-- [ ] Vercel project, Settings, Domains: add `onusbc.tech` (and `www.onusbc.tech` redirecting to it).
-- [ ] At the domain registrar, set the DNS records Vercel shows (an A record for the apex, a CNAME for www). Wait until Vercel shows the domain as valid.
+- [ ] Vercel project, Settings, Domains: add `onusmap.tech` as the **primary** domain, and `www.onusmap.tech` redirecting to it.
+- [ ] At the onusmap.tech registrar, set the DNS records Vercel shows (an A record for the apex, a CNAME for www). Wait until Vercel shows the domain as valid.
+- [ ] Add `onusbc.tech` in Vercel as a domain that **redirects to onusmap.tech** (308).
+  - A redirect only works once onusbc.tech's **web** record (the apex A record) points to Vercel. That's the only change to make there. Leave every **email** record for onusbc.tech exactly as it is (MX, SPF, DKIM, DMARC): Resend keeps sending sign-in codes from onusbc.tech.
+  - If you'd rather not touch onusbc.tech's DNS at all, skip this redirect; sign-in email keeps working either way.
 
 ## 4. Supabase Auth
 
-- [ ] Supabase dashboard, Authentication, URL Configuration: set **Site URL** to `https://onusbc.tech`.
-- [ ] Add to **Redirect URLs**: `https://onusbc.tech/**`, `https://www.onusbc.tech/**`, and your Vercel URL `https://<project>.vercel.app/**`. Keep `http://localhost:3000/**` for local work.
+- [ ] Supabase dashboard, Authentication, URL Configuration: set **Site URL** to `https://onusmap.tech`.
+- [ ] Add to **Redirect URLs**: `https://onusmap.tech/**`, `https://www.onusmap.tech/**`, `https://onusbc.tech/**`, `https://www.onusbc.tech/**`, and your Vercel URL `https://<project>.vercel.app/**`. Keep `http://localhost:3000/**` for local work.
 - [ ] Confirm the "before user created" auth hook is still enabled (it limits sign-up to school email domains, except judge login).
-- [ ] Resend: confirm the sending domain shows as Verified, so sign-in codes arrive.
+- [ ] Resend: confirm onusbc.tech (the sending domain) shows as Verified, so sign-in codes arrive. No email changes are needed for onusmap.tech.
 
 ## 5. Checks on the live site
 

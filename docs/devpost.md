@@ -10,7 +10,7 @@ No Canadian dataset tracks, school by school, how reports are handled. So we bui
 
 ## What it does
 
-Onus is a live map of every public college and university in BC, 26 campuses in all. Each school gets two grades on the same 0 to 4 scale:
+Onus ([onusmap.tech](https://onusmap.tech)) is a live map of every public college and university in BC, 26 campuses in all. Each school gets two grades on the same 0 to 4 scale:
 
 - **On paper:** the school's own published policy, graded by AI against 17 criteria built from the Students for Consent Culture minimum standards. Every point has to quote the policy word for word, or it doesn't count.
 - **In practice:** short, anonymous, multiple-choice ratings from people with that school's email address.

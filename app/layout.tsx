@@ -18,9 +18,19 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  // The public site (onusmap.tech); onusbc.tech redirects there. Used to resolve link-preview URLs.
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://onusmap.tech"),
   title: "Onus",
   description:
     "A live map that grades how BC colleges and universities handle sexual violence: what their policy promises versus what students experience.",
+  openGraph: {
+    title: "Onus",
+    description: "A live map that grades how BC colleges and universities handle sexual violence.",
+    url: "/",
+    siteName: "Onus",
+    locale: "en_CA",
+    type: "website",
+  },
 };
 
 // Runs before paint: a remembered choice wins, otherwise follow the system setting. No animation on first load.
