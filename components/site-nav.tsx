@@ -17,14 +17,17 @@ export async function SiteNav() {
           Onus
         </Link>
         <div className="flex items-center gap-0 text-sm sm:gap-2">
+          {/* prefetch off until /how-it-works and /support exist (milestone 11); avoids 404 prefetches. */}
           <Link
             href="/how-it-works"
+            prefetch={false}
             className="whitespace-nowrap rounded-full px-2 py-2 text-text-secondary transition-colors hover:text-text sm:px-3"
           >
             How it works
           </Link>
           <Link
             href="/support"
+            prefetch={false}
             className="whitespace-nowrap rounded-full px-2 py-2 text-support sm:px-3 transition-colors hover:bg-support/10"
           >
             Get support

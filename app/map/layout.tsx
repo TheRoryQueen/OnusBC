@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { preconnect } from "react-dom";
 import { FilterBar } from "@/components/map/filter-bar";
 import { MapStateProvider } from "@/components/map/map-state";
 import { OnusMap } from "@/components/map/onus-map";
@@ -9,6 +10,9 @@ export const metadata: Metadata = { title: "Map · Onus" };
 
 // The map lives in the layout so it stays mounted while the panel changes: /map, /map/sfu, back button.
 export default async function MapLayout({ children }: LayoutProps<"/map">) {
+  // Start DNS and TLS to the basemap servers while the page loads (style, then tiles).
+  preconnect("https://basemaps.cartocdn.com", { crossOrigin: "anonymous" });
+  preconnect("https://tiles.basemaps.cartocdn.com", { crossOrigin: "anonymous" });
   let schools: Awaited<ReturnType<typeof listInstitutions>> = [];
   let failed = false;
   try {
@@ -29,7 +33,7 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
           )}
         </div>
         <p className="glass pointer-events-auto absolute bottom-4 left-1/2 z-10 hidden -translate-x-1/2 rounded-full px-3 py-1.5 text-xs text-text-secondary lg:block">
-          This map grades how schools handle sexual violence. <Link href="/support" className="font-medium text-support">Get help</Link>
+          This map grades how schools handle sexual violence. <Link href="/support" prefetch={false} className="font-medium text-support">Get help</Link>
         </p>
         {children}
       </main>

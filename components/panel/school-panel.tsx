@@ -189,7 +189,7 @@ function PanelBody({ school, onClose }: { school: InstitutionDetail; onClose: ()
         </ul>
       </section>
 
-      <Link href="/support" className="mt-6 inline-block px-1 text-sm font-medium text-support underline-offset-4 hover:underline">Get help</Link>
+      <Link href="/support" prefetch={false} className="mt-6 inline-block px-1 text-sm font-medium text-support underline-offset-4 hover:underline">Get help</Link>
     </div>
   );
 }

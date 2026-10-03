@@ -200,7 +200,7 @@ export function SignInCard({ next }: { next: string | null }) {
             <div className="border-t border-hairline pt-4">
               <button type="submit" disabled={busy} className={primaryBtn}>{busy ? "Sending" : "Send code"}</button>
               <p className="mt-3 text-center text-xs leading-relaxed text-text-secondary">
-                We never show your email. Your ratings aren&apos;t linked to your account. <Link href="/privacy" className="text-brand underline-offset-2 hover:underline">Privacy</Link>
+                We never show your email. Your ratings aren&apos;t linked to your account. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 hover:underline">Privacy</Link>
               </p>
             </div>
           </form>

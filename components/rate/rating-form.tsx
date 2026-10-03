@@ -197,7 +197,7 @@ export function RatingForm({ slug, schoolName, alreadyRated }: { slug: string; s
         <button type="submit" disabled={busy} className="w-full rounded-full bg-brand px-5 py-3.5 text-[15px] font-medium text-on-brand hover:bg-brand-hover disabled:opacity-50 sm:w-auto">
           {busy ? "Saving" : mode === "edit" ? "Save my changes" : "Submit my rating"}
         </button>
-        <p className="mt-3 text-xs text-text-secondary">Your answers are stored with no link to your account. <Link href="/privacy" className="text-brand underline-offset-2 hover:underline">Privacy</Link></p>
+        <p className="mt-3 text-xs text-text-secondary">Your answers are stored with no link to your account. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 hover:underline">Privacy</Link></p>
       </div>
     </form>
   );
