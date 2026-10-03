@@ -41,9 +41,9 @@ try {
   await page.goto(`${BASE}/map`, { waitUntil: "load" });
   await mapReady(page);
 
-  // The map opens on On paper (verified policy grades); the gap is one tap away.
-  check("the map opens on the On paper view", (await page.getByRole("radio", { name: "On paper" }).getAttribute("aria-checked")) === "true");
-  await page.getByRole("radio", { name: "The gap" }).click();
+  // The map opens on The gap: coloured dots, no letters.
+  check("the map opens on The gap view", (await page.getByRole("radio", { name: "The gap" }).getAttribute("aria-checked")) === "true");
+  check("the opening view shows no letters on the dots", (await features(page)).every((f) => !f.label));
   await page.waitForTimeout(300);
   const all = await features(page);
   const total = (await db.query("select count(*)::int n from public.institutions where sector = 'public'")).rows[0].n;

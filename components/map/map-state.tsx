@@ -29,8 +29,8 @@ export function useMapState() {
 // When refresh_scores runs after a rating, the row update arrives here and the dot and panel update.
 export function MapStateProvider({ initial, children }: { initial: InstitutionSummary[]; children: React.ReactNode }) {
   const [schools, setSchools] = useState(initial);
-  // Opens on On paper: real, verified policy grades. In practice is still mostly sample ratings.
-  const [mode, setMode] = useState<Mode>("paper");
+  // Opens on The gap: dots coloured by the gap between On paper and In practice (Farnaz's call, Oct 3).
+  const [mode, setMode] = useState<Mode>("gap");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [pulse, setPulse] = useState<MapState["pulse"]>(null);
 

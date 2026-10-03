@@ -250,7 +250,7 @@ The map follows the Apple Maps pattern: the map fills the screen, and only contr
 
 - Muted base map that switches tiles with light and dark mode; colored dots are the loudest thing on screen.
 - Dot colors: teal Aligned, amber Some gap, red Big gap, grey No public policy. No banner or warning label on the map; instead each school's panel shows its rating count split by source (public, Onus, sample), so the mix is always visible. Every school is seeded so none looks empty.
-- Floating glass filter bar with capsule segmented controls: College / University, and On paper / In practice / The gap. The map opens on On paper (real, verified policy grades, each dot labelled with its letter); In practice and The gap are one tap away, since In practice is still mostly sample ratings.
+- Floating glass filter bar with capsule segmented controls: College / University, and On paper / In practice / The gap. The map opens on The gap, with dots coloured by the gap and no letters; On paper (each dot labelled with its letter) and In practice are one tap away.
 - Hover a dot: small card with school name and grade chip.
 - Each school has its own URL, so the back button works and the demo can jump straight to a school.
 
@@ -838,7 +838,7 @@ Skip Arc'teryx, AMD, Huawei, Transoft. Forced fits read as desperate.
 **Demo script (3 minutes)**
 
 1. Open: "BC requires every school to have a sexual violence policy. Nobody checks if it works."
-2. The map loads on the On paper view: every school's real, verified policy grade (no school earns an A; the highest is a B). Tap a school to show its grade, then one tap to The gap to compare it with what students report.
+2. The map loads on The gap view, dots coloured by the gap. Tap a school to show its On paper grade next to what students report.
 3. Expand one category; show the quoted clause and the rejected-quote check.
 4. Ask the voice agent: "If I report here, who finds out?" Cited answer, out loud.
 5. A judge signs in with the event code and rates a school; that school's Onus count ticks from 0 to 1 and the dot pulses, live.
