@@ -1,0 +1,141 @@
+{
+  "slug": "kpu",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "4e68b2447ed643a051cb31fec6abdee644c19e4575c02601d42f449ba06d16b0+b5b3b850d5c1e08c258b3cd0985a23243af57373cb8c8076670b6ba6cf519504",
+  "graded_at": "2026-10-03T07:27:31.505Z",
+  "usage": {
+    "promptTokenCount": 7540,
+    "candidatesTokenCount": 1413,
+    "totalTokenCount": 14283,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 7540
+      }
+    ],
+    "thoughtsTokenCount": 5330,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "If the Respondent is a Student, the Complaint will be processed under the Student Conduct policy.",
+      "section": "Procedures B.2.3.5",
+      "reason": "Complaints against students are referred to and processed under the general Student Conduct policy."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 2,
+      "quote": "The Act requires BC post-secondary institutions to establish, implement, and make publicly available a policy, with associated procedures, that addresses sexual misconduct, its prevention, and responses to sexual misconduct.",
+      "section": "Policy A",
+      "reason": "The policy commits to being made publicly available in compliance with the Act."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "An individual who has experienced, witnessed, or has knowledge of Sexual Violence and Misconduct can report the incident in a number of ways:",
+      "section": "Procedures B.2.1",
+      "reason": "The policy lists various offices and options for reporting but does not provide clear, concrete contact steps or details for all of them."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protecting the complainant from face-to-face contact with the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy requires all members of the university community to maintain confidentiality, which acts as a confidentiality requirement on complainants."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "The University understands that individuals who have experienced Sexual Violence and Misconduct may wish to control whether and how their experience will be dealt with by the police and/or the University.",
+      "section": "Procedures B.1.1",
+      "reason": "The policy mentions options but limits the survivor's control to 'most circumstances.'"
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address amnesty for drug or alcohol use when reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University will respond in a timely manner to Disclosures, Complaints, and Reports of Sexual Violence and Misconduct.",
+      "section": "Policy C.6",
+      "reason": "Timelines are vague, using terms like 'timely manner' rather than specific binding timeframes."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "During an evaluation of a Disclosure, Report or Complaint, or during an Investigation, the University may impose interim measures as deemed appropriate for the safety of the individuals involved and/or the University community.",
+      "section": "Procedures B.1.4",
+      "reason": "Interim measures are discretionary, stating the university 'may' impose them."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "The Policy applies in any situation where Sexual Violence and Misconduct occurs on University property or is related to University business, and includes activity that occurs in virtual environments including all forms of digital, electronic, or social media.",
+      "section": "Policy B.1",
+      "reason": "Off-campus activities are covered only generally under 'related to University business' without explicitly mentioning co-ops or internships."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address informing the complainant of the outcome or sanctions."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "As required by the Act the University President must report to the Board on the implementation of the Policy.",
+      "section": "Procedures C",
+      "reason": "The reporting requirement is internal to the Board and vague regarding the publication of specific numbers."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "As per the Act, this Policy will be reviewed at least once every three years or as directed by the Minister of Advanced Education.",
+      "section": "Policy C.9",
+      "reason": "The policy is reviewed on a three-year cycle, which is longer than every two years."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "Students and employees will be consulted as part of this review.",
+      "section": "Policy C.9",
+      "reason": "Student consultation is required, but there is no specified minimum of 30% student representation on the review committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address mandatory trauma-informed training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The University will invest in ongoing sexual violence education, awareness and prevention programming.",
+      "section": "Policy C.8",
+      "reason": "The university commits to ongoing sexual violence education and prevention programming."
+    }
+  ]
+}

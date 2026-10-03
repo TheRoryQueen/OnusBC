@@ -1,0 +1,141 @@
+{
+  "slug": "jibc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-01.1",
+  "policy_sha256": "315ba960b532248cf09b625602c272db5b109a957ebac5ea9c1dcb3d7d00674e+9ed8aecf9df6b9b4e06bb8f2347237e98d7b7784cde43c75166ec29c210b997e",
+  "graded_at": "2026-10-03T07:26:54.492Z",
+  "usage": {
+    "promptTokenCount": 10533,
+    "candidatesTokenCount": 1619,
+    "totalTokenCount": 18250,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 10533
+      }
+    ],
+    "thoughtsTokenCount": 6098,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Where an individual Discloses or files a Complaint of Sexual Violence or Misconduct involving a Student, or where JIBC learns of an incident of Sexual Violence or Misconduct involving a Student by a means other than a Disclosure or Complaint, JIBC will follow Procedure 3213-001 to this Policy.",
+      "section": "Policy, Section: Procedures",
+      "reason": "The policy has its own dedicated procedure (Procedure 3213-001) that governs reports."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to being publicly available."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A Complaint can be made to the Director of Student Affairs, the Senior Manager of LSDR, or any faculty or employee of JIBC the person feels comfortable making it to.",
+      "section": "Procedures, Section: Making a Disclosure or Complaint of Sexual Violence or Misconduct",
+      "reason": "The policy sets out clear steps on who to contact and how to make a complaint."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 1,
+      "quote": "Such measures may include, but are not limited to: limiting contact between Students involved in a Disclosure or Complaint of Sexual Violence or Misconduct; altering the course schedule of any Student involved in a Disclosure or Complaint of Sexual Violence or Misconduct; and/or if applicable, enforcing temporary, non-disciplinary, leaves.",
+      "section": "Procedures, Section: Interim Measures",
+      "reason": "Limiting contact is mentioned as a discretionary interim measure rather than a guarantee."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy requires all persons involved in an investigation to keep the information confidential."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Anyone who experiences or witnesses Sexual Violence or Misconduct involving a Student, or has reason to believe that Sexual Violence or Misconduct involving a Student has occurred or may occur, may pursue any of the following options (or pursue more than one option simultaneously):",
+      "section": "Procedures, Section: Making a Disclosure or Complaint of Sexual Violence or Misconduct",
+      "reason": "The policy explicitly outlines the choice to pursue multiple options simultaneously, including institutional and external processes."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "to be granted immunity from disciplinary actions for minor infractions that may have been discovered during the reporting process, such as alcohol or drug use, which may be considered violations of JIBC’s policies.",
+      "section": "Policy, Section: Sexual Violence and Misconduct - Students",
+      "reason": "The policy guarantees immunity from disciplinary actions for minor infractions like alcohol or drug use during the reporting process."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "JIBC is committed to procedural fairness and will respond to, address, and investigate Complaints in a fair, unbiased, and timely manner.",
+      "section": "Procedures, Section: Procedural guiding principles",
+      "reason": "Timelines are described vaguely as 'timely' without specific binding durations."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The Institute reserves the right to implement interim measures as it considers appropriate, to protect the safety of the JIBC Community or any of its members during an evaluation of a Disclosure or Complaint, or pending the completion of an Investigation.",
+      "section": "Procedures, Section: Interim Measures",
+      "reason": "The implementation of interim measures is discretionary."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "JIBC-Related Activity – Any activity occurring on JIBC property or as part of an educational program or administrative action and including online or distance education, practicum, field education, off-site training, or work terms required by a program of study at JIBC and endorsed activities and events.",
+      "section": "Policy, Section: Sexual Violence and Misconduct - Students",
+      "reason": "The policy explicitly includes practicums, field education, and work terms in its scope."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 2,
+      "quote": "The Director of Student Affairs will inform the Complainant of the outcome of the proceedings.",
+      "section": "Procedures, Section: JIBC’s Response to a Complaint",
+      "reason": "The policy commits to informing the complainant of the outcome of the proceedings."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "preparing statistical reports of Disclosures and Complaints of Sexual Violence and Misconduct and communicating such reports in accordance with applicable legislation;",
+      "section": "Procedures, Section: Prevention and Response Program",
+      "reason": "The policy mentions preparing and communicating statistical reports but does not explicitly commit to public annual publication."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "conducting regular reviews to evaluate the effectiveness of this Policy, with reviews occurring in accordance with JIBC’s policy review cycle or as advised by the B.C. government.",
+      "section": "Procedures, Section: Prevention and Response Program",
+      "reason": "The policy requires regular reviews but does not state a specific interval."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention student representation on policy review committees."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention trauma-informed training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "providing education to the student community about prevention of Sexual Violence and Misconduct;",
+      "section": "Policy, Section: Sexual Violence and Misconduct - Students",
+      "reason": "The policy commits to providing education to the student community about prevention."
+    }
+  ]
+}
