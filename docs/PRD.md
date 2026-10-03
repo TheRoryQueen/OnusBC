@@ -212,8 +212,10 @@ Claude Code uses these exactly; Farnaz edits them here, not in code.
 - Top: content note, "These questions are about how your school handles reports, not about what happened to you. Skip anything you want." plus a Get help link.
 - Step 1 of 2, everyone: Do you know how to report here? (Yes / No). Would you trust the process? (1 to 5 capsule scale with end labels).
 - Gate: "Have you been through your school's reporting process?" Yes / No / Prefer not to say. Only Yes opens step 2.
-- Step 2 of 2: felt believed (1 to 5), kept informed (1 to 5), time until outcome (four options), was there a consequence (Yes / No / Still waiting / Prefer not to say).
-- Large tap targets, one question per row, progress shown as "1 of 2".
+- Step 2 of 2: felt believed (1 to 5), kept informed (1 to 5), time until outcome (four options), "Did the school take any action after your report?" (Yes / No / Still in progress / Prefer not to say).
+- Every question can be skipped (tap Clear, or leave it). Gate "No" or "Prefer not to say" goes straight to submit. Inside step 2, "Prefer not to say" and "Still in progress" count as no answer, never as a low score. Submit stays disabled until at least one question is answered.
+- Get help and the submit button sit in a floating glass bar at the bottom, so both are always visible.
+- Large tap targets (48 px capsules), one question per row, progress shown as "1 of 2"; step 2 has its own heading, "About your report".
 - Done screen: the edit code large in IBM Plex Mono with a Copy button, and "Save this code. It's the only way to change or withdraw your rating, and we can't recover it." Then "Back to \[School\]", which opens the panel with the Onus count already ticked up.
 - Already rated: "You've already rated \[School\]. Use your code to change or withdraw it." with a code field.
 
@@ -301,7 +303,7 @@ Shown only when a school has at least 5 ratings; otherwise "Not enough ratings y
 | Did you feel believed? (1 to 5) | Went through the process | Rating minus 1 |
 | Were you kept informed? (1 to 5) | Went through the process | Rating minus 1 |
 | Time until outcome | Went through the process | Under 1 month 4 · 1 to 3 months 3 · 3 to 6 months 2 · 6+ or still waiting 1 |
-| Was there a consequence? | Went through the process | Yes 4 · No 0 · Still waiting and Prefer not to say excluded |
+| Did the school take any action after your report? | Went through the process | Yes 4 · No 0 · Still in progress and Prefer not to say excluded (no answer) |
 
 The In practice grade = 40% the Everyone block + 60% the process block. If fewer than 5 process responses exist, the grade uses the Everyone block alone and says so.
 
@@ -442,7 +444,7 @@ Policies and public records are real; student ratings come from three sources co
 | Provincial baseline | [Statistics Canada SISPSP 2019](https://www150.statcan.gc.ca/n1/pub/85-002-x/2020001/article/00005-eng.htm); BC Leger student survey (9,642 respondents), plus schools' custom results where published, e.g. [BCIT](https://www.bcit.ca/files/safetyandsecurity/pdf/sexual-violence-post-secondary-campuses-bc-leger-report.pdf) | Real, context only |
 | In practice | Public records where they exist; Onus ratings from real sign-ins (judges included); sample rows from a seed script (source = 'sample') for schools with no public data. Each counted separately | Simulated |
 
-**Seeding rules:** simulated ratings are shaped by the real records (a school whose report shows few resolved cases gets lower simulated consequence scores). Nothing from news articles about individual survivors enters the app's data or grades. The homepage quotes are the one exception, under the strict rules in Their words.
+**Seeding rules:** simulated ratings are shaped by the real records (a school whose report shows few resolved cases gets lower simulated "took action" scores). Nothing from news articles about individual survivors enters the app's data or grades. The homepage quotes are the one exception, under the strict rules in Their words.
 
 **Pitch line:** "Every number on Onus is real: the policies, the public records, and the national statistics. Where a school had no public data, I seeded sample ratings, and each school shows exactly how many ratings are public, from Onus, or sample."
 
@@ -695,7 +697,7 @@ Filling the holes found in a review pass. Build these as part of the milestones 
 - **Loading, empty, and error states (every milestone, checked in 12):** map shows a skeleton while dots load; a school with a policy but no grades yet shows "Grading in progress"; a school with no policy found shows the grey state and the "Request this policy" action; if an API route fails, show a quiet retry message, never a blank screen or a raw error. The Ask agent shows a typing indicator and, on failure, the refusal-style fallback with the school's contact.
 - **Rate limits (milestone 6 and 9):** cap judge-login attempts (10 per IP per 10 minutes) so the judge code can't be brute-forced; cap `/api/ratings` (already one per school per account) and `/api/ask` (10 per minute per IP). Return a friendly "try again in a moment" message.
 - **Re-grade on policy change (milestone 4, optional live in demo):** `crawl` stores a hash of each policy's text. A scheduled or manual re-run re-grades only schools whose hash changed and stamps `graded_at` and a "policy updated" note. For the event this runs on demand, not on a timer.
-- **Demo seed volume (milestone 8):** give every school 8 to 25 demo ratings (random within that range), weighted by its public record where one exists (a school whose report shows few resolved cases gets lower "consequence" and "believed" scores). Spread submission weeks over the last 3 months. Keep the gap believable: most schools land in "some gap," a few "aligned," a few "big gap," at least one "no public policy" grey.
+- **Demo seed volume (milestone 8):** give every school 8 to 25 demo ratings (random within that range), weighted by its public record where one exists (a school whose report shows few resolved cases gets lower "took action" and "believed" scores). Spread submission weeks over the last 3 months. Keep the gap believable: most schools land in "some gap," a few "aligned," a few "big gap," at least one "no public policy" grey.
 - **Accessibility pass (after milestones 5, 7, 11):** run the `design:accessibility-review` skill. Check color contrast in both themes, keyboard navigation through the map and forms, visible focus rings, screen-reader labels on the map controls and the Ask button, and that no meaning is carried by color alone (always the word with the grade).
 
 * **Live rating count, three sources (milestone 5, 7, 8):** under each school's In practice score, show a small grey line: "\[n\] public records · \[n\] Onus · \[n\] sample." Public records is the number of public\_records rows, Onus is real app ratings (source = 'onus'), sample is seed rows (source = 'sample'). When any rating is submitted, the Onus number ticks up with a brief highlight and the dot pulses, so a judge sees their action land even if the grade barely moves. Judge ratings are source = 'onus' and is\_demo = true: they count in the Onus number live, but can be filtered out after the event so test clicks don't skew a real grade. Sample rows are easy to delete in one query once real ratings arrive.
