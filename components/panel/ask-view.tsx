@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowUp, ChevronLeft, LoaderCircle, Mic, Phone, Square, Volume2 } from "lucide-react";
 import { usePlayer, useRecorder, unlockAudio } from "./use-voice";
 import { cn } from "@/lib/utils";
@@ -90,11 +90,14 @@ function Typing() {
 // The Ask box: auto-growing input (up to about 200 px), mic, round send that is disabled until there is text.
 // Enter sends; Shift+Enter adds a line. The mic records a question (tap again to send, Escape to cancel);
 // the transcript goes to the same /api/ask and the answer is read aloud.
-function AskBox({ school, busy, onSend, onVoice, onVoiceError }: {
-  school: string; busy: boolean; onSend: (q: string) => void; onVoice: (q: string) => void; onVoiceError: (m: string) => void;
+type Phase = "idle" | "listening" | "thinking" | "speaking";
+const PHASE_LABEL: Record<Exclude<Phase, "idle">, string> = { listening: "Listening…", thinking: "Thinking…", speaking: "Speaking…" };
+
+function AskBox({ school, busy, onSend, voice, phase, onStopSpeaking }: {
+  school: string; busy: boolean; onSend: (q: string) => void;
+  voice: ReturnType<typeof useRecorder>; phase: Phase; onStopSpeaking: () => void;
 }) {
-  const voice = useRecorder(onVoice, onVoiceError);
-  const live = voice.state !== "idle";
+  const live = phase !== "idle";
   const [value, setValue] = useState("");
   const ref = useRef<HTMLTextAreaElement>(null);
   useLayoutEffect(() => {
@@ -117,18 +120,16 @@ function AskBox({ school, busy, onSend, onVoice, onVoiceError }: {
       <label htmlFor="ask-input" className="sr-only">Your question about {school}&apos;s policy</label>
       {live && (
         <div role="status" aria-live="polite" className="flex min-h-10 flex-1 items-center gap-2.5 px-3 py-2 text-[15px] text-text">
-          {voice.state === "recording" ? (
-            <>
-              <span className="relative flex size-2.5" aria-hidden>
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60 motion-reduce:hidden" />
-                <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
-              </span>
-              Listening
-              <span className="tabular-nums text-text-secondary">0:{String(voice.elapsed).padStart(2, "0")}</span>
-            </>
+          {phase === "thinking" ? (
+            <LoaderCircle className="size-4 animate-spin text-text-secondary motion-reduce:animate-none" aria-hidden />
           ) : (
-            <><LoaderCircle className="size-4 animate-spin text-text-secondary motion-reduce:animate-none" aria-hidden />Turning your question into text</>
+            <span className="relative flex size-2.5" aria-hidden>
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-60 motion-reduce:hidden" />
+              <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
+            </span>
           )}
+          {PHASE_LABEL[phase]}
+          {phase === "listening" && <span className="tabular-nums text-text-secondary">0:{String(voice.elapsed).padStart(2, "0")}</span>}
         </div>
       )}
       <textarea id="ask-input" ref={ref} rows={1} value={value} maxLength={500} hidden={live}
@@ -136,12 +137,15 @@ function AskBox({ school, busy, onSend, onVoice, onVoiceError }: {
         onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(); } }}
         placeholder={`Ask about ${school}'s policy`}
         className="max-h-[200px] min-h-10 flex-1 resize-none bg-transparent px-3 py-2 text-[15px] leading-6 text-text placeholder:text-text-secondary focus:outline-none" />
-      <button type="button" disabled={busy || voice.state === "transcribing"}
-        onClick={(e) => { e.stopPropagation(); if (voice.state === "recording") voice.stop(); else void voice.start(); }}
-        aria-label={voice.state === "recording" ? "Stop and ask" : "Ask by voice"} title={voice.state === "recording" ? "Stop and ask" : "Ask by voice"}
+      {/* Mic: tap to ask by voice. While listening, tap to send now (it also stops by itself after a pause);
+          while speaking, tap to stop the voice. */}
+      <button type="button" disabled={phase === "thinking" || (busy && phase === "idle")}
+        onClick={(e) => { e.stopPropagation(); if (phase === "listening") voice.stop(); else if (phase === "speaking") onStopSpeaking(); else void voice.start(); }}
+        aria-label={phase === "listening" ? "Stop and ask" : phase === "speaking" ? "Stop speaking" : "Ask by voice"}
+        title={phase === "listening" ? "Stop and ask" : phase === "speaking" ? "Stop speaking" : "Ask by voice"}
         className={cn("grid size-10 shrink-0 place-items-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-brand disabled:opacity-50",
-          voice.state === "recording" ? "bg-brand-tint text-brand ring-2 ring-inset ring-brand" : "text-text-secondary hover:bg-hairline/60 hover:text-text")}>
-        {voice.state === "recording" ? <Square className="size-4 fill-current" aria-hidden /> : <Mic className="size-5" strokeWidth={1.75} aria-hidden />}
+          phase === "listening" || phase === "speaking" ? "bg-brand-tint text-brand ring-2 ring-inset ring-brand" : "text-text-secondary hover:bg-hairline/60 hover:text-text")}>
+        {phase === "listening" || phase === "speaking" ? <Square className="size-4 fill-current" aria-hidden /> : <Mic className="size-5" strokeWidth={1.75} aria-hidden />}
       </button>
       <button type="submit" disabled={!ready || live} aria-label="Send" title="Send"
         className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-on-brand transition-[background-color,opacity] hover:bg-brand-hover active:scale-95 disabled:bg-hairline disabled:text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
@@ -159,6 +163,15 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
   const [busy, setBusy] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
   const player = usePlayer();
+  const askRef = useRef<(q: string, aloud?: boolean) => Promise<void>>(async () => {});
+  const [voiceTurn, setVoiceTurn] = useState<{ asking: boolean; answerId: string | null }>({ asking: false, answerId: null });
+  const voice = useRecorder(
+    useCallback((q: string) => { void askRef.current(q, true); }, []),
+    useCallback((text: string) => setMessages((m) => [...m, { role: "error", text }]), [setMessages]),
+  );
+  const phase: Phase = voice.state === "recording" ? "listening"
+    : voice.state === "transcribing" || voiceTurn.asking || (voiceTurn.answerId !== null && player.loading === voiceTurn.answerId) ? "thinking"
+    : voiceTurn.answerId !== null && player.playing === voiceTurn.answerId ? "speaking" : "idle";
   const nextId = useRef(messages.length);
 
   useEffect(() => {
@@ -168,6 +181,7 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
 
   const ask = async (question: string, aloud = false) => {
     setMessages((m) => [...m, { role: "user", text: question }]);
+    if (aloud) setVoiceTurn({ asking: true, answerId: null });
     setBusy(true);
     try {
       const res = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug, question }) });
@@ -176,15 +190,18 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
       else {
         const id = `a${++nextId.current}`;
         setMessages((m) => [...m, { role: "answer", id, data: json }]);
-        // A question asked by voice is answered aloud too; the same cited text stays on screen.
-        if (aloud) void player.play(id, json.answer);
+        // A question asked by voice is answered aloud too; the same cited text stays on screen. If the
+        // browser blocks the audio, the answer's Listen button plays it.
+        if (aloud) { setVoiceTurn({ asking: false, answerId: id }); void player.play(id, json.answer); }
       }
     } catch {
       setMessages((m) => [...m, { role: "error", text: "You seem to be offline. Try again when you're connected." }]);
     } finally {
       setBusy(false);
+      setVoiceTurn((v) => (v.asking ? { asking: false, answerId: v.answerId } : v));
     }
   };
+  useEffect(() => { askRef.current = ask; });
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -236,8 +253,7 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
       </div>
 
       <div className="shrink-0 px-3 pb-3 pt-2">
-        <AskBox school={school} busy={busy} onSend={(q) => ask(q)} onVoice={(q) => ask(q, true)}
-          onVoiceError={(text) => setMessages((m) => [...m, { role: "error", text }])} />
+        <AskBox school={school} busy={busy} onSend={(q) => ask(q)} voice={voice} phase={phase} onStopSpeaking={player.stop} />
         <p className="mt-2 px-2 text-center text-[12px] leading-snug text-text-secondary">
           Please don&apos;t share personal details. Questions aren&apos;t stored. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 hover:underline">Privacy</Link>
         </p>
