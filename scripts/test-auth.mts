@@ -87,11 +87,10 @@ try {
     const landed = await onPath(page, "/map/uvic");
     check("pasting the code fills all six and signs in", sent() === 1 && landed, page.url());
     check("returns to where they came from (?next=/map/uvic)", landed);
-    check("nav shows Sign out once signed in", await page.getByRole("button", { name: "Sign out" }).isVisible());
+    check("nav shows My account once signed in", await page.locator("header").getByRole("link", { name: "My account" }).isVisible());
     const p = await profileOf(email);
     check("profile: school set from the domain, role student", p?.slug === "zz-test-auth-a" && p?.role === "student", JSON.stringify(p));
-    await page.getByRole("button", { name: "Sign out" }).click();
-    check("sign out works", await page.getByRole("link", { name: "Sign in" }).waitFor({ timeout: 10000 }).then(() => true).catch(() => false));
+    // Signing out is on My account (checked in test:account).
     await ctx.close();
   }
 

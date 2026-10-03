@@ -41,6 +41,10 @@ try {
   await page.goto(`${BASE}/map`, { waitUntil: "load" });
   await mapReady(page);
 
+  // The map opens on On paper (verified policy grades); the gap is one tap away.
+  check("the map opens on the On paper view", (await page.getByRole("radio", { name: "On paper" }).getAttribute("aria-checked")) === "true");
+  await page.getByRole("radio", { name: "The gap" }).click();
+  await page.waitForTimeout(300);
   const all = await features(page);
   const total = (await db.query("select count(*)::int n from public.institutions where sector = 'public'")).rows[0].n;
   check("every school has a dot", all.length === total, `${all.length} of ${total}`);
@@ -128,8 +132,9 @@ try {
   await page.waitForURL(/\/map$/);
   check("close button closes the panel", page.url().endsWith("/map"));
 
-  // Live update: change a score in the database; the dot recolours without a reload.
+  // Live update: change a score in the database; the dot recolours without a reload (gap view).
   await mapReady(page);
+  await page.getByRole("radio", { name: "The gap" }).click();
   await page.waitForFunction(() => (window as unknown as { __onusRealtime?: string }).__onusRealtime === "SUBSCRIBED", null, { timeout: 20000 });
   const uvicId = (await db.query("select id from public.institutions where slug = 'uvic'")).rows[0].id;
   await db.query("update public.institution_scores set gap_label = 'big_gap' where institution_id = $1", [uvicId]);
