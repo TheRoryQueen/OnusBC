@@ -8,6 +8,8 @@ import { TheirWords, type Quote } from "@/components/home/their-words";
 // Only quotes marked approved in data/quotes.json ever render.
 export default function Home() {
   const approved = (quotes.quotes as (Quote & { approved: boolean })[]).filter((q) => q.approved).slice(0, 3);
+  // Shown first, third, second, so the sequence ends on the short line.
+  if (approved.length === 3) approved.push(approved.splice(1, 1)[0]);
   return (
     <main className="flex-1">
       <Hero />

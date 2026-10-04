@@ -35,7 +35,7 @@ export function SiteFooter() {
     <footer className="border-t border-hairline">
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 gap-y-12 px-4 pb-10 pt-16 sm:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <div>
-          <Logo className="h-10" />
+          <Logo className="h-9" />
           <p className="mt-3 font-serif text-[1.75rem] italic leading-tight text-text">The onus is on them.</p>
           <p className="mt-3 text-[13px] text-text-secondary">Built solo at StormHacks 2026.</p>
         </div>

@@ -17,7 +17,7 @@ export async function SiteNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-hairline/70 bg-glass backdrop-blur-xl backdrop-saturate-[1.8]">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
-        <Logo className="h-9" />
+        <Logo className="h-7" />
         <div className="flex items-center gap-1 md:gap-3">
           <Tabs tabs={tabs} label="Main" className="hidden md:block" />
           <AnimatedThemeToggler />

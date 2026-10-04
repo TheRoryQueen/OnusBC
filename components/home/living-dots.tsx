@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 // Vancouver-region landform, a preview of the map's look (they are not real schools).
 // About five are lit at any moment, each on its own fade-in, hold, fade-out cycle of 3 to 6 seconds,
 // started at random times, never right next to the dot that lit before it. With reduced motion they hold
-// still, faint. Drawn in the same viewBox units as the land map so they sit exactly on it.
+// still, faint, and only every ninth shows (about five), so it reads like a lit moment, not a field of dots. Drawn in the same viewBox units as the land map so they sit exactly on it.
 
 type Spot = { x: number; y: number; color?: string }; // color: a token name, e.g. "brand", "some-gap"
 const TARGET_LIT = 5;
@@ -59,7 +59,7 @@ export function LivingDots({ spots, width, height }: { spots: Spot[]; width: num
       {spots.map((s, i) => {
         const cycle = lit[i];
         return (
-          <g key={i} className={reduce ? "opacity-40" : cycle ? "onus-breathe" : "opacity-0"} style={cycle ? ({ "--onus-breath": `${cycle}ms` } as React.CSSProperties) : undefined}>
+          <g key={i} className={reduce ? (i % 9 === 0 ? "opacity-40" : "opacity-0") : cycle ? "onus-breathe" : "opacity-0"} style={cycle ? ({ "--onus-breath": `${cycle}ms` } as React.CSSProperties) : undefined}>
             {/* A soft halo, then the dot: flat circles in one token colour, no gradient. */}
             <circle cx={s.x} cy={s.y} r={1.5} fill={`var(--onus-${s.color ?? "brand"})`} fillOpacity={0.12} />
             <circle cx={s.x} cy={s.y} r={0.9} fill={`var(--onus-${s.color ?? "brand"})`} fillOpacity={0.2} />
