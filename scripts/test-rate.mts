@@ -1,4 +1,4 @@
-// Milestone 7 checks in real browsers: sign in, rate (both steps), receive the edit code, and watch a
+// Milestone 7 checks in real browsers: sign in, rate (both steps), the code kept on the device, and watch a
 // second browser's map panel tick its Onus count and pulse the dot live (Realtime, no reload). Then the
 // code changes and withdraws the rating, and the count ticks back. Also: signed-out redirect, wrong
 // school, no free text, nothing linking the rating to the account.
@@ -103,10 +103,14 @@ try {
   check("Get help stays on screen after scrolling to the bottom", !!box && box.y > 0 && box.y + box.height <= (B.viewportSize()?.height ?? 720));
   await B.getByRole("button", { name: "Submit my rating" }).click();
 
-  await B.getByText("Save this code. It's the only way to change or withdraw your rating, and we can't recover it.").waitFor({ timeout: 15000 });
-  const code = ((await B.locator(".font-mono").first().textContent()) ?? "").trim();
-  check("done screen shows an 8-character edit code in the mono face", /^[A-HJ-NP-Z2-9]{8}$/.test(code), code.replace(/./g, "•"));
-  check("done screen has Copy and Back to the school", await B.getByRole("button", { name: "Copy" }).isVisible() && await B.getByRole("link", { name: "Back to Test Rating College" }).isVisible());
+  await B.getByText("Thank you for helping others know what to expect. If you need support, you deserve it.").waitFor({ timeout: 15000 });
+  check("done screen does not show the edit code", (await B.locator("main .font-mono").count()) === 0);
+  check("done screen links to Get support and My account", (await B.getByRole("link", { name: "Get support" }).last().getAttribute("href")) === "/support" && (await B.getByRole("link", { name: "Go to my account" }).getAttribute("href")) === "/account?tab=reviews");
+  check("done screen keeps a quiet way back to the school", await B.getByRole("link", { name: "Back to Test Rating College" }).isVisible());
+  // The code is kept only in this browser.
+  const kept = await B.evaluate(() => JSON.parse(localStorage.getItem("onus.ratings.v1") ?? "[]")) as { slug: string; code: string }[];
+  const code = kept.find((k) => k.slug === SLUG)?.code ?? "";
+  check("the edit code is saved on this device only", /^[A-HJ-NP-Z2-9]{8}$/.test(code), code.replace(/./g, "•"));
 
   // The stored rating: right answers, no link to the account.
   const { rows: stored } = await db.query("select * from public.ratings where institution_id = $1", [school.id]);

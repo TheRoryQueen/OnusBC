@@ -41,7 +41,7 @@ export default function Privacy() {
         <Block title="What we collect">
           <List items={[
             "Your school email address, to confirm you're connected to that school as a student, staff member, or alum. It is stored by our sign-in provider and never shown to anyone.",
-            "A random username we assign you, and which school you belong to.",
+            "Which school you belong to and your role (student, staff or alum), and a random username assigned at sign-up that isn't shown anywhere.",
             "Which schools you have rated, so you can't rate the same school twice. Not your answers.",
             "Your rating answers, stored with no link to your account.",
             "Questions you type or speak to the Ask assistant, processed to answer you.",
@@ -62,7 +62,8 @@ export default function Privacy() {
             "Ratings are saved without your account ID, so nobody at Onus can see which ratings are yours.",
             "Dates are rounded to the week.",
             "A school's student results appear only after at least 5 people have rated it.",
-            "You get a private one-time code to edit or withdraw your rating. We store only a scrambled version of it; if you lose it, we can't recover it.",
+            "Each rating has a private code that deletes it. We store only a scrambled version of it, never with your account. The code itself is kept only in the browser you rated from, so you can delete the rating from My account on that device.",
+            "Rated on another device? Save a backup code from My account on the device you rated from, and use it anywhere. If the code is lost, we can't recover it or find the rating, because nothing links it to you.",
           ]} />
         </Block>
 
@@ -83,7 +84,7 @@ export default function Privacy() {
 
         <Block title="Your choices">
           <p>
-            You can withdraw a rating with your code, and delete your account from <Link href="/account" prefetch={false} className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">My account</Link> at any time. Deleting your account removes your email and username; anonymous ratings remain because they can&apos;t be traced to you. Onus keeps no trace of a deleted account, not even a record that it existed.
+            In <Link href="/account" prefetch={false} className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">My account</Link> you can change your school or role where your school email allows it, delete a rating made on that device (or anywhere, with its backup code), and delete your account. Deleting your account removes your email, school, role and username; your ratings remain because they can&apos;t be traced to you, so delete them first if you want them gone. Onus keeps no trace of a deleted account, not even a record that it existed. Clearing your browser&apos;s data removes the codes kept on that device.
           </p>
         </Block>
       </article>

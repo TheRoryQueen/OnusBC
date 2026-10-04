@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Check, Copy, LifeBuoy } from "lucide-react";
+import { Check, LifeBuoy } from "lucide-react";
+import { CodeBox } from "@/components/code-box";
+import { removeDeviceRating, saveDeviceRating } from "@/lib/device-ratings";
 import { cn } from "@/lib/utils";
 
 type Answers = {
@@ -85,20 +87,6 @@ function Scale({ name, value, onChange }: { name: string; value: number | undefi
   );
 }
 
-function CodeBox({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <div className="flex items-center justify-between gap-3 rounded-[24px] bg-surface px-5 py-4 ring-1 ring-inset ring-hairline">
-      <span className="font-mono text-3xl tracking-[0.18em] text-text">{code}</span>
-      <button type="button" onClick={async () => { await navigator.clipboard.writeText(code).catch(() => {}); setCopied(true); }}
-        className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-page px-4 text-sm font-medium text-text ring-1 ring-inset ring-hairline hover:ring-text-secondary/40">
-        {copied ? <Check className="size-4 text-brand" aria-hidden /> : <Copy className="size-4" aria-hidden />}
-        {copied ? "Copied" : "Copy"}
-      </button>
-    </div>
-  );
-}
-
 const primary = "inline-flex min-h-12 items-center justify-center rounded-full bg-brand px-6 text-[15px] font-medium text-on-brand transition-colors hover:bg-brand-hover active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
 
 export function RatingForm({ slug, schoolName, alreadyRated }: { slug: string; schoolName: string; alreadyRated: boolean }) {
@@ -107,6 +95,8 @@ export function RatingForm({ slug, schoolName, alreadyRated }: { slug: string; s
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [code, setCode] = useState("");
+  // The code is kept on this device only; shown here only if this browser can't keep it.
+  const [kept, setKept] = useState(true);
   const [editCode, setEditCode] = useState("");
   const step2Ref = useRef<HTMLDivElement>(null);
 
@@ -149,7 +139,12 @@ export function RatingForm({ slug, schoolName, alreadyRated }: { slug: string; s
       return;
     }
     const r = await send("POST", { slug, answers });
-    if (r.ok && r.code) { setCode(r.code); setMode("done"); window.scrollTo({ top: 0 }); }
+    if (r.ok && r.code) {
+      setCode(r.code);
+      setKept(saveDeviceRating({ slug, school: schoolName, code: r.code, saved: new Date().toLocaleDateString("en-CA") }));
+      setMode("done");
+      window.scrollTo({ top: 0 });
+    }
     else if (r.status === 409) setMode("already");
   };
 
@@ -157,11 +152,23 @@ export function RatingForm({ slug, schoolName, alreadyRated }: { slug: string; s
 
   if (mode === "done") {
     return (
-      <section className="mt-8 space-y-6" aria-live="polite">
-        <p className="text-[17px] leading-relaxed text-text">Thank you. Your rating is saved, with no link to your account.</p>
-        <CodeBox code={code} />
-        <p className="text-[15px] leading-relaxed text-text">Save this code. It&apos;s the only way to change or withdraw your rating, and we can&apos;t recover it.</p>
-        {backLink}
+      <section className="mt-8" aria-live="polite">
+        <p className="max-w-[34ch] text-[22px] font-medium leading-snug tracking-tight text-text">Thank you for helping others know what to expect. If you need support, you deserve it.</p>
+        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Link href="/account?tab=reviews" className={primary}>Go to my account</Link>
+          <Link href="/support" prefetch={false} className="inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium text-support underline-offset-4 underline decoration-current/35 hover:decoration-current">
+            <LifeBuoy className="size-4" aria-hidden />Get support
+          </Link>
+        </div>
+        {!kept && (
+          <div className="mt-8 space-y-3">
+            <p className="text-[15px] leading-relaxed text-text">This browser can&apos;t keep your rating&apos;s private code, so here it is. Save it if you might want to delete your rating later; we can&apos;t recover it.</p>
+            <CodeBox code={code} />
+          </div>
+        )}
+        <p className="mt-8 border-t border-hairline pt-5 text-[14px] text-text-secondary">
+          Your rating is saved with no link to your account{kept ? ", and the way to delete it is kept on this device only" : ""}. <Link href={`/map/${slug}`} className="text-text underline underline-offset-2 decoration-current/35 hover:decoration-current">Back to {schoolName}</Link>
+        </p>
       </section>
     );
   }
@@ -187,7 +194,7 @@ export function RatingForm({ slug, schoolName, alreadyRated }: { slug: string; s
         <div className="flex flex-wrap gap-3">
           <button type="button" disabled={editCode.length !== 8} onClick={() => { setError(null); setMode("edit"); }} className={primary}>Change my answers</button>
           <button type="button" disabled={editCode.length !== 8 || busy}
-            onClick={async () => { if ((await send("PATCH", { code: editCode, withdraw: true })).ok) setMode("withdrawn"); }}
+            onClick={async () => { if ((await send("PATCH", { code: editCode, withdraw: true })).ok) { removeDeviceRating(editCode); setMode("withdrawn"); } }}
             className="inline-flex min-h-12 items-center rounded-full bg-surface px-6 text-[15px] font-medium text-text ring-1 ring-inset ring-hairline hover:ring-text-secondary/40 disabled:opacity-40">
             Withdraw my rating
           </button>

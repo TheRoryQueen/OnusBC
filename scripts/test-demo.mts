@@ -115,7 +115,7 @@ try {
     await J.getByRole("radiogroup", { name: "Do you know how to report here?" }).getByRole("radio", { name: "Yes" }).click();
     await J.getByRole("radiogroup", { name: "Would you trust the process?" }).getByRole("radio", { name: /^3/ }).click();
     await J.getByRole("button", { name: "Submit my rating" }).click();
-    check(`${s}: the rating saves and shows its edit code`, await J.getByText("Save this code.", { exact: false }).waitFor({ timeout: 15000 }).then(() => true).catch(() => false));
+    check(`${s}: the rating saves and says thank you (the code stays on the device)`, await J.getByText("Thank you for helping others know what to expect.", { exact: false }).waitFor({ timeout: 15000 }).then(() => true).catch(() => false));
     const live = await W.waitForFunction((b) => Number(document.querySelector("[data-onus-count]")?.getAttribute("data-onus-count")) === b + 1, before, { timeout: 15000 }).then(() => true).catch(() => false);
     check(`${s}: the watcher's Onus count goes ${before} to ${before + 1} live, no reload`, live);
     await W.screenshot({ path: `screenshots/demo-live-count-${s}.png` });

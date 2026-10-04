@@ -8,8 +8,8 @@ with this file updated. Item 7 is the one called "item 6" in the request (the st
 | 1 | Haven, Tillicum Lelum and CDCSS as phone-only lines; handoff | Done | 44e0403 |
 | 2 | Map: hover cards, filter, search, legend, hospital routes, campuses | Done | e02cdca, 674057b, 196c7c5 |
 | 3 | School panel: Call, Listen, Read the summary | Done | 561459a |
-| 4 | Nav: same destinations, footer links, phone menu bug, tabs | Done | see git log (item 4) |
-| 5 | Rating flow and account | Not started | |
+| 4 | Nav: same destinations, footer links, phone menu bug, tabs | Done | f83ffa7 |
+| 5 | Rating flow and account | Done | see git log (item 5) |
 | 6 | Design pass: Get support and How it works | Not started | |
 | 7 | Stricter grading (stops after the rubric for approval) | Not started | |
 
@@ -106,7 +106,7 @@ Done in 561459a.
 
 ## 4. Nav
 
-Done (commit: "Nav: the same destinations everywhere, as right-aligned tabs").
+Done in f83ffa7.
 - Setup check: the project already has the shadcn structure (components.json, aliases ui = @/components/ui),
   Tailwind v4 and TypeScript, so nothing needed installing. The tabs are at components/ui/vercel-tabs.tsx,
   adapted: each tab is a Next.js Link, the active tab comes from the route (aria-current), keyboard focus
@@ -123,3 +123,33 @@ Done (commit: "Nav: the same destinations everywhere, as right-aligned tabs").
   right-aligned, focus ring, footer links, smaller text, widening closes the menu; one run had a single
   failure that did not repeat in two reruns), test:account 11, test:auth 20, accessibility 0 findings.
   Screenshots checked; design critique run, no changes.
+
+## 5. Rating flow and account
+
+Done (commit: "Rating codes stay on the device; My account rebuilt").
+- Done screen: no edit code. The thank-you line as written, Go to my account (opens Reviews) and Get
+  support. Decision: I kept a quiet "Back to [School]" under a hairline, because the demo moment (the Onus
+  count ticking up) depends on it. If the browser can't keep the code (private mode, storage blocked), the
+  code is shown with a note, since it would otherwise be lost.
+- The code is saved only in the browser (localStorage, lib/device-ratings.ts). The server is unchanged:
+  ratings have no user ID, and has_rated (user and school, to stop double rating) is the only account link.
+- My account: left column on wide screens, a row on phones (Profile, Privacy, Reviews; arrow keys work).
+  Profile: school, role, masked email; no username shown.
+- Decision (security): "school and role editable" is limited to what the school email proves, enforced in
+  a new database function update_profile (migration 20261004000007, applied). School: only among schools
+  sharing the email's domain (in practice UBC Vancouver and UBC Okanagan), and not after rating. Role:
+  only on shared student and staff domains; where the domain sets the role it stays. Without this, anyone
+  could switch to another school and rate it. Check: if you want anything looser, tell me.
+- Privacy: what Onus stores (including the random username, which still exists in the database but is not
+  shown anywhere), Sign out and Delete account side by side, delete behind "Are you sure?".
+- Reviews: ratings made on this device, each with "Save a backup code" and Delete (behind "Are you sure?").
+  None on this device: it explains ratings can't be traced to an account, by design. "Rated on another
+  device? Use a backup code" deletes a rating anywhere. Deleting a rating withdraws it; that account still
+  can't rate the same school again (the dialog says so), because has_rated stays.
+- Privacy page updated to match (codes on the device, backup codes, what deleting removes).
+- Tests: test:rate 28, test:account 25 (new: device list, backup code, both confirm dialogs, side by side,
+  and the update_profile rules: switch within a shared domain, refuse another school, lock after rating,
+  refuse a role set by the domain, refuse signed out), test:demo 18, accessibility 0 findings (new views:
+  account Privacy, Reviews, the delete dialog, the campus panel, the Listen strip). Screenshots of the done
+  screen and every account section in both themes at 390 and 1440 checked; design critique run (one fix: the
+  rating date was the UTC date, now the local date).

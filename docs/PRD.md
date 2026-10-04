@@ -216,7 +216,7 @@ Claude Code uses these exactly; Farnaz edits them here, not in code.
 - Every question can be skipped (tap Clear, or leave it). Gate "No" or "Prefer not to say" goes straight to submit. Inside step 2, "Prefer not to say" and "Still in progress" count as no answer, never as a low score. Submit stays disabled until at least one question is answered.
 - Get help and the submit button sit in a floating glass bar at the bottom, so both are always visible.
 - Large tap targets (48 px capsules), one question per row, progress shown as "1 of 2"; step 2 has its own heading, "About your report".
-- Done screen: the edit code large in IBM Plex Mono with a Copy button, and "Save this code. It's the only way to change or withdraw your rating, and we can't recover it." Then "Back to \[School\]", which opens the panel with the Onus count already ticked up.
+- Done screen (changed by Farnaz, Oct 3): no edit code. "Thank you for helping others know what to expect. If you need support, you deserve it." with Go to my account (the teal button) and a Get support link, then a quiet "Back to \[School\]", which opens the panel with the Onus count already ticked up. The edit code is kept only in that browser (localStorage), never with the account on the server; if the browser can't keep it, the code is shown with a note to save it.
 - Already rated: "You've already rated \[School\]. Use your code to change or withdraw it." with a code field.
 
 **How it works (/how-it-works).** Plain sections, no cards: The two grades · The 17 criteria (the rubric table), with one line explaining that Onus grades a school's policy and its procedures together as one text when the procedures are a separate document, and every quote shows which document and section it came from · The quote check, shown with one real accepted quote and one real rejected quote from the grading output · The gap · Where ratings come from (public, Onus, and sample, explained honestly) · Privacy in plain words · Limits (AI can be wrong; Farnaz hand-graded 3 schools and the agreement rate is shown once measured) · Sources.
@@ -229,7 +229,7 @@ Claude Code uses these exactly; Farnaz edits them here, not in code.
 - Support at your school: a searchable list of every institution's support office (name, phone, email, link) from the institutions table and the Province's support list.
 - Only sourced numbers; nothing added from memory.
 
-**My account (/account).** Tabs: Profile (random username, school, role, email shown masked), Privacy (the plain statement and Delete account with a confirm step), Reviews ("You've rated \[School\]" rows only, each with a link to edit using the code). Sign out at the bottom.
+**My account (/account).** A left column (a row on phones) with Profile, Privacy and Reviews (changed by Farnaz, Oct 3). Profile: school, role and email (masked; no username shown). School and role can change only within what the school email proves: a school among those sharing the email's domain (UBC's two campuses), not after rating; a role only on shared student and staff domains (update_profile in the database). Privacy: what Onus stores, then Sign out and Delete account side by side, delete behind an "Are you sure?" dialog. Reviews: ratings made on this device, each with Save a backup code and Delete (behind "Are you sure?"); with none, it explains that ratings can't be traced to an account, by design; a backup code from another device deletes a rating there.
 
 **Not found.** "This page isn't here." with links to Home and the map, and the normal footer.
 
@@ -359,13 +359,13 @@ Students verify with a school email, and no rating can ever be traced back to th
 - **Judge access:** any email plus an event code; judge ratings count in the school's Onus number live (so the judge sees it tick up), and are stored with is\_demo = true so they can be filtered out after the event.
 - Randomized, locked usernames.
 
-**My account:** Profile (username, school, email), Privacy (statement, Delete account; anonymous ratings remain), Reviews ("You've rated \[School\]" only, never the answers).
+**My account:** Profile (school, role, masked email), Privacy (statement, Sign out, Delete account; anonymous ratings remain), Reviews (ratings made on this device, from the codes kept there; never the answers).
 
 **Privacy design**
 
 - Ratings table stores the school and answers only, no user ID.
 - A separate has\_rated table stores user and school, only to stop double rating.
-- On submit, the user gets a one-time private code; only a hashed version is stored with the rating, so the code alone can edit or withdraw it.
+- On submit, a one-time private code is created; only a hashed version is stored with the rating, so the code alone can edit or withdraw it. The code itself is kept only in the rater's browser (never on the server with the account), with a "Save a backup code" option in My account.
 - No free-text fields anywhere. Comments are cut.
 - Aggregates hidden below 5 responses; submission dates rounded to the week.
 

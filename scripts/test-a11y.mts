@@ -58,6 +58,20 @@ const PAGES: { name: string; path: string; auth?: boolean; then?: Step }[] = [
   { name: "data", path: "/data" },
   { name: "rate", path: `/rate/${SLUG}`, auth: true },
   { name: "account", path: "/account", auth: true },
+  { name: "account-privacy", path: "/account?tab=privacy", auth: true, then: async (p) => { await p.getByText("Onus keeps as little as it can about you.").waitFor(); } },
+  { name: "account-delete-dialog", path: "/account?tab=privacy", auth: true, then: async (p) => { await p.getByRole("button", { name: "Delete account" }).click(); await p.getByRole("alertdialog").waitFor(); await p.waitForTimeout(300); } },
+  { name: "account-reviews", path: "/account?tab=reviews", auth: true, then: async (p) => {
+    await p.evaluate(() => localStorage.setItem("onus.ratings.v1", JSON.stringify([{ slug: "uvic", school: "University of Victoria", code: "ABCD2345", saved: "2026-10-03" }])));
+    await p.reload({ waitUntil: "load" });
+    await p.getByRole("button", { name: "Save a backup code" }).click();
+    await p.getByText("Rated on another device?").click();
+  } },
+  { name: "campus-panel", path: "/map/sfu/surrey", then: async (p) => { await p.getByRole("complementary").getByText("Campus", { exact: true }).waitFor(); } },
+  { name: "listen-strip", path: "/map/uvic", then: async (p) => {
+    await p.route("**/api/report-card/**", (r) => r.fulfill({ status: 503, body: "" }));
+    await p.getByRole("complementary").getByRole("button", { name: "Listen to this report card" }).click();
+    await p.getByRole("button", { name: "Show the text" }).click();
+  } },
   { name: "grade", path: "/grade", auth: true },
 ];
 
