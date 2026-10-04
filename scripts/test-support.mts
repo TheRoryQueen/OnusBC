@@ -91,6 +91,28 @@ try {
   check("Escape closes the sheet", !(await sheet.isVisible()));
   await page.goto(`${BASE}/map/capilano`, { waitUntil: "load" });
   check("Capilano shows the North Shore line", await page.getByRole("complementary").getByText(/Family Services of the North Shore/).isVisible({ timeout: 15000 }));
+  // Hospitals (DataBC): crosses from zoom 7, the three nearest the selected school at any zoom, and a popup.
+  await page.goto(`${BASE}/map/ubc-vancouver`, { waitUntil: "load" });
+  await page.waitForFunction(() => !!(window as unknown as { __onusMap?: { getLayer: (l: string) => unknown } }).__onusMap?.getLayer("hospital-near"), null, { timeout: 45000 });
+  await page.waitForTimeout(800);
+  const near = await page.evaluate(() => JSON.stringify((window as unknown as { __onusMap: { getFilter: (l: string) => unknown } }).__onusMap.getFilter("hospital-near")));
+  check("the three hospitals nearest the selected school show at any zoom", (near.match(/"h\d+"/g) ?? []).length === 3, near);
+  const minz = await page.evaluate(() => (window as unknown as { __onusMap: { getLayer: (l: string) => { minzoom: number } } }).__onusMap.getLayer("hospital").minzoom);
+  check("all hospitals show only past province level (zoom 7)", minz === 7, String(minz));
+  await page.goto(`${BASE}/map`, { waitUntil: "load" });
+  await page.waitForFunction(() => !!(window as unknown as { __onusMap?: { getLayer: (l: string) => unknown } }).__onusMap?.getLayer("hospital"), null, { timeout: 45000 });
+  await page.evaluate(() => (window as unknown as { __onusMap: { jumpTo: (o: object) => void } }).__onusMap.jumpTo({ center: [-123.05, 49.24], zoom: 10.5 }));
+  await page.waitForTimeout(1500);
+  const hp = await page.evaluate(() => {
+    type M = { queryRenderedFeatures: (o: object) => { geometry: { coordinates: [number, number] } }[]; project: (c: [number, number]) => { x: number; y: number }; getCanvas: () => HTMLCanvasElement };
+    const m = (window as unknown as { __onusMap: M }).__onusMap; const r = m.getCanvas().getBoundingClientRect();
+    const pts = m.queryRenderedFeatures({ layers: ["hospital"] }).map((f) => m.project(f.geometry.coordinates)).filter((q) => q.x > 450 && q.x < 780 && q.y > 320 && q.y < 760);
+    return pts[0] ? { x: r.left + pts[0].x, y: r.top + pts[0].y } : null;
+  });
+  if (hp) await page.mouse.click(hp.x, hp.y);
+  const hs = page.getByRole("dialog");
+  check("a hospital popup gives the address, phone and emergency department status link", !!hp && await hs.getByText(/^Hospital · /).isVisible() && await hs.getByRole("link", { name: "Emergency department status" }).isVisible() && !/24 hours/.test(await hs.innerText()));
+
   // Panels: the order of support for northern and far-from-a-centre campuses.
   const panelText = async (slug: string) => { await page.goto(`${BASE}/map/${slug}`, { waitUntil: "load" }); const p = page.getByRole("complementary"); await p.getByRole("heading", { name: "Nearest support" }).waitFor(); return (await p.locator('section[aria-labelledby="support-heading"]').innerText()); };
   for (const [slug, first] of [["cnc", "University Hospital of Northern British Columbia"], ["unbc", "University Hospital of Northern British Columbia"], ["coast-mountain", "Ksyen Regional Hospital"], ["nlc", "Dawson Creek and District Hospital"]] as const) {

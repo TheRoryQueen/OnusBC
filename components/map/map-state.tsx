@@ -14,6 +14,9 @@ type MapState = {
   /** The sexual assault support whose info sheet is open (a purple dot, or the panel's Nearest support). */
   supportId: string | null;
   setSupportId: (id: string | null) => void;
+  /** The hospital whose popup is open (a hospital marker). */
+  hospitalId: string | null;
+  setHospitalId: (id: string | null) => void;
   pulse: { slug: string; at: number } | null;
 };
 
@@ -31,6 +34,7 @@ export function MapStateProvider({ initial, children }: { initial: InstitutionSu
   const [schools, setSchools] = useState(initial);
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [supportId, setSupportId] = useState<string | null>(null);
+  const [hospitalId, setHospitalId] = useState<string | null>(null);
   const [pulse, setPulse] = useState<MapState["pulse"]>(null);
 
   useEffect(() => {
@@ -63,6 +67,6 @@ export function MapStateProvider({ initial, children }: { initial: InstitutionSu
     };
   }, []);
 
-  const value = useMemo(() => ({ schools, typeFilter, setTypeFilter, supportId, setSupportId, pulse }), [schools, typeFilter, supportId, pulse]);
+  const value = useMemo(() => ({ schools, typeFilter, setTypeFilter, supportId, setSupportId, hospitalId, setHospitalId, pulse }), [schools, typeFilter, supportId, hospitalId, pulse]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

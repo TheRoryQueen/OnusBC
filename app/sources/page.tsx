@@ -103,6 +103,7 @@ export default async function Sources() {
           {SUPPORT.map((e) => (
             <li key={e.id}>{e.name}{e.address ? `, ${e.address}` : " (by phone only)"}. <a href={e.source_url} {...ext} className={linkCls}>Source</a></li>
           ))}
+          <li>Hospital markers: <a href="https://catalogue.data.gov.bc.ca/dataset/hospitals-in-bc" {...ext} className={linkCls}>DataBC, Hospitals in BC</a> (Ministry of Health, HealthLinkBC; Open Government Licence - British Columbia), dataset updated October 1, 2026.</li>
           <li>Directory: <a href="https://endingviolence.org/services-directory/" {...ext} className={linkCls}>EVA BC services directory</a>. Addresses placed with <a href="https://nominatim.openstreetmap.org/" {...ext} className={linkCls}>OpenStreetMap Nominatim</a>; road routes computed once with <a href="https://project-osrm.org/" {...ext} className={linkCls}>OSRM</a> on OpenStreetMap data.</li>
         </Group>
 

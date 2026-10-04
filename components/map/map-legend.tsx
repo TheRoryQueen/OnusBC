@@ -66,6 +66,12 @@ export function MapLegend() {
           <Item label="Sexual assault support">
             <svg width={12} height={12} aria-hidden><circle cx={6} cy={6} r={4.5} fill="var(--onus-support)" stroke="var(--onus-page)" strokeWidth={1.5} /></svg>
           </Item>
+          <Item label="Hospital">
+            <svg width={12} height={12} aria-hidden>
+              <path d="M4.5 0h3v4.5H12v3H7.5V12h-3V7.5H0v-3h4.5z" fill="var(--onus-page)" />
+              <path d="M5 1h2v4h4v2H7v4H5V7H1V5h4z" fill="var(--onus-text)" />
+            </svg>
+          </Item>
         </Group>
       </div>
       <p className={cn("mt-3 text-[11px] text-text-secondary md:block", open ? "block" : "hidden")}>No ring: not enough real ratings yet.</p>

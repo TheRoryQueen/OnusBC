@@ -13,6 +13,8 @@ import { useMapState } from "./map-state";
 import { SupportSheet } from "./support-sheet";
 import { MAPPED, nearestSupport } from "@/lib/support";
 import { dotStyle } from "@/lib/map-style";
+import { HOSPITALS, HOSPITAL_MIN_ZOOM, nearestHospitals } from "@/lib/hospitals";
+import { HospitalSheet } from "./hospital-sheet";
 
 const STYLE = {
   light: process.env.NEXT_PUBLIC_MAP_STYLE_LIGHT ?? "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -36,7 +38,7 @@ function supportRoute(slug: string | null) {
 type Hover = { school: InstitutionSummary; x: number; y: number } | null;
 
 export function OnusMap() {
-  const { schools, typeFilter, pulse, setSupportId } = useMapState();
+  const { schools, typeFilter, pulse, setSupportId, setHospitalId } = useMapState();
   const router = useRouter();
   const pathname = usePathname();
   const selected = pathname?.match(/^\/map\/([a-z0-9-]+)/)?.[1] ?? null;
@@ -95,6 +97,29 @@ export function OnusMap() {
       paint: { "line-color": token("--onus-page"), "line-width": 7 } });
     map.addLayer({ id: "support-route", type: "line", source: "support-route", layout: { "line-cap": "round", "line-join": "round" },
       paint: { "line-color": support, "line-width": 4, "line-dasharray": ["case", ["get", "straight"], ["literal", [2, 2]], ["literal", [1, 0]]] } });
+    // Hospitals (DataBC): ink crosses, a different shape from the purple support dots. Shown from zoom 7, or
+    // the three nearest the selected school at any zoom.
+    if (!map.hasImage("hospital-cross")) {
+      const px = 2 * (window.devicePixelRatio > 1 ? 2 : 1), n = 12 * px;
+      const c = document.createElement("canvas"); c.width = c.height = n;
+      const g = c.getContext("2d")!;
+      const arm = 4 * px, edge = 1 * px;
+      g.fillStyle = token("--onus-page");
+      g.fillRect((n - arm) / 2 - edge, 0, arm + 2 * edge, n); g.fillRect(0, (n - arm) / 2 - edge, n, arm + 2 * edge);
+      g.fillStyle = token("--onus-text");
+      g.fillRect((n - arm) / 2, edge, arm, n - 2 * edge); g.fillRect(edge, (n - arm) / 2, n - 2 * edge, arm);
+      map.addImage("hospital-cross", g.getImageData(0, 0, n, n), { pixelRatio: px });
+    }
+    if (!map.getSource("hospitals")) map.addSource("hospitals", { type: "geojson", data: {
+      type: "FeatureCollection",
+      features: HOSPITALS.map((h) => ({ type: "Feature" as const, geometry: { type: "Point" as const, coordinates: [h.lng, h.lat] }, properties: { id: h.id } })),
+    } });
+    const sel = HOSPITALS.length && latest.current.selected ? latest.current.schools.find((x) => x.slug === latest.current.selected) : undefined;
+    map.addLayer({ id: "hospital", type: "symbol", source: "hospitals", minzoom: HOSPITAL_MIN_ZOOM,
+      layout: { "icon-image": "hospital-cross", "icon-allow-overlap": true, "icon-ignore-placement": true } });
+    map.addLayer({ id: "hospital-near", type: "symbol", source: "hospitals", maxzoom: HOSPITAL_MIN_ZOOM,
+      filter: ["in", ["get", "id"], ["literal", sel ? nearestHospitals(sel) : []]],
+      layout: { "icon-image": "hospital-cross", "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "support-dot", type: "circle", source: "support-points",
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.5, 10, 6], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
     map.addLayer({ id: "school-selected", type: "circle", source: "schools", filter: ["==", ["get", "slug"], latest.current.selected ?? ""],
@@ -167,11 +192,19 @@ export function OnusMap() {
         map.getCanvas().style.cursor = "pointer";
         if (school) setHover({ school, x: e.point.x, y: e.point.y });
       });
-      // Purple dots open the support info sheet.
+      // Purple dots open the support info sheet; hospital crosses open the hospital popup.
       map.on("click", "support-dot", (e: MapLayerMouseEvent) => {
         const id = e.features?.[0]?.properties?.id as string | undefined;
-        if (id) setSupportId(id);
+        if (id) { setHospitalId(null); setSupportId(id); }
       });
+      for (const layer of ["hospital", "hospital-near"]) {
+        map.on("click", layer, (e: MapLayerMouseEvent) => {
+          const id = e.features?.[0]?.properties?.id as string | undefined;
+          if (id) { setSupportId(null); setHospitalId(id); }
+        });
+        map.on("mouseenter", layer, () => { map.getCanvas().style.cursor = "pointer"; });
+        map.on("mouseleave", layer, () => { map.getCanvas().style.cursor = ""; });
+      }
       map.on("mouseenter", "support-dot", () => { map.getCanvas().style.cursor = "pointer"; });
       map.on("mouseleave", "support-dot", () => { map.getCanvas().style.cursor = ""; });
       map.on("mouseleave", "school-dot", () => { map.getCanvas().style.cursor = ""; setHover(null); });
@@ -200,7 +233,7 @@ export function OnusMap() {
       cleanup = () => { obs.disconnect(); map.remove(); mapRef.current = null; };
     })().catch(() => setFailed(true));
     return () => { cancelled = true; cleanup(); };
-  }, [addLayers, router, setSupportId]);
+  }, [addLayers, router, setSupportId, setHospitalId]);
 
   // Data and filter changes.
   useEffect(() => {
@@ -213,6 +246,8 @@ export function OnusMap() {
   useEffect(() => {
     const src = mapRef.current?.getSource("support-route") as GeoJSONSource | undefined;
     if (!ready || !src) return;
+    const s = latest.current.schools.find((x) => x.slug === selected);
+    if (mapRef.current?.getLayer("hospital-near")) mapRef.current.setFilter("hospital-near", ["in", ["get", "id"], ["literal", s ? nearestHospitals(s) : []]]);
     const full = supportRoute(selected);
     const line = full.features[0];
     if (!line || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { src.setData(full); return; }
@@ -311,6 +346,7 @@ export function OnusMap() {
       </div>
       {!ready && !failed && <div className="pointer-events-none absolute inset-0 bg-map-land" aria-hidden />}
       <SupportSheet />
+      <HospitalSheet />
       <DotsPreview schools={schools.filter((x) => typeFilter === "all" || x.type === typeFilter)} hidden={dotsDrawn} />
       {failed && (
         <div className="absolute inset-0 grid place-items-center bg-page p-6 text-center">
