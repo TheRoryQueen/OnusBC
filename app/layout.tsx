@@ -1,3 +1,4 @@
+import { DocViewerProvider } from "@/components/documents/viewer-context";
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
@@ -48,7 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-full flex-col">
         <SiteNav />
-        {children}
+        <DocViewerProvider>{children}</DocViewerProvider>
         <SiteFooter />
       </body>
     </html>

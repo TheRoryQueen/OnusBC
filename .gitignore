@@ -48,3 +48,4 @@ next-env.d.ts
 /data/extracted/
 /logs/
 /public/maplibre/
+/public/pdfjs/

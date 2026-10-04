@@ -16,6 +16,7 @@ import { telHref } from "@/lib/tel";
 import { reviewFor } from "@/lib/review-clock";
 import sources from "@/data/sources.json";
 import { ReviewClock } from "./review-clock";
+import { QuoteButton, useDocViewer } from "@/components/documents/viewer-context";
 import { NearestSupport } from "./nearest-support";
 import { ReportCardListen } from "./report-card-listen";
 import { FreeCounselling } from "./free-counselling";
@@ -54,7 +55,7 @@ function OnusCount({ value }: { value: number }) {
   );
 }
 
-function CategoryRow({ category, grades }: { category: string; grades: Grade[] }) {
+function CategoryRow({ category, grades, slug, school }: { category: string; grades: Grade[]; slug: string; school: string }) {
   const [open, setOpen] = useState(false);
   const earned = grades.reduce((a, g) => a + g.score, 0);
   const score = grades.length ? (earned / (2 * grades.length)) * 4 : 0;
@@ -78,14 +79,13 @@ function CategoryRow({ category, grades }: { category: string; grades: Grade[] }
               </div>
               <p className="mt-0.5 text-xs text-text-secondary">{g.note && g.score === 0 && g.note !== "Not graded." ? g.note : SCORE_WORD[g.score]}</p>
               {g.quote && (
-                <blockquote className="mt-2 border-l-2 border-hairline pl-3">
-                  <p className="font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{g.quote}&rdquo;</p>
-                  {(g.document || g.section) && (
-                    <footer className="mt-1 text-xs text-text-secondary">
-                      {g.document ?? "Policy"}{g.section ? `, section ${g.section}` : ""}
-                    </footer>
-                  )}
-                </blockquote>
+                <QuoteButton target={{ slug, school, role: g.document === "Procedures" ? "procedures" : "policy", quote: g.quote }}
+                  className="group mt-2 block w-full border-l-2 border-hairline pl-3 text-left hover:border-brand focus-visible:outline-2 focus-visible:outline-brand">
+                  <span className="block font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{g.quote}&rdquo;</span>
+                  <span className="mt-1 block text-xs text-text-secondary">
+                    {g.document ?? "Policy"}{g.section ? `, section ${g.section}` : ""}<span className="text-brand"> · Open in the {g.document === "Procedures" ? "procedures" : "policy"}</span>
+                  </span>
+                </QuoteButton>
               )}
             </li>
           ))}
@@ -105,6 +105,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
   const { schools } = useMapState();
   const live = schools.find((s) => s.slug === school.slug)?.scores ?? school.scores;
   const graded = isGraded(live, school.policy_found);
+  const { openDocument } = useDocViewer();
   const gap = gapDisplay(live?.gap_label ?? null, school.policy_found);
   const phone = school.contact_phone ? telHref(school.contact_phone) : null; // keeps the extension
   const docs = [
@@ -152,6 +153,12 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
           <p className="text-xs text-text-secondary">On paper</p>
           <p className="mt-1 text-2xl font-semibold text-text">{graded ? live?.paper_letter : "None"}</p>
           <p className="text-xs text-text-secondary tabular-nums">{graded ? `${live?.paper_gpa?.toFixed(2)} of 4` : school.policy_found ? "Grading in progress" : "No policy"}</p>
+          {school.policy_found && (
+            <button type="button" onClick={() => openDocument({ slug: school.slug, school: school.name })}
+              className="hit mt-1.5 text-xs font-medium text-brand underline decoration-current/35 underline-offset-2 hover:decoration-current">
+              Read the policy
+            </button>
+          )}
         </div>
         <div className="px-1">
           <p className="text-xs text-text-secondary">In practice</p>
@@ -181,7 +188,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
           <p className="mt-2 rounded-2xl bg-hairline/40 px-4 py-3 text-sm text-text">Grading in progress. This school&apos;s policy has been found and will be graded against the 17 criteria shortly.</p>
         ) : (
           <ul className="mt-2 overflow-hidden rounded-2xl bg-hairline/40">
-            {CATEGORIES.map((c) => <CategoryRow key={c} category={c} grades={school.grades.filter((g) => g.category === c)} />)}
+            {CATEGORIES.map((c) => <CategoryRow key={c} category={c} grades={school.grades.filter((g) => g.category === c)} slug={school.slug} school={school.name} />)}
           </ul>
         )}
         {docs.length > 0 && (
@@ -197,7 +204,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
         const review = reviewFor(school.slug);
         // The three weakest criteria: lowest score first, then rubric order.
         const weakest = [...school.grades].sort((a, b) => a.score - b.score || a.sort - b.sort).slice(0, 3);
-        return <ReviewClock date={review.date} note={review.note} weakest={graded ? weakest : []} lawUrl={sources.review_law.url} />;
+        return <ReviewClock slug={school.slug} school={school.name} date={review.date} note={review.note} weakest={graded ? weakest : []} lawUrl={sources.review_law.url} />;
       })()}
 
       {school.public_records.length > 0 && (

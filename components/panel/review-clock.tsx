@@ -5,11 +5,12 @@ import { ChevronRight } from "lucide-react";
 import { formatDate, isPastDue, nextReviewBy, type ReviewDate } from "@/lib/review-clock";
 import type { Grade } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { QuoteButton } from "@/components/documents/viewer-context";
 
 // The review clock in a school's panel. It only ever says what the published policy shows: a school may
 // have reviewed its policy without republishing it, so nothing here says a school broke the law.
-export function ReviewClock({ date, note, weakest, lawUrl }: {
-  date: ReviewDate | null; note: string | null; weakest: Grade[]; lawUrl: string;
+export function ReviewClock({ slug, school, date, note, weakest, lawUrl }: {
+  slug: string; school: string; date: ReviewDate | null; note: string | null; weakest: Grade[]; lawUrl: string;
 }) {
   const [showQuote, setShowQuote] = useState(false);
   const due = date ? nextReviewBy(date.iso) : null;
@@ -28,10 +29,12 @@ export function ReviewClock({ date, note, weakest, lawUrl }: {
             </button>
             {showQuote && (
               <div className="border-b border-hairline px-4 py-3">
-                <p className="font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{date.quote}&rdquo;</p>
-                <p className="mt-1.5 text-[12px] text-text-secondary">
-                  As printed in the school&apos;s {date.from === "procedures" ? "procedures" : "policy"}. <a href={date.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Open the document</a>
-                </p>
+                <QuoteButton target={{ slug, school, role: date.from, quote: date.quote }} className="block w-full text-left focus-visible:outline-2 focus-visible:outline-brand">
+                  <span className="block font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{date.quote}&rdquo;</span>
+                  <span className="mt-1.5 block text-[12px] text-text-secondary">
+                    As printed in the school&apos;s {date.from === "procedures" ? "procedures" : "policy"}. <span className="text-brand">Open in the {date.from === "procedures" ? "procedures" : "policy"}</span>
+                  </span>
+                </QuoteButton>
               </div>
             )}
             <div className="px-4 py-3">
@@ -59,7 +62,9 @@ export function ReviewClock({ date, note, weakest, lawUrl }: {
                   <span className="shrink-0 text-[13px] tabular-nums text-text-secondary">{g.score} of 2</span>
                 </p>
                 {g.quote
-                  ? <p className="mt-1.5 font-mono text-[12.5px] leading-relaxed text-text-secondary">&ldquo;{g.quote}&rdquo;{g.document && g.section ? <span className="font-sans"> ({g.document}, section {g.section})</span> : null}</p>
+                  ? <QuoteButton target={{ slug, school, role: g.document === "Procedures" ? "procedures" : "policy", quote: g.quote }} className="mt-1.5 block w-full text-left focus-visible:outline-2 focus-visible:outline-brand">
+                      <span className="font-mono text-[12.5px] leading-relaxed text-text-secondary">&ldquo;{g.quote}&rdquo;</span>{g.document && g.section ? <span className="text-[12.5px] text-text-secondary"> ({g.document}, section {g.section})</span> : null}
+                    </QuoteButton>
                   : <p className="mt-1 text-[13px] text-text-secondary">Not addressed in the policy.</p>}
               </li>
             ))}

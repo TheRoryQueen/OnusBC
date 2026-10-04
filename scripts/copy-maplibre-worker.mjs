@@ -7,3 +7,10 @@ const to = new URL("../public/maplibre/", import.meta.url).pathname;
 mkdirSync(to, { recursive: true });
 for (const f of ["maplibre-gl-worker.mjs", "maplibre-gl-shared.mjs"]) copyFileSync(from + f, to + f);
 console.log("maplibre worker files copied to public/maplibre/");
+
+// PDF.js (the in-app document viewer) runs in its own worker too; same approach, served from /pdfjs/.
+const pdfFrom = new URL("../node_modules/pdfjs-dist/build/", import.meta.url).pathname;
+const pdfTo = new URL("../public/pdfjs/", import.meta.url).pathname;
+mkdirSync(pdfTo, { recursive: true });
+copyFileSync(pdfFrom + "pdf.worker.min.mjs", pdfTo + "pdf.worker.min.mjs");
+console.log("pdf.js worker copied to public/pdfjs/");

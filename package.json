@@ -47,7 +47,8 @@
     "test:support": "tsx scripts/test-support.mts",
     "test:a11y": "tsx scripts/test-a11y.mts",
     "test:report-card": "tsx scripts/test-report-card.mts",
-    "test:data": "tsx scripts/test-data.mts"
+    "test:data": "tsx scripts/test-data.mts",
+    "test:viewer": "tsx scripts/test-viewer.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

@@ -95,6 +95,7 @@ export default async function Sources() {
               {s.policy_url ? <a href={s.policy_url} {...ext} className={linkCls}>Policy</a> : <span>{s.policy_note ?? "No public policy found"}</span>}
               {s.procedures_url && <>, <a href={s.procedures_url} {...ext} className={linkCls}>Procedures</a></>}
               {s.policy_url && !s.policy_found && s.policy_note ? <span> ({s.policy_note})</span> : null}
+              {s.policy_found && <> · <Link href={`/documents/${s.slug}`} className={linkCls}>View the graded copy</Link></>}
             </li>
           ))}
         </Group>

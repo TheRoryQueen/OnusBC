@@ -13,7 +13,11 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // The live grader reads PDFs on the server with pdf.js, and its two sample policies ship with the function.
   serverExternalPackages: ["pdfjs-dist"],
-  outputFileTracingIncludes: { "/api/grade": ["./data/grade-samples/*.pdf"] },
+  outputFileTracingIncludes: {
+    "/api/grade": ["./data/grade-samples/*.pdf"],
+    // The in-app document viewer serves the exact copies that were graded.
+    "/api/documents/[slug]/[role]": ["./data/policies/*.pdf", "./data/extracted/*.json"],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

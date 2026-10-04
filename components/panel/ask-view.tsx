@@ -5,6 +5,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { ArrowUp, ChevronLeft, LoaderCircle, Mic, Phone, Square, Volume2 } from "lucide-react";
 import { usePlayer, useRecorder, unlockAudio } from "./use-voice";
 import { telHref } from "@/lib/tel";
+import { QuoteButton } from "@/components/documents/viewer-context";
 import { cn } from "@/lib/utils";
 
 // The Ask sheet (PRD, Ask about this policy agent; docs/components.md section 7, Ask box).
@@ -24,7 +25,7 @@ const STARTERS = ["If I report here, who finds out?", "Can I get support without
 const citeLabel = (c: Citation) =>
   [c.section ? (/^\d/.test(c.section) ? `Section ${c.section}` : c.section) : null, c.document].filter(Boolean).join(", ") || "Policy";
 
-function Citations({ citations, translated }: { citations: Citation[]; translated: boolean }) {
+function Citations({ citations, translated, slug, school }: { citations: Citation[]; translated: boolean; slug: string; school: string }) {
   // One chip per document and section; tapping shows the exact clause the answer rests on.
   const groups = new Map<string, Citation[]>();
   for (const c of citations) groups.set(citeLabel(c), [...(groups.get(citeLabel(c)) ?? []), c]);
@@ -45,7 +46,11 @@ function Citations({ citations, translated }: { citations: Citation[]; translate
           {/* Quotes are never translated: they are the policy's exact English words. */}
           {translated && <p lang="en" dir="ltr" className="px-1 text-[12px] text-text-secondary">Quoted in the policy&apos;s original English.</p>}
           {groups.get(open)!.map((c, i) => (
-            <blockquote key={i} lang="en" dir="ltr" className="rounded-2xl bg-hairline/40 px-4 py-3 font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{c.quote}&rdquo;</blockquote>
+            <QuoteButton key={i} target={{ slug, school, role: c.document === "Procedures" ? "procedures" : "policy", quote: c.quote }}
+              className="block w-full rounded-2xl bg-hairline/40 px-4 py-3 text-left hover:bg-hairline/60 focus-visible:outline-2 focus-visible:outline-brand">
+              <span lang="en" dir="ltr" className="block font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{c.quote}&rdquo;</span>
+              <span className="mt-1 block text-[12px] text-brand">Open in the {c.document === "Procedures" ? "procedures" : "policy"}</span>
+            </QuoteButton>
           ))}
         </div>
       )}
@@ -55,13 +60,13 @@ function Citations({ citations, translated }: { citations: Citation[]; translate
 
 type Listen = { state: "idle" | "loading" | "playing"; onListen: () => void; onStop: () => void };
 
-function AnswerMessage({ data, listen }: { data: Answer; listen: Listen }) {
+function AnswerMessage({ data, listen, slug, school }: { data: Answer; listen: Listen; slug: string; school: string }) {
   const c = data.fallback_contact;
   const tel = c.phone ? telHref(c.phone) : null;
   return (
     <div className="max-w-[92%]">
       <p lang={data.language ?? "en"} dir="auto" className="whitespace-pre-line text-[15px] leading-relaxed text-text">{data.answer}</p>
-      {data.citations.length > 0 && <Citations citations={data.citations} translated={!!data.language && data.language !== "en"} />}
+      {data.citations.length > 0 && <Citations citations={data.citations} translated={!!data.language && data.language !== "en"} slug={slug} school={school} />}
       <button type="button" onClick={listen.state === "idle" ? listen.onListen : listen.onStop}
         aria-label={listen.state === "idle" ? "Listen to this answer" : "Stop reading aloud"}
         className="hit mt-3 inline-flex min-h-8 items-center gap-1.5 rounded-full bg-hairline/50 px-3 text-xs font-medium text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
@@ -259,7 +264,7 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
                 ) : m.role === "error" ? (
                   <p role="alert" className="text-sm text-big-gap">{m.text}</p>
                 ) : (
-                  <AnswerMessage data={m.data} listen={{
+                  <AnswerMessage data={m.data} slug={slug} school={school} listen={{
                     state: player.playing === m.id ? "playing" : player.loading === m.id ? "loading" : "idle",
                     onListen: () => { unlockAudio(); void player.play(m.id, m.data.answer, m.data.language); },
                     onStop: player.stop,

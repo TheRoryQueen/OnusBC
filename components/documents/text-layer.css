@@ -1,0 +1,35 @@
+/* PDF.js text layer (the selectable, searchable text over each page), adapted from pdfjs-dist/web/pdf_viewer.css,
+   plus the quote highlight. Only loaded with the document viewer. */
+.textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  line-height: 1;
+  text-align: initial;
+  transform-origin: 0 0;
+  z-index: 0;
+  --min-font-size: 1;
+  --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+  --min-font-size-inv: calc(1 / var(--min-font-size));
+}
+.textLayer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+.textLayer > :not(.markedContent),
+.textLayer .markedContent span:not(.markedContent) {
+  z-index: 1;
+  --font-height: 0;
+  font-size: calc(var(--text-scale-factor) * var(--font-height));
+  --scale-x: 1;
+  --rotate: 0deg;
+  transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));
+}
+.textLayer .markedContent { display: contents; }
+.textLayer ::selection { background: rgb(15 118 110 / 0.25); }
+/* The quoted sentence: a soft amber wash over the words on the page. */
+.textLayer .onus-hl { background: rgb(250 204 21 / 0.42); border-radius: 2px; }
+.onus-mark { background: rgb(250 204 21 / 0.42); color: inherit; border-radius: 2px; padding: 0 1px; }
