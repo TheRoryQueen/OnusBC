@@ -105,7 +105,7 @@ export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean
               <Step label="None"><Dot hollow /></Step>
               <li className="sr-only">From A (green) to F (red). None: no public policy.</li>
             </Scale>
-            <Scale title="Gap level: students compared with the policy" note="No ring: not enough real ratings yet.">
+            <Scale title="Gap level: students compared with the policy" note="No ring: not enough ratings yet.">
               <Step label="Better"><Ring token={RINGS.better_in_practice.token} /></Step>
               <Step label="Close"><Ring token={RINGS.aligned.token} /></Step>
               <Step label="Worse"><Ring token={RINGS.some_gap.token} /></Step>

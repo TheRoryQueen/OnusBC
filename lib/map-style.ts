@@ -21,7 +21,8 @@ export const RINGS: Record<"aligned" | "some_gap" | "big_gap" | "better_in_pract
   big_gap: { width: 3, token: "--onus-grade-f", detached: false, word: "Much worse than the policy" },
 };
 
-export const realRatings = (s: InstitutionSummary) => (s.scores?.n_onus ?? 0) + (s.scores?.n_public ?? 0);
+// Hackathon demo (Farnaz, Oct 4 2026): sample ratings count toward the ring, so every gap level shows.
+export const realRatings = (s: InstitutionSummary) => (s.scores?.n_onus ?? 0) + (s.scores?.n_public ?? 0) + (s.scores?.n_sample ?? 0);
 
 export function dotStyle(s: InstitutionSummary): { fill: string | null; hollow: boolean; ring: Ring | null; label: string } {
   if (!s.policy_found) return { fill: null, hollow: true, ring: null, label: "No public policy" };

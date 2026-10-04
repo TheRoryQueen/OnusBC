@@ -15,7 +15,10 @@
 //
 // Rows are inserted directly (submit_rating only writes source = 'onus' for a signed-in person).
 // Schools that already have sample rows are skipped unless reseeded: --reseed all, or --reseed slug1 slug2.
-// Usage: npm run seed:demo [-- --dry-run] [-- --reseed all]
+// --demo-gaps (hackathon demo, Farnaz's decision, Oct 4 2026): instead of the neutral rule above, schools take
+// turns, in slug order, at a sample gap level (better, close, worse, much worse) that their policy score allows,
+// so the map shows every gap ring. Still source = 'sample'; the legend and hover cards say rings include samples.
+// Usage: npm run seed:demo [-- --dry-run] [-- --reseed all] [-- --demo-gaps]
 import { createHash, randomBytes } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { dbClient } from "./lib/db.mts";
@@ -26,6 +29,7 @@ const reseedAt = args.indexOf("--reseed");
 const reseedArgs = reseedAt >= 0 ? args.slice(reseedAt + 1).filter((a) => !a.startsWith("--")) : [];
 const RESEED_ALL = reseedArgs.includes("all");
 const RESEED = new Set(reseedArgs);
+const DEMO_GAPS = args.includes("--demo-gaps");
 const SEED = "onus-demo-v2"; // change only to deliberately re-draw every school
 
 type Rec = { slug: string; key: string; year: string; value: number; metric: string; source_url: string; quote: string };
@@ -108,6 +112,44 @@ function ratingsFor(slug: string, pYes: number) {
   throw new Error(`no draw within 0.1 of ${target.toFixed(2)} for ${slug}`);
 }
 
+// Demo gaps: a rater whose answers lean good with weight b (0 to 1), so the practice score is about 100 x b.
+function leaning(r: () => number, b: number): Row {
+  const scale = () => Math.max(1, Math.min(5, Math.round(1 + 4 * b + (r() - 0.5) * 1.6)));
+  const went = r() < 0.6;
+  const t = Math.max(0, Math.min(3, Math.round(3 - 3 * b + (r() - 0.5))));
+  return {
+    role: pick(r, [["student", 0.78], ["staff", 0.14], ["alumni", 0.08]]),
+    knows_how: r() < b, trust: scale(), went_through: went,
+    believed: went ? scale() : null, informed: went ? scale() : null,
+    time_bucket: went ? ["under_1m", "1_3m", "3_6m", "6m_plus_or_waiting"][t] : null,
+    consequence: went ? (r() < b ? "yes" : "no") : null,
+    week: Math.floor(r() * 13),
+  };
+}
+function demoRatingsFor(slug: string, target: number) {
+  const r = rng(hashSeed(`gap:${slug}`));
+  const n = 8 + Math.floor(r() * 18);
+  for (let attempt = 0; attempt < 50000; attempt++) {
+    const b = Math.max(0, Math.min(1, target / 100 + (r() - 0.5) * 0.1));
+    const rows = Array.from({ length: n }, () => leaning(r, b));
+    const p = practiceOf(rows);
+    if (p && p.practice !== null && p.nProcess >= 5 && Math.abs(p.practice * 25 - target) <= 4) return { rows, practice: p.practice, target: target / 25 };
+  }
+  throw new Error(`no demo draw near ${target} for ${slug}`);
+}
+// Gap = paper - practice: close within 12.5 points, better below -12.5, worse to 37.5, much worse beyond.
+const LEVELS = ["better", "close", "worse", "much_worse"] as const;
+function demoTarget(paper: number, turn: number): { level: string; target: number } {
+  for (let k = 0; k < 4; k++) {
+    const level = LEVELS[(turn + k) % 4];
+    if (level === "better" && paper <= 70) return { level, target: paper + 28 };
+    if (level === "close") return { level, target: paper };
+    if (level === "worse" && paper >= 30) return { level, target: paper - 25 };
+    if (level === "much_worse" && paper >= 48) return { level, target: paper - 46 };
+  }
+  return { level: "close", target: paper };
+}
+
 // The only thing a public record changes: the chance of Yes to "took action".
 function pYesFor(slug: string) {
   const reports = RECORDS.find((x) => x.slug === slug && x.key === "formal_reports");
@@ -118,7 +160,7 @@ function pYesFor(slug: string) {
 const db = await dbClient();
 try {
   const { rows: schools } = await db.query(`
-    select i.id, i.slug, i.policy_found,
+    select i.id, i.slug, i.policy_found, (select s.paper_gpa::float from public.institution_scores s where s.institution_id = i.id) as paper,
       (select count(*)::int from public.ratings r where r.institution_id = i.id and r.source = 'sample') as n_sample
     from public.institutions i where i.slug not like 'zz-%' and i.sector = 'public' order by i.slug`);
   const idOf = new Map(schools.map((s) => [s.slug, s.id]));
@@ -139,12 +181,15 @@ try {
 
   // 2. Sample ratings.
   const thisMonday = new Date(); thisMonday.setUTCHours(0, 0, 0, 0); thisMonday.setUTCDate(thisMonday.getUTCDate() - ((thisMonday.getUTCDay() + 6) % 7));
-  let inserted = 0;
+  let inserted = 0, turn = 0;
   for (const s of schools) {
     const reseed = RESEED_ALL || RESEED.has(s.slug);
     if (s.n_sample > 0 && !reseed) { console.log(`skip ${s.slug}: already has ${s.n_sample} sample ratings (use --reseed)`); continue; }
-    const { p, why } = pYesFor(s.slug);
-    const { rows, practice, target } = ratingsFor(s.slug, p);
+    const { p, why: recordWhy } = pYesFor(s.slug);
+    let why = recordWhy;
+    const demo = DEMO_GAPS && s.policy_found && s.paper != null ? demoTarget(s.paper, turn++) : null;
+    if (demo) why = `demo gap level ${demo.level}`;
+    const { rows, practice, target } = demo ? demoRatingsFor(s.slug, demo.target) : ratingsFor(s.slug, p);
     if (DRY) { console.log(`${s.slug.padEnd(16)} ${String(rows.length).padStart(2)} ratings, practice ${practice.toFixed(2)} (target ${target.toFixed(2)})${why ? `  moved by record: ${why}` : ""}`); continue; }
     await db.query("begin");
     if (reseed) await db.query("delete from public.ratings where institution_id = $1 and source = 'sample'", [s.id]);
