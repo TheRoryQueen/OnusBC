@@ -27,7 +27,7 @@ try {
     check("desktop: no menu button", !(await page.getByRole("button", { name: "Open menu" }).isVisible()));
     const main = page.getByRole("navigation", { name: "Main" });
     const desktopLabels = (await main.getByRole("link").allInnerTexts()).map((t) => t.trim());
-    check("desktop: Map, Rate your school, How it works, Get support, Sign in", JSON.stringify(desktopLabels) === JSON.stringify(["Map", "Rate your school", "How it works", "Get support", "Sign in"]), desktopLabels.join(", "));
+    check("desktop: Map, How it works, Get support, Sign in", JSON.stringify(desktopLabels) === JSON.stringify(["Map", "How it works", "Get support", "Sign in"]), desktopLabels.join(", "));
     check("the Onus wordmark goes to the homepage", (await page.locator("header").getByRole("link", { name: /^Onus/ }).getAttribute("href")) === "/");
     for (const [path, label] of [["/how-it-works", "How it works"], ["/support", "Get support"], ["/map", "Map"], ["/map/sfu", "Map"]] as const) {
       await page.goto(BASE + path, { waitUntil: "load" });
@@ -68,7 +68,7 @@ try {
   const menu = page.getByRole("dialog");
   await menu.waitFor();
   const labels = (await menu.getByRole("link").allInnerTexts()).map((t) => t.trim());
-  check("the menu lists the same destinations, then Privacy and Sources", JSON.stringify(labels) === JSON.stringify(["Map", "Rate your school", "How it works", "Get support", "Sign in", "Privacy", "Sources"]), labels.join(", "));
+  check("the menu lists the same destinations, then Privacy and Sources", JSON.stringify(labels) === JSON.stringify(["Map", "How it works", "Get support", "Sign in", "Privacy", "Sources"]), labels.join(", "));
   const small = await menu.getByRole("link", { name: "Privacy" }).evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
   const big = await menu.getByRole("link", { name: "Map" }).evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
   check("Privacy and Sources are in smaller text", small < big, `${small} < ${big}`);

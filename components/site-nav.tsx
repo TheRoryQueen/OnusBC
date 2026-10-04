@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav-menu";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { Tabs } from "@/components/ui/vercel-tabs";
@@ -17,7 +17,7 @@ export async function SiteNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-hairline/70 bg-glass backdrop-blur-xl backdrop-saturate-[1.8]">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
-        <Link href="/" aria-label="Onus, home" className="hit text-lg font-semibold tracking-tight text-text">Onus</Link>
+        <Logo className="h-9" />
         <div className="flex items-center gap-1 md:gap-3">
           <Tabs tabs={tabs} label="Main" className="hidden md:block" />
           <AnimatedThemeToggler />

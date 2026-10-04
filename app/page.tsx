@@ -7,7 +7,7 @@ import { TheirWords, type Quote } from "@/components/home/their-words";
 // The homepage (PRD, Homepage order): definition, then national numbers, then human voices, then your school.
 // Only quotes marked approved in data/quotes.json ever render.
 export default function Home() {
-  const approved = (quotes.quotes as (Quote & { approved: boolean })[]).filter((q) => q.approved);
+  const approved = (quotes.quotes as (Quote & { approved: boolean })[]).filter((q) => q.approved).slice(0, 3);
   return (
     <main className="flex-1">
       <Hero />

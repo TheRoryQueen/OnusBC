@@ -14,7 +14,16 @@ const STEP = 0.58;
 const r2 = (n: number) => Math.round(n * 100) / 100;
 
 const geo = JSON.parse(readFileSync(new URL("../data/geo/bc-vancouver.json", import.meta.url), "utf8")) as { coordinates: number[][][][] };
-const rings = geo.coordinates.flat();
+// BC stops at the 49th parallel, which left a hard straight edge across the bottom right. The land south of
+// it (Washington's mainland from Blaine down past Mount Vernon, and the tip of the Olympic Peninsula) is
+// added as a rough coastline, so the dots carry on as ground. Decorative only.
+const US_LAND: number[][][] = [
+  [[-122.76, 49.0], [-121.0, 49.0], [-121.0, 48.0], [-122.36, 48.0], [-122.4, 48.25], [-122.53, 48.42], [-122.48, 48.6],
+    [-122.5, 48.75], [-122.62, 48.85], [-122.76, 49.0]],
+  [[-125.0, 48.4], [-124.72, 48.39], [-124.6, 48.37], [-124.2, 48.25], [-123.9, 48.16], [-123.4, 48.12], [-122.9, 48.08],
+    [-122.9, 48.0], [-125.0, 48.0], [-125.0, 48.4]],
+];
+const rings = [...geo.coordinates.flat(), ...US_LAND];
 function onLand(lng: number, lat: number) {
   let inside = false;
   for (const ring of rings) {
@@ -28,9 +37,10 @@ function onLand(lng: number, lat: number) {
 const toLngLat = (x: number, y: number) => [LNG.min + x / (COS * K), LAT.max - y / K];
 
 const land: [number, number][] = [];
+const bcLand: [number, number][] = []; // the decorative spots stay in BC
 for (let y = STEP / 2; y < H; y += STEP) for (let x = STEP / 2; x < W; x += STEP) {
   const [lng, lat] = toLngLat(x, y);
-  if (onLand(lng, lat)) land.push([r2(x), r2(y)]);
+  if (onLand(lng, lat)) { land.push([r2(x), r2(y)]); if (lat >= 49) bcLand.push([r2(x), r2(y)]); }
 }
 
 // Decorative dots: a seeded scatter on land, kept a few units apart, mostly toward the middle (the edges
@@ -41,7 +51,7 @@ const COLORS: [string, number][] = [["brand", 0.34], ["some-gap", 0.3], ["big-ga
 const pickColor = () => { let x = rand(); for (const [c, p] of COLORS) { if ((x -= p) < 0) return c; } return "brand"; };
 const spots: { x: number; y: number; color: string }[] = [];
 for (let tries = 0; spots.length < 46 && tries < 20000; tries++) {
-  const [x, y] = land[Math.floor(rand() * land.length)];
+  const [x, y] = bcLand[Math.floor(rand() * bcLand.length)];
   const centred = Math.hypot((x - W / 2) / (W / 2), (y - H / 2) / (H / 2));
   if (centred > 0.9 || rand() < centred * 0.6) continue;
   if (spots.some((s) => Math.hypot(s.x - x, s.y - y) < 5)) continue;

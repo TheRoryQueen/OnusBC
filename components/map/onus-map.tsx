@@ -211,8 +211,11 @@ export function OnusMap() {
     map.addLayer({ id: "hospital-near", type: "symbol", source: "hospitals", maxzoom: HOSPITAL_MIN_ZOOM,
       filter: ["in", ["get", "id"], ["literal", hospitalsNear(sel, latest.current.key)]],
       layout: { "icon-image": "hospital-cross", "icon-allow-overlap": true, "icon-ignore-placement": true } });
+    // An invisible, wider tap area under each purple dot, so it's easy to hit on a phone.
+    map.addLayer({ id: "support-hit", type: "circle", source: "support-points",
+      paint: { "circle-radius": 16, "circle-color": "rgba(0,0,0,0)" } });
     map.addLayer({ id: "support-dot", type: "circle", source: "support-points",
-      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.5, 10, 6], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 5, 10, 8], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
     map.addLayer({ id: "campus-dot", type: "circle", source: "campuses",
       paint: {
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 2.75, 10, 5],
@@ -296,7 +299,9 @@ export function OnusMap() {
         map.on("mouseleave", layer, () => { map.getCanvas().style.cursor = ""; setHover(null); });
       }
       // Purple dots open the support info sheet; hospital crosses open the hospital popup.
-      map.on("click", "support-dot", (e: MapLayerMouseEvent) => {
+      map.on("click", "support-hit", (e: MapLayerMouseEvent) => {
+        // A school or campus right under the tap wins over the wider purple tap area.
+        if (map.queryRenderedFeatures(e.point, { layers: ["school-dot", "campus-dot"].filter((l) => map.getLayer(l)) }).length) return;
         const id = e.features?.[0]?.properties?.id as string | undefined;
         if (id) { setHospitalId(null); setSupportId(id); }
       });
@@ -308,8 +313,8 @@ export function OnusMap() {
         map.on("mouseenter", layer, () => { map.getCanvas().style.cursor = "pointer"; });
         map.on("mouseleave", layer, () => { map.getCanvas().style.cursor = ""; });
       }
-      map.on("mouseenter", "support-dot", () => { map.getCanvas().style.cursor = "pointer"; });
-      map.on("mouseleave", "support-dot", () => { map.getCanvas().style.cursor = ""; });
+      map.on("mouseenter", "support-hit", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "support-hit", () => { map.getCanvas().style.cursor = ""; });
       map.on("click", (e: MapLayerMouseEvent) => {
         // Schools first, then campuses. Several places under the tap (Vancouver, Victoria at the starting
         // zoom): zoom in on them rather than opening whichever dot happens to be on top.

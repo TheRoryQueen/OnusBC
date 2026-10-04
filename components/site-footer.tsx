@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "motion/react";
-import { usePrefersReducedMotion } from "@/components/home/in-view";
+import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 
 // The footer (PRD, Footer; docs/components.md section 10), on every page except the full-screen map.
@@ -31,30 +30,19 @@ const COLUMNS: { title: string; support?: boolean; order: string; items: Item[] 
 
 export function SiteFooter() {
   const pathname = usePathname();
-  const reduce = usePrefersReducedMotion();
   if (pathname.startsWith("/map")) return null;
-  // Same starting props on the server and the client (no hydration mismatch); with reduced motion the
-  // fade completes instantly.
-  const fade = (i: number) => ({
-    initial: { opacity: 0, y: 12 },
-    ...(reduce ? { animate: { opacity: 1, y: 0 }, transition: { duration: 0 } } : {
-      whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: 0.4 },
-      transition: { duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] as const },
-    }),
-  });
-
   return (
     <footer className="border-t border-hairline">
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 gap-y-12 px-4 pb-10 pt-16 sm:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
-        <motion.div {...fade(0)}>
-          <Link href="/" className="hit text-lg font-semibold tracking-tight text-text">Onus</Link>
+        <div>
+          <Logo className="h-10" />
           <p className="mt-3 font-serif text-[1.75rem] italic leading-tight text-text">The onus is on them.</p>
           <p className="mt-3 text-[13px] text-text-secondary">Built solo at StormHacks 2026.</p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3">
-          {COLUMNS.map((col, i) => (
-            <motion.nav key={col.title} aria-label={col.title} className={col.order} {...fade(i + 1)}>
+          {COLUMNS.map((col) => (
+            <nav key={col.title} aria-label={col.title} className={col.order}>
               <p className={cn("text-[13px]", col.support ? "font-medium text-support" : "text-text-secondary")}>{col.title}</p>
               <ul className="mt-1.5">
                 {col.items.map((it) => (
@@ -70,7 +58,7 @@ export function SiteFooter() {
                   </li>
                 ))}
               </ul>
-            </motion.nav>
+            </nav>
           ))}
         </div>
 
