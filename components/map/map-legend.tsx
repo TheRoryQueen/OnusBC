@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils";
 
 // The map legend, docked to the bottom-left edge of the map (beside the school panel when one is open on a
 // wide screen), with the crisis line as its last row so the two can never overlap. The glyphs are drawn at
-// the map's own sizes (lib/map-style.ts). Phones: folded behind one button so the map stays visible.
+// the map's own sizes (lib/map-style.ts). Phones: folded behind one button so the map stays visible. Wider
+// screens: open to start, with a button to fold it down.
 const DOT = 5.5; // a touch larger than the map dot so the legend reads at a glance
 
 function Dot({ fill, hollow, ring }: { fill?: string; hollow?: boolean; ring?: { width: number; token: string; detached: boolean } }) {
@@ -68,7 +69,8 @@ export const HospitalCross = () => (
 );
 
 export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // phones: starts folded
+  const [wideOpen, setWideOpen] = useState(true); // md and up: starts open
   // A school panel is open (it fills the left side on wide screens): sit beside it, on the same bottom edge.
   const besidePanel = /^\/map\/[a-z0-9-]+/.test(usePathname() ?? "");
   return (
@@ -78,7 +80,7 @@ export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean
         besidePanel && "md:left-[432px] md:rounded-tl-[22px]"
       )}
     >
-      <div id="map-legend" role="group" aria-label="Legend" className={cn("space-y-4 pb-3 md:block", open ? "block" : "hidden")}>
+      <div id="map-legend" role="group" aria-label="Legend" className={cn("space-y-4 pb-3", open ? "block" : "hidden", wideOpen ? "md:block" : "md:hidden")}>
         <Scale title="On paper grade">
           {GRADES.map((g) => <Step key={g} label={g}><Dot fill={gradeToken(g)} /></Step>)}
           <Step label="None"><Dot hollow /></Step>
@@ -98,10 +100,14 @@ export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean
           {hospitalRoutes && <Key label="Route to the nearest hospital"><HospitalLine /></Key>}
         </ul>
       </div>
-      <div className={cn("flex items-center gap-3 md:border-t md:border-hairline md:pt-2.5", open && "border-t border-hairline pt-2.5")}>
+      <div className={cn("flex items-center gap-3", wideOpen && "md:border-t md:border-hairline md:pt-2.5", open && "border-t border-hairline pt-2.5")}>
         <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="map-legend"
           className="hit flex min-h-8 shrink-0 items-center gap-1 text-[13px] font-medium text-text md:hidden">
           Legend <ChevronUp className={cn("size-4 transition-transform motion-reduce:transition-none", open && "rotate-180")} aria-hidden />
+        </button>
+        <button type="button" onClick={() => setWideOpen((o) => !o)} aria-expanded={wideOpen} aria-controls="map-legend"
+          className="hit hidden min-h-8 shrink-0 items-center gap-1 self-start text-[13px] font-medium text-text md:flex">
+          Legend <ChevronUp className={cn("size-4 transition-transform motion-reduce:transition-none", wideOpen && "rotate-180")} aria-hidden />
         </button>
         <p className="whitespace-nowrap text-[12px] leading-snug text-text-secondary md:whitespace-normal">
           <span className="hidden md:inline">This map grades how schools handle sexual violence. </span>In danger? <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
