@@ -1,33 +1,29 @@
 import Link from "next/link";
 import { NavMenu } from "@/components/nav-menu";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { Tabs } from "@/components/ui/vercel-tabs";
+import { mainNav } from "@/lib/nav";
 import { createClient } from "@/lib/supabase/server";
 
-// The nav: pinned to the top of every page (sticky at the top of the page, so it never hides, slides or moves,
-// and pages keep their layout), on glass so content passes softly beneath it. Phones: the wordmark, the theme
-// toggle and a menu button; from sm, the links in a row.
+// The nav: pinned to the top of every page (sticky, so it never hides, slides or moves, and pages keep their
+// layout), on glass so content passes softly beneath it. The Onus wordmark goes to the map. From md: the
+// destinations as right-aligned tabs (a sliding highlight on hover and focus, an underline under the
+// current page) and the theme toggle. Phones: the wordmark, the theme toggle and a menu button with the same
+// destinations.
 export async function SiteNav() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const link = "hit whitespace-nowrap rounded-full px-3 py-2 transition-colors";
+  const tabs = mainNav(!!user);
   return (
     <header className="sticky top-0 z-40 w-full border-b border-hairline/70 bg-glass backdrop-blur-xl backdrop-saturate-[1.8]">
-      <nav aria-label="Main" className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
-        <Link href="/" className="hit text-lg font-semibold tracking-tight text-text">Onus</Link>
-        <div className="flex items-center gap-1 text-sm sm:gap-2">
-          <div className="hidden items-center sm:flex">
-            <Link href="/how-it-works" prefetch={false} className={`${link} text-text-secondary hover:text-text`}>How it works</Link>
-            <Link href="/support" prefetch={false} className={`${link} text-support hover:bg-support/10`}>Get support</Link>
-            {user ? (
-              <Link href="/account" prefetch={false} className={`${link} text-text-secondary hover:text-text`}>My account</Link>
-            ) : (
-              <Link href="/signin" className={`${link} text-text-secondary hover:text-text`}>Sign in</Link>
-            )}
-          </div>
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
+        <Link href="/map" aria-label="Onus, the map" className="hit text-lg font-semibold tracking-tight text-text">Onus</Link>
+        <div className="flex items-center gap-1 md:gap-3">
+          <Tabs tabs={tabs} label="Main" className="hidden md:block" />
           <AnimatedThemeToggler />
-          <NavMenu signedIn={!!user} />
+          <NavMenu tabs={tabs} />
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

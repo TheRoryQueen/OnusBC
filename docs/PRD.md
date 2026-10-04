@@ -233,7 +233,7 @@ Claude Code uses these exactly; Farnaz edits them here, not in code.
 
 **Not found.** "This page isn't here." with links to Home and the map, and the normal footer.
 
-**Nav bar:** Onus wordmark (home) on the left; How it works, Get support, Sign in or My account, and a sun/moon theme toggle on the right.
+**Nav bar:** Onus wordmark on the left, linking to the map; on the right, the same destinations on every screen size: Map, Rate your school, How it works, Get support, and Sign in or Account, then the sun/moon theme toggle. From 768 px they are right-aligned tabs (components/ui/vercel-tabs.tsx: a sliding highlight on hover and keyboard focus, an underline under the current page, aria-current); below it, a menu button with the same links, then Privacy and Sources in smaller text. Privacy and Sources are in the footer on every size (decided by Farnaz, Oct 3).
 
 **Key flows:**
 

@@ -6,9 +6,9 @@ with this file updated. Item 7 is the one called "item 6" in the request (the st
 | # | Item | Status | Commit |
 | --- | --- | --- | --- |
 | 1 | Haven, Tillicum Lelum and CDCSS as phone-only lines; handoff | Done | 44e0403 |
-| 2 | Map: hover cards, filter, search, legend, hospital routes, campuses | Done | e02cdca, 674057b, see below |
-| 3 | School panel: Call, Listen, Read the summary | Done | see git log (item 3) |
-| 4 | Nav: same destinations, footer links, phone menu bug, tabs | Not started | |
+| 2 | Map: hover cards, filter, search, legend, hospital routes, campuses | Done | e02cdca, 674057b, 196c7c5 |
+| 3 | School panel: Call, Listen, Read the summary | Done | 561459a |
+| 4 | Nav: same destinations, footer links, phone menu bug, tabs | Done | see git log (item 4) |
 | 5 | Rating flow and account | Not started | |
 | 6 | Design pass: Get support and How it works | Not started | |
 | 7 | Stricter grading (stops after the rubric for approval) | Not started | |
@@ -90,7 +90,7 @@ Part 3 done (commit: "Campuses: every multi-campus school's main campuses"):
 
 ## 3. School panel
 
-Done (commit: "Panel: Listen in the action row, no Call button").
+Done in 561459a.
 - Removed the Call button from the action row. The row is now Ask, Website, Review, Listen (Request
   policy stays for a school with no public policy). The office phone is still listed under Who to contact,
   where it is the sexual violence office's own number.
@@ -103,3 +103,23 @@ Done (commit: "Panel: Listen in the action row, no Call button").
   after Listen; the audio request is answered in the test so no ElevenLabs call is made), test:fixes 22
   (the extension check now uses the contact phone; the caption check now checks the legend). Screenshots of
   /map/uvic in both themes at 390 and 1440, plus the strip open, checked; design critique run, no changes.
+
+## 4. Nav
+
+Done (commit: "Nav: the same destinations everywhere, as right-aligned tabs").
+- Setup check: the project already has the shadcn structure (components.json, aliases ui = @/components/ui),
+  Tailwind v4 and TypeScript, so nothing needed installing. The tabs are at components/ui/vercel-tabs.tsx,
+  adapted: each tab is a Next.js Link, the active tab comes from the route (aria-current), keyboard focus
+  moves the highlight like hover and shows a focus ring, colours are theme tokens (no hex), reduced motion
+  turns the sliding off. No images or other dependencies.
+- One list of destinations (lib/nav.ts): Map, Rate your school, How it works, Get support (purple), Sign in
+  or Account. The Onus wordmark goes to the map (the footer wordmark still goes to the homepage).
+- Decision: "My account" is now "Account" in the nav, as in the request.
+- The tabs show from 768 px; below that, the menu button. The phone menu lists the same five, then Privacy
+  and Sources in smaller text. Privacy and Sources were already in the footer (About column). The footer
+  is not shown on the full-screen map, as before.
+- Bug fixed: the phone menu now closes when the window is widened past 768 px.
+- Tests: test:nav 25 (new checks: same destinations, order, wordmark to the map, aria-current per page,
+  right-aligned, focus ring, footer links, smaller text, widening closes the menu; one run had a single
+  failure that did not repeat in two reruns), test:account 11, test:auth 20, accessibility 0 findings.
+  Screenshots checked; design critique run, no changes.

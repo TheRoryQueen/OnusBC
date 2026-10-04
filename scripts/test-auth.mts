@@ -87,7 +87,7 @@ try {
     const landed = await onPath(page, "/map/uvic");
     check("pasting the code fills all six and signs in", sent() === 1 && landed, page.url());
     check("returns to where they came from (?next=/map/uvic)", landed);
-    check("nav shows My account once signed in", await page.locator("header").getByRole("link", { name: "My account" }).isVisible());
+    check("nav shows Account once signed in", await page.locator("header").getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Account" }).isVisible());
     const p = await profileOf(email);
     check("profile: school set from the domain, role student", p?.slug === "zz-test-auth-a" && p?.role === "student", JSON.stringify(p));
     // Signing out is on My account (checked in test:account).

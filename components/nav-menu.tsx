@@ -1,31 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Dialog } from "@base-ui/react/dialog";
 import { Menu, X } from "lucide-react";
 import { trapTab } from "@/lib/trap-tab";
 import { cn } from "@/lib/utils";
+import { NAV_BREAKPOINT, SMALL_NAV } from "@/lib/nav";
+import type { Tab } from "@/components/ui/vercel-tabs";
 
-// The phone menu: a hamburger that opens a slide-down sheet with every link. Base UI's Dialog closes on
-// Escape and on a tap outside and returns focus to the button; trapTab keeps focus inside while it's open;
-// choosing a link closes it too.
-export function NavMenu({ signedIn }: { signedIn: boolean }) {
+// The phone menu: a menu button that opens a slide-down sheet with the same destinations as the desktop tabs,
+// then Privacy and Sources in smaller text. Base UI's Dialog closes on Escape and on a tap outside and returns
+// focus to the button; trapTab keeps focus inside while it's open; choosing a link closes it too, and so does
+// widening the window past the breakpoint (where the tabs take over).
+export function NavMenu({ tabs }: { tabs: Tab[] }) {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const links: { href: string; label: string; support?: boolean }[] = [
-    { href: "/map", label: "Map" },
-    { href: "/rate", label: "Rate your school" },
-    { href: "/how-it-works", label: "How it works" },
-    { href: "/support", label: "Get support", support: true },
-    signedIn ? { href: "/account", label: "My account" } : { href: "/signin", label: "Sign in" },
-    { href: "/privacy", label: "Privacy" },
-    { href: "/sources", label: "Sources" },
-  ];
+  const pathname = usePathname() ?? "/";
+  const current = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  useEffect(() => {
+    const q = window.matchMedia(`(min-width: ${NAV_BREAKPOINT}px)`);
+    const close = () => { if (q.matches) setOpen(false); };
+    q.addEventListener("change", close);
+    return () => q.removeEventListener("change", close);
+  }, []);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger aria-label="Open menu" className="hit grid size-10 place-items-center rounded-full text-text transition-colors hover:bg-hairline/60 focus-visible:outline-2 focus-visible:outline-brand sm:hidden">
+      <Dialog.Trigger aria-label="Open menu" className="hit grid size-10 place-items-center rounded-full text-text transition-colors hover:bg-hairline/60 focus-visible:outline-2 focus-visible:outline-brand md:hidden">
         <Menu className="size-5" strokeWidth={1.75} aria-hidden />
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -39,10 +40,20 @@ export function NavMenu({ signedIn }: { signedIn: boolean }) {
           </div>
           <nav aria-label="Menu" className="mt-3">
             <ul className="divide-y divide-hairline">
-              {links.map((l) => (
+              {tabs.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} prefetch={false} onClick={() => setOpen(false)} aria-current={pathname === l.href ? "page" : undefined}
-                    className={cn("flex min-h-12 items-center px-1 text-[17px]", l.support ? "font-medium text-support" : "text-text", pathname === l.href && "font-semibold")}>
+                  <Link href={l.href} prefetch={false} onClick={() => setOpen(false)} aria-current={current(l.href) ? "page" : undefined}
+                    className={cn("flex min-h-12 items-center px-1 text-[17px]", l.tone === "support" ? "font-medium text-support" : "text-text", current(l.href) && "font-semibold")}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className="mt-4 flex gap-5 border-t border-hairline px-1 pt-2">
+              {SMALL_NAV.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} prefetch={false} onClick={() => setOpen(false)} aria-current={current(l.href) ? "page" : undefined}
+                    className={cn("inline-flex min-h-11 items-center text-[14px] text-text-secondary hover:text-text", current(l.href) && "font-medium text-text")}>
                     {l.label}
                   </Link>
                 </li>

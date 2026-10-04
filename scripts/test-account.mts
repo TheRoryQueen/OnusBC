@@ -56,7 +56,7 @@ try {
   const body = await page.locator("main").innerText();
   check("Profile shows the random username, school and role", body.includes(profile.username) && body.includes("Test Account College") && /student/i.test(body), profile.username);
   check("the email is masked", body.includes(`a•••@${DOMAIN}`) && !body.includes(email));
-  check("the nav shows My account", await page.locator("header").getByRole("link", { name: "My account" }).isVisible());
+  check("the nav shows Account", await page.locator("header").getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Account" }).isVisible());
 
   // A rating, so Reviews has a row (through the real route).
   const res = await page.evaluate(async (slug) => (await fetch("/api/ratings", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug, answers: { knows_how: true } }) })).status, SLUG);
