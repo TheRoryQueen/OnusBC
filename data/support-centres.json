@@ -1,10 +1,10 @@
 {
-  "_about": "Sexual assault support near BC campuses: community sexual assault support programs and hospitals with 24-hour sexual assault or forensic nurse examiner care. Every entry is from the organization's own site or its health authority, checked 2026-10-03 (EVA BC's directory of Sexual Assault Services programs was used to find programs). No transition houses or shelters, and no address that isn't publicly listed: where only a phone number is public, the entry has no location. Coordinates are geocoded from the listed address with OpenStreetMap Nominatim. service_area lists the cities a program says it serves (null: no area restriction is published); a campus is only routed to a program that serves its city. Organizations that also run a transition house or shelter are left out entirely, even at a separate public office.",
+  "_about": "Sexual assault support near BC campuses: community sexual assault support programs and hospitals with 24-hour sexual assault or forensic nurse examiner care. Every entry is from the organization's own site or its health authority, checked 2026-10-03 (EVA BC's directory of Sexual Assault Services programs was used to find programs). No transition houses or shelters, and no address that isn't publicly listed: where only a phone number is public, the entry has no location. Coordinates are geocoded from the listed address with OpenStreetMap Nominatim. service_area lists the cities a program says it serves (null: no area restriction is published); a campus is only routed to a program that serves its city. Organizations that also run a transition house or shelter are left out entirely, even at a separate public office. Hospitals are labelled '24 hours' only where a current official page says the sexual assault service itself is available 24 hours (Vancouver Coastal and Fraser Health); Interior Health hospitals are labelled with the SAFE Program listed on each hospital's own page, and Island Health hospitals with forensic nurse examiners at the emergency department, from Island Health's current page. Northern campuses more than 100 km from any hospital sexual assault service are shown their nearest hospital emergency department first.",
   "checked": "2026-10-03",
   "entries": [
     {
       "id": "vch-vgh-sas",
-      "type": "hospital_24h",
+      "type": "hospital",
       "name": "Sexual Assault Service at Vancouver General Hospital",
       "address": "899 West 12th Avenue, Vancouver, BC V5Z 1M9",
       "phone": "604-875-2881",
@@ -15,11 +15,13 @@
       "lat": 49.26184,
       "lng": -123.12267,
       "geocoded_as": "Vancouver General Hospital, 899, West 12th Avenue, Fairview, Vancouver, Metro Vancouver Regional District, British Columbia, V5Z 0A2, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": true,
+      "label": "Hospital sexual assault care, 24 hours"
     },
     {
       "id": "fh-surrey-memorial",
-      "type": "hospital_24h",
+      "type": "hospital",
       "name": "Forensic Nursing Service, Surrey Memorial Hospital",
       "address": "13750 96th Avenue, Surrey, BC",
       "phone": "604-953-4723",
@@ -30,11 +32,13 @@
       "lat": 49.17576,
       "lng": -122.84251,
       "geocoded_as": "Surrey Memorial Hospital, 13750, 96 Avenue, City Centre, Surrey, Metro Vancouver Regional District, British Columbia, V3V 1Z2, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": true,
+      "label": "Hospital sexual assault care, 24 hours"
     },
     {
       "id": "fh-abbotsford-regional",
-      "type": "hospital_24h",
+      "type": "hospital",
       "name": "Forensic Nursing Service, Abbotsford Regional Hospital",
       "address": "32900 Marshall Road, Abbotsford, BC",
       "phone": "604-851-4700 ext. 646147",
@@ -45,176 +49,207 @@
       "lat": 49.03673,
       "lng": -122.31332,
       "geocoded_as": "Abbotsford Regional Hospital & Cancer Centre, 32900, Marshall Road, Marshall, Mill Lake, Abbotsford, Fraser Valley Regional District, British Columbia, V2S 0C2, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": true,
+      "label": "Hospital sexual assault care, 24 hours"
     },
     {
       "id": "ih-royal-jubilee",
-      "type": "hospital_24h",
-      "name": "Royal Jubilee Hospital Emergency (forensic nurse examiners)",
+      "type": "hospital",
+      "name": "Royal Jubilee Hospital Emergency",
       "address": "1952 Bay St, Victoria, BC V8R 1J8",
       "phone": "250-370-8000",
-      "hours": "Emergency open 24/7; forensic nurses available 24 hours per day, 7 days a week in every Island Health emergency room",
-      "serves": "Anyone within 7 days of a sexual assault",
+      "hours": "Emergency department open 24 hours",
+      "serves": "Anyone within 7 days of a sexual assault or intentional relationship violence",
       "island": true,
-      "source_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/royal-jubilee-hospital-rjh",
-      "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
+      "source_url": "https://www.islandhealth.ca/learn-about-health/sexual-assault-violence/sexual-assault-violence",
       "lat": 48.43264,
       "lng": -123.32668,
       "geocoded_as": "Royal Jubilee Hospital, 1952, Bay Street, North Jubilee, Jubilee, Victoria, Capital Regional District, British Columbia, V8R 1K1, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "Forensic nurse examiners at the emergency department",
+      "ed_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/royal-jubilee-hospital-rjh"
     },
     {
       "id": "ih-victoria-general",
-      "type": "hospital_24h",
-      "name": "Victoria General Hospital Emergency (forensic nurse examiners)",
+      "type": "hospital",
+      "name": "Victoria General Hospital Emergency",
       "address": "1 Hospital Way, Victoria, BC V8Z 6R5",
       "phone": "250-727-4212",
-      "hours": "Open 24 hours; forensic nurses available 24 hours per day, 7 days a week in every Island Health emergency room",
-      "serves": "Anyone within 7 days of a sexual assault",
+      "hours": "Emergency department open 24 hours",
+      "serves": "Anyone within 7 days of a sexual assault or intentional relationship violence",
       "island": true,
-      "source_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/victoria-general-hospital-vgh",
-      "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
+      "source_url": "https://www.islandhealth.ca/learn-about-health/sexual-assault-violence/sexual-assault-violence",
       "lat": 48.46655,
       "lng": -123.43226,
       "geocoded_as": "Victoria General Hospital, 1, Hospital Way, View Royal, Capital Regional District, British Columbia, V8Z 6R5, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "Forensic nurse examiners at the emergency department",
+      "ed_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/victoria-general-hospital-vgh"
     },
     {
       "id": "ih-nanaimo-regional",
-      "type": "hospital_24h",
-      "name": "Nanaimo Regional General Hospital Emergency (forensic nurse examiners)",
+      "type": "hospital",
+      "name": "Nanaimo Regional General Hospital Emergency",
       "address": "1200 Dufferin Crescent, Nanaimo, BC V9S 2B7",
       "phone": "250-755-7691",
-      "hours": "Open 24 hours; forensic nurses available 24 hours per day, 7 days a week in every Island Health emergency room",
-      "serves": "Anyone within 7 days of a sexual assault",
+      "hours": "Emergency department open 24 hours",
+      "serves": "Anyone within 7 days of a sexual assault or intentional relationship violence",
       "island": true,
-      "source_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/nanaimo-regional-general-hospital",
-      "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
+      "source_url": "https://www.islandhealth.ca/learn-about-health/sexual-assault-violence/sexual-assault-violence",
       "lat": 49.18505,
       "lng": -123.96852,
       "geocoded_as": "1200, Dufferin Crescent, Townsite, Nanaimo, Regional District of Nanaimo, British Columbia, V9S 2B7, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "Forensic nurse examiners at the emergency department",
+      "ed_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/nanaimo-regional-general-hospital"
     },
     {
       "id": "ih-north-island-comox",
-      "type": "hospital_24h",
-      "name": "North Island Hospital Comox Valley Emergency (forensic nurse examiners)",
+      "type": "hospital",
+      "name": "North Island Hospital Comox Valley Emergency",
       "address": "101 Lerwick Rd, Courtenay, BC V9N 0B9",
       "phone": "250-331-5900",
-      "hours": "Open 24 hours; forensic nurses available 24 hours per day, 7 days a week in every Island Health emergency room",
-      "serves": "Anyone within 7 days of a sexual assault",
+      "hours": "Emergency department open 24 hours",
+      "serves": "Anyone within 7 days of a sexual assault or intentional relationship violence",
       "island": true,
-      "source_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/north-island-hospital-comox-valley",
-      "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
+      "source_url": "https://www.islandhealth.ca/learn-about-health/sexual-assault-violence/sexual-assault-violence",
       "lat": 49.71225,
       "lng": -124.96987,
       "geocoded_as": "North Island Hospital - Comox Valley, 101, Lerwick Road, Crown Isle, Courtenay, Comox Valley Regional District, British Columbia, V9N 9H1, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "Forensic nurse examiners at the emergency department",
+      "ed_url": "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/north-island-hospital-comox-valley"
     },
     {
       "id": "ih-kelowna-general",
-      "type": "hospital_24h",
-      "name": "Kelowna General Hospital (SAFE Program)",
+      "type": "hospital",
+      "name": "Kelowna General Hospital",
       "address": "2268 Pandosy Street, Kelowna, BC",
       "phone": "250-862-4000",
-      "hours": "Emergency 24 hours daily",
+      "hours": "Emergency department open 24 hours",
       "serves": "People who have experienced sexual violence or assault",
       "island": false,
       "source_url": "https://www.interiorhealth.ca/locations/kelowna-general-hospital",
       "lat": 49.87322,
       "lng": -119.49274,
       "geocoded_as": "Strathcona Building, 2268, Pandosy Street, Pandosy, Kelowna, Westbank First Nation #9, Regional District of Central Okanagan, British Columbia, V1Y 1T1, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "SAFE Program at the emergency department",
+      "source_note": "The hospital page lists the Sexual Assault Forensic Examination (SAFE) Program under its services."
     },
     {
       "id": "ih-royal-inland",
-      "type": "hospital_24h",
-      "name": "Royal Inland Hospital (SAFE Program)",
+      "type": "hospital",
+      "name": "Royal Inland Hospital",
       "address": "311 Columbia Street, Kamloops, BC V2C 2T1",
       "phone": "250-374-5111",
-      "hours": "Emergency 24 hours a day, seven days a week",
+      "hours": "Emergency department open 24 hours",
       "serves": "People who have experienced sexual violence or assault",
       "island": false,
       "source_url": "https://www.interiorhealth.ca/locations/royal-inland-hospital",
       "lat": 50.66984,
       "lng": -120.3345,
       "geocoded_as": "311, Columbia Street, Lower Sahali, Kamloops, Thompson-Nicola Regional District, British Columbia, V2C 2T1, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "SAFE Program at the emergency department",
+      "source_note": "The hospital page lists the Sexual Assault Forensic Examination (SAFE) Program under its services."
     },
     {
       "id": "ih-kootenay-boundary",
-      "type": "hospital_24h",
-      "name": "Kootenay Boundary Regional Hospital (SAFE Program)",
+      "type": "hospital",
+      "name": "Kootenay Boundary Regional Hospital",
       "address": "1200 Hospital Bench, Trail, BC V1R 4M1",
       "phone": "250-368-3311",
-      "hours": "Emergency 24 hours daily",
+      "hours": "Emergency department open 24 hours",
       "serves": "People who have experienced sexual violence or assault",
       "island": false,
       "source_url": "https://www.interiorhealth.ca/locations/kootenay-boundary-regional-hospital",
       "lat": 49.1033,
       "lng": -117.7015,
       "geocoded_as": "Kootenay Boundary Regional Hospital, 1200, Hospital Bench, Trail, Regional District of Kootenay Boundary, British Columbia, V1R 1S3, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "SAFE Program at the emergency department",
+      "source_note": "The hospital page lists the Sexual Assault Forensic Examination (SAFE) Program under its services."
     },
     {
       "id": "ih-kootenay-lake",
-      "type": "hospital_24h",
-      "name": "Kootenay Lake Hospital (SAFE Program)",
+      "type": "hospital",
+      "name": "Kootenay Lake Hospital",
       "address": "3 View Street, Nelson, BC V1L 2V1",
       "phone": "250-352-3111",
-      "hours": "Emergency 24 hours daily",
+      "hours": "Emergency department open 24 hours",
       "serves": "People who have experienced sexual violence or assault",
       "island": false,
       "source_url": "https://www.interiorhealth.ca/locations/kootenay-lake-hospital",
       "lat": 49.49499,
       "lng": -117.28508,
       "geocoded_as": "Kootenay Lake Hospital, 3, View Street, Gyro, Nelson, Regional District of Central Kootenay, British Columbia, V1L 5R2, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "SAFE Program at the emergency department",
+      "source_note": "The hospital page lists the Sexual Assault Forensic Examination (SAFE) Program under its services."
     },
     {
       "id": "ih-east-kootenay",
-      "type": "hospital_24h",
-      "name": "East Kootenay Regional Hospital (SAFE Program)",
+      "type": "hospital",
+      "name": "East Kootenay Regional Hospital",
       "address": "13 - 24th Avenue N, Cranbrook, BC V1C 3H9",
       "phone": "250-426-5281",
-      "hours": "Emergency 24 hours daily",
+      "hours": "Emergency department open 24 hours",
       "serves": "People who have experienced sexual violence or assault",
       "island": false,
       "source_url": "https://www.interiorhealth.ca/locations/east-kootenay-regional-hospital",
       "lat": 49.51249,
       "lng": -115.75014,
       "geocoded_as": "East Kootenay Regional Hospital, 13, 24th Avenue North, Cranbrook, Regional District of East Kootenay, British Columbia, V1C 3L4, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "SAFE Program at the emergency department",
+      "source_note": "The hospital page lists the Sexual Assault Forensic Examination (SAFE) Program under its services."
     },
     {
       "id": "ih-nicola-valley",
-      "type": "hospital_24h",
-      "name": "Nicola Valley Hospital and Health Centre (SAFE Program)",
+      "type": "hospital",
+      "name": "Nicola Valley Hospital and Health Centre",
       "address": "3451 Voght Street, Merritt, BC V1K 1C6",
       "phone": "250-378-2242",
-      "hours": "24/7 Emergency Department",
+      "hours": "Emergency department open 24 hours",
       "serves": "People who have experienced sexual violence or assault",
       "island": false,
       "source_url": "https://www.interiorhealth.ca/locations/nicola-valley-hospital-and-health-centre",
       "lat": 50.12188,
       "lng": -120.77325,
       "geocoded_as": "Nicola Valley Hospital and Health Centre, 3451, Voght Street, Merritt, Thompson-Nicola Regional District, British Columbia, V1K 1C6, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "SAFE Program at the emergency department",
+      "source_note": "The hospital page lists the Sexual Assault Forensic Examination (SAFE) Program under its services."
     },
     {
       "id": "ih-100-mile",
-      "type": "hospital_24h",
-      "name": "100 Mile District General Hospital (SAFE Program)",
+      "type": "hospital",
+      "name": "100 Mile District General Hospital",
       "address": "555 Cedar Avenue South, 100 Mile House, BC V0K 2E0",
       "phone": "250-395-7600",
-      "hours": "Emergency 24 hours daily",
+      "hours": "Emergency department open 24 hours",
       "serves": "People who have experienced sexual violence or assault",
       "island": false,
       "source_url": "https://www.interiorhealth.ca/locations/100-mile-district-general-hospital",
       "lat": 51.63836,
       "lng": -121.29159,
       "geocoded_as": "100 Mile District general hospital, 555, Cedar Avenue South, 100 Mile House, Cariboo Regional District, British Columbia, V0K 2E0, Canada",
-      "service_area": null
+      "service_area": null,
+      "care_24h": false,
+      "label": "SAFE Program at the emergency department",
+      "source_note": "The hospital page lists the Sexual Assault Forensic Examination (SAFE) Program under its services."
     },
     {
       "id": "vsac",
@@ -229,7 +264,8 @@
       "lat": 48.44731,
       "lng": -123.34484,
       "geocoded_as": "3060, Cedar Hill Road, Oaklands, Victoria, Capital Regional District, British Columbia, V8T 3J4, Canada",
-      "service_area": null
+      "service_area": null,
+      "label": "Community sexual assault support"
     },
     {
       "id": "ksacc",
@@ -245,7 +281,8 @@
       "lat": 50.67512,
       "lng": -120.32452,
       "geocoded_as": "694, Seymour Street, Sagebrush, Kamloops, Thompson-Nicola Regional District, British Columbia, V2C 2H2, Canada",
-      "service_area": null
+      "service_area": null,
+      "label": "Community sexual assault support"
     },
     {
       "id": "pgsac",
@@ -261,7 +298,8 @@
       "lat": 53.91798,
       "lng": -122.74548,
       "geocoded_as": "1320, 2nd Avenue, Prince George, Regional District of Fraser-Fort George, British Columbia, V2L 3B6, Canada",
-      "service_area": null
+      "service_area": null,
+      "label": "Community sexual assault support"
     },
     {
       "id": "cameray-sas",
@@ -279,7 +317,8 @@
       "service_area": [
         "Burnaby",
         "New Westminster"
-      ]
+      ],
+      "label": "Community sexual assault support"
     },
     {
       "id": "diversecity-svss",
@@ -294,7 +333,8 @@
       "lat": 49.14117,
       "lng": -122.84954,
       "geocoded_as": "Diversity Community Resources Society, 13455, 76 Avenue, Newton, Surrey, Metro Vancouver Regional District, British Columbia, V3W 2W2, Canada",
-      "service_area": null
+      "service_area": null,
+      "label": "Community sexual assault support"
     },
     {
       "id": "archway-sarp",
@@ -312,7 +352,8 @@
       "service_area": [
         "Abbotsford",
         "Mission"
-      ]
+      ],
+      "label": "Community sexual assault support"
     },
     {
       "id": "crfs-sas",
@@ -328,7 +369,8 @@
       "lat": 50.0249,
       "lng": -125.24622,
       "position_source": "Map embedded on the organization's contact page (centre of the \"Family Services\" place pin)",
-      "service_area": null
+      "service_area": null,
+      "label": "Community sexual assault support"
     },
     {
       "id": "summit-sas",
@@ -344,6 +386,10 @@
       "service_area": [
         "Cranbrook",
         "Kimberley"
+      ],
+      "label": "Community sexual assault support",
+      "lead_for_cities": [
+        "Cranbrook"
       ]
     },
     {
@@ -357,7 +403,10 @@
       "serves": "Survivors of sexual violence (physical location kept confidential)",
       "island": false,
       "source_url": "https://www.salalsvsc.ca/contact/",
-      "service_area": null
+      "service_area": [
+        "Vancouver"
+      ],
+      "label": "Support by phone"
     },
     {
       "id": "fsns-sarp",
@@ -374,7 +423,8 @@
         "West Vancouver",
         "Bowen Island",
         "Lions Bay"
-      ]
+      ],
+      "label": "Support by phone"
     },
     {
       "id": "nelson-avl",
@@ -386,7 +436,12 @@
       "serves": "Survivors of domestic violence and sexual assault, ages 13 and older",
       "island": false,
       "source_url": "https://www.servicesfyi.ca/sas/",
-      "service_area": null
+      "service_area": [
+        "Nelson",
+        "Castlegar"
+      ],
+      "label": "Support by phone",
+      "area_note": "Nelson Community Services' line has no published service area; Castlegar (Selkirk College) is the nearest campus, about 40 km from Nelson."
     },
     {
       "id": "surrey-womens-centre",
@@ -398,7 +453,128 @@
       "serves": "Survivors of sexual assault and violence (mailing address only)",
       "island": false,
       "source_url": "https://surreywomenscentre.ca/contact-page/",
-      "service_area": null
+      "service_area": null,
+      "label": "Support by phone"
+    },
+    {
+      "id": "nh-uhnbc",
+      "type": "hospital_ed",
+      "name": "University Hospital of Northern British Columbia, Emergency Department",
+      "address": "1475 Edmonton Street, Prince George, BC",
+      "phone": "250-565-2000",
+      "hours": null,
+      "serves": "Emergency medical care",
+      "island": false,
+      "source_url": "https://www.northernhealth.ca/find-a-facility/hospitals/university-hospital-northern-british-columbia-uhnbc",
+      "status_url": "https://www.northernhealth.ca/emergency-department-status",
+      "label": "Nearest hospital emergency department",
+      "service_area": null,
+      "lat": 53.9128,
+      "lng": -122.76502,
+      "geocoded_as": "University Hospital of Northern British Columbia, 1475, Edmonton Street, Prince George, Regional District of Fraser-Fort George, British Columbia, V2L 3X3, Canada"
+    },
+    {
+      "id": "nh-ksyen",
+      "type": "hospital_ed",
+      "name": "Ksyen Regional Hospital, Emergency Department",
+      "address": "2800 Tetrault Street, Terrace, BC",
+      "phone": "250-635-2211",
+      "hours": null,
+      "serves": "Emergency medical care",
+      "island": false,
+      "source_url": "https://www.northernhealth.ca/find-a-facility/hospitals/ksyen-regional-hospital",
+      "status_url": "https://www.northernhealth.ca/emergency-department-status",
+      "label": "Nearest hospital emergency department",
+      "service_area": null,
+      "lat": 54.51194,
+      "lng": -128.59641,
+      "geocoded_as": "Ksyen Regional Hospital, 2800, Tetrault Street, Downtown, Terrace, Regional District of Kitimat-Stikine, British Columbia, V8G 2W8, Canada"
+    },
+    {
+      "id": "nh-dcdh",
+      "type": "hospital_ed",
+      "name": "Dawson Creek and District Hospital, Emergency Department",
+      "address": "11100 13th Street, Dawson Creek, BC",
+      "phone": "250-782-8501",
+      "hours": null,
+      "serves": "Emergency medical care",
+      "island": false,
+      "source_url": "https://www.northernhealth.ca/find-a-facility/hospitals/dawson-creek-and-district-hospital",
+      "status_url": "https://www.northernhealth.ca/emergency-department-status",
+      "label": "Nearest hospital emergency department",
+      "service_area": null,
+      "lat": 55.74969,
+      "lng": -120.23573,
+      "geocoded_as": "Dawson Creek and District Hospital, 11100, 13 Street, Dawson Creek (Nominatim free-text search)"
+    },
+    {
+      "id": "cvfsa-cbvs",
+      "type": "centre",
+      "name": "Comox Valley Family Services, Community Based Victim Services",
+      "address": "1415 Cliffe Avenue, Courtenay, BC",
+      "phone": "250-338-7575 ext. 225",
+      "phone_text": "250-800-3806",
+      "hours": "Monday to Friday, flexible hours; crisis text 250-800-3806",
+      "serves": "All genders who have experienced or witnessed physical, emotional or sexual violence",
+      "island": true,
+      "source_url": "https://comoxvalleyfamilyservices.com/programs/community-based-victims-services-program/",
+      "label": "Community victim services",
+      "service_area": null,
+      "lat": 49.68613,
+      "lng": -124.99306,
+      "geocoded_as": "Comox Valley Family Services Association, 1415, Cliffe Avenue, Courtenay, Comox Valley Regional District, British Columbia, V9N 2K6, Canada"
+    },
+    {
+      "id": "connect-stv",
+      "type": "centre",
+      "name": "Connect Counselling & Therapy Society, Stopping the Violence Counselling",
+      "address": "4 - 1890 Cooper Road, Kelowna, BC V1Y 8B7",
+      "phone": "250-860-3181",
+      "hours": null,
+      "serves": "Counselling for people navigating trauma and abuse; listed by EVA BC for Stopping the Violence Counselling",
+      "island": false,
+      "source_url": "https://connectcounsellingandtherapy.com/pages/contact",
+      "source_url_2": "https://endingviolence.org/services-directory/",
+      "label": "Counselling for survivors of violence",
+      "service_area": null,
+      "lat": 49.87965,
+      "lng": -119.44412,
+      "geocoded_as": "1890, Cooper Road, Midtown, Kelowna, Westbank First Nation #9, Regional District of Central Okanagan, British Columbia, V1Y 8B7, Canada"
+    },
+    {
+      "id": "nanaimo-rcmp-vs",
+      "type": "phone_only",
+      "name": "Nanaimo RCMP Victim Services",
+      "address": null,
+      "phone": "250-755-3100",
+      "hours": "Detachment general services Monday to Friday, 8:30am to 4:30pm",
+      "serves": "Victims of crime and trauma, through the Nanaimo RCMP",
+      "island": true,
+      "source_url": "https://rcmp.ca/en/bc/nanaimo/contact",
+      "label": "Police-based victim services, by phone",
+      "service_area": [
+        "Nanaimo"
+      ]
+    },
+    {
+      "id": "comox-rcmp-vs",
+      "type": "phone_only",
+      "name": "Comox Valley RCMP Victim Services",
+      "address": null,
+      "phone": "250-338-1321",
+      "hours": null,
+      "serves": "Victim services at the Comox Valley RCMP detachment (call the detachment)",
+      "island": true,
+      "source_url": "https://rcmp.ca/en/bc/comox-valley/contact",
+      "label": "Police-based victim services, by phone",
+      "service_area": [
+        "Courtenay"
+      ]
     }
-  ]
+  ],
+  "ed_note": {
+    "quote": "Go to a hospital, a walk-in clinic, or your doctor for a medical examination and treatment as soon as possible after a sexual assault.",
+    "publisher": "Province of British Columbia, Help Starts Here: Sexual Assault",
+    "url": "https://www2.gov.bc.ca/assets/gov/law-crime-and-justice/criminal-justice/bc-criminal-justice-system/if-victim/publications/hsh-english-sexual-assault.pdf"
+  }
 }

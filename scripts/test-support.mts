@@ -21,13 +21,26 @@ const features = (routes as unknown as { features: F[]; attribution: string }).f
 check("every entry has an https source", entries.every((e) => /^https:\/\//.test(e.source_url)));
 check("no transition houses or shelters", entries.every((e) => !/transition|shelter|safe home|women's shelter/i.test(e.name)));
 check("phone-only services have no address and no map position", entries.filter((e) => e.type === "phone_only").every((e) => !e.address && e.lat == null));
+check("no transition houses, shelters or safe homes (Ksan, Haven, Tillicum Lelum, SPCRS, CDCSS excluded)", !entries.some((e) => /ksan|haven|tillicum|south peace|castlegar and district/i.test(e.name)));
 check("South Peace Community Resources Society is excluded (also runs a transition house)", !entries.some((e) => /south peace/i.test(e.name)));
 check("routes carry OpenStreetMap attribution", /OpenStreetMap contributors/.test((routes as unknown as { attribution: string }).attribution));
 check("every route target is a mapped entry", features.every((f) => entries.some((e) => e.id === f.properties.target && e.lat != null)));
 
 const db = await dbClient();
 const { rows: campuses } = await db.query("select slug, city from public.institutions where sector = 'public' and slug not like 'zz-%'");
-check("every campus has a 24-hour hospital route", campuses.every((c) => features.some((f) => f.properties.campus === c.slug && f.properties.kind === "hospital_24h")));
+check("every campus has a hospital sexual assault service route", campuses.every((c) => features.some((f) => f.properties.campus === c.slug && f.properties.kind === "hospital")));
+type H = E & { care_24h?: boolean; label?: string; hours?: string | null };
+const hospitals = entries.filter((e) => e.type === "hospital") as H[];
+check("'24 hours' only where the service itself is sourced as 24-hour (VCH, Fraser Health)", hospitals.filter((h) => /24 hours/.test(h.label ?? "")).every((h) => h.care_24h) && hospitals.filter((h) => h.care_24h).map((h) => h.id).sort().join() === "fh-abbotsford-regional,fh-surrey-memorial,vch-vgh-sas");
+check("Island Health hospitals are sourced to Island Health's current page, not the 2021 release", hospitals.filter((h) => h.id.startsWith("ih-") && h.source_url.includes("islandhealth")).every((h) => !h.source_url.includes("news-releases") && !h.care_24h));
+// Northern rule: more than 100 km from any hospital sexual assault service -> nearest emergency department first.
+for (const [slug, ed] of [["cnc", "nh-uhnbc"], ["unbc", "nh-uhnbc"], ["coast-mountain", "nh-ksyen"], ["nlc", "nh-dcdh"]] as const) {
+  const f = features.find((x) => x.properties.campus === slug && x.properties.kind === "ed");
+  check(`${slug}: routed to its nearest emergency department (${ed})`, f?.properties.target === ed, f?.properties.target);
+}
+check("no other campus gets an emergency-department route", features.filter((x) => x.properties.kind === "ed").length === 4);
+const doug = features.find((x) => x.properties.campus === "douglas" && x.properties.kind === "centre");
+check("Douglas College (New Westminster) uses Cameray, which names New Westminster in its service area", doug?.properties.target === "cameray-sas", doug?.properties.target);
 const outOfArea = features.filter((f) => { const e = entries.find((x) => x.id === f.properties.target)!; const city = campuses.find((c) => c.slug === f.properties.campus)?.city; return e.service_area && !e.service_area.includes(city); });
 check("no campus is routed to a program whose published area excludes it", outOfArea.length === 0, outOfArea.map((f) => `${f.properties.campus}->${f.properties.target}`).join(", "));
 for (const slug of ["ubc-vancouver", "langara", "vcc", "ecuad", "capilano"]) {
@@ -48,7 +61,7 @@ try {
   const n = await page.evaluate(() => ((window as unknown as { __onusMap: { getSource: (s: string) => { serialize: () => { data: { features: unknown[] } } } } }).__onusMap.getSource("support-route").serialize().data.features.length));
   check("selecting a school draws one purple route", n === 1, String(n));
   const dots = await page.evaluate(() => ((window as unknown as { __onusMap: { getSource: (s: string) => { serialize: () => { data: { features: unknown[] } } } } }).__onusMap.getSource("support-points").serialize().data.features.length));
-  check("purple dots for every mapped service", dots === entries.filter((e) => e.type !== "phone_only" && e.lat != null).length, String(dots));
+  check("purple dots for every mapped service", dots === entries.filter((e) => (e.type === "hospital" || e.type === "centre") && e.lat != null).length, String(dots));
   // The route draws out from the campus over about a second, like a directions app.
   await page.goto(`${BASE}/map`, { waitUntil: "load" });
   await page.waitForFunction(() => !!(window as unknown as { __onusMap?: { getSource: (s: string) => unknown } }).__onusMap?.getSource("support-route"), null, { timeout: 45000 });
@@ -78,6 +91,19 @@ try {
   check("Escape closes the sheet", !(await sheet.isVisible()));
   await page.goto(`${BASE}/map/capilano`, { waitUntil: "load" });
   check("Capilano shows the North Shore line", await page.getByRole("complementary").getByText(/Family Services of the North Shore/).isVisible({ timeout: 15000 }));
+  // Panels: the order of support for northern and far-from-a-centre campuses.
+  const panelText = async (slug: string) => { await page.goto(`${BASE}/map/${slug}`, { waitUntil: "load" }); const p = page.getByRole("complementary"); await p.getByRole("heading", { name: "Nearest support" }).waitFor(); return (await p.locator('section[aria-labelledby="support-heading"]').innerText()); };
+  for (const [slug, first] of [["cnc", "University Hospital of Northern British Columbia"], ["unbc", "University Hospital of Northern British Columbia"], ["coast-mountain", "Ksyen Regional Hospital"], ["nlc", "Dawson Creek and District Hospital"]] as const) {
+    const t = await panelText(slug);
+    const body = t.replace(/^Nearest support\s*/, "");
+    check(`${slug}: the panel leads with the nearest emergency department, its address, phone and the sourced line`, body.indexOf(first) > -1 && body.indexOf(first) < 120 && /Go to a hospital, a walk-in clinic, or your doctor/.test(t) && /Emergency department status/.test(t));
+  }
+  for (const [slug, lead] of [["selkirk", "Nelson Community Services"], ["viu", "Nanaimo RCMP Victim Services"], ["nic", "Comox Valley RCMP Victim Services"], ["cotr", "Summit Community Services Society"]] as const) {
+    const t = (await panelText(slug)).replace(/^Nearest support\s*/, "");
+    check(`${slug}: the panel leads with the local line (${lead})`, t.startsWith(lead), t.slice(0, 60));
+  }
+  const nic = await panelText("nic");
+  check("nic: Comox Valley Family Services is listed nearby", /Comox Valley Family Services/.test(nic));
 } catch (e) {
   check("UI checks ran", false, (e as Error).message.split("\n")[0]);
 } finally {
