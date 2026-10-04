@@ -254,6 +254,9 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
                 </button>
               ))}
             </div>
+            <p className="mt-3 px-1 text-[13px] leading-relaxed text-text-secondary">
+              Type or speak in your own language, like Farsi, French, Punjabi or Mandarin. Answers come back in it; quotes stay in the policy&apos;s English.
+            </p>
           </div>
         ) : (
           <ol className="space-y-5 pb-4 pt-1">
