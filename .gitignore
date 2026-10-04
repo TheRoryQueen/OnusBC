@@ -42,10 +42,9 @@ yarn-error.log*
 next-env.d.ts
 /screenshots/
 
-# raw policy downloads (public documents, re-fetched by npm run crawl)
-/data/policies/*.pdf
+# raw web-page downloads (re-fetched by npm run crawl). The policy PDFs and the extracted text are committed:
+# the in-app document viewer serves those exact graded copies from the server. COTR's login-only page stays out.
 /data/policies/*.html
-/data/extracted/
 /logs/
 /public/maplibre/
 /public/pdfjs/
