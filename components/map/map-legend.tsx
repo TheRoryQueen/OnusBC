@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { ChevronUp } from "lucide-react";
 import { GRADES, RINGS, gradeToken } from "@/lib/map-style";
 import { cn } from "@/lib/utils";
@@ -68,7 +67,7 @@ export const HospitalCross = () => (
   </svg>
 );
 
-export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean }) {
+export function MapLegend({ hospitalRoutes = false, reviewLine }: { hospitalRoutes?: boolean; reviewLine?: string }) {
   // A drawer: the Legend header and the crisis line always show; the legend itself slides up under the header
   // when opened and back down when folded. Open to start on wide screens, folded on phones.
   const [open, setOpen] = useState(false);
@@ -77,14 +76,18 @@ export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean
     const id = requestAnimationFrame(() => { if (window.matchMedia(`(min-width: ${NAV_BREAKPOINT}px)`).matches) setOpen(true); });
     return () => cancelAnimationFrame(id);
   }, []);
-  // A school panel is open (it fills the left side on wide screens): sit beside it, on the same bottom edge.
-  const besidePanel = /^\/map\/[a-z0-9-]+/.test(usePathname() ?? "");
+  // The map's zoom buttons and attribution sit just above the card on phones; they read its height from here.
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => document.documentElement.style.setProperty("--onus-legend-h", `${el.offsetHeight}px`));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   return (
-    <div
-      className={cn(
-        "glass pointer-events-auto absolute bottom-0 left-0 z-10 max-w-[calc(100%-24px)] rounded-tr-[22px] px-4 pb-[calc(env(safe-area-inset-bottom,0px)+10px)] pt-1.5 md:w-[272px]",
-        besidePanel && "md:left-[432px] md:rounded-tl-[22px]"
-      )}
+    <div ref={ref}
+      className="glass pointer-events-auto absolute bottom-0 right-0 z-10 max-w-[calc(100%-24px)] rounded-tl-[22px] px-4 pb-[calc(env(safe-area-inset-bottom,0px)+10px)] pt-1.5 md:w-[272px]"
     >
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="map-legend"
         className="hit flex min-h-10 w-full items-center justify-between gap-2 text-[13px] font-medium text-text">
@@ -115,6 +118,11 @@ export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean
           </div>
         </div>
       </div>
+      {reviewLine && (
+        <p className="border-t border-hairline py-2 text-[12px] leading-snug text-text-secondary">
+          {reviewLine} <a href="/how-it-works#review-clock" className="hit font-medium text-brand underline decoration-current/35 underline-offset-2 hover:decoration-current">How this is counted</a>
+        </p>
+      )}
       <p className="border-t border-hairline pt-2 text-[12px] leading-snug text-text-secondary">
         <span className="hidden md:inline">This map grades how schools handle sexual violence. </span>In danger? <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
       </p>

@@ -213,8 +213,11 @@
   outline-offset: 2px;
 }
 
-/* Phones: the folded legend is docked along the bottom-left edge, so the zoom buttons and the attribution sit
-   just above it instead of beside it (they would overlap at 390 px). */
+/* The legend is docked bottom right. Phones: the attribution sits just above it (it spans nearly the full
+   width). Wider screens: the zoom buttons and attribution sit to its left. */
 @media (max-width: 767px) {
-  .maplibregl-map .maplibregl-ctrl-bottom-right { bottom: calc(env(safe-area-inset-bottom, 0px) + 56px); }
+  .maplibregl-map .maplibregl-ctrl-bottom-right { bottom: calc(var(--onus-legend-h, 120px) + 4px); }
+}
+@media (min-width: 768px) {
+  .maplibregl-map .maplibregl-ctrl-bottom-right { right: 276px; }
 }

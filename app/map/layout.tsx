@@ -29,15 +29,15 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
       <main className="relative min-h-[calc(100dvh-4rem)] flex-1 overflow-hidden">
         <OnusMap />
         <div className="pointer-events-none absolute inset-x-3 top-3 z-10 md:inset-x-auto md:right-4 md:top-4 md:w-auto">
-          <FilterBar reviewLine={`${stat.old} of ${stat.total} published policies are more than three years old.`} />
+          <FilterBar />
           {failed && (
             <p className="glass pointer-events-auto mt-2 rounded-2xl px-3 py-2 text-sm text-text">
               Couldn&apos;t load the schools. <Link href="/map" className="text-brand">Try again</Link>
             </p>
           )}
         </div>
-        {/* The legend, with the crisis numbers as its last row (PRD: on every page). */}
-        <MapLegend hospitalRoutes />
+        {/* The legend, docked bottom right, with the review clock line and the crisis numbers as its last rows (PRD: on every page). */}
+        <MapLegend hospitalRoutes reviewLine={`${stat.old} of ${stat.total} published policies are more than three years old.`} />
         {children}
       </main>
     </MapStateProvider>
