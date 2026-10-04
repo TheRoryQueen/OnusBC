@@ -9,7 +9,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dbClient } from "../lib/db.mts";
 
-type Entry = { id: string; type: "hospital_24h" | "centre" | "phone_only"; name: string; phone: string; island: boolean; lat?: number; lng?: number; source_url: string };
+type Entry = { id: string; type: "hospital_24h" | "centre" | "phone_only"; name: string; phone: string; island: boolean; lat?: number; lng?: number; source_url: string; service_area: string[] | null };
 const data = JSON.parse(readFileSync(new URL("../../data/support-centres.json", import.meta.url), "utf8")) as { entries: Entry[] };
 const ISLAND_CAMPUSES = new Set(["uvic", "camosun", "rru", "viu", "nic"]); // Vancouver Island
 const DRY = process.argv.includes("--dry");
@@ -41,18 +41,27 @@ async function route(a: { lat: number; lng: number }, b: { lat: number; lng: num
 }
 
 const db = await dbClient();
-const { rows: campuses } = await db.query("select slug, name, lat, lng from public.institutions where sector = 'public' and slug not like 'zz-%' order by slug");
+const { rows: campuses } = await db.query("select slug, name, city, lat, lng from public.institutions where sector = 'public' and slug not like 'zz-%' order by slug");
 await db.end();
 
 const features: unknown[] = [];
 let calls = 0;
-for (const c of campuses as { slug: string; name: string; lat: number; lng: number }[]) {
+for (const c of campuses as { slug: string; name: string; city: string; lat: number; lng: number }[]) {
   const island = ISLAND_CAMPUSES.has(c.slug);
-  for (const kind of ["centre", "hospital_24h"] as const) {
+  for (const kind of ["hospital_24h", "centre"] as const) {
     if (ONLY && !ONLY.has(`${c.slug}:${kind}`)) { const keep = previous.find((f) => f.properties.campus === c.slug && f.properties.kind === kind); if (keep) features.push(keep); continue; }
-    const pool = mapped(kind).filter((e) => e.island === island);
+    // Only programs that serve the campus's city (hospitals serve everyone).
+    const pool = mapped(kind).filter((e) => e.island === island && (!e.service_area || e.service_area.includes(c.city)));
     const best = pool.map((e) => ({ e, d: km(c, e) })).sort((x, y) => x.d - y.d)[0];
     if (!best) { console.log(`${c.slug.padEnd(15)} ${kind.padEnd(12)} none on this side of the water`); continue; }
+    // A centre farther (even in a straight line) than the campus's 24-hour hospital service is never the
+    // nearest support, so it isn't routed.
+    const hosp = (features as { properties: { campus: string; kind: string; distance_m: number } }[]).find((f) => f.properties.campus === c.slug && f.properties.kind === "hospital_24h")
+      ?? previous.find((f) => f.properties.campus === c.slug && f.properties.kind === "hospital_24h") as { properties: { distance_m: number } } | undefined;
+    if (kind === "centre" && hosp && best.d * 1000 > hosp.properties.distance_m) {
+      console.log(`${c.slug.padEnd(15)} ${kind.padEnd(12)} ${best.e.id.padEnd(24)} ${best.d.toFixed(1).padStart(6)} km straight, farther than the 24-hour hospital service; not routed`);
+      continue;
+    }
     const r = DRY ? { method: "straight" as const, distance_m: Math.round(best.d * 1000), duration_s: null, coordinates: [[c.lng, c.lat], [best.e.lng, best.e.lat]] as [number, number][] } : await route(c, best.e);
     if (!DRY) { calls++; await new Promise((res) => setTimeout(res, 1100)); }
     console.log(`${c.slug.padEnd(15)} ${kind.padEnd(12)} ${best.e.id.padEnd(24)} ${(r.distance_m / 1000).toFixed(1).padStart(6)} km ${r.duration_s != null ? `${Math.round(r.duration_s / 60)} min` : "(straight line)"}`);

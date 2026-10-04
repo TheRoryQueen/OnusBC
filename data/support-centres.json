@@ -1,5 +1,5 @@
 {
-  "_about": "Sexual assault support near BC campuses: community sexual assault support programs and hospitals with 24-hour sexual assault or forensic nurse examiner care. Every entry is from the organization's own site or its health authority, checked 2026-10-03 (EVA BC's directory of Sexual Assault Services programs was used to find programs). No transition houses or shelters, and no address that isn't publicly listed: where only a phone number is public, the entry has no location. Coordinates are geocoded from the listed address with OpenStreetMap Nominatim.",
+  "_about": "Sexual assault support near BC campuses: community sexual assault support programs and hospitals with 24-hour sexual assault or forensic nurse examiner care. Every entry is from the organization's own site or its health authority, checked 2026-10-03 (EVA BC's directory of Sexual Assault Services programs was used to find programs). No transition houses or shelters, and no address that isn't publicly listed: where only a phone number is public, the entry has no location. Coordinates are geocoded from the listed address with OpenStreetMap Nominatim. service_area lists the cities a program says it serves (null: no area restriction is published); a campus is only routed to a program that serves its city. Organizations that also run a transition house or shelter are left out entirely, even at a separate public office.",
   "checked": "2026-10-03",
   "entries": [
     {
@@ -14,7 +14,8 @@
       "source_url": "https://www.vch.ca/en/location-service/sexual-assault-service-sas-vancouver-general-hospital",
       "lat": 49.26184,
       "lng": -123.12267,
-      "geocoded_as": "Vancouver General Hospital, 899, West 12th Avenue, Fairview, Vancouver, Metro Vancouver Regional District, British Columbia, V5Z 0A2, Canada"
+      "geocoded_as": "Vancouver General Hospital, 899, West 12th Avenue, Fairview, Vancouver, Metro Vancouver Regional District, British Columbia, V5Z 0A2, Canada",
+      "service_area": null
     },
     {
       "id": "fh-surrey-memorial",
@@ -28,7 +29,8 @@
       "source_url": "https://www.fraserhealth.ca/Service-Directory/Service-At-Location/1/9/forensic-nursing-service---surrey",
       "lat": 49.17576,
       "lng": -122.84251,
-      "geocoded_as": "Surrey Memorial Hospital, 13750, 96 Avenue, City Centre, Surrey, Metro Vancouver Regional District, British Columbia, V3V 1Z2, Canada"
+      "geocoded_as": "Surrey Memorial Hospital, 13750, 96 Avenue, City Centre, Surrey, Metro Vancouver Regional District, British Columbia, V3V 1Z2, Canada",
+      "service_area": null
     },
     {
       "id": "fh-abbotsford-regional",
@@ -42,7 +44,8 @@
       "source_url": "https://www.fraserhealth.ca/Service-Directory/Service-At-Location/1/A/forensic-nursing-service---abbotsford-regional-hospital",
       "lat": 49.03673,
       "lng": -122.31332,
-      "geocoded_as": "Abbotsford Regional Hospital & Cancer Centre, 32900, Marshall Road, Marshall, Mill Lake, Abbotsford, Fraser Valley Regional District, British Columbia, V2S 0C2, Canada"
+      "geocoded_as": "Abbotsford Regional Hospital & Cancer Centre, 32900, Marshall Road, Marshall, Mill Lake, Abbotsford, Fraser Valley Regional District, British Columbia, V2S 0C2, Canada",
+      "service_area": null
     },
     {
       "id": "ih-royal-jubilee",
@@ -57,7 +60,8 @@
       "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
       "lat": 48.43264,
       "lng": -123.32668,
-      "geocoded_as": "Royal Jubilee Hospital, 1952, Bay Street, North Jubilee, Jubilee, Victoria, Capital Regional District, British Columbia, V8R 1K1, Canada"
+      "geocoded_as": "Royal Jubilee Hospital, 1952, Bay Street, North Jubilee, Jubilee, Victoria, Capital Regional District, British Columbia, V8R 1K1, Canada",
+      "service_area": null
     },
     {
       "id": "ih-victoria-general",
@@ -72,7 +76,8 @@
       "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
       "lat": 48.46655,
       "lng": -123.43226,
-      "geocoded_as": "Victoria General Hospital, 1, Hospital Way, View Royal, Capital Regional District, British Columbia, V8Z 6R5, Canada"
+      "geocoded_as": "Victoria General Hospital, 1, Hospital Way, View Royal, Capital Regional District, British Columbia, V8Z 6R5, Canada",
+      "service_area": null
     },
     {
       "id": "ih-nanaimo-regional",
@@ -87,7 +92,8 @@
       "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
       "lat": 49.18505,
       "lng": -123.96852,
-      "geocoded_as": "1200, Dufferin Crescent, Townsite, Nanaimo, Regional District of Nanaimo, British Columbia, V9S 2B7, Canada"
+      "geocoded_as": "1200, Dufferin Crescent, Townsite, Nanaimo, Regional District of Nanaimo, British Columbia, V9S 2B7, Canada",
+      "service_area": null
     },
     {
       "id": "ih-north-island-comox",
@@ -102,7 +108,8 @@
       "source_url_2": "https://www.islandhealth.ca/news/news-releases/supporting-new-forensic-nurse-examiners-remote-communities",
       "lat": 49.71225,
       "lng": -124.96987,
-      "geocoded_as": "North Island Hospital - Comox Valley, 101, Lerwick Road, Crown Isle, Courtenay, Comox Valley Regional District, British Columbia, V9N 9H1, Canada"
+      "geocoded_as": "North Island Hospital - Comox Valley, 101, Lerwick Road, Crown Isle, Courtenay, Comox Valley Regional District, British Columbia, V9N 9H1, Canada",
+      "service_area": null
     },
     {
       "id": "ih-kelowna-general",
@@ -116,7 +123,8 @@
       "source_url": "https://www.interiorhealth.ca/locations/kelowna-general-hospital",
       "lat": 49.87322,
       "lng": -119.49274,
-      "geocoded_as": "Strathcona Building, 2268, Pandosy Street, Pandosy, Kelowna, Westbank First Nation #9, Regional District of Central Okanagan, British Columbia, V1Y 1T1, Canada"
+      "geocoded_as": "Strathcona Building, 2268, Pandosy Street, Pandosy, Kelowna, Westbank First Nation #9, Regional District of Central Okanagan, British Columbia, V1Y 1T1, Canada",
+      "service_area": null
     },
     {
       "id": "ih-royal-inland",
@@ -130,7 +138,8 @@
       "source_url": "https://www.interiorhealth.ca/locations/royal-inland-hospital",
       "lat": 50.66984,
       "lng": -120.3345,
-      "geocoded_as": "311, Columbia Street, Lower Sahali, Kamloops, Thompson-Nicola Regional District, British Columbia, V2C 2T1, Canada"
+      "geocoded_as": "311, Columbia Street, Lower Sahali, Kamloops, Thompson-Nicola Regional District, British Columbia, V2C 2T1, Canada",
+      "service_area": null
     },
     {
       "id": "ih-kootenay-boundary",
@@ -144,7 +153,8 @@
       "source_url": "https://www.interiorhealth.ca/locations/kootenay-boundary-regional-hospital",
       "lat": 49.1033,
       "lng": -117.7015,
-      "geocoded_as": "Kootenay Boundary Regional Hospital, 1200, Hospital Bench, Trail, Regional District of Kootenay Boundary, British Columbia, V1R 1S3, Canada"
+      "geocoded_as": "Kootenay Boundary Regional Hospital, 1200, Hospital Bench, Trail, Regional District of Kootenay Boundary, British Columbia, V1R 1S3, Canada",
+      "service_area": null
     },
     {
       "id": "ih-kootenay-lake",
@@ -158,7 +168,8 @@
       "source_url": "https://www.interiorhealth.ca/locations/kootenay-lake-hospital",
       "lat": 49.49499,
       "lng": -117.28508,
-      "geocoded_as": "Kootenay Lake Hospital, 3, View Street, Gyro, Nelson, Regional District of Central Kootenay, British Columbia, V1L 5R2, Canada"
+      "geocoded_as": "Kootenay Lake Hospital, 3, View Street, Gyro, Nelson, Regional District of Central Kootenay, British Columbia, V1L 5R2, Canada",
+      "service_area": null
     },
     {
       "id": "ih-east-kootenay",
@@ -172,7 +183,8 @@
       "source_url": "https://www.interiorhealth.ca/locations/east-kootenay-regional-hospital",
       "lat": 49.51249,
       "lng": -115.75014,
-      "geocoded_as": "East Kootenay Regional Hospital, 13, 24th Avenue North, Cranbrook, Regional District of East Kootenay, British Columbia, V1C 3L4, Canada"
+      "geocoded_as": "East Kootenay Regional Hospital, 13, 24th Avenue North, Cranbrook, Regional District of East Kootenay, British Columbia, V1C 3L4, Canada",
+      "service_area": null
     },
     {
       "id": "ih-nicola-valley",
@@ -186,7 +198,8 @@
       "source_url": "https://www.interiorhealth.ca/locations/nicola-valley-hospital-and-health-centre",
       "lat": 50.12188,
       "lng": -120.77325,
-      "geocoded_as": "Nicola Valley Hospital and Health Centre, 3451, Voght Street, Merritt, Thompson-Nicola Regional District, British Columbia, V1K 1C6, Canada"
+      "geocoded_as": "Nicola Valley Hospital and Health Centre, 3451, Voght Street, Merritt, Thompson-Nicola Regional District, British Columbia, V1K 1C6, Canada",
+      "service_area": null
     },
     {
       "id": "ih-100-mile",
@@ -200,7 +213,8 @@
       "source_url": "https://www.interiorhealth.ca/locations/100-mile-district-general-hospital",
       "lat": 51.63836,
       "lng": -121.29159,
-      "geocoded_as": "100 Mile District general hospital, 555, Cedar Avenue South, 100 Mile House, Cariboo Regional District, British Columbia, V0K 2E0, Canada"
+      "geocoded_as": "100 Mile District general hospital, 555, Cedar Avenue South, 100 Mile House, Cariboo Regional District, British Columbia, V0K 2E0, Canada",
+      "service_area": null
     },
     {
       "id": "vsac",
@@ -214,7 +228,8 @@
       "source_url": "https://www.vsac.ca/contact",
       "lat": 48.44731,
       "lng": -123.34484,
-      "geocoded_as": "3060, Cedar Hill Road, Oaklands, Victoria, Capital Regional District, British Columbia, V8T 3J4, Canada"
+      "geocoded_as": "3060, Cedar Hill Road, Oaklands, Victoria, Capital Regional District, British Columbia, V8T 3J4, Canada",
+      "service_area": null
     },
     {
       "id": "ksacc",
@@ -229,7 +244,8 @@
       "source_url": "https://www.ksacc.ca/contact/",
       "lat": 50.67512,
       "lng": -120.32452,
-      "geocoded_as": "694, Seymour Street, Sagebrush, Kamloops, Thompson-Nicola Regional District, British Columbia, V2C 2H2, Canada"
+      "geocoded_as": "694, Seymour Street, Sagebrush, Kamloops, Thompson-Nicola Regional District, British Columbia, V2C 2H2, Canada",
+      "service_area": null
     },
     {
       "id": "pgsac",
@@ -244,7 +260,8 @@
       "source_url": "https://www.pgsac.org/contact",
       "lat": 53.91798,
       "lng": -122.74548,
-      "geocoded_as": "1320, 2nd Avenue, Prince George, Regional District of Fraser-Fort George, British Columbia, V2L 3B6, Canada"
+      "geocoded_as": "1320, 2nd Avenue, Prince George, Regional District of Fraser-Fort George, British Columbia, V2L 3B6, Canada",
+      "service_area": null
     },
     {
       "id": "cameray-sas",
@@ -258,7 +275,11 @@
       "source_url": "https://www.cameray.ca/sexual-assault-services-sas/",
       "lat": 49.26504,
       "lng": -123.00576,
-      "geocoded_as": "Celeste Redman Community Resource Centre, 2038, Rosser Avenue, Brentwood, Burnaby, Metro Vancouver Regional District, British Columbia, V5C 4B8, Canada"
+      "geocoded_as": "Celeste Redman Community Resource Centre, 2038, Rosser Avenue, Brentwood, Burnaby, Metro Vancouver Regional District, British Columbia, V5C 4B8, Canada",
+      "service_area": [
+        "Burnaby",
+        "New Westminster"
+      ]
     },
     {
       "id": "diversecity-svss",
@@ -272,7 +293,8 @@
       "source_url": "https://www.dcrs.ca/our-services/gender-based-violence-services/sexual-violence-support-services/",
       "lat": 49.14117,
       "lng": -122.84954,
-      "geocoded_as": "Diversity Community Resources Society, 13455, 76 Avenue, Newton, Surrey, Metro Vancouver Regional District, British Columbia, V3W 2W2, Canada"
+      "geocoded_as": "Diversity Community Resources Society, 13455, 76 Avenue, Newton, Surrey, Metro Vancouver Regional District, British Columbia, V3W 2W2, Canada",
+      "service_area": null
     },
     {
       "id": "archway-sarp",
@@ -286,7 +308,11 @@
       "source_url": "https://archway.ca/program/sexual-assault-response-program-sarp/",
       "lat": 49.04608,
       "lng": -122.28995,
-      "geocoded_as": "Walter H. Paetkau Centre, 2420, Montrose Avenue, Abbotsford Centre, Abbotsford, Fraser Valley Regional District, British Columbia, V2S 3S9, Canada"
+      "geocoded_as": "Walter H. Paetkau Centre, 2420, Montrose Avenue, Abbotsford Centre, Abbotsford, Fraser Valley Regional District, British Columbia, V2S 3S9, Canada",
+      "service_area": [
+        "Abbotsford",
+        "Mission"
+      ]
     },
     {
       "id": "crfs-sas",
@@ -301,7 +327,8 @@
       "source_url": "https://crfamilyservices.ca/contact/",
       "lat": 50.0249,
       "lng": -125.24622,
-      "position_source": "Map embedded on the organization's contact page (centre of the \"Family Services\" place pin)"
+      "position_source": "Map embedded on the organization's contact page (centre of the \"Family Services\" place pin)",
+      "service_area": null
     },
     {
       "id": "summit-sas",
@@ -313,21 +340,11 @@
       "serves": "Survivors of current or past sexualized assault in Cranbrook and Kimberley; no age or gender restrictions",
       "island": false,
       "source_url": "https://www.summitfamily.ca/program/sexualized-assault-services-sas/",
-      "map_note": "Address is public, but OpenStreetMap has no exact position for it, so it is not placed on the map."
-    },
-    {
-      "id": "spcrs-stv",
-      "type": "centre",
-      "name": "South Peace Community Resources Society, Stopping the Violence Counselling",
-      "address": "10110-13th Street, Dawson Creek, BC V1G 3W2",
-      "phone": "250-782-9174",
-      "hours": null,
-      "serves": "Women 19 and older who have experienced sexual assault, intimate partner violence or childhood abuse",
-      "island": false,
-      "source_url": "https://www.spcrs.ca/programs/stopping-the-violence",
-      "lat": 55.76087,
-      "lng": -120.23698,
-      "geocoded_as": "South Peace Community Resources, 10110, 13 Street, Dawson Creek, Peace River Regional District, British Columbia, V1G 3W3, Canada"
+      "map_note": "Address is public, but OpenStreetMap has no exact position for it, so it is not placed on the map.",
+      "service_area": [
+        "Cranbrook",
+        "Kimberley"
+      ]
     },
     {
       "id": "salal",
@@ -339,7 +356,8 @@
       "hours": "24-Hour Crisis & Information Line",
       "serves": "Survivors of sexual violence (physical location kept confidential)",
       "island": false,
-      "source_url": "https://www.salalsvsc.ca/contact/"
+      "source_url": "https://www.salalsvsc.ca/contact/",
+      "service_area": null
     },
     {
       "id": "fsns-sarp",
@@ -350,7 +368,13 @@
       "hours": "24 hours a day, seven days a week",
       "serves": "Survivors of all ages and genders in North Vancouver, West Vancouver, Bowen Island and Lions Bay",
       "island": false,
-      "source_url": "https://www.familyservices.bc.ca/find-support/sexual-assault-response-program/"
+      "source_url": "https://www.familyservices.bc.ca/find-support/sexual-assault-response-program/",
+      "service_area": [
+        "North Vancouver",
+        "West Vancouver",
+        "Bowen Island",
+        "Lions Bay"
+      ]
     },
     {
       "id": "nelson-avl",
@@ -361,7 +385,8 @@
       "hours": "24/7",
       "serves": "Survivors of domestic violence and sexual assault, ages 13 and older",
       "island": false,
-      "source_url": "https://www.servicesfyi.ca/sas/"
+      "source_url": "https://www.servicesfyi.ca/sas/",
+      "service_area": null
     },
     {
       "id": "surrey-womens-centre",
@@ -372,7 +397,8 @@
       "hours": null,
       "serves": "Survivors of sexual assault and violence (mailing address only)",
       "island": false,
-      "source_url": "https://surreywomenscentre.ca/contact-page/"
+      "source_url": "https://surreywomenscentre.ca/contact-page/",
+      "service_area": null
     }
   ]
 }
