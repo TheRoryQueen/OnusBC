@@ -1,5 +1,6 @@
 import centres from "@/data/support-centres.json";
 import routes from "@/data/support-routes.json";
+import { nearestHospital } from "@/lib/hospitals";
 
 // Sexual assault support for each campus, from data/support-centres.json (official sources only) and
 // data/support-routes.json (road routes computed once with OSRM; the site never calls a router).
@@ -57,6 +58,7 @@ const option = (route: RouteFeature): Option | null => {
   };
 };
 
+/** slug: the campus key, a school's slug for its main campus or "<slug>/<campus id>". */
 export function campusSupport(slug: string, city: string | null): CampusSupport {
   const mine = ROUTES.filter((r) => r.properties.campus === slug);
   const ed = mine.find((r) => r.properties.kind === "ed");
@@ -64,7 +66,23 @@ export function campusSupport(slug: string, city: string | null): CampusSupport 
   const local = SUPPORT.filter((e) => city && (
     (e.type === "phone_only" && e.service_area?.includes(city)) || e.lead_for_cities?.includes(city)
   ));
-  const edOption = ed ? option(ed) : null;
+  let edOption = ed ? option(ed) : null;
+  // More than 100 km from any hospital sexual assault service, and the nearest emergency department is not one
+  // of the sourced entries above: lead with the nearest one from the health authority's own emergency
+  // department list (DataBC address and phone, the health authority's status page).
+  const sa = mine.find((r) => r.properties.kind === "hospital");
+  const n = !edOption && (!sa || sa.properties.distance_m > 100_000) ? nearestHospital(slug) : null;
+  if (n && n.hospital.ed_source) {
+    const h = n.hospital;
+    edOption = {
+      entry: {
+        id: `ed:${h.id}`, type: "hospital_ed", name: h.name, address: h.address, phone: h.phone ?? "", hours: null, serves: "",
+        island: false, lat: h.lat, lng: h.lng, source_url: h.ed_source!, service_area: null, label: "Emergency department", status_url: h.status_url,
+      },
+      route: { geometry: n.route.geometry, properties: { campus: slug, kind: "ed", target: `ed:${h.id}`, method: n.route.properties.method, distance_m: n.route.properties.distance_m, duration_s: n.route.properties.duration_s } },
+      distanceKm: n.distanceKm, minutes: n.minutes, straight: n.straight,
+    };
+  }
   const nearest = support[0] ?? null;
   return { ed: edOption, local, nearest, others: support.slice(1), line: edOption ?? nearest };
 }

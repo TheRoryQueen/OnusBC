@@ -6,6 +6,8 @@ import { chromium } from "@playwright/test";
 import centres from "../data/support-centres.json" with { type: "json" };
 import routes from "../data/support-routes.json" with { type: "json" };
 import hospitalData from "../data/hospitals.json" with { type: "json" };
+import campusData from "../data/campuses.json" with { type: "json" };
+
 import hospitalRoutes from "../data/hospital-routes.json" with { type: "json" };
 import { dbClient } from "./lib/db.mts";
 
@@ -31,8 +33,8 @@ const db = await dbClient();
 const { rows: campuses } = await db.query("select slug, city from public.institutions where sector = 'public' and slug not like 'zz-%'");
 // Routes to the nearest hospital emergency department: precomputed, one per campus, and only to a hospital
 // that its health authority lists as having an emergency department (never a care home or outpatient centre).
-type H = { name: string; ed?: boolean; ed_source?: string };
-const edList = (hospitalData as { hospitals: H[] }).hospitals;
+type HD = { name: string; ed?: boolean; ed_source?: string };
+const edList = (hospitalData as { hospitals: HD[] }).hospitals;
 const hRoutes = (hospitalRoutes as unknown as { features: { properties: { campus: string; hospital: string; method: string } }[]; attribution: string });
 check("every hospital marked with an emergency department has an https source", edList.filter((h) => h.ed).every((h) => /^https:\/\//.test(h.ed_source ?? "")));
 check("care homes and outpatient buildings are not marked as emergency departments", edList.filter((h) => /Purdy|Banfield|Jim Pattison Outpatient|Holy Family/.test(h.name)).every((h) => h.ed === false));
@@ -40,6 +42,12 @@ check("hospital routes carry OpenStreetMap attribution", /OpenStreetMap contribu
 check("every hospital route goes to an emergency department", hRoutes.features.every((f) => edList.find((h) => h.name === f.properties.hospital)?.ed === true));
 check("every hospital route is by road", hRoutes.features.every((f) => f.properties.method === "road"));
 check("every campus has a hospital sexual assault service route", campuses.every((c) => features.some((f) => f.properties.campus === c.slug && f.properties.kind === "hospital")));
+// Other campuses (data/campuses.json): each has a checked source, coordinates, support and hospital routes.
+const others = (campusData as unknown as { campuses: { school: string; id: string; source_url: string; lat: number; lng: number; address: string }[] }).campuses;
+check("every other campus has an https source and coordinates", others.length > 0 && others.every((c) => /^https:\/\//.test(c.source_url) && c.lat > 48 && c.lat < 60 && c.lng < -114 && c.lng > -134), `${others.length} campuses`);
+check("SFU has its Surrey and Vancouver campuses", ["surrey", "vancouver"].every((id) => others.some((c) => c.school === "sfu" && c.id === id)));
+check("every other campus has a nearest hospital sexual assault service route", others.every((c) => features.some((f) => f.properties.campus === `${c.school}/${c.id}` && f.properties.kind === "hospital")));
+check("every other campus has a route to its nearest emergency department", others.every((c) => hRoutes.features.some((f) => f.properties.campus === `${c.school}/${c.id}`)));
 check("every campus has a route to its nearest emergency department", campuses.every((c) => hRoutes.features.some((f) => f.properties.campus === c.slug)));
 type H = E & { care_24h?: boolean; label?: string; hours?: string | null };
 const hospitals = entries.filter((e) => e.type === "hospital") as H[];
@@ -50,10 +58,13 @@ for (const [slug, ed] of [["cnc", "nh-uhnbc"], ["unbc", "nh-uhnbc"], ["coast-mou
   const f = features.find((x) => x.properties.campus === slug && x.properties.kind === "ed");
   check(`${slug}: routed to its nearest emergency department (${ed})`, f?.properties.target === ed, f?.properties.target);
 }
-check("no other campus gets an emergency-department route", features.filter((x) => x.properties.kind === "ed").length === 4);
+// A sourced emergency department entry is routed only where it is that campus's nearest emergency department.
+const edRoutes = features.filter((x) => x.properties.kind === "ed");
+const edWrong = edRoutes.filter((f) => { const h = hRoutes.features.find((r) => r.properties.campus === f.properties.campus); return !h || !entries.find((e) => e.id === f.properties.target)?.name.toLowerCase().includes(h.properties.hospital.toLowerCase().split(" ")[0]); });
+check("emergency department routes go only to the campus's nearest emergency department", edRoutes.length >= 4 && edWrong.length === 0, edWrong.map((f) => f.properties.campus).join(","));
 const doug = features.find((x) => x.properties.campus === "douglas" && x.properties.kind === "centre");
 check("Douglas College (New Westminster) uses Cameray, which names New Westminster in its service area", doug?.properties.target === "cameray-sas", doug?.properties.target);
-const outOfArea = features.filter((f) => { const e = entries.find((x) => x.id === f.properties.target)!; const city = campuses.find((c) => c.slug === f.properties.campus)?.city; return e.service_area && !e.service_area.includes(city); });
+const outOfArea = features.filter((f) => { const e = entries.find((x) => x.id === f.properties.target)!; const city = campuses.find((c) => c.slug === f.properties.campus)?.city ?? (campusData as unknown as { campuses: { school: string; id: string; city: string }[] }).campuses.find((c) => `${c.school}/${c.id}` === f.properties.campus)?.city; return e.service_area && !e.service_area.includes(city); });
 check("no campus is routed to a program whose published area excludes it", outOfArea.length === 0, outOfArea.map((f) => `${f.properties.campus}->${f.properties.target}`).join(", "));
 for (const slug of ["ubc-vancouver", "langara", "vcc", "ecuad", "capilano"]) {
   const best = features.filter((f) => f.properties.campus === slug).sort((a, b) => a.properties.distance_m - b.properties.distance_m)[0];
@@ -97,6 +108,15 @@ try {
   check("selecting a school draws one route to the nearest hospital", hr === 1, String(hr));
   check("the hospital route is a dotted ink line, not purple", await page.evaluate(() => { const m = (window as unknown as { __onusMap: { getPaintProperty: (l: string, p: string) => unknown } }).__onusMap; return JSON.stringify(m.getPaintProperty("hospital-route", "line-dasharray")) === "[0.1,2]" && m.getPaintProperty("hospital-route", "line-color") !== m.getPaintProperty("support-route", "line-color"); }));
   check("the legend lists the hospital route", await page.getByRole("group", { name: "Legend" }).getByText("Route to the nearest hospital").isVisible());
+  await page.goto(`${BASE}/map/sfu/surrey`, { waitUntil: "load" });
+  const sp = page.getByRole("complementary", { name: "Simon Fraser University" });
+  await sp.waitFor({ timeout: 15000 });
+  check("/map/sfu/surrey opens SFU's panel for the Surrey campus", await sp.getByText(/Surrey campus, Surrey/).first().isVisible() && (await sp.getByRole("link", { name: "Surrey campus" }).getAttribute("aria-current")) === "page");
+  check("the Surrey campus's support is its own (Surrey Memorial)", await sp.getByText(/Surrey Memorial/).first().isVisible());
+  await page.goto(`${BASE}/map/sfu/not-a-campus`, { waitUntil: "load" });
+  check("an unknown campus shows the not-found page", await page.getByText("This page isn't here.").waitFor({ timeout: 15000 }).then(() => true).catch(() => false));
+  await page.goto(`${BASE}/map/ubc-vancouver`, { waitUntil: "load" });
+  await page.waitForTimeout(2500);
   check("Salal's 24-hour line is shown for a Vancouver campus", await panel.getByText("Salal Sexual Violence Support Centre").isVisible());
   // The info sheet: name, address, phone, Google Maps directions and website.
   await panel.getByRole("button", { name: "Sexual Assault Service at Vancouver General Hospital" }).click();

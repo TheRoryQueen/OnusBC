@@ -21,6 +21,7 @@ import { NearestSupport } from "./nearest-support";
 import { ReportCardListen } from "./report-card-listen";
 import { FreeCounselling } from "./free-counselling";
 import { cn } from "@/lib/utils";
+import { campusKey, campusesOf, type Campus } from "@/lib/campuses";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
 const SCORE_WORD = ["Not addressed", "Mentioned, not binding", "Explicit and binding"];
@@ -101,7 +102,32 @@ function Action({ href, icon: Icon, label, external }: { href: string; icon: typ
   return external ? <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>{body}</a> : <Link href={href} className={cls}>{body}</Link>;
 }
 
-function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onClose: () => void; onAsk: () => void }) {
+// A school's campuses, when it has more than one: the support and routes below are for the campus chosen here
+// (the map flies to it too). Links, so each campus has its own URL.
+function CampusPicker({ school, campus }: { school: InstitutionDetail; campus: Campus | null }) {
+  const others = campusesOf(school.slug);
+  if (!others.length) return null;
+  const items = [{ href: `/map/${school.slug}`, label: "Main campus", city: school.city, current: !campus }, ...others.map((c) => ({ href: `/map/${school.slug}/${c.id}`, label: c.name, city: c.city, current: campus?.id === c.id }))];
+  return (
+    <section className="mt-6" aria-labelledby="campus-heading">
+      <h3 id="campus-heading" className="px-1 text-[13px] text-text-secondary">Campus</h3>
+      <ul className="mt-2 flex flex-wrap gap-2">
+        {items.map((i) => (
+          <li key={i.href}>
+            <Link href={i.href} scroll={false} aria-current={i.current ? "page" : undefined}
+              className={cn("inline-flex min-h-11 items-center rounded-full px-4 text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+                i.current ? "bg-text font-medium text-page" : "bg-hairline/50 text-text hover:bg-hairline")}>
+              {i.label}{i.label === "Main campus" && i.city ? `, ${i.city}` : ""}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 px-1 text-[12px] text-text-secondary">Support and routes below are for {campus ? campus.name : "the main campus"}. The grade covers the whole school.</p>
+    </section>
+  );
+}
+
+function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDetail; campus: Campus | null; onClose: () => void; onAsk: () => void }) {
   const { schools } = useMapState();
   const live = schools.find((s) => s.slug === school.slug)?.scores ?? school.scores;
   const graded = isGraded(live, school.policy_found);
@@ -124,7 +150,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
       <div data-sheet-handle className="touch-none md:touch-auto">
         <h2 className="pr-10 text-[26px] font-bold leading-tight tracking-tight text-text">{school.name}</h2>
         <p className="mt-1 text-sm text-text-secondary">
-          {school.city}{school.city ? " · " : ""}{school.policy_found ? "Policy found" : "No public policy"}
+          {campus ? `${campus.name}, ${campus.city}` : school.city}{school.city || campus ? " · " : ""}{school.policy_found ? "Policy found" : "No public policy"}
         </p>
       </div>
 
@@ -221,7 +247,8 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
         </section>
       )}
 
-      <NearestSupport slug={school.slug} city={school.city} from={{ lat: school.lat, lng: school.lng }} />
+      <CampusPicker school={school} campus={campus} />
+      <NearestSupport slug={school.slug} campusKey={campusKey(school.slug, campus?.id)} city={campus?.city ?? school.city} from={campus ?? { lat: school.lat, lng: school.lng }} />
       <FreeCounselling slug={school.slug} school={school.short_name ?? school.name} />
 
       <section className="mt-6" aria-labelledby="contact-heading">
@@ -239,7 +266,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
   );
 }
 
-export function SchoolPanel({ school }: { school: InstitutionDetail }) {
+export function SchoolPanel({ school, campus = null }: { school: InstitutionDetail; campus?: Campus | null }) {
   const router = useRouter();
   const desktop = useIsDesktop();
   const reduce = usePrefersReducedMotion();
@@ -325,7 +352,7 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
         <AskView slug={school.slug} school={school.name} messages={messages} setMessages={setMessages} onBack={() => setAsking(false)} scrollRef={scrollRef} />
       ) : (
         <div ref={scrollRef} className={cn("min-h-0 flex-1 overscroll-contain", full || desktop ? "overflow-y-auto" : "overflow-hidden", "md:overflow-y-auto")}>
-          <PanelBody school={school} onClose={close} onAsk={openAsk} />
+          <PanelBody school={school} campus={campus} onClose={close} onAsk={openAsk} />
         </div>
       )}
     </aside>

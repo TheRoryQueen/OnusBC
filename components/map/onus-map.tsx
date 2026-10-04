@@ -15,6 +15,7 @@ import { MAPPED, nearestSupport } from "@/lib/support";
 import { dotStyle } from "@/lib/map-style";
 import { HOSPITALS, HOSPITAL_MIN_ZOOM, nearestHospital, nearestHospitals } from "@/lib/hospitals";
 import { HospitalSheet } from "./hospital-sheet";
+import { CAMPUSES, campusById, campusKey, parseMapPath, type Campus } from "@/lib/campuses";
 
 const STYLE = {
   light: process.env.NEXT_PUBLIC_MAP_STYLE_LIGHT ?? "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -26,9 +27,10 @@ const CAMPUS_ZOOM = 13;
 const isDark = () => document.documentElement.classList.contains("dark");
 const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-// The selected school's route to its nearest sexual assault support (precomputed; no router is called).
-function supportRoute(slug: string | null) {
-  const near = slug ? nearestSupport(slug, null) : null;
+// The selected campus's route to its nearest sexual assault support (precomputed; no router is called).
+// key: a school's slug for its main campus, "<slug>/<campus id>" for its other campuses.
+function supportRoute(key: string | null) {
+  const near = key ? nearestSupport(key, null) : null;
   return {
     type: "FeatureCollection" as const,
     features: near ? [{ type: "Feature" as const, geometry: near.route.geometry, properties: { straight: near.straight } }] : [],
@@ -44,14 +46,14 @@ function hospitalRoute(key: string | null) {
   };
 }
 // Hospitals shown at every zoom while a school is selected: the three nearest, and the one its route goes to.
-const hospitalsNear = (s: InstitutionSummary | undefined, key: string | null) => {
+const hospitalsNear = (s: { lat: number; lng: number } | undefined, key: string | null) => {
   if (!s) return [];
   const ids = nearestHospitals(s);
   const h = nearestHospital(key)?.hospital.id;
   return h && !ids.includes(h) ? [...ids, h] : ids;
 };
 
-type Hover = { school: InstitutionSummary; x: number; y: number } | null;
+type Hover = { school: InstitutionSummary; campus: Campus | null; x: number; y: number } | null;
 
 // The card shown when a pointer rests on a school dot (wide screens): name and On paper grade only. It opens
 // above the dot, or below, left or right of it, whichever has room, and never under the school panel (which
@@ -83,6 +85,7 @@ function HoverCard({ hover, panelOpen }: { hover: NonNullable<Hover>; panelOpen:
       className="glass pointer-events-none absolute z-[15] hidden w-max max-w-60 rounded-2xl px-3 py-2 md:block"
       style={{ left: 0, top: 0, visibility: "hidden" }}>
       <p className="text-sm font-semibold text-text">{hover.school.name}</p>
+      {hover.campus && <p className="text-[13px] text-text-secondary">{hover.campus.name}</p>}
       <Badge variant="neutral" className="mt-1">{dotStyle(hover.school).label}</Badge>
     </div>
   );
@@ -92,7 +95,10 @@ export function OnusMap() {
   const { schools, pulse, setSupportId, setHospitalId } = useMapState();
   const router = useRouter();
   const pathname = usePathname();
-  const selected = pathname?.match(/^\/map\/([a-z0-9-]+)/)?.[1] ?? null;
+  // The open school, and which of its campuses (none: the main campus). Routes and support are per campus.
+  const { slug: selected, campus: campusParam } = parseMapPath(pathname);
+  const campus = selected ? campusById(selected, campusParam) : null;
+  const key = selected ? campusKey(selected, campus?.id) : null;
 
   const el = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MLMap | null>(null);
@@ -100,10 +106,15 @@ export function OnusMap() {
   const [failed, setFailed] = useState(false);
   const [dotsDrawn, setDotsDrawn] = useState(false);
   const [hover, setHover] = useState<Hover>(null);
-  const latest = useRef({ schools, selected });
+  const latest = useRef({ schools, selected, key, campus });
   useEffect(() => {
-    latest.current = { schools, selected };
-  }, [schools, selected]);
+    latest.current = { schools, selected, key, campus };
+  }, [schools, selected, key, campus]);
+  // Where the selection is: the campus, or the school's main campus.
+  const here = useCallback(() => {
+    const { schools, selected, campus } = latest.current;
+    return campus ?? schools.find((x) => x.slug === selected);
+  }, []);
 
   // Feature collection from current state; colours come from the CSS tokens of the active theme.
   const features = useCallback(() => {
@@ -133,8 +144,32 @@ export function OnusMap() {
     };
   }, []);
 
+  // Other campuses: smaller dots in their school's On paper colour (no ring: ratings are per school).
+  const campusFeatures = useCallback(() => {
+    const { schools } = latest.current;
+    return {
+      type: "FeatureCollection" as const,
+      features: CAMPUSES.flatMap((c) => {
+        const s = schools.find((x) => x.slug === c.school);
+        if (!s) return [];
+        const st = dotStyle(s);
+        return [{
+          type: "Feature" as const,
+          geometry: { type: "Point" as const, coordinates: [c.lng, c.lat] },
+          properties: {
+            slug: c.school, id: c.id, key: campusKey(c.school, c.id),
+            fill: st.hollow ? token("--onus-page") : token(st.fill!),
+            outline: token(st.hollow ? "--onus-no-policy" : "--onus-text"),
+            outlineWidth: st.hollow ? 1.75 : 1,
+          },
+        }];
+      }),
+    };
+  }, []);
+
   const addLayers = useCallback((map: MLMap) => {
     if (!map.getSource("schools")) map.addSource("schools", { type: "geojson", data: features() });
+    if (!map.getSource("campuses")) map.addSource("campuses", { type: "geojson", data: campusFeatures() });
     // Sexual assault support (official sources; see data/support-centres.json): small purple dots, and a purple
     // line from the selected school to its nearest support, drawn under the school dots.
     const support = token("--onus-support");
@@ -142,9 +177,9 @@ export function OnusMap() {
       type: "FeatureCollection",
       features: MAPPED.map((e) => ({ type: "Feature" as const, geometry: { type: "Point" as const, coordinates: [e.lng, e.lat] }, properties: { id: e.id } })),
     } });
-    if (!map.getSource("support-route")) map.addSource("support-route", { type: "geojson", data: supportRoute(latest.current.selected) });
+    if (!map.getSource("support-route")) map.addSource("support-route", { type: "geojson", data: supportRoute(latest.current.key) });
     // The route to the nearest hospital emergency department: an ink dotted line, under the purple one.
-    if (!map.getSource("hospital-route")) map.addSource("hospital-route", { type: "geojson", data: hospitalRoute(latest.current.selected) });
+    if (!map.getSource("hospital-route")) map.addSource("hospital-route", { type: "geojson", data: hospitalRoute(latest.current.key) });
     map.addLayer({ id: "hospital-route-casing", type: "line", source: "hospital-route", layout: { "line-cap": "round", "line-join": "round" },
       paint: { "line-color": token("--onus-page"), "line-width": 6 } });
     map.addLayer({ id: "hospital-route", type: "line", source: "hospital-route", layout: { "line-cap": "round", "line-join": "round" },
@@ -170,15 +205,24 @@ export function OnusMap() {
       type: "FeatureCollection",
       features: HOSPITALS.map((h) => ({ type: "Feature" as const, geometry: { type: "Point" as const, coordinates: [h.lng, h.lat] }, properties: { id: h.id } })),
     } });
-    const sel = HOSPITALS.length && latest.current.selected ? latest.current.schools.find((x) => x.slug === latest.current.selected) : undefined;
+    const sel = HOSPITALS.length ? here() : undefined;
     map.addLayer({ id: "hospital", type: "symbol", source: "hospitals", minzoom: HOSPITAL_MIN_ZOOM,
       layout: { "icon-image": "hospital-cross", "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "hospital-near", type: "symbol", source: "hospitals", maxzoom: HOSPITAL_MIN_ZOOM,
-      filter: ["in", ["get", "id"], ["literal", hospitalsNear(sel, latest.current.selected)]],
+      filter: ["in", ["get", "id"], ["literal", hospitalsNear(sel, latest.current.key)]],
       layout: { "icon-image": "hospital-cross", "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "support-dot", type: "circle", source: "support-points",
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.5, 10, 6], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
-    map.addLayer({ id: "school-selected", type: "circle", source: "schools", filter: ["==", ["get", "slug"], latest.current.selected ?? ""],
+    map.addLayer({ id: "campus-dot", type: "circle", source: "campuses",
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 2.75, 10, 5],
+        "circle-color": ["get", "fill"],
+        "circle-stroke-width": ["get", "outlineWidth"],
+        "circle-stroke-color": ["get", "outline"],
+      } });
+    map.addLayer({ id: "campus-selected", type: "circle", source: "campuses", filter: ["==", ["get", "key"], latest.current.campus ? latest.current.key ?? "" : ""],
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 10, 10, 12], "circle-color": "rgba(0,0,0,0)", "circle-stroke-width": 2.5, "circle-stroke-color": token("--onus-text") } });
+    map.addLayer({ id: "school-selected", type: "circle", source: "schools", filter: ["==", ["get", "slug"], latest.current.campus ? "" : latest.current.selected ?? ""],
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 14, 10, 17], "circle-color": "rgba(0,0,0,0)", "circle-stroke-width": 2.5, "circle-stroke-color": token("--onus-text") } });
     map.addLayer({ id: "school-ring", type: "circle", source: "schools", filter: ["get", "ring"],
       paint: {
@@ -196,7 +240,7 @@ export function OnusMap() {
         "circle-stroke-width": ["get", "outlineWidth"],
         "circle-stroke-color": ["get", "outline"],
       } });
-  }, [features]);
+  }, [features, campusFeatures, here]);
 
   // Create the map once.
   useEffect(() => {
@@ -242,12 +286,15 @@ export function OnusMap() {
       };
       map.on("sourcedata", onData);
       map.once("idle", () => mark("onus-map-idle"));
-      map.on("mousemove", "school-dot", (e: MapLayerMouseEvent) => {
-        const slug = e.features?.[0]?.properties?.slug as string | undefined;
-        const school = latest.current.schools.find((s) => s.slug === slug);
-        map.getCanvas().style.cursor = "pointer";
-        if (school) setHover({ school, x: e.point.x, y: e.point.y });
-      });
+      for (const layer of ["school-dot", "campus-dot"]) {
+        map.on("mousemove", layer, (e: MapLayerMouseEvent) => {
+          const p = e.features?.[0]?.properties as { slug?: string; id?: string } | undefined;
+          const school = latest.current.schools.find((s) => s.slug === p?.slug);
+          map.getCanvas().style.cursor = "pointer";
+          if (school) setHover({ school, campus: layer === "campus-dot" ? campusById(school.slug, p?.id) : null, x: e.point.x, y: e.point.y });
+        });
+        map.on("mouseleave", layer, () => { map.getCanvas().style.cursor = ""; setHover(null); });
+      }
       // Purple dots open the support info sheet; hospital crosses open the hospital popup.
       map.on("click", "support-dot", (e: MapLayerMouseEvent) => {
         const id = e.features?.[0]?.properties?.id as string | undefined;
@@ -263,20 +310,23 @@ export function OnusMap() {
       }
       map.on("mouseenter", "support-dot", () => { map.getCanvas().style.cursor = "pointer"; });
       map.on("mouseleave", "support-dot", () => { map.getCanvas().style.cursor = ""; });
-      map.on("mouseleave", "school-dot", () => { map.getCanvas().style.cursor = ""; setHover(null); });
-      map.on("click", "school-dot", (e: MapLayerMouseEvent) => {
-        // Several schools under the tap (Vancouver, Victoria at the starting zoom): zoom in on them rather
-        // than opening whichever dot happens to be on top.
-        const near = map.queryRenderedFeatures([[e.point.x - 10, e.point.y - 10], [e.point.x + 10, e.point.y + 10]], { layers: ["school-dot"] });
-        const slugs = new Set(near.map((f) => f.properties?.slug));
-        if (slugs.size > 1 && map.getZoom() < 11) {
+      map.on("click", (e: MapLayerMouseEvent) => {
+        // Schools first, then campuses. Several places under the tap (Vancouver, Victoria at the starting
+        // zoom): zoom in on them rather than opening whichever dot happens to be on top.
+        const layers = ["school-dot", "campus-dot"].filter((l) => map.getLayer(l));
+        const hit = map.queryRenderedFeatures(e.point, { layers });
+        if (!hit.length) return;
+        const near = map.queryRenderedFeatures([[e.point.x - 10, e.point.y - 10], [e.point.x + 10, e.point.y + 10]], { layers });
+        const places = new Set(near.map((f) => f.properties?.key ?? f.properties?.slug));
+        if (places.size > 1 && map.getZoom() < 11) {
           const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
           const target = { center: e.lngLat, zoom: Math.min(map.getZoom() + 2.5, 12) };
           if (reduce) map.jumpTo(target); else map.easeTo({ ...target, duration: 600 });
           return;
         }
-        const slug = e.features?.[0]?.properties?.slug;
-        if (slug) router.push(`/map/${slug}`, { scroll: false });
+        const top = hit.find((f) => f.layer.id === "school-dot") ?? hit[0];
+        const { slug, id } = (top.properties ?? {}) as { slug?: string; id?: string };
+        if (slug) router.push(top.layer.id === "campus-dot" && id ? `/map/${slug}/${id}` : `/map/${slug}`, { scroll: false });
       });
 
       // Theme switch: swap basemap, then the layers are re-added with the new theme's tokens.
@@ -295,17 +345,17 @@ export function OnusMap() {
   useEffect(() => {
     const src = mapRef.current?.getSource("schools") as GeoJSONSource | undefined;
     if (ready && src) src.setData(features());
-  }, [schools, ready, features]);
+    (mapRef.current?.getSource("campuses") as GeoJSONSource | undefined)?.setData(campusFeatures());
+  }, [schools, ready, features, campusFeatures]);
 
   // The purple route for the selected school, drawn out from the campus like a directions app (about 1.2 s,
   // after the camera move starts); with reduced motion it appears at once.
   useEffect(() => {
     const src = mapRef.current?.getSource("support-route") as GeoJSONSource | undefined;
     if (!ready || !src) return;
-    const s = latest.current.schools.find((x) => x.slug === selected);
-    if (mapRef.current?.getLayer("hospital-near")) mapRef.current.setFilter("hospital-near", ["in", ["get", "id"], ["literal", hospitalsNear(s, selected)]]);
-    (mapRef.current?.getSource("hospital-route") as GeoJSONSource | undefined)?.setData(hospitalRoute(selected));
-    const full = supportRoute(selected);
+    if (mapRef.current?.getLayer("hospital-near")) mapRef.current.setFilter("hospital-near", ["in", ["get", "id"], ["literal", hospitalsNear(here(), key)]]);
+    (mapRef.current?.getSource("hospital-route") as GeoJSONSource | undefined)?.setData(hospitalRoute(key));
+    const full = supportRoute(key);
     const line = full.features[0];
     if (!line || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { src.setData(full); return; }
     const pts = line.geometry.coordinates;
@@ -332,25 +382,26 @@ export function OnusMap() {
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [selected, ready]);
+  }, [key, ready, here]);
 
   // Selection ring. Opening a school flies to it at about campus zoom (about 1 s); closing the panel eases
   // back out two zoom levels. With reduced motion, both jump straight there.
-  const prevSelected = useRef<string | null>(null);
+  const prevSelected = useRef<string | null>(null); // the previous campus key
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !ready) return;
-    if (map.getLayer("school-selected")) map.setFilter("school-selected", ["==", ["get", "slug"], selected ?? ""]);
+    if (map.getLayer("school-selected")) map.setFilter("school-selected", ["==", ["get", "slug"], campus ? "" : selected ?? ""]);
+    if (map.getLayer("campus-selected")) map.setFilter("campus-selected", ["==", ["get", "key"], campus ? key ?? "" : ""]);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const desktop = window.matchMedia("(min-width: 768px)").matches;
-    const s = schools.find((x) => x.slug === selected);
-    if (s && selected !== prevSelected.current) {
+    const s = here();
+    if (s && key && key !== prevSelected.current) {
       // Within 40 km, show the whole route to the nearest support; farther away, fly to the campus.
       // Only when that still means zooming in to street level (zoom 11+): on a phone the space between the
       // filter bar and the sheet is small, and fitting a long route there would zoom out instead.
       // Both routes (support and the nearest hospital) are framed together when they are close by.
-      const near = nearestSupport(s.slug, null);
-      const hosp = nearestHospital(s.slug);
+      const near = nearestSupport(key, null);
+      const hosp = nearestHospital(key);
       const pts = [...(near?.route.geometry.coordinates ?? []), ...(hosp && hosp.distanceKm <= 40 ? hosp.route.geometry.coordinates : [])];
       const xs = pts.map((c) => c[0]), ys = pts.map((c) => c[1]);
       const padding = desktop ? { top: 240, bottom: 100, left: 480, right: 120 } : { top: 170, bottom: window.innerHeight * 0.45, left: 32, right: 32 };
@@ -365,15 +416,15 @@ export function OnusMap() {
         if (reduce) map.jumpTo(target);
         else map.flyTo({ ...target, duration: 1000, essential: true });
       }
-    } else if (!selected && prevSelected.current) {
+    } else if (!key && prevSelected.current) {
       const zoom = Math.max(map.getZoom() - 2, 1);
       if (reduce) map.jumpTo({ zoom });
       else map.easeTo({ zoom, duration: 600 });
     }
-    prevSelected.current = selected;
+    prevSelected.current = key;
     // Only when the selection changes, not on every score update.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, ready]);
+  }, [key, ready]);
 
   // One-time pulse when a school's Onus count goes up (a rating just landed).
   useEffect(() => {

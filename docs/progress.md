@@ -6,7 +6,7 @@ with this file updated. Item 7 is the one called "item 6" in the request (the st
 | # | Item | Status | Commit |
 | --- | --- | --- | --- |
 | 1 | Haven, Tillicum Lelum and CDCSS as phone-only lines; handoff | Done | 44e0403 |
-| 2 | Map: hover cards, filter, search, legend, hospital routes, campuses | In progress (parts 1 and 2 of 3 done) | see below |
+| 2 | Map: hover cards, filter, search, legend, hospital routes, campuses | Done | e02cdca, 674057b, see below |
 | 3 | School panel: Call, Listen, Read the summary | Not started | |
 | 4 | Nav: same destinations, footer links, phone menu bug, tabs | Not started | |
 | 5 | Rating flow and account | Not started | |
@@ -57,4 +57,33 @@ Part 2 done (commit: "Route to the nearest hospital emergency department"):
   Emergency department status, Source), skipped when the support above already is that hospital.
 - test:support 61 of 61 (new checks for the hospital routes).
 
-Left: part 3 (campuses).
+Part 3 done (commit: "Campuses: every multi-campus school's main campuses"):
+- Rule used for "main campuses": every location the school's own website calls a campus. Offices, learning
+  and access centres, and satellite sites it does not call a campus are left out (listed in
+  data/campus-sources.json, "_left_out").
+- 55 campuses for 20 schools (SFU Surrey and Vancouver included). Each address is checked on the school's
+  own page by scripts/pipeline/build-campuses.mts (npm run build:campuses) and geocoded with the Province's
+  BC Address Geocoder (civic number, unit or block matches only). The check caught three wrong addresses
+  from web search: NLC Tumbler Ridge is 235 Front Street (not 180 Southgate, a PO box), UNBC's Terrace
+  campus is at 3120 Highway 16 East, Thornhill (not 4837 Keith Avenue), and CapU's Sunshine Coast campus is
+  no longer on CapU's locations page.
+- Check: left out CNC Fort St. James (its page does not show the address) and KPU Civic Plaza (no address
+  on KPU's maps page). UNBC's Prince Rupert, Quesnel and Fort St. John campuses share buildings with CMTN,
+  CNC and NLC, so their dots sit on the same spot.
+- Map: smaller dots in the school's On paper colour (no ring: ratings are per school), in the legend.
+  Hover shows the school and campus. Clicking opens /map/<school>/<campus>: the same panel and grade, with
+  a Campus row (links, aria-current) and the support and routes for that campus. Search finds campuses
+  ("sfu surrey", "bcit downtown").
+- Routes per campus: 165 OSRM requests for hospital routes and 100 for support routes (all by road); the
+  existing 49 support routes are unchanged. The support pipeline now reads the shared campus list
+  (scripts/pipeline/campuses.mts) instead of the database.
+- Decision: a far campus (more than 100 km from any hospital sexual assault service) leads with an
+  emergency department, as before. Where its nearest one is not one of the three sourced Northern Health
+  entries, the lead is the nearest one from the health authority's own list (DataBC address and phone,
+  status page, Province's line). Before this, the pipeline would have sent Fort Nelson to Dawson Creek.
+- Check: local phone lines for the new campus cities were not researched; those panels show the routed
+  nearest support, the nearest emergency department and Here2Talk. Tumbler Ridge's nearest listed hospital
+  emergency department is Chetwynd (96 km); its health centre is not in DataBC's hospital list.
+- Tests: test:support 68, test:map 45, test:demo 18, accessibility 0 findings. Screenshots of /map and
+  /map/sfu/surrey in both themes at 390 and 1440 checked; design critique run (one fix: a legend label
+  that wrapped).

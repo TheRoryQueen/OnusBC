@@ -7,11 +7,10 @@
 // Usage: npm run support-routes [-- --dry] [-- --only campus:kind,...]
 //   --dry: print the picks without calling OSRM. --only: recompute just those routes and keep the rest.
 import { readFileSync, writeFileSync } from "node:fs";
-import { dbClient } from "../lib/db.mts";
+import { loadCampuses } from "./campuses.mts";
 
 type Entry = { id: string; type: "hospital" | "hospital_ed" | "centre" | "phone_only"; name: string; phone: string; island: boolean; lat?: number; lng?: number; source_url: string; service_area: string[] | null };
 const data = JSON.parse(readFileSync(new URL("../../data/support-centres.json", import.meta.url), "utf8")) as { entries: Entry[] };
-const ISLAND_CAMPUSES = new Set(["uvic", "camosun", "rru", "viu", "nic"]); // Vancouver Island
 const DRY = process.argv.includes("--dry");
 const onlyArg = process.argv.indexOf("--only");
 const ONLY = onlyArg > -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
@@ -40,41 +39,49 @@ async function route(a: { lat: number; lng: number }, b: { lat: number; lng: num
   }
 }
 
-const db = await dbClient();
-const { rows: campuses } = await db.query("select slug, name, city, lat, lng from public.institutions where sector = 'public' and slug not like 'zz-%' order by slug");
-await db.end();
+// Every campus: each school's main campus (key = slug) and its other main campuses (key = "<slug>/<id>").
+const campuses = await loadCampuses();
+// The nearest hospital emergency department by road for each campus (data/hospital-routes.json; run
+// npm run hospital-routes first). A sourced emergency department entry leads a panel only when it is that
+// campus's nearest one; otherwise the panel leads with the nearest one from the health authority's list.
+type HRoute = { properties: { campus: string; hospital: string }; geometry: { coordinates: [number, number][] } };
+const hospitalRoutes = (JSON.parse(readFileSync(new URL("../../data/hospital-routes.json", import.meta.url), "utf8")) as { features: HRoute[] }).features;
 
 const features: unknown[] = [];
 let calls = 0;
-for (const c of campuses as { slug: string; name: string; city: string; lat: number; lng: number }[]) {
-  const island = ISLAND_CAMPUSES.has(c.slug);
+for (const c of campuses) {
+  const island = c.island;
   for (const kind of ["hospital", "centre", "ed"] as const) {
-    if (ONLY && !ONLY.has(`${c.slug}:${kind}`)) { const keep = previous.find((f) => f.properties.campus === c.slug && f.properties.kind === kind); if (keep) features.push(keep); continue; }
-    const hosp = (features as { properties: { campus: string; kind: string; distance_m: number } }[]).find((f) => f.properties.campus === c.slug && f.properties.kind === "hospital")
-      ?? previous.find((f) => f.properties.campus === c.slug && f.properties.kind === "hospital") as { properties: { distance_m: number } } | undefined;
+    if (ONLY && !ONLY.has(`${c.key}:${kind}`)) { const keep = previous.find((f) => f.properties.campus === c.key && f.properties.kind === kind); if (keep) features.push(keep); continue; }
+    const hosp = (features as { properties: { campus: string; kind: string; distance_m: number } }[]).find((f) => f.properties.campus === c.key && f.properties.kind === "hospital")
+      ?? previous.find((f) => f.properties.campus === c.key && f.properties.kind === "hospital") as { properties: { distance_m: number } } | undefined;
     // Emergency departments are routed only for campuses more than 100 km from any hospital sexual assault service.
     if (kind === "ed" && (!hosp || hosp.properties.distance_m <= 100_000)) continue;
     // Only programs that serve the campus's city (hospitals serve everyone). A program whose published area
     // names the campus's city comes before one with no stated area.
     const pool = mapped(kind === "ed" ? "hospital_ed" : kind).filter((e) => e.island === island && (!e.service_area || e.service_area.includes(c.city)));
     const named = pool.filter((e) => e.service_area?.includes(c.city));
-    const best = (named.length ? named : pool).map((e) => ({ e, d: km(c, e) })).sort((x, y) => x.d - y.d)[0];
-    if (!best) { console.log(`${c.slug.padEnd(15)} ${kind.padEnd(12)} none on this side of the water`); continue; }
+    let best = (named.length ? named : pool).map((e) => ({ e, d: km(c, e) })).sort((x, y) => x.d - y.d)[0];
+    if (kind === "ed" && best) {
+      const end = hospitalRoutes.find((f) => f.properties.campus === c.key)?.geometry.coordinates.at(-1);
+      if (!end || km(best.e, { lng: end[0], lat: end[1] }) > 2) { console.log(`${c.key.padEnd(15)} ${kind.padEnd(12)} nearest emergency department is not a sourced entry; the panel leads with it from the health authority list`); best = undefined as unknown as typeof best; }
+    }
+    if (!best) { console.log(`${c.key.padEnd(15)} ${kind.padEnd(12)} none on this side of the water`); continue; }
     // A centre farther (even in a straight line) than the campus's 24-hour hospital service is never the
     // nearest support, so it isn't routed.
     // A distant centre (over 50 km, and farther than the hospital service) is never the nearest support or
     // a local one, so it isn't routed; a centre in or near the campus's town always is.
     if (kind === "centre" && !named.length && hosp && best.d * 1000 > hosp.properties.distance_m && best.d > 50) {
-      console.log(`${c.slug.padEnd(15)} ${kind.padEnd(12)} ${best.e.id.padEnd(24)} ${best.d.toFixed(1).padStart(6)} km straight, over 50 km and farther than the hospital service; not routed`);
+      console.log(`${c.key.padEnd(15)} ${kind.padEnd(12)} ${best.e.id.padEnd(24)} ${best.d.toFixed(1).padStart(6)} km straight, over 50 km and farther than the hospital service; not routed`);
       continue;
     }
     const r = DRY ? { method: "straight" as const, distance_m: Math.round(best.d * 1000), duration_s: null, coordinates: [[c.lng, c.lat], [best.e.lng, best.e.lat]] as [number, number][] } : await route(c, best.e);
     if (!DRY) { calls++; await new Promise((res) => setTimeout(res, 1100)); }
-    console.log(`${c.slug.padEnd(15)} ${kind.padEnd(12)} ${best.e.id.padEnd(24)} ${(r.distance_m / 1000).toFixed(1).padStart(6)} km ${r.duration_s != null ? `${Math.round(r.duration_s / 60)} min` : "(straight line)"}`);
+    console.log(`${c.key.padEnd(15)} ${kind.padEnd(12)} ${best.e.id.padEnd(24)} ${(r.distance_m / 1000).toFixed(1).padStart(6)} km ${r.duration_s != null ? `${Math.round(r.duration_s / 60)} min` : "(straight line)"}`);
     features.push({
       type: "Feature",
       geometry: { type: "LineString", coordinates: r.coordinates },
-      properties: { campus: c.slug, kind, target: best.e.id, method: r.method, distance_m: r.distance_m, duration_s: r.duration_s, straight_km: Math.round(best.d * 10) / 10 },
+      properties: { campus: c.key, kind, target: best.e.id, method: r.method, distance_m: r.distance_m, duration_s: r.duration_s, straight_km: Math.round(best.d * 10) / 10 },
     });
   }
 }

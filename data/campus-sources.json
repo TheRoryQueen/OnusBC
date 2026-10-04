@@ -1,0 +1,506 @@
+{
+  "_about": "Each school's other main campuses, as the school itself lists them on its own website (a location it calls a campus; offices, learning or access centres and satellite sites it does not call a campus are left out). 'check' is the part of the address that must appear on the source page. scripts/pipeline/build-campuses.mts verifies each address on its page, geocodes it with the BC Address Geocoder and writes data/campuses.json.",
+  "campuses": [
+    {
+      "school": "sfu",
+      "id": "surrey",
+      "name": "Surrey campus",
+      "address": "250 - 13450 102 Avenue, Surrey, BC",
+      "city": "Surrey",
+      "check": "13450 102",
+      "source_url": "https://www.sfu.ca/campuses/surrey.html"
+    },
+    {
+      "school": "sfu",
+      "id": "vancouver",
+      "name": "Vancouver campus (Harbour Centre)",
+      "address": "515 West Hastings Street, Vancouver, BC",
+      "city": "Vancouver",
+      "check": "515 West Hastings",
+      "source_url": "https://www.sfu.ca/vancouver/about/our-locations/harbour-centre.html"
+    },
+    {
+      "school": "kpu",
+      "id": "richmond",
+      "name": "Richmond campus",
+      "address": "8771 Lansdowne Road, Richmond, BC",
+      "city": "Richmond",
+      "check": "8771 Lansdowne",
+      "source_url": "https://www.kpu.ca/talk/maps-and-parking"
+    },
+    {
+      "school": "kpu",
+      "id": "langley",
+      "name": "Langley campus",
+      "address": "20901 Langley Bypass, Langley, BC",
+      "city": "Langley",
+      "check": "20901 Langley Bypass",
+      "source_url": "https://www.kpu.ca/talk/maps-and-parking"
+    },
+    {
+      "school": "kpu",
+      "id": "tech",
+      "name": "KPU Tech (Cloverdale campus)",
+      "address": "5500 180 Street, Surrey, BC",
+      "city": "Surrey",
+      "check": "5500",
+      "source_url": "https://www.kpu.ca/talk/maps-and-parking"
+    },
+    {
+      "school": "bcit",
+      "id": "downtown",
+      "name": "Downtown campus",
+      "address": "555 Seymour Street, Vancouver, BC",
+      "city": "Vancouver",
+      "check": "555 Seymour",
+      "source_url": "https://www.bcit.ca/about/visit/campuses-directions/downtown/"
+    },
+    {
+      "school": "bcit",
+      "id": "marine",
+      "name": "Marine campus",
+      "address": "265 West Esplanade, North Vancouver, BC",
+      "city": "North Vancouver",
+      "check": "265 W Esplanade",
+      "source_url": "https://www.bcit.ca/about/visit/campuses-directions/marine/"
+    },
+    {
+      "school": "bcit",
+      "id": "aerospace",
+      "name": "Aerospace Technology campus",
+      "address": "3800 Cessna Drive, Richmond, BC",
+      "city": "Richmond",
+      "check": "3800 Cessna",
+      "source_url": "https://www.bcit.ca/about/visit/campuses-directions/aerospace/"
+    },
+    {
+      "school": "bcit",
+      "id": "annacis-island",
+      "name": "Annacis Island campus",
+      "address": "1608 Cliveden Avenue, Delta, BC",
+      "city": "Delta",
+      "check": "1608 Cliveden",
+      "source_url": "https://www.bcit.ca/about/visit/campuses-directions/annacis-island/"
+    },
+    {
+      "school": "douglas",
+      "id": "coquitlam",
+      "name": "Coquitlam campus",
+      "address": "1250 Pinetree Way, Coquitlam, BC",
+      "city": "Coquitlam",
+      "check": "1250 Pinetree",
+      "source_url": "https://www.douglascollege.ca/about-douglas/campus-information/addresses-and-maps"
+    },
+    {
+      "school": "camosun",
+      "id": "interurban",
+      "name": "Interurban campus",
+      "address": "4461 Interurban Road, Victoria, BC",
+      "city": "Victoria",
+      "check": "4461 Interurban",
+      "source_url": "https://camosun.ca/about/our-campuses/interurban-campus"
+    },
+    {
+      "school": "vcc",
+      "id": "downtown",
+      "name": "Downtown campus",
+      "address": "250 West Pender Street, Vancouver, BC",
+      "city": "Vancouver",
+      "check": "250 West Pender",
+      "source_url": "https://www.vcc.ca/about/college-information/contact-us/downtown-campus/"
+    },
+    {
+      "school": "capilano",
+      "id": "squamish",
+      "name": "CapU Squamish",
+      "address": "3200 University Boulevard, Squamish, BC",
+      "city": "Squamish",
+      "check": "3200 University",
+      "source_url": "https://www.capilanou.ca/about-capu/get-to-know-us/our-locations/capu-squamish-campus/address--map/"
+    },
+    {
+      "school": "okanagan",
+      "id": "penticton",
+      "name": "Penticton campus",
+      "address": "583 Duncan Avenue West, Penticton, BC",
+      "city": "Penticton",
+      "check": "583 Duncan",
+      "source_url": "https://www.okanagan.bc.ca/penticton-campus"
+    },
+    {
+      "school": "okanagan",
+      "id": "vernon",
+      "name": "Vernon campus",
+      "address": "7000 College Way, Vernon, BC",
+      "city": "Vernon",
+      "check": "7000 College Way",
+      "source_url": "https://www.okanagan.bc.ca/vernon-campus"
+    },
+    {
+      "school": "okanagan",
+      "id": "salmon-arm",
+      "name": "Salmon Arm campus",
+      "address": "2552 10 Avenue NE, Salmon Arm, BC",
+      "city": "Salmon Arm",
+      "check": "2552",
+      "source_url": "https://www.okanagan.bc.ca/salmon-arm-campus"
+    },
+    {
+      "school": "tru",
+      "id": "williams-lake",
+      "name": "Williams Lake campus",
+      "address": "1250 Western Avenue, Williams Lake, BC",
+      "city": "Williams Lake",
+      "check": "1250 Western",
+      "source_url": "https://www.tru.ca/williamslake/about/contactus.html"
+    },
+    {
+      "school": "ufv",
+      "id": "chilliwack",
+      "name": "Chilliwack campus",
+      "address": "45190 Caen Avenue, Chilliwack, BC",
+      "city": "Chilliwack",
+      "check": "45190 Caen",
+      "source_url": "https://www.ufv.ca/maps/chilliwack-campus/"
+    },
+    {
+      "school": "ufv",
+      "id": "mission",
+      "name": "Mission campus",
+      "address": "33700 Prentis Avenue, Mission, BC",
+      "city": "Mission",
+      "check": "33700 Prentis",
+      "source_url": "https://www.ufv.ca/maps/mission-campus/"
+    },
+    {
+      "school": "viu",
+      "id": "cowichan",
+      "name": "Cowichan campus",
+      "address": "2011 University Way, North Cowichan, BC",
+      "city": "North Cowichan",
+      "check": "2011 University Way",
+      "source_url": "https://cowichan.viu.ca/campus-and-facilities"
+    },
+    {
+      "school": "viu",
+      "id": "powell-river",
+      "name": "tiwšɛmawtxʷ campus (Powell River)",
+      "address": "7085 Nootka Street, Powell River, BC",
+      "city": "Powell River",
+      "check": "7085 Nootka",
+      "source_url": "https://pr.viu.ca/campus-location"
+    },
+    {
+      "school": "nic",
+      "id": "campbell-river",
+      "name": "Campbell River campus",
+      "address": "1685 South Dogwood Street, Campbell River, BC",
+      "city": "Campbell River",
+      "check": "1685",
+      "source_url": "https://www.nic.bc.ca/about/campuses/campbell-river-campus.html"
+    },
+    {
+      "school": "nic",
+      "id": "port-alberni",
+      "name": "Port Alberni campus",
+      "address": "3699 Roger Street, Port Alberni, BC",
+      "city": "Port Alberni",
+      "check": "3699 Roger Street",
+      "source_url": "https://www.nic.bc.ca/about/campuses/port-alberni-campus.html"
+    },
+    {
+      "school": "nic",
+      "id": "port-hardy",
+      "name": "Mixalakwila campus (Port Hardy)",
+      "address": "8950 Granville Street, Port Hardy, BC",
+      "city": "Port Hardy",
+      "check": "8950 Granville",
+      "source_url": "https://www.nic.bc.ca/about/campuses/mixalakwila-campus.html"
+    },
+    {
+      "school": "nvit",
+      "id": "vancouver",
+      "name": "Vancouver campus",
+      "address": "4355 Mathissi Place, Burnaby, BC",
+      "city": "Burnaby",
+      "check": "4355 Mathissi",
+      "source_url": "https://www.nvit.ca/about-us/campuses/vancouver/"
+    },
+    {
+      "school": "coast-mountain",
+      "id": "prince-rupert",
+      "name": "Prince Rupert campus",
+      "address": "353 5th Street, Prince Rupert, BC",
+      "city": "Prince Rupert",
+      "check": "353 5th",
+      "source_url": "https://coastmountaincollege.ca/about-cmtn/campus-locations/prince-rupert"
+    },
+    {
+      "school": "coast-mountain",
+      "id": "smithers",
+      "name": "Smithers campus",
+      "address": "3966 2nd Avenue, Smithers, BC",
+      "city": "Smithers",
+      "check": "3966",
+      "source_url": "https://coastmountaincollege.ca/about-cmtn/campus-locations/smithers"
+    },
+    {
+      "school": "coast-mountain",
+      "id": "hazelton",
+      "name": "Hazelton campus",
+      "address": "4815 Swannell Drive, Hazelton, BC",
+      "city": "Hazelton",
+      "check": "4815 Swannell",
+      "source_url": "https://coastmountaincollege.ca/about-cmtn/campus-locations/hazelton"
+    },
+    {
+      "school": "coast-mountain",
+      "id": "haida-gwaii",
+      "name": "Haida Gwaii campus",
+      "address": "2 Second Beach Road, Skidegate, BC",
+      "city": "Skidegate",
+      "check": "Second Beach",
+      "source_url": "https://coastmountaincollege.ca/about-cmtn/campus-locations/haida-gwaii/why-haida-gwaii-1"
+    },
+    {
+      "school": "cotr",
+      "id": "gold-creek",
+      "name": "Gold Creek campus",
+      "address": "1305 24 Avenue South, Cranbrook, BC",
+      "city": "Cranbrook",
+      "check": "1305 24th Ave",
+      "source_url": "https://cotr.bc.ca/about-us/campuses/gold-creek/"
+    },
+    {
+      "school": "cotr",
+      "id": "creston",
+      "name": "Creston campus",
+      "address": "301 16 Avenue, Creston, BC",
+      "city": "Creston",
+      "check": "301 16th Avenue",
+      "source_url": "https://cotr.bc.ca/about-us/campuses/creston/"
+    },
+    {
+      "school": "cotr",
+      "id": "fernie",
+      "name": "Fernie campus",
+      "address": "342 3 Avenue, Fernie, BC",
+      "city": "Fernie",
+      "check": "342 3rd Avenue",
+      "source_url": "https://cotr.bc.ca/about-us/campuses/fernie/"
+    },
+    {
+      "school": "cotr",
+      "id": "golden",
+      "name": "Golden campus",
+      "address": "1305 9 Street South, Golden, BC",
+      "city": "Golden",
+      "check": "1305 South 9th Street",
+      "source_url": "https://cotr.bc.ca/about-us/campuses/golden/"
+    },
+    {
+      "school": "cotr",
+      "id": "invermere",
+      "name": "Invermere campus",
+      "address": "1535 14 Street, Invermere, BC",
+      "city": "Invermere",
+      "check": "1535 14th Street",
+      "source_url": "https://cotr.bc.ca/about-us/campuses/invermere/"
+    },
+    {
+      "school": "selkirk",
+      "id": "tenth-street",
+      "name": "Tenth Street campus (Nelson)",
+      "address": "820 10 Street, Nelson, BC",
+      "city": "Nelson",
+      "check": "820 Tenth Street",
+      "source_url": "https://selkirk.ca/why-selkirk/our-campuses/tenth-street-campus"
+    },
+    {
+      "school": "selkirk",
+      "id": "silver-king",
+      "name": "Silver King campus (Nelson)",
+      "address": "2001 Silver King Road, Nelson, BC",
+      "city": "Nelson",
+      "check": "2001 Silver King",
+      "source_url": "https://selkirk.ca/about-us/coming-campus/campus-locations/silver-king-campus-nelson"
+    },
+    {
+      "school": "selkirk",
+      "id": "trail",
+      "name": "Trail campus",
+      "address": "900 Helena Street, Trail, BC",
+      "city": "Trail",
+      "check": "900 Helena",
+      "source_url": "https://selkirk.ca/about-us/coming-campus/campus-locations/trail-campus"
+    },
+    {
+      "school": "selkirk",
+      "id": "grand-forks",
+      "name": "Grand Forks campus",
+      "address": "486 72 Avenue, Grand Forks, BC",
+      "city": "Grand Forks",
+      "check": "486 72",
+      "source_url": "https://selkirk.ca/why-selkirk/our-campuses/grand-forks-campus"
+    },
+    {
+      "school": "cnc",
+      "id": "burns-lake",
+      "name": "Burns Lake campus",
+      "address": "545 Highway 16 West, Burns Lake, BC",
+      "city": "Burns Lake",
+      "check": "545 Highway 16",
+      "source_url": "https://cnc.bc.ca/contact"
+    },
+    {
+      "school": "cnc",
+      "id": "mackenzie",
+      "name": "Mackenzie campus",
+      "address": "540 Mackenzie Boulevard, Mackenzie, BC",
+      "city": "Mackenzie",
+      "check": "540 Mackenzie",
+      "source_url": "https://cnc.bc.ca/contact"
+    },
+    {
+      "school": "cnc",
+      "id": "quesnel",
+      "name": "Quesnel campus",
+      "address": "100 Campus Way, Quesnel, BC",
+      "city": "Quesnel",
+      "check": "100 Campus Way",
+      "source_url": "https://cnc.bc.ca/contact"
+    },
+    {
+      "school": "cnc",
+      "id": "vanderhoof",
+      "name": "Vanderhoof campus",
+      "address": "195 1st Street East, Vanderhoof, BC",
+      "city": "Vanderhoof",
+      "check": "195 1st",
+      "source_url": "https://cnc.bc.ca/contact"
+    },
+    {
+      "school": "nlc",
+      "id": "fort-st-john",
+      "name": "Fort St. John campus",
+      "address": "9820 120 Avenue, Fort St. John, BC",
+      "city": "Fort St. John",
+      "check": "9820 120th Ave",
+      "source_url": "https://www.nlc.bc.ca/campus/fort-st-john/"
+    },
+    {
+      "school": "nlc",
+      "id": "fort-nelson",
+      "name": "Fort Nelson campus",
+      "address": "5201 Simpson Trail, Fort Nelson, BC",
+      "city": "Fort Nelson",
+      "check": "5201 Simpson Trail",
+      "source_url": "https://www.nlc.bc.ca/campus/fort-nelson/"
+    },
+    {
+      "school": "nlc",
+      "id": "chetwynd",
+      "name": "Chetwynd campus",
+      "address": "5132 50 Street, Chetwynd, BC",
+      "city": "Chetwynd",
+      "check": "5132 50 Street",
+      "source_url": "https://www.nlc.bc.ca/campus/chetwynd/"
+    },
+    {
+      "school": "nlc",
+      "id": "tumbler-ridge",
+      "name": "Tumbler Ridge campus",
+      "address": "235 Front Street, Tumbler Ridge, BC",
+      "city": "Tumbler Ridge",
+      "check": "235 Front Street",
+      "source_url": "https://www.nlc.bc.ca/campus/tumbler-ridge/"
+    },
+    {
+      "school": "jibc",
+      "id": "chilliwack",
+      "name": "JIBC Chilliwack",
+      "address": "5470 Dieppe Street, Chilliwack, BC",
+      "city": "Chilliwack",
+      "check": "5470 Dieppe",
+      "source_url": "https://www.jibc.ca/jibc-campuses"
+    },
+    {
+      "school": "jibc",
+      "id": "maple-ridge",
+      "name": "JIBC Maple Ridge",
+      "address": "13500 256 Street, Maple Ridge, BC",
+      "city": "Maple Ridge",
+      "check": "13500 256th",
+      "source_url": "https://www.jibc.ca/jibc-campuses"
+    },
+    {
+      "school": "jibc",
+      "id": "okanagan",
+      "name": "JIBC Okanagan",
+      "address": "7000 College Way, Vernon, BC",
+      "city": "Vernon",
+      "check": "7000 College Way",
+      "source_url": "https://www.jibc.ca/jibc-campuses"
+    },
+    {
+      "school": "jibc",
+      "id": "pitt-meadows",
+      "name": "JIBC Pitt Meadows",
+      "address": "18200 Ford Road, Pitt Meadows, BC",
+      "city": "Pitt Meadows",
+      "check": "18200 Ford",
+      "source_url": "https://www.jibc.ca/jibc-campuses"
+    },
+    {
+      "school": "jibc",
+      "id": "vancouver-island",
+      "name": "JIBC Vancouver Island",
+      "address": "798 Goldstream Avenue, Langford, BC",
+      "city": "Langford",
+      "check": "798 Goldstream",
+      "source_url": "https://www.jibc.ca/jibc-campuses"
+    },
+    {
+      "school": "unbc",
+      "id": "terrace",
+      "name": "Northwest campus (Terrace)",
+      "address": "3120 Highway 16 East, Thornhill, BC",
+      "city": "Thornhill",
+      "check": "3120 Highway 16 East",
+      "source_url": "https://www.unbc.ca/northwest"
+    },
+    {
+      "school": "unbc",
+      "id": "prince-rupert",
+      "name": "Prince Rupert campus",
+      "address": "353 5th Street, Prince Rupert, BC",
+      "city": "Prince Rupert",
+      "check": "353 5th",
+      "source_url": "https://www.unbc.ca/northwest"
+    },
+    {
+      "school": "unbc",
+      "id": "quesnel",
+      "name": "South-Central campus (Quesnel)",
+      "address": "100 Campus Way, Quesnel, BC",
+      "city": "Quesnel",
+      "check": "100 Campus Way",
+      "source_url": "https://www.unbc.ca/contact"
+    },
+    {
+      "school": "unbc",
+      "id": "fort-st-john",
+      "name": "Peace River-Liard campus (Fort St. John)",
+      "address": "9820 120 Avenue, Fort St. John, BC",
+      "city": "Fort St. John",
+      "check": "9820 120th Avenue",
+      "source_url": "https://www.unbc.ca/contact"
+    }
+  ],
+  "_left_out": [
+    "Capilano University's Sunshine Coast campus: no longer on CapU's Our Locations page (North Vancouver and Squamish only).",
+    "CNC Fort St. James: listed as a campus, but its page does not show the street address, so it could not be checked.",
+    "KPU Civic Plaza: no street address on KPU's maps page.",
+    "UFV Hope Centre, NLC Atlin and Dease Lake access centres, Selkirk's Victoria Street site, CapU Lonsdale and the Ts'zil Learning Centre: not called campuses by the school."
+  ]
+}
