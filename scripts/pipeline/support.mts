@@ -3,7 +3,7 @@
 // and the nearest hospital with published 24-hour sexual assault or forensic nurse examiner care, chosen by
 // straight-line distance on the same side of the Strait of Georgia, then routed by road with the public
 // OSRM server (one request per second). If OSRM fails, the straight line is saved and labelled as such.
-// Output: data/support-routes.geojson. Route data © OpenStreetMap contributors, routing by OSRM.
+// Output: data/support-routes.json. Route data © OpenStreetMap contributors, routing by OSRM.
 // Usage: npm run support-routes [-- --dry] [-- --only campus:kind,...]
 //   --dry: print the picks without calling OSRM. --only: recompute just those routes and keep the rest.
 import { readFileSync, writeFileSync } from "node:fs";
@@ -15,7 +15,7 @@ const ISLAND_CAMPUSES = new Set(["uvic", "camosun", "rru", "viu", "nic"]); // Va
 const DRY = process.argv.includes("--dry");
 const onlyArg = process.argv.indexOf("--only");
 const ONLY = onlyArg > -1 ? new Set(process.argv[onlyArg + 1].split(",")) : null;
-const OUT = new URL("../../data/support-routes.geojson", import.meta.url);
+const OUT = new URL("../../data/support-routes.json", import.meta.url);
 const previous = ONLY ? (JSON.parse(readFileSync(OUT, "utf8")).features as { properties: { campus: string; kind: string } }[]) : [];
 
 const km = (a: { lat: number; lng: number }, b: { lat: number; lng: number }) => {
@@ -79,5 +79,5 @@ if (!DRY) {
     generated_at: new Date().toISOString(),
     features,
   }) + "\n");
-  console.log(`\n${calls} OSRM requests; wrote data/support-routes.geojson (${features.length} routes)`);
+  console.log(`\n${calls} OSRM requests; wrote data/support-routes.json (${features.length} routes)`);
 }

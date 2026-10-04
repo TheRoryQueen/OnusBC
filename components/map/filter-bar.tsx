@@ -66,6 +66,10 @@ export function FilterBar({ reviewLine }: { reviewLine?: string }) {
             <span className="size-2.5 rounded-full bg-text-secondary/45" aria-hidden />
             Not graded yet
           </li>
+          <li className="flex items-center gap-1.5">
+            <span className="size-2.5 rounded-full bg-support" aria-hidden />
+            Sexual assault support
+          </li>
         </ul>
       )}
       {reviewLine && (

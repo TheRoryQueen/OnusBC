@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import quotes from "@/data/quotes.json";
 import sources from "@/data/sources.json";
 import { createClient } from "@/lib/supabase/server";
+import { SUPPORT } from "@/lib/support";
 
 export const metadata: Metadata = { title: "Sources · Onus" };
 
@@ -92,6 +93,13 @@ export default async function Sources() {
               {s.policy_url && !s.policy_found && s.policy_note ? <span> ({s.policy_note})</span> : null}
             </li>
           ))}
+        </Group>
+
+        <Group id="sexual-assault-support" title="Sexual assault support on the map" note="The purple dots and each school's Nearest support: hospitals with published 24-hour sexual assault or forensic nurse examiner care, and community sexual assault support programs, each from the organization's own site or its health authority. Programs were found through EVA BC's directory. No transition houses or shelters are listed, and services whose location is confidential are shown by phone only.">
+          {SUPPORT.map((e) => (
+            <li key={e.id}>{e.name}{e.address ? `, ${e.address}` : " (by phone only)"}. <a href={e.source_url} {...ext} className={linkCls}>Source</a></li>
+          ))}
+          <li>Directory: <a href="https://endingviolence.org/services-directory/" {...ext} className={linkCls}>EVA BC services directory</a>. Addresses placed with <a href="https://nominatim.openstreetmap.org/" {...ext} className={linkCls}>OpenStreetMap Nominatim</a>; road routes computed once with <a href="https://project-osrm.org/" {...ext} className={linkCls}>OSRM</a> on OpenStreetMap data.</li>
         </Group>
 
         <Group id="maps" title="Maps">

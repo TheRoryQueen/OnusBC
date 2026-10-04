@@ -43,7 +43,8 @@
     "test:multilingual": "tsx scripts/test-multilingual.mts",
     "test:grade": "tsx scripts/test-grade.mts",
     "test:ask-isolation": "tsx scripts/test-ask-isolation.mts",
-    "support-routes": "tsx scripts/pipeline/support.mts"
+    "support-routes": "tsx scripts/pipeline/support.mts",
+    "test:support": "tsx scripts/test-support.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

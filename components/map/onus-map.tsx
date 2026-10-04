@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { gapDisplay, isGraded } from "@/lib/grades";
 import type { InstitutionSummary } from "@/lib/types";
 import { useMapState } from "./map-state";
+import { MAPPED, nearestSupport } from "@/lib/support";
 
 const STYLE = {
   light: process.env.NEXT_PUBLIC_MAP_STYLE_LIGHT ?? "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -21,6 +22,15 @@ const CAMPUS_ZOOM = 13;
 
 const isDark = () => document.documentElement.classList.contains("dark");
 const token = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+// The selected school's route to its nearest sexual assault support (precomputed; no router is called).
+function supportRoute(slug: string | null) {
+  const near = slug ? nearestSupport(slug, null) : null;
+  return {
+    type: "FeatureCollection" as const,
+    features: near ? [{ type: "Feature" as const, geometry: near.route.geometry, properties: { straight: near.straight } }] : [],
+  };
+}
 
 type Hover = { school: InstitutionSummary; x: number; y: number } | null;
 
@@ -67,6 +77,18 @@ export function OnusMap() {
     const font = map.getStyle().layers.map((l) => (l as { layout?: Record<string, unknown> }).layout?.["text-font"]).find(Boolean) as string[] | undefined;
     const page = token("--onus-page");
     if (!map.getSource("schools")) map.addSource("schools", { type: "geojson", data: features() });
+    // Sexual assault support (official sources; see data/support-centres.json): small purple dots, and a purple
+    // line from the selected school to its nearest support, drawn under the school dots.
+    const support = token("--onus-support");
+    if (!map.getSource("support-points")) map.addSource("support-points", { type: "geojson", data: {
+      type: "FeatureCollection",
+      features: MAPPED.map((e) => ({ type: "Feature" as const, geometry: { type: "Point" as const, coordinates: [e.lng, e.lat] }, properties: { id: e.id } })),
+    } });
+    if (!map.getSource("support-route")) map.addSource("support-route", { type: "geojson", data: supportRoute(latest.current.selected) });
+    map.addLayer({ id: "support-route", type: "line", source: "support-route", layout: { "line-cap": "round", "line-join": "round" },
+      paint: { "line-color": support, "line-width": 3, "line-opacity": 0.9, "line-dasharray": ["case", ["get", "straight"], ["literal", [2, 2]], ["literal", [1, 0]]] } });
+    map.addLayer({ id: "support-dot", type: "circle", source: "support-points",
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.5, 10, 6], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
     map.addLayer({ id: "school-selected", type: "circle", source: "schools", filter: ["==", ["get", "slug"], latest.current.selected ?? ""],
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 13, 10, 18], "circle-color": "rgba(0,0,0,0)", "circle-stroke-width": 2.5, "circle-stroke-color": token("--onus-text") } });
     map.addLayer({ id: "school-pulse", type: "circle", source: "schools", filter: ["==", ["get", "slug"], ""],
@@ -170,6 +192,12 @@ export function OnusMap() {
     if (ready && src) src.setData(features());
   }, [schools, mode, typeFilter, ready, features]);
 
+  // The purple route for the selected school.
+  useEffect(() => {
+    const src = mapRef.current?.getSource("support-route") as GeoJSONSource | undefined;
+    if (ready && src) src.setData(supportRoute(selected));
+  }, [selected, ready]);
+
   // Selection ring. Opening a school flies to it at about campus zoom (about 1 s); closing the panel eases
   // back out two zoom levels. With reduced motion, both jump straight there.
   const prevSelected = useRef<string | null>(null);
@@ -181,9 +209,17 @@ export function OnusMap() {
     const desktop = window.matchMedia("(min-width: 768px)").matches;
     const s = schools.find((x) => x.slug === selected);
     if (s && selected !== prevSelected.current) {
-      const target = { center: [s.lng, s.lat] as [number, number], zoom: Math.max(map.getZoom(), CAMPUS_ZOOM), offset: (desktop ? [200, 0] : [0, -window.innerHeight * 0.22]) as [number, number] };
-      if (reduce) map.jumpTo(target);
-      else map.flyTo({ ...target, duration: 1000, essential: true });
+      // Within 40 km, show the whole route to the nearest support; farther away, fly to the campus.
+      const near = nearestSupport(s.slug, null);
+      if (near && near.distanceKm <= 40) {
+        const xs = near.route.geometry.coordinates.map((c) => c[0]), ys = near.route.geometry.coordinates.map((c) => c[1]);
+        const padding = desktop ? { top: 240, bottom: 100, left: 480, right: 120 } : { top: 300, bottom: window.innerHeight * 0.5, left: 40, right: 40 };
+        map.fitBounds([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], { padding, maxZoom: CAMPUS_ZOOM, duration: reduce ? 0 : 1000, essential: true });
+      } else {
+        const target = { center: [s.lng, s.lat] as [number, number], zoom: Math.max(map.getZoom(), CAMPUS_ZOOM), offset: (desktop ? [200, 0] : [0, -window.innerHeight * 0.22]) as [number, number] };
+        if (reduce) map.jumpTo(target);
+        else map.flyTo({ ...target, duration: 1000, essential: true });
+      }
     } else if (!selected && prevSelected.current) {
       const zoom = Math.max(map.getZoom() - 2, 1);
       if (reduce) map.jumpTo({ zoom });

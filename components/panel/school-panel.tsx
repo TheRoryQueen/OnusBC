@@ -16,6 +16,7 @@ import { telHref } from "@/lib/tel";
 import { reviewFor } from "@/lib/review-clock";
 import sources from "@/data/sources.json";
 import { ReviewClock } from "./review-clock";
+import { NearestSupport } from "./nearest-support";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
@@ -208,6 +209,8 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
           </ul>
         </section>
       )}
+
+      <NearestSupport slug={school.slug} city={school.city} from={{ lat: school.lat, lng: school.lng }} />
 
       <section className="mt-6" aria-labelledby="contact-heading">
         <h3 id="contact-heading" className="px-1 text-[13px] text-text-secondary">Who to contact</h3>
