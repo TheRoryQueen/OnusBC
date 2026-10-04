@@ -109,8 +109,8 @@ export function MapLegend({ hospitalRoutes = false, reviewLine }: { hospitalRout
               <Step label="Better"><Dot fill={gradeToken("C")} ring={RINGS.better_in_practice} /></Step>
             </Scale>
             <ul className="space-y-1.5">
-              <Key label="Sexual assault support"><svg width={12} height={12} aria-hidden><circle cx={6} cy={6} r={4.5} fill="var(--onus-support)" stroke="var(--onus-page)" strokeWidth={1.5} /></svg></Key>
               <Key label="Other campus (same grade)"><svg width={10} height={10} aria-hidden><circle cx={5} cy={5} r={3.25} fill={`var(${gradeToken("C")})`} stroke="var(--onus-text)" strokeWidth={1} /></svg></Key>
+              <Key label="Sexual assault support"><svg width={12} height={12} aria-hidden><circle cx={6} cy={6} r={4.5} fill="var(--onus-support)" stroke="var(--onus-page)" strokeWidth={1.5} /></svg></Key>
               <Key label="Hospital"><HospitalCross /></Key>
               <Key label="Route to sexual assault support"><SupportLine /></Key>
               {hospitalRoutes && <Key label="Route to the nearest hospital"><HospitalLine /></Key>}
