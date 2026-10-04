@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { ExternalLink, Phone, X } from "lucide-react";
 import { HOSPITALS_SOURCE, hospitalById } from "@/lib/hospitals";
 import { telHref } from "@/lib/tel";
 import { useMapState } from "./map-state";
-import type { Anchor } from "./onus-map";
 
 // Popup for a hospital marker: name, address, phone and the health authority's emergency department status
 // page, from the official DataBC hospitals dataset. No hours are claimed.
-export function HospitalSheet({ anchor }: { anchor?: Anchor }) {
+export function HospitalSheet({ anchor }: { anchor?: CSSProperties | null }) {
   const { hospitalId, setHospitalId } = useMapState();
   const h = hospitalById(hospitalId);
   const close = useRef<HTMLButtonElement>(null);

@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import { ExternalLink, Navigation, Phone, X } from "lucide-react";
 import { directionsUrl, kindLabel, supportById } from "@/lib/support";
 import { telHref } from "@/lib/tel";
 import { useMapState } from "./map-state";
-import type { Anchor } from "./onus-map";
 
 // Info sheet for one sexual assault support location (a purple dot, or the panel's Nearest support): name,
 // address, hours, who it serves, and call, website and Google Maps directions. Everything here is from the
 // organization's own site or its health authority (data/support-centres.json).
-export function SupportSheet({ anchor }: { anchor?: Anchor }) {
+export function SupportSheet({ anchor }: { anchor?: CSSProperties | null }) {
   const { supportId, setSupportId } = useMapState();
   const e = supportById(supportId);
   const close = useRef<HTMLButtonElement>(null);

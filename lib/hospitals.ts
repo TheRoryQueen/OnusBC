@@ -15,7 +15,15 @@ for (const h of ALL) {
   const k = base(h.name), cur = keep.get(k);
   if (!cur || (h.ed && !cur.ed) || (!!h.ed === !!cur.ed && h.name === k && cur.name !== k)) keep.set(k, h);
 }
-export const HOSPITALS = ALL.filter((h) => keep.get(base(h.name)) === h);
+const ONE_PER_NAME = ALL.filter((h) => keep.get(base(h.name)) === h);
+// Hospitals at the same street address (BC Women's and BC Children's at 4500 Oak Street) also share one cross:
+// the one with the emergency department keeps its name; otherwise the names are joined.
+const byAddress = new Map<string, (typeof ALL)[number][]>();
+for (const h of ONE_PER_NAME) byAddress.set(h.address.toLowerCase(), [...(byAddress.get(h.address.toLowerCase()) ?? []), h]);
+export const HOSPITALS = [...byAddress.values()].map((g) => {
+  const lead = g.find((h) => h.ed) ?? g[0];
+  return g.length > 1 && !lead.ed ? { ...lead, name: g.map((h) => h.name).join(" and ") } : lead;
+}).sort((a, b) => Number(a.id.slice(1)) - Number(b.id.slice(1)));
 export const HOSPITALS_SOURCE = { url: D.source, updated: D.dataset_updated };
 export const HOSPITAL_MIN_ZOOM = 7;
 

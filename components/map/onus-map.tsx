@@ -99,9 +99,9 @@ function HoverCard({ hover, panelOpen }: { hover: NonNullable<Hover>; panelOpen:
 
 // Where a hospital or support info box opens on wide screens: next to its dot, above it when the dot is in the
 // lower half of the map and below it otherwise, kept inside the map. Phones keep the bottom sheet.
-export type Anchor = CSSProperties | null;
+export type Anchor = { for: string; style: CSSProperties | null } | null;
 const BOX_W = 380;
-function anchorFor(map: MLMap, p: { lat: number; lng: number } | null, minX: number): Anchor {
+function anchorFor(map: MLMap, p: { lat: number; lng: number } | null, minX: number): CSSProperties | null {
   if (!p || !window.matchMedia("(min-width: 768px)").matches) return null;
   const { x, y } = map.project([p.lng, p.lat]);
   const W = map.getContainer().clientWidth, H = map.getContainer().clientHeight;
@@ -396,10 +396,11 @@ export function OnusMap() {
     if (!map || !ready) return;
     const h = hospitalById(hospitalId), e = supportById(supportId);
     const p = h ?? (e && e.lat != null && e.lng != null ? { lat: e.lat, lng: e.lng } : null);
-    const update = () => setAnchor(anchorFor(map, p, selected ? 432 : 12)); // clear of the school panel
-    const id = requestAnimationFrame(update);
+    const id = `${hospitalId}|${supportId}`;
+    const update = () => setAnchor({ for: id, style: anchorFor(map, p, selected ? 432 : 12) }); // clear of the school panel
+    const raf = requestAnimationFrame(update);
     map.on("move", update);
-    return () => { cancelAnimationFrame(id); map.off("move", update); };
+    return () => { cancelAnimationFrame(raf); map.off("move", update); };
   }, [hospitalId, supportId, ready, selected]);
 
   // Score changes (realtime).
@@ -512,8 +513,8 @@ export function OnusMap() {
         <div ref={el} className="h-full w-full" />
       </div>
       {!ready && !failed && <div className="pointer-events-none absolute inset-0 bg-map-land" aria-hidden />}
-      <SupportSheet anchor={anchor} />
-      <HospitalSheet anchor={anchor} />
+      {/* Each box waits for its own position, so it never flashes at the default spot first. */}
+      {anchor?.for === `${hospitalId}|${supportId}` && <><SupportSheet anchor={anchor.style} /><HospitalSheet anchor={anchor.style} /></>}
       <DotsPreview schools={schools} hidden={dotsDrawn} />
       {failed && (
         <div className="absolute inset-0 grid place-items-center bg-page p-6 text-center">
