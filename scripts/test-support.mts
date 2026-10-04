@@ -127,6 +127,9 @@ try {
     const t = await panelText(slug);
     check(`${slug}: the local phone line (${line}) shows right after the emergency department`, t.indexOf(line) > -1 && t.indexOf(line) < t.indexOf("Prince George Sexual Assault Centre"));
   }
+  const viu = await panelText("viu");
+  check("viu: Haven's 24/7 crisis line and Tillicum Lelum's victim services are listed by phone", /Haven Society, Community Victim Services/.test(viu) && /1-888-756-0616/.test(viu) && /Tillicum Lelum/.test(viu));
+  check("selkirk: CDCSS victim services is listed by phone", /Castlegar and District Community Services Society/.test(await panelText("selkirk")));
   const nic = await panelText("nic");
   check("nic: Comox Valley Family Services is listed nearby", /Comox Valley Family Services/.test(nic));
   // Free counselling: Here2Talk and the school's own counselling page in every panel.

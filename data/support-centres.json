@@ -615,6 +615,51 @@
       "service_area": [
         "Dawson Creek"
       ]
+    },
+    {
+      "id": "haven-cvs",
+      "type": "phone_only",
+      "name": "Haven Society, Community Victim Services",
+      "address": null,
+      "phone": "1-888-756-0616",
+      "hours": "24/7 crisis line",
+      "serves": "Survivors of intimate partner violence, sexual violence and other power-based crimes, all ages and genders; no police report needed",
+      "island": true,
+      "source_url": "https://www.havensociety.com/cvs",
+      "label": "Community victim services, by phone",
+      "service_area": [
+        "Nanaimo"
+      ]
+    },
+    {
+      "id": "tillicum-cbvs",
+      "type": "phone_only",
+      "name": "Tillicum Lelum Aboriginal Friendship Centre, Community-Based Victim Services",
+      "address": null,
+      "phone": "250-753-6000",
+      "hours": null,
+      "serves": "Community-Based Victim Services (EVA BC directory)",
+      "island": true,
+      "source_url": "https://endingviolence.org/services/tillicum-lelum-aboriginal-friendship-centre/",
+      "label": "Community victim services, by phone",
+      "service_area": [
+        "Nanaimo"
+      ]
+    },
+    {
+      "id": "cdcss-cbvs",
+      "type": "phone_only",
+      "name": "Castlegar and District Community Services Society, Community-Based Victim Services",
+      "address": null,
+      "phone": "250-365-2104",
+      "hours": null,
+      "serves": "Community-Based Victim Services (EVA BC directory)",
+      "island": false,
+      "source_url": "https://endingviolence.org/services/castlegar-and-district-community-services-society/",
+      "label": "Community victim services, by phone",
+      "service_area": [
+        "Castlegar"
+      ]
     }
   ],
   "ed_note": {
