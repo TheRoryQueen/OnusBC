@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import quotes from "@/data/quotes.json";
 import sources from "@/data/sources.json";
 import { createClient } from "@/lib/supabase/server";
@@ -43,6 +44,9 @@ export default async function Sources() {
         <h1 className="font-serif text-[3rem] leading-[1.02] text-text sm:text-[3.75rem]">Sources</h1>
         <p className="mb-8 mt-4 max-w-[56ch] text-[17px] leading-relaxed text-text-secondary">
           Every number, quote and policy on Onus links to where it came from. If a number can&apos;t be sourced, it isn&apos;t shown.
+        </p>
+        <p className="mb-8 max-w-[56ch] text-[15px] leading-relaxed text-text-secondary">
+          Download the grades, quotes and review dates as <Link href="/data" className="text-brand underline decoration-current/35 underline-offset-2 hover:decoration-current">open data</Link>. Free to use with credit to Onus.
         </p>
 
         <Group id="national" title="National numbers" note="The homepage's numbers and chart, plus related figures from the same reports.">

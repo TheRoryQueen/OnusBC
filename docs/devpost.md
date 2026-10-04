@@ -80,7 +80,7 @@ More in every school's panel:
 - Goal 4, Quality Education: students can see whether their school's policy protects them before they need it, in their own language.
 - Goal 5, Gender Equality: sexual violence falls hardest on women and gender-diverse students, and Onus makes each school's response comparable and public.
 - Goal 16, Peace, Justice and Strong Institutions: the review clock shows when each school's published policy is past BC's three-year review, holding institutions to their own law.
-- Goal 17, Partnerships for the Goals: every number links to its public source, so students, researchers and advocates can check it and build on it.
+- Goal 17, Partnerships for the Goals: every number links to its public source, and the open data page lets students, researchers and advocates download every grade, quote and review date to build on, free with credit.
 
 **WiCS Cosmos.** Onus maps something usually kept out of sight, with the care it needs: no free-text fields, no names, ratings with no link to an account, and help one tap away on every screen.
 

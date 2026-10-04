@@ -55,6 +55,7 @@ const PAGES: { name: string; path: string; auth?: boolean; then?: Step }[] = [
   { name: "privacy", path: "/privacy" },
   { name: "signin", path: "/signin" },
   { name: "not-found", path: "/no-such-page" },
+  { name: "data", path: "/data" },
   { name: "rate", path: `/rate/${SLUG}`, auth: true },
   { name: "account", path: "/account", auth: true },
   { name: "grade", path: "/grade", auth: true },
