@@ -18,7 +18,7 @@ import sources from "@/data/sources.json";
 import { ReviewClock } from "./review-clock";
 import { QuoteButton, useDocViewer } from "@/components/documents/viewer-context";
 import { NearestSupport } from "./nearest-support";
-import { ReportCardListen } from "./report-card-listen";
+import { ListenAction, ListenStrip, useReportCard } from "./report-card-listen";
 import { FreeCounselling } from "./free-counselling";
 import { cn } from "@/lib/utils";
 import { campusKey, campusesOf, type Campus } from "@/lib/campuses";
@@ -134,6 +134,7 @@ function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDeta
   const { openDocument } = useDocViewer();
   const gap = gapDisplay(live?.gap_label ?? null, school.policy_found);
   const phone = school.contact_phone ? telHref(school.contact_phone) : null; // keeps the extension
+  const listen = useReportCard(school.slug);
   const docs = [
     school.policy_url && { label: "Policy", url: school.policy_url },
     school.procedures_url && { label: "Procedures", url: school.procedures_url },
@@ -169,10 +170,11 @@ function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDeta
               : (school.support_url ?? school.website)!}
             icon={FileQuestion} label="Request policy" external />
         )}
-        {phone && <Action href={phone} icon={Phone} label="Call" external />}
         {school.website && <Action href={school.website} icon={Globe} label="Website" external />}
         <Action href={`/rate/${school.slug}`} icon={PenLine} label="Review" />
+        <ListenAction {...listen} />
       </div>
+      <ListenStrip school={school} state={listen.state} />
 
       <div className="mt-5 grid grid-cols-3 divide-x divide-hairline border-y border-hairline py-3 text-center">
         <div className="px-1">
@@ -202,7 +204,6 @@ function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDeta
         {live?.practice_everyone_only ? <><br />Fewer than 5 people went through the process, so In practice uses the questions everyone answered.</> : null}
       </p>
 
-      <ReportCardListen key={school.slug} school={school} />
 
       {school.about && <p className="mt-5 text-[15px] leading-relaxed text-text">{school.about}</p>}
 

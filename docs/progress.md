@@ -7,7 +7,7 @@ with this file updated. Item 7 is the one called "item 6" in the request (the st
 | --- | --- | --- | --- |
 | 1 | Haven, Tillicum Lelum and CDCSS as phone-only lines; handoff | Done | 44e0403 |
 | 2 | Map: hover cards, filter, search, legend, hospital routes, campuses | Done | e02cdca, 674057b, see below |
-| 3 | School panel: Call, Listen, Read the summary | Not started | |
+| 3 | School panel: Call, Listen, Read the summary | Done | see git log (item 3) |
 | 4 | Nav: same destinations, footer links, phone menu bug, tabs | Not started | |
 | 5 | Rating flow and account | Not started | |
 | 6 | Design pass: Get support and How it works | Not started | |
@@ -87,3 +87,19 @@ Part 3 done (commit: "Campuses: every multi-campus school's main campuses"):
 - Tests: test:support 68, test:map 45, test:demo 18, accessibility 0 findings. Screenshots of /map and
   /map/sfu/surrey in both themes at 390 and 1440 checked; design critique run (one fix: a legend label
   that wrapped).
+
+## 3. School panel
+
+Done (commit: "Panel: Listen in the action row, no Call button").
+- Removed the Call button from the action row. The row is now Ask, Website, Review, Listen (Request
+  policy stays for a school with no public policy). The office phone is still listed under Who to contact,
+  where it is the sexual violence office's own number.
+- "Listen to this report card" is now the Listen button in the row (Stop while playing, Preparing while
+  loading; aria-pressed).
+- Decision on "Read the summary": it is needed for accessibility (the audio needs a text alternative,
+  WCAG 1.2.1), so it stays as a proper secondary option. After Listen is tapped, a strip under the row says
+  what is happening and has a "Show the text" button that opens the same summary.
+- Tests: test:report-card 208 (Listen is in the row, no Call or Read the summary, transcript one tap away
+  after Listen; the audio request is answered in the test so no ElevenLabs call is made), test:fixes 22
+  (the extension check now uses the contact phone; the caption check now checks the legend). Screenshots of
+  /map/uvic in both themes at 390 and 1440, plus the strip open, checked; design critique run, no changes.

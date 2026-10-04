@@ -1,5 +1,5 @@
 // Regression checks for the pre-launch fixes: sign-in can't redirect off the site; a signed-in person with a
-// missing role is asked for it instead of looping; Victoria's schools clear the map caption and crowded dots
+// missing role is asked for it instead of looping; Victoria's schools clear the map legend and crowded dots
 // zoom in when tapped; the map shows crisis numbers; support search knows short names; tap-to-call keeps
 // extensions. Uses a temporary zz-test school and .test domains (no email sent); removes everything after.
 // Needs the dev server. Usage: npm run test:fixes
@@ -83,19 +83,20 @@ try {
     await page.context().close();
   }
 
-  // 3. Map on a laptop: Victoria's schools clear the caption; crisis numbers are on the map; a crowded spot zooms in.
+  // 3. Map on a laptop: Victoria's schools clear the legend; crisis numbers are on the map; a crowded spot zooms in.
   {
     const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
     await page.goto(`${BASE}/map`, { waitUntil: "load" });
     await page.waitForFunction(() => { const m = (window as unknown as { __onusMap?: { isSourceLoaded: (s: string) => boolean; getLayer: (l: string) => unknown } }).__onusMap; return !!m && !!m.getLayer("school-dot") && m.isSourceLoaded("schools"); }, null, { timeout: 45000 });
-    const caption = await page.getByText("This map grades how schools handle sexual violence.").boundingBox();
+    // The caption is the last row of the legend, docked bottom-left; no Victoria school may sit under it.
+    const caption = await page.getByRole("group", { name: "Legend" }).locator("xpath=..").boundingBox();
     const dots = await page.evaluate(() => {
       type F = { properties: { slug: string }; geometry: { coordinates: [number, number] } };
       const m = (window as unknown as { __onusMap: { project: (c: [number, number]) => { x: number; y: number }; getCanvas: () => HTMLCanvasElement; getSource: (s: string) => { serialize: () => { data: { features: F[] } } } } }).__onusMap;
       const r = m.getCanvas().getBoundingClientRect();
-      return m.getSource("schools").serialize().data.features.filter((f) => ["uvic", "camosun", "rru"].includes(f.properties.slug)).map((f) => ({ slug: f.properties.slug, y: r.top + m.project(f.geometry.coordinates).y }));
+      return m.getSource("schools").serialize().data.features.filter((f) => ["uvic", "camosun", "rru"].includes(f.properties.slug)).map((f) => ({ slug: f.properties.slug, x: r.left + m.project(f.geometry.coordinates).x, y: r.top + m.project(f.geometry.coordinates).y }));
     });
-    check("Victoria's schools sit above the caption at the start", !!caption && dots.length === 3 && dots.every((d) => d.y < caption.y - 6), dots.map((d) => `${d.slug} ${Math.round(d.y)}`).join(", ") + ` | caption top ${Math.round(caption?.y ?? 0)}`);
+    check("Victoria's schools are clear of the legend and caption at the start", !!caption && dots.length === 3 && dots.every((d) => d.x > caption.x + caption.width + 6 || d.y < caption.y - 6), dots.map((d) => `${d.slug} ${Math.round(d.x)},${Math.round(d.y)}`).join(", ") + ` | legend right ${Math.round((caption?.x ?? 0) + (caption?.width ?? 0))}`);
     check("the map shows the crisis line", await page.getByRole("link", { name: "Call 911." }).first().isVisible());
     const vic = await page.evaluate(() => {
       type F = { properties: { slug: string }; geometry: { coordinates: [number, number] } };
@@ -118,7 +119,7 @@ try {
     await page.context().close();
   }
 
-  // 5. Support search knows short names; the panel's Call keeps an extension.
+  // 5. Support search knows short names; the panel's contact phone keeps an extension.
   {
     const page = await (await browser.newContext()).newPage();
     await page.goto(`${BASE}/support`, { waitUntil: "load" });
@@ -129,7 +130,7 @@ try {
     }
     await page.goto(`${BASE}/map/rru`, { waitUntil: "load" });
     await page.getByRole("complementary").waitFor();
-    check("Royal Roads' Call button dials the extension", (await page.getByRole("complementary").getByRole("link", { name: "Call", exact: true }).getAttribute("href")) === "tel:2503912600,8514");
+    check("Royal Roads' contact phone dials the extension", (await page.getByRole("complementary").locator('a[href="tel:2503912600,8514"]').count()) >= 1);
     await page.context().close();
   }
 } catch (e) {

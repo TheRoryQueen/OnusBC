@@ -46,10 +46,14 @@ try {
   page.on("request", (req) => { if (req.url().includes("/api/report-card/")) audioRequests++; });
   await page.goto(`${BASE}/map/uvic`, { waitUntil: "load" });
   const panel = page.getByRole("complementary");
-  check("the panel has the Listen button", await panel.getByRole("button", { name: "Listen to this report card" }).isVisible());
+  check("the panel has the Listen button in its action row", await panel.getByRole("button", { name: "Listen to this report card" }).isVisible());
+  check("the panel has no Call button and no Read the summary link", (await panel.getByRole("link", { name: "Call", exact: true }).count()) === 0 && (await panel.getByText("Read the summary").count()) === 0);
   check("no audio is fetched until Listen is tapped", audioRequests === 0);
-  await panel.getByText("Read the summary").click();
-  check("the transcript is readable", await panel.getByText(/University of Victoria\. On paper, its sexual violence policy gets a B/).isVisible());
+  // The audio is answered here (no ElevenLabs call in tests); the strip then offers the transcript.
+  await page.route("**/api/report-card/**", (r) => r.fulfill({ status: 503, body: "" }));
+  await panel.getByRole("button", { name: "Listen to this report card" }).click();
+  await panel.getByRole("button", { name: "Show the text" }).click();
+  check("after Listen, the transcript is one tap away", await panel.getByText(/University of Victoria\. On paper, its sexual violence policy gets a B/).isVisible());
 } catch (e) {
   check("UI checks ran", false, (e as Error).message.split("\n")[0]);
 } finally { await browser.close(); }
