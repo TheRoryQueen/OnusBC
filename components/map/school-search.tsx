@@ -50,6 +50,7 @@ export function SchoolSearch() {
           aria-activedescendant={showList && results[active] ? `${id}-${active}` : undefined}
           autoComplete="off"
           spellCheck={false}
+          style={{ outline: "none" }} // the search bar draws its own focus ring
           placeholder="Find a school, like UBC or BCIT"
           value={query}
           onChange={(e) => { setQuery(e.target.value); setActive(0); setOpen(true); }}

@@ -5,7 +5,17 @@ import routes from "@/data/hospital-routes.json";
 // Name, address, phone and the health authority's emergency department status page; no hours claimed.
 export type Hospital = { name: string; address: string; phone: string | null; lat: number; lng: number; website: string | null; health_authority: string; status_url: string; ed?: boolean; ed_source?: string };
 const D = data as unknown as { hospitals: Hospital[]; source: string; dataset_updated: string };
-export const HOSPITALS = D.hospitals.map((h, i) => ({ ...h, id: `h${i}` }));
+// Buildings of one hospital ("St. Paul's Hospital - Burrard Building", "VGH - Willow Pavilion") show as one cross:
+// the one with the emergency department, else the one named just for the hospital, else the first. Ids keep
+// their place in the source file.
+const base = (name: string) => name.split(" - ")[0].trim();
+const ALL = D.hospitals.map((h, i) => ({ ...h, id: `h${i}` }));
+const keep = new Map<string, (typeof ALL)[number]>();
+for (const h of ALL) {
+  const k = base(h.name), cur = keep.get(k);
+  if (!cur || (h.ed && !cur.ed) || (!!h.ed === !!cur.ed && h.name === k && cur.name !== k)) keep.set(k, h);
+}
+export const HOSPITALS = ALL.filter((h) => keep.get(base(h.name)) === h);
 export const HOSPITALS_SOURCE = { url: D.source, updated: D.dataset_updated };
 export const HOSPITAL_MIN_ZOOM = 7;
 

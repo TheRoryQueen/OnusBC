@@ -5,8 +5,6 @@ import type { Tab } from "@/components/ui/vercel-tabs";
 export const NAV_BREAKPOINT = 768; // the tabs show from md; below it, the menu button
 export const mainNav = (signedIn: boolean): Tab[] => [
   { href: "/map", label: "Map" },
-  // /rate sends a signed-out visitor to sign in, and a signed-in one to their own school's review.
-  { href: "/rate", label: "Rate your school" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/support", label: "Get support", tone: "support" },
   signedIn ? { href: "/account", label: "Account" } : { href: "/signin", label: "Sign in" },

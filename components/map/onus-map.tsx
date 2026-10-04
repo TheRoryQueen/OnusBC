@@ -5,18 +5,18 @@ import "maplibre-gl/dist/maplibre-gl.css";
 // DotsPreview shows the dots from the server-rendered HTML in the meantime.
 import type { ExpressionSpecification, GeoJSONSource, MapLayerMouseEvent, Map as MLMap } from "maplibre-gl";
 import { DotsPreview, INITIAL_BOUNDS, initialPadding } from "./dots-preview";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import type { InstitutionSummary } from "@/lib/types";
 import { useMapState } from "./map-state";
 import { SupportSheet } from "./support-sheet";
-import { MAPPED, nearestSupport } from "@/lib/support";
+import { MAPPED, nearestSupport, supportById } from "@/lib/support";
 import { dotStyle, gradeToken } from "@/lib/map-style";
 
 // Below this zoom, overlapping schools merge; other campuses show from the zoom above it.
 const CLUSTER_MAX_ZOOM = 8;
-import { HOSPITALS, HOSPITAL_MIN_ZOOM, nearestHospital, nearestHospitals } from "@/lib/hospitals";
+import { HOSPITALS, HOSPITAL_MIN_ZOOM, hospitalById, nearestHospital, nearestHospitals } from "@/lib/hospitals";
 import { HospitalSheet } from "./hospital-sheet";
 import { CAMPUSES, campusById, campusKey, parseMapPath, type Campus } from "@/lib/campuses";
 
@@ -41,8 +41,11 @@ function supportRoute(key: string | null) {
 }
 
 // The selected school's route to its nearest hospital emergency department (precomputed, like the support route).
+// Not drawn when the purple line already ends at a hospital that is about as close (within 2 km by road): two
+// lines to two hospitals a block apart in distance would only confuse.
 function hospitalRoute(key: string | null) {
-  const near = nearestHospital(key);
+  const sup = key ? nearestSupport(key, null) : null, ed = nearestHospital(key);
+  const near = sup?.entry.type === "hospital" && ed && sup.distanceKm <= ed.distanceKm + 2 ? null : ed;
   return {
     type: "FeatureCollection" as const,
     features: near ? [{ type: "Feature" as const, geometry: near.route.geometry, properties: {} }] : [],
@@ -94,8 +97,21 @@ function HoverCard({ hover, panelOpen }: { hover: NonNullable<Hover>; panelOpen:
   );
 }
 
+// Where a hospital or support info box opens on wide screens: next to its dot, above it when the dot is in the
+// lower half of the map and below it otherwise, kept inside the map. Phones keep the bottom sheet.
+export type Anchor = CSSProperties | null;
+const BOX_W = 380;
+function anchorFor(map: MLMap, p: { lat: number; lng: number } | null, minX: number): Anchor {
+  if (!p || !window.matchMedia("(min-width: 768px)").matches) return null;
+  const { x, y } = map.project([p.lng, p.lat]);
+  const W = map.getContainer().clientWidth, H = map.getContainer().clientHeight;
+  const left = Math.max(minX, Math.min(x - BOX_W / 2, W - BOX_W - 12));
+  return y > H / 2 ? { left, right: "auto", top: "auto", bottom: H - y + 16 } : { left, right: "auto", top: y + 16, bottom: "auto" };
+}
+
 export function OnusMap() {
-  const { schools, pulse, setSupportId, setHospitalId } = useMapState();
+  const { schools, pulse, setSupportId, setHospitalId, supportId, hospitalId } = useMapState();
+  const [anchor, setAnchor] = useState<Anchor>(null);
   const router = useRouter();
   const pathname = usePathname();
   // The open school, and which of its campuses (none: the main campus). Routes and support are per campus.
@@ -374,6 +390,18 @@ export function OnusMap() {
     return () => { cancelled = true; cleanup(); };
   }, [addLayers, router, setSupportId, setHospitalId]);
 
+  // Keep an open hospital or support box next to its dot as the map moves.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !ready) return;
+    const h = hospitalById(hospitalId), e = supportById(supportId);
+    const p = h ?? (e && e.lat != null && e.lng != null ? { lat: e.lat, lng: e.lng } : null);
+    const update = () => setAnchor(anchorFor(map, p, selected ? 432 : 12)); // clear of the school panel
+    const id = requestAnimationFrame(update);
+    map.on("move", update);
+    return () => { cancelAnimationFrame(id); map.off("move", update); };
+  }, [hospitalId, supportId, ready, selected]);
+
   // Score changes (realtime).
   useEffect(() => {
     const src = mapRef.current?.getSource("schools") as GeoJSONSource | undefined;
@@ -484,8 +512,8 @@ export function OnusMap() {
         <div ref={el} className="h-full w-full" />
       </div>
       {!ready && !failed && <div className="pointer-events-none absolute inset-0 bg-map-land" aria-hidden />}
-      <SupportSheet />
-      <HospitalSheet />
+      <SupportSheet anchor={anchor} />
+      <HospitalSheet anchor={anchor} />
       <DotsPreview schools={schools} hidden={dotsDrawn} />
       {failed && (
         <div className="absolute inset-0 grid place-items-center bg-page p-6 text-center">

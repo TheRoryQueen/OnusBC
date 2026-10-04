@@ -25,6 +25,9 @@ function Dot({ fill, hollow, ring }: { fill?: string; hollow?: boolean; ring?: {
   );
 }
 
+// A gap ring on its own: an outline only, all four the same size, coloured like the grades.
+const Ring = ({ token }: { token: string }) => <svg width={22} height={22} aria-hidden className="shrink-0"><circle cx={11} cy={11} r={8.5} fill="none" stroke={`var(${token})`} strokeWidth={3} /></svg>;
+
 // A scale: glyphs in a row, each labelled underneath (grades, rings).
 function Scale({ title, children, note }: { title: string; children: React.ReactNode; note?: string }) {
   return (
@@ -67,7 +70,7 @@ export const HospitalCross = () => (
   </svg>
 );
 
-export function MapLegend({ hospitalRoutes = false, reviewLine }: { hospitalRoutes?: boolean; reviewLine?: string }) {
+export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean }) {
   // A drawer: the Legend header and the crisis line always show; the legend itself slides up under the header
   // when opened and back down when folded. Open to start on wide screens, folded on phones.
   const [open, setOpen] = useState(false);
@@ -97,16 +100,16 @@ export function MapLegend({ hospitalRoutes = false, reviewLine }: { hospitalRout
       <div className={cn("grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none", open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
         <div id="map-legend" role="group" aria-label="Legend" inert={!open} className="min-h-0 overflow-hidden">
           <div className="space-y-4 pb-3 pt-1">
-            <Scale title="On paper grade">
+            <Scale title="Policy document grade">
               {GRADES.map((g) => <Step key={g} label={g}><Dot fill={gradeToken(g)} /></Step>)}
               <Step label="None"><Dot hollow /></Step>
               <li className="sr-only">From A (green) to F (red). None: no public policy.</li>
             </Scale>
-            <Scale title="Students compared with the policy" note="No ring: not enough real ratings yet.">
-              <Step label="Close"><Dot fill={gradeToken("C")} ring={RINGS.aligned} /></Step>
-              <Step label="Worse"><Dot fill={gradeToken("C")} ring={RINGS.some_gap} /></Step>
-              <Step label="Much worse"><Dot fill={gradeToken("C")} ring={RINGS.big_gap} /></Step>
-              <Step label="Better"><Dot fill={gradeToken("C")} ring={RINGS.better_in_practice} /></Step>
+            <Scale title="Gap level: students compared with the policy" note="No ring: not enough real ratings yet.">
+              <Step label="Better"><Ring token={RINGS.better_in_practice.token} /></Step>
+              <Step label="Close"><Ring token={RINGS.aligned.token} /></Step>
+              <Step label="Worse"><Ring token={RINGS.some_gap.token} /></Step>
+              <Step label="Much worse"><Ring token={RINGS.big_gap.token} /></Step>
             </Scale>
             <ul className="space-y-1.5">
               <Key label="Other campus (same grade)"><svg width={10} height={10} aria-hidden><circle cx={5} cy={5} r={3.25} fill={`var(${gradeToken("C")})`} stroke="var(--onus-text)" strokeWidth={1} /></svg></Key>
@@ -118,13 +121,8 @@ export function MapLegend({ hospitalRoutes = false, reviewLine }: { hospitalRout
           </div>
         </div>
       </div>
-      {reviewLine && (
-        <p className="border-t border-hairline py-2 text-[12px] leading-snug text-text-secondary">
-          {reviewLine} <a href="/how-it-works#review-clock" className="hit font-medium text-brand underline decoration-current/35 underline-offset-2 hover:decoration-current">How this is counted</a>
-        </p>
-      )}
       <p className="border-t border-hairline pt-2 text-[12px] leading-snug text-text-secondary">
-        <span className="hidden md:inline">This map grades how schools handle sexual violence. </span>In danger? <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
+        <span className="text-text"><span className="hidden md:inline">This map grades how schools handle sexual violence. </span>In danger?</span> <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
       </p>
     </div>
   );

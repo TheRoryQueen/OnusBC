@@ -14,10 +14,11 @@ export const gradeToken = (letter: string) => `--onus-grade-${letter.toLowerCase
 
 export type Ring = { width: number; token: string; detached: boolean; word: string };
 export const RINGS: Record<"aligned" | "some_gap" | "big_gap" | "better_in_practice", Ring> = {
-  aligned: { width: 1.5, token: "--onus-text-secondary", detached: false, word: "Close to the policy" },
-  some_gap: { width: 3, token: "--onus-text", detached: false, word: "Worse than the policy" },
-  big_gap: { width: 5, token: "--onus-text", detached: false, word: "Much worse than the policy" },
-  better_in_practice: { width: 3, token: "--onus-info", detached: true, word: "Better than the policy" },
+  // One width for every gap level; the colour says how big it is, in the grade colours (A green to F red).
+  better_in_practice: { width: 3, token: "--onus-grade-a", detached: false, word: "Better than the policy" },
+  aligned: { width: 3, token: "--onus-grade-b", detached: false, word: "Close to the policy" },
+  some_gap: { width: 3, token: "--onus-grade-d", detached: false, word: "Worse than the policy" },
+  big_gap: { width: 3, token: "--onus-grade-f", detached: false, word: "Much worse than the policy" },
 };
 
 export const realRatings = (s: InstitutionSummary) => (s.scores?.n_onus ?? 0) + (s.scores?.n_public ?? 0);

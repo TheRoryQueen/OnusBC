@@ -108,8 +108,13 @@ async function focusRings(page: Page, max = 40) {
     const info = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement | null;
       if (!el || el === document.body) return null;
-      const st = getComputedStyle(el);
-      const ring = (st.outlineStyle !== "none" && parseFloat(st.outlineWidth) > 0) || /rgb|#/.test(st.boxShadow) && st.boxShadow !== "none";
+      // A control may draw its ring on its own container (the map search bar), up to two levels up.
+      let ring = false;
+      for (const e of [el, el.parentElement, el.parentElement?.parentElement]) {
+        if (!e) continue;
+        const st = getComputedStyle(e);
+        if ((st.outlineStyle !== "none" && parseFloat(st.outlineWidth) > 0) || /rgb|#/.test(st.boxShadow) && st.boxShadow !== "none") ring = true;
+      }
       const name = (el.getAttribute("aria-label") || el.textContent || el.tagName).trim().replace(/\s+/g, " ").slice(0, 40);
       return { ring, name };
     });

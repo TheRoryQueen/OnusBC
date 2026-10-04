@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { reviewStat } from "@/lib/review-clock";
 import { preconnect } from "react-dom";
 import { FilterBar } from "@/components/map/filter-bar";
 import { MapLegend } from "@/components/map/map-legend";
@@ -17,8 +16,6 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
   preconnect("https://tiles.basemaps.cartocdn.com", { crossOrigin: "anonymous" });
   let schools: Awaited<ReturnType<typeof listInstitutions>> = [];
   let failed = false;
-  // Computed from the dates printed in each published policy (data/review-dates.json), never hardcoded.
-  const stat = reviewStat();
   try {
     schools = await listInstitutions();
   } catch {
@@ -36,8 +33,8 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
             </p>
           )}
         </div>
-        {/* The legend, docked bottom right, with the review clock line and the crisis numbers as its last rows (PRD: on every page). */}
-        <MapLegend hospitalRoutes reviewLine={`${stat.old} of ${stat.total} published policies are more than three years old.`} />
+        {/* The legend, docked bottom right, with the crisis numbers as its last row (PRD: on every page). */}
+        <MapLegend hospitalRoutes />
         {children}
       </main>
     </MapStateProvider>
