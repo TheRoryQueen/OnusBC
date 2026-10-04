@@ -1,0 +1,40 @@
+{
+  "_about": "Each school's own counselling page (from the school's website), shown in its panel with Here2Talk. Checked 2026-10-03: every URL loaded and is the school's counselling or student support page.",
+  "checked": "2026-10-03",
+  "here2talk": {
+    "name": "Here2Talk",
+    "phone": "1-877-857-3397",
+    "url": "https://here2talk.ca/home",
+    "about": "Free, confidential counselling and community referral, 24/7, for every student registered at a BC post-secondary school.",
+    "source_url": "https://www2.gov.bc.ca/gov/content/education-training/post-secondary-education/institution-resources-administration/emergency-support/mental-health-supports",
+    "source_note": "Province of BC, Mental health supports (last updated July 28, 2026); phone from here2talk.ca."
+  },
+  "schools": {
+    "bcit": "https://www.bcit.ca/counselling/",
+    "camosun": "https://camosun.ca/services/health-and-wellness/counselling-centre",
+    "capilano": "https://www.capilanou.ca/student-services/health-services/counselling--mental-health/",
+    "cnc": "https://cnc.bc.ca/current-students/health-wellness",
+    "coast-mountain": "https://coastmountaincollege.ca/student-services/student-support/health-wellness/mental-wellness-counselling",
+    "cotr": "https://cotr.bc.ca/student-services/student-support/health-and-wellbeing/counselling/",
+    "douglas": "https://www.douglascollege.ca/student-services/student-support/counselling",
+    "ecuad": "https://ecuad.ca/life-at-ecu/student-services/student-support/counselling/",
+    "jibc": "https://www.jibc.ca/student-services/student-support",
+    "kpu": "https://www.kpu.ca/counselling",
+    "langara": "https://langara.ca/student-services/student-support/counselling",
+    "nic": "https://nic.bc.ca/supports-and-services/wellness-and-safety/counselling.html",
+    "nlc": "https://www.nlc.bc.ca/student-support/",
+    "nvit": "https://www.nvit.ca/students/services/success-centre/",
+    "okanagan": "https://www.okanagancollege.ca/counselling-services",
+    "rru": "https://www.royalroads.ca/student-counselling",
+    "selkirk": "https://selkirk.ca/student-life-support/student-supports/counselling-services",
+    "sfu": "https://www.sfu.ca/students/health/support-resources/counselling-services.html",
+    "tru": "https://www.tru.ca/current/wellness/counselling.html",
+    "ubc-okanagan": "https://students.ok.ubc.ca/health-wellness/counselling-mental-health/",
+    "ubc-vancouver": "https://students.ubc.ca/health/counselling-services/",
+    "ufv": "https://www.ufv.ca/counselling/",
+    "unbc": "https://www.unbc.ca/wellness-centre/counselling-services",
+    "uvic": "https://www.uvic.ca/students/health-wellness/counselling/index.php",
+    "vcc": "https://www.vcc.ca/services/services-for-students/counselling/",
+    "viu": "https://services.viu.ca/counselling"
+  }
+}

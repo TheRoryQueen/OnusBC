@@ -126,6 +126,19 @@ try {
   }
   const nic = await panelText("nic");
   check("nic: Comox Valley Family Services is listed nearby", /Comox Valley Family Services/.test(nic));
+  // Free counselling: Here2Talk and the school's own counselling page in every panel.
+  const counselling = (await import("../data/counselling.json", { with: { type: "json" } })).default as { schools: Record<string, string> };
+  check("every school has its own counselling link", campuses.every((c) => counselling.schools[c.slug]?.startsWith("https://")), campuses.filter((c) => !counselling.schools[c.slug]).map((c) => c.slug).join(","));
+  let shown = 0;
+  for (const c of campuses) {
+    await page.goto(`${BASE}/map/${c.slug}`, { waitUntil: "load" });
+    const sec = page.getByRole("complementary").locator('section[aria-labelledby="counselling-heading"]');
+    await sec.waitFor({ timeout: 15000 });
+    const ok = (await sec.getByRole("link", { name: "Call Here2Talk" }).getAttribute("href")) === "tel:18778573397"
+      && (await sec.getByRole("link", { name: /^Counselling at / }).getAttribute("href")) === counselling.schools[c.slug];
+    if (ok) shown++; else check(`${c.slug}: free counselling section`, false);
+  }
+  check(`all ${campuses.length} panels show Here2Talk (1-877-857-3397) and the school's counselling page`, shown === campuses.length, `${shown}`);
 } catch (e) {
   check("UI checks ran", false, (e as Error).message.split("\n")[0]);
 } finally {

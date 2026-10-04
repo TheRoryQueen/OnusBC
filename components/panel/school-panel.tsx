@@ -18,6 +18,7 @@ import sources from "@/data/sources.json";
 import { ReviewClock } from "./review-clock";
 import { NearestSupport } from "./nearest-support";
 import { ReportCardListen } from "./report-card-listen";
+import { FreeCounselling } from "./free-counselling";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
@@ -214,6 +215,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
       )}
 
       <NearestSupport slug={school.slug} city={school.city} from={{ lat: school.lat, lng: school.lng }} />
+      <FreeCounselling slug={school.slug} school={school.short_name ?? school.name} />
 
       <section className="mt-6" aria-labelledby="contact-heading">
         <h3 id="contact-heading" className="px-1 text-[13px] text-text-secondary">Who to contact</h3>
