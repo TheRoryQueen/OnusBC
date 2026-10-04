@@ -42,7 +42,7 @@ function Card({ o, from, children }: { o: Option; from: { lat: number; lng: numb
           </a>
         )}
       </div>
-      <p className="mt-2 text-[12px] text-text-secondary"><a href={e.source_url} target="_blank" rel="noopener noreferrer" className="underline decoration-current/35 underline-offset-2 hover:decoration-current">Source</a></p>
+      <p className="mt-2 text-[12px] text-text-secondary"><a href={e.source_url} target="_blank" rel="noopener noreferrer" className="hit underline decoration-current/35 underline-offset-2 hover:decoration-current">Source</a></p>
     </div>
   );
 }

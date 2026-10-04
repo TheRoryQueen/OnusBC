@@ -53,7 +53,10 @@ try {
     await page.getByRole("link", { name: "Explore the map" }).first().click();
     await page.waitForURL((u) => u.pathname === "/map", { timeout: 20000 });
     await mapReady(page);
-    check(`${s}: the map shows one legend with the grade scale`, (await page.getByRole("group", { name: "Legend" }).getByText("On paper grade").count()) === 1);
+    // Phones fold the legend behind a button; open it before checking.
+    if (size.mobile) await page.getByRole("button", { name: "Legend" }).click();
+    check(`${s}: the map shows one legend with the grade scale`, await page.getByRole("group", { name: "Legend" }).getByText("On paper grade").isVisible());
+    if (size.mobile) await page.getByRole("button", { name: "Legend" }).click();
 
     // 2. Open a school by tapping its dot (UBC Vancouver).
     const pt = await page.evaluate(() => {

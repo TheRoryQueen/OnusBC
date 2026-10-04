@@ -21,8 +21,7 @@ const features = (routes as unknown as { features: F[]; attribution: string }).f
 check("every entry has an https source", entries.every((e) => /^https:\/\//.test(e.source_url)));
 check("no transition houses or shelters", entries.every((e) => !/transition|shelter|safe home|women's shelter/i.test(e.name)));
 check("phone-only services have no address and no map position", entries.filter((e) => e.type === "phone_only").every((e) => !e.address && e.lat == null));
-check("no transition houses, shelters or safe homes (Ksan, Haven, Tillicum Lelum, SPCRS, CDCSS excluded)", !entries.some((e) => /ksan|haven|tillicum|south peace|castlegar and district/i.test(e.name)));
-check("South Peace Community Resources Society is excluded (also runs a transition house)", !entries.some((e) => /south peace/i.test(e.name)));
+check("organizations that run a transition house, shelter or safe home appear only as phone lines, never with an address or map dot", entries.filter((e) => /ksan|haven|tillicum|south peace|castlegar and district|nelson community/i.test(e.name)).every((e) => e.type === "phone_only" && !e.address && e.lat == null));
 check("routes carry OpenStreetMap attribution", /OpenStreetMap contributors/.test((routes as unknown as { attribution: string }).attribution));
 check("every route target is a mapped entry", features.every((f) => entries.some((e) => e.id === f.properties.target && e.lat != null)));
 
@@ -123,6 +122,10 @@ try {
   for (const [slug, lead] of [["selkirk", "Nelson Community Services"], ["viu", "Nanaimo RCMP Victim Services"], ["nic", "Comox Valley RCMP Victim Services"], ["cotr", "Summit Community Services Society"]] as const) {
     const t = (await panelText(slug)).replace(/^Nearest support\s*/, "");
     check(`${slug}: the panel leads with the local line (${lead})`, t.startsWith(lead), t.slice(0, 60));
+  }
+  for (const [slug, line] of [["coast-mountain", "Ksan Society, Sexual Assault Support Services"], ["nlc", "South Peace Community Resources Society"]] as const) {
+    const t = await panelText(slug);
+    check(`${slug}: the local phone line (${line}) shows right after the emergency department`, t.indexOf(line) > -1 && t.indexOf(line) < t.indexOf("Prince George Sexual Assault Centre"));
   }
   const nic = await panelText("nic");
   check("nic: Comox Valley Family Services is listed nearby", /Comox Valley Family Services/.test(nic));

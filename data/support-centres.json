@@ -1,5 +1,5 @@
 {
-  "_about": "Sexual assault support near BC campuses: community sexual assault support programs and hospitals with 24-hour sexual assault or forensic nurse examiner care. Every entry is from the organization's own site or its health authority, checked 2026-10-03 (EVA BC's directory of Sexual Assault Services programs was used to find programs). No transition houses or shelters, and no address that isn't publicly listed: where only a phone number is public, the entry has no location. Coordinates are geocoded from the listed address with OpenStreetMap Nominatim. service_area lists the cities a program says it serves (null: no area restriction is published); a campus is only routed to a program that serves its city. Organizations that also run a transition house or shelter are left out entirely, even at a separate public office. Hospitals are labelled '24 hours' only where a current official page says the sexual assault service itself is available 24 hours (Vancouver Coastal and Fraser Health); Interior Health hospitals are labelled with the SAFE Program listed on each hospital's own page, and Island Health hospitals with forensic nurse examiners at the emergency department, from Island Health's current page. Northern campuses more than 100 km from any hospital sexual assault service are shown their nearest hospital emergency department first.",
+  "_about": "Sexual assault support near BC campuses: community sexual assault support programs and hospitals with 24-hour sexual assault or forensic nurse examiner care. Every entry is from the organization's own site or its health authority, checked 2026-10-03 (EVA BC's directory of Sexual Assault Services programs was used to find programs). No transition house, shelter or safe home is ever listed or mapped, and no address that isn't publicly listed. An organization that also runs one can appear only as a phone line (no address, no map dot), since a phone number reveals no confidential location. Coordinates are geocoded from the listed address with OpenStreetMap Nominatim. service_area lists the cities a program says it serves (null: no area restriction is published); a campus is only routed to a program that serves its city. Organizations that also run a transition house or shelter are left out entirely, even at a separate public office. Hospitals are labelled '24 hours' only where a current official page says the sexual assault service itself is available 24 hours (Vancouver Coastal and Fraser Health); Interior Health hospitals are labelled with the SAFE Program listed on each hospital's own page, and Island Health hospitals with forensic nurse examiners at the emergency department, from Island Health's current page. Northern campuses more than 100 km from any hospital sexual assault service are shown their nearest hospital emergency department first.",
   "checked": "2026-10-03",
   "entries": [
     {
@@ -569,6 +569,51 @@
       "label": "Police-based victim services, by phone",
       "service_area": [
         "Courtenay"
+      ]
+    },
+    {
+      "id": "ksan-sass",
+      "type": "phone_only",
+      "name": "Ksan Society, Sexual Assault Support Services",
+      "address": null,
+      "phone": "250-635-1911",
+      "hours": "Emergency sexual assault response line monitored 24/7",
+      "serves": "Victims of sexual assault, any age or gender",
+      "island": false,
+      "source_url": "https://ksansociety.com/sass",
+      "label": "Sexual assault support, by phone",
+      "service_area": [
+        "Terrace"
+      ]
+    },
+    {
+      "id": "ksan-cbvs",
+      "type": "phone_only",
+      "name": "Ksan Society, Community-Based Victim Services",
+      "address": null,
+      "phone": "250-635-2373 ext. 229",
+      "hours": null,
+      "serves": "People affected by childhood sexual abuse, sexual assault or violence in relationships",
+      "island": false,
+      "source_url": "https://ksansociety.com/cbvs",
+      "label": "Community victim services, by phone",
+      "service_area": [
+        "Terrace"
+      ]
+    },
+    {
+      "id": "spcrs-cbvs",
+      "type": "phone_only",
+      "name": "South Peace Community Resources Society, Community Based Victim Services",
+      "address": null,
+      "phone": "250-782-9174 ext. 234",
+      "hours": null,
+      "serves": "Survivors of childhood abuse, sexual assault and intimate partner violence; no police report needed",
+      "island": false,
+      "source_url": "https://www.spcrs.ca/programs/community-based-victim-services",
+      "label": "Community victim services, by phone",
+      "service_area": [
+        "Dawson Creek"
       ]
     }
   ],
