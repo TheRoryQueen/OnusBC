@@ -54,7 +54,12 @@ export function formatDrive(minutes: number) {
   return minutes < 60 ? `${minutes} min` : `${Math.floor(minutes / 60)} h${minutes % 60 ? ` ${minutes % 60} min` : ""}`;
 }
 
-/** Directions in OpenStreetMap from the campus to the service (no tracking, no key). */
-export function directionsUrl(from: { lat: number; lng: number }, to: { lat: number; lng: number }) {
-  return `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${from.lat}%2C${from.lng}%3B${to.lat}%2C${to.lng}`;
+/** Google Maps directions to the service's published address (from the campus when given, otherwise from
+ *  wherever the person is). Opens Google Maps; nothing is sent until they tap. */
+export function directionsUrl(to: SupportEntry, from?: { lat: number; lng: number }) {
+  const dest = encodeURIComponent(to.address ? `${to.name}, ${to.address}` : `${to.lat},${to.lng}`);
+  return `https://www.google.com/maps/dir/?api=1${from ? `&origin=${from.lat},${from.lng}` : ""}&destination=${dest}`;
 }
+
+export const kindLabel = (e: SupportEntry) => (e.type === "hospital_24h" ? "Hospital sexual assault care, 24 hours" : "Community sexual assault support");
+export const supportById = (id: string | null) => (id ? SUPPORT.find((e) => e.id === id) ?? null : null);

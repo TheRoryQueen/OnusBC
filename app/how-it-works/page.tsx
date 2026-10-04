@@ -103,6 +103,9 @@ export default async function HowItWorks() {
 
         <Section id="gap" title="The gap">
           <p>The gap is On paper minus In practice, in grade points.</p>
+          <p>
+            On the map, each dot is coloured by its On paper grade, from green for an A to red for an F. A ring appears around a dot once the school has at least 5 real ratings: Onus ratings and public records, never sample ratings. A thicker ring means a bigger gap; a ring touching the dot means students rate the school worse than its policy, and a ring with a space before it means better. No ring means there aren&apos;t enough real ratings yet. Each school&apos;s panel shows On paper, In practice and the gap.
+          </p>
           <ul className="divide-y divide-hairline border-y border-hairline text-[15px]">
             {[["0.5 or less either way", "Aligned", "bg-brand"], ["More than 0.5 to 1.5", "Some gap", "bg-some-gap"], ["More than 1.5", "Big gap", "bg-big-gap"], ["In practice beats On paper by more than 0.5", "Better in practice", "bg-brand"], ["No public policy found", "No public policy", "bg-no-policy"]].map(([range, word, dot]) => (
               <li key={word} className="flex items-center justify-between gap-4 py-2.5">

@@ -49,10 +49,33 @@ try {
   check("selecting a school draws one purple route", n === 1, String(n));
   const dots = await page.evaluate(() => ((window as unknown as { __onusMap: { getSource: (s: string) => { serialize: () => { data: { features: unknown[] } } } } }).__onusMap.getSource("support-points").serialize().data.features.length));
   check("purple dots for every mapped service", dots === entries.filter((e) => e.type !== "phone_only" && e.lat != null).length, String(dots));
+  // The route draws out from the campus over about a second, like a directions app.
+  await page.goto(`${BASE}/map`, { waitUntil: "load" });
+  await page.waitForFunction(() => !!(window as unknown as { __onusMap?: { getSource: (s: string) => unknown } }).__onusMap?.getSource("support-route"), null, { timeout: 45000 });
+  await page.evaluate(() => (document.querySelector('nav[aria-label="Schools"] a[href="/map/sfu"]') as HTMLAnchorElement).click());
+  const lengths: number[] = [];
+  for (let i = 0; i < 8; i++) {
+    lengths.push(await page.evaluate(() => {
+      const f = (window as unknown as { __onusMap: { getSource: (s: string) => { serialize: () => { data: { features: { geometry: { coordinates: unknown[] } }[] } } } } }).__onusMap.getSource("support-route").serialize().data.features[0];
+      return f ? f.geometry.coordinates.length : 0;
+    }));
+    await page.waitForTimeout(150);
+  }
+  check("the route grows over time instead of appearing at once", lengths.some((n, i) => i > 0 && n > lengths[i - 1]) && lengths.at(-1)! >= Math.max(...lengths), lengths.join(","));
+  await page.goto(`${BASE}/map/ubc-vancouver`, { waitUntil: "load" });
+  await page.waitForTimeout(2500);
   const panel = page.getByRole("complementary");
   check("the panel names the nearest support with distance and drive time", await panel.getByText("Sexual Assault Service at Vancouver General Hospital").isVisible() && await panel.getByText(/10\.3 km by road, about 18 min by car/).isVisible());
-  check("call and directions links", (await panel.getByRole("link", { name: "Call Sexual Assault Service at Vancouver General Hospital" }).getAttribute("href")) === "tel:6048752881" && /openstreetmap\.org\/directions/.test(await panel.getByRole("link", { name: /^Directions to / }).getAttribute("href") ?? ""));
+  check("call and directions links", (await panel.getByRole("link", { name: "Call Sexual Assault Service at Vancouver General Hospital" }).getAttribute("href")) === "tel:6048752881" && /^https:\/\/www\.google\.com\/maps\/dir\//.test(await panel.getByRole("link", { name: /^Directions to / }).getAttribute("href") ?? ""));
   check("Salal's 24-hour line is shown for a Vancouver campus", await panel.getByText("Salal Sexual Violence Support Centre").isVisible());
+  // The info sheet: name, address, phone, Google Maps directions and website.
+  await panel.getByRole("button", { name: "Sexual Assault Service at Vancouver General Hospital" }).click();
+  const sheet = page.getByRole("dialog", { name: "Sexual Assault Service at Vancouver General Hospital" });
+  check("tapping the support opens its info sheet", await sheet.isVisible() && await sheet.getByText("899 West 12th Avenue").isVisible());
+  check("the sheet's directions open Google Maps to the published address", /^https:\/\/www\.google\.com\/maps\/dir\/\?api=1&destination=Sexual%20Assault%20Service/.test(await sheet.getByRole("link", { name: "Directions" }).getAttribute("href") ?? ""));
+  check("the sheet has the phone and the website", (await sheet.getByRole("link", { name: /604-875-2881/ }).getAttribute("href")) === "tel:6048752881" && !!(await sheet.getByRole("link", { name: "Website" }).getAttribute("href"))?.startsWith("https://www.vch.ca/"));
+  await page.keyboard.press("Escape");
+  check("Escape closes the sheet", !(await sheet.isVisible()));
   await page.goto(`${BASE}/map/capilano`, { waitUntil: "load" });
   check("Capilano shows the North Shore line", await page.getByRole("complementary").getByText(/Family Services of the North Shore/).isVisible({ timeout: 15000 }));
 } catch (e) {

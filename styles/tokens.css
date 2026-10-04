@@ -18,9 +18,15 @@
   --onus-some-gap: #b45309;
   --onus-big-gap: #b91c1c;
   --onus-no-policy: #9a98a0;
-  --onus-support: #5b4bb7;
+  --onus-support: #7c3aed;
   --onus-info: #3b5b8c;
   --onus-map-land: #edece8;
+  /* On paper grade scale for map dots: green (A) to red (F); each dot is outlined in --onus-text. */
+  --onus-grade-a: #1a7f37;
+  --onus-grade-b: #7cb342;
+  --onus-grade-c: #f2c12e;
+  --onus-grade-d: #ef7d22;
+  --onus-grade-f: #c62828;
   --onus-map-water: #dce3e6;
   /* Text on a filled brand surface (the one teal button). */
   --onus-on-brand: #ffffff;
@@ -43,9 +49,15 @@
   --onus-some-gap: #f5b546;
   --onus-big-gap: #f87171;
   --onus-no-policy: #6b7280;
-  --onus-support: #b4a8f5;
+  --onus-support: #c084fc;
   --onus-info: #8fb0e0;
   --onus-map-land: #12161c;
+  /* Dark theme: the same green-to-red scale, a little brighter. */
+  --onus-grade-a: #3fb950;
+  --onus-grade-b: #9ccc65;
+  --onus-grade-c: #f5d04a;
+  --onus-grade-d: #f59a4c;
+  --onus-grade-f: #f05a5a;
   --onus-map-water: #0b1a22;
   --onus-on-brand: #0e1116;
   --onus-glass-edge: rgba(255, 255, 255, 0.08);

@@ -8,7 +8,7 @@ Every school gets two grades on the same 0 to 4 scale. **On paper** is the schoo
 
 ## What's in it
 
-- **Map:** every public post-secondary institution in BC (26, with UBC's two campuses counted separately), colored by grade or gap, with a school panel showing each category's score and the quoted clause behind it.
+- **Map:** every public post-secondary institution in BC (26, with UBC's two campuses counted separately), coloured green to red by On paper grade with a ring wherever enough real ratings show a gap, plus the nearest sexual assault support, with a school panel showing each category's score and the quoted clause behind it.
 - **Ask about this policy:** ask in text or by voice; answers come only from that school's policy, with the section cited. Off-topic questions get a refusal with the school's own contact; crisis messages get the crisis response.
 - **Rate your school:** sign in with a school email and a 6-digit code, answer a few multiple-choice questions, get a private edit code. Ratings are stored with no link to the account.
 - **Get support:** 911, VictimLinkBC, and every school's support office on one page, linked from everywhere.

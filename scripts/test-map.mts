@@ -12,7 +12,7 @@ const check = (name: string, ok: boolean, detail = "") => {
   if (ok) passed++; else failed++;
 };
 
-type Feat = { slug: string; color: string; label: string };
+type Feat = { slug: string; fill: string; outline: string; ring: boolean; ringWidth: number; ringOffset: number; ringColor: string };
 async function features(page: Page): Promise<Feat[]> {
   return page.evaluate(() => {
     const m = (window as unknown as { __onusMap: { getSource: (id: string) => { _data?: unknown; serialize?: () => { data: unknown } } } }).__onusMap;
@@ -41,25 +41,30 @@ try {
   await page.goto(`${BASE}/map`, { waitUntil: "load" });
   await mapReady(page);
 
-  // The map opens on The gap: coloured dots, no letters.
-  check("the map opens on The gap view", (await page.getByRole("radio", { name: "The gap" }).getAttribute("aria-checked")) === "true");
-  check("the opening view shows no letters on the dots", (await features(page)).every((f) => !f.label));
+  // One map, no view toggle: fill = On paper grade, ring = the gap once there are 5 real ratings.
+  check("there is no view toggle", (await page.getByRole("radiogroup", { name: "What the map shows" }).count()) === 0 && (await page.getByRole("radio", { name: "The gap" }).count()) === 0);
+  check("no letters are drawn on the map", !(await page.evaluate(() => !!(window as unknown as { __onusMap: { getLayer: (l: string) => unknown } }).__onusMap.getLayer("school-letter"))));
   await page.waitForTimeout(300);
   const all = await features(page);
   const total = (await db.query("select count(*)::int n from public.institutions where sector = 'public'")).rows[0].n;
   check("every school has a dot", all.length === total, `${all.length} of ${total}`);
 
-  // Dots coloured by gap: each dot's colour is the token for its gap label.
-  const rows = (await db.query("select i.slug, i.policy_found, s.gap_label from public.institutions i left join public.institution_scores s on s.institution_id = i.id")).rows;
-  const tokenFor = (r: { policy_found: boolean; gap_label: string | null }) =>
-    !r.policy_found || r.gap_label === "no_policy" ? "--onus-no-policy"
-    : r.gap_label === "aligned" || r.gap_label === "better_in_practice" ? "--onus-brand"
-    : r.gap_label === "some_gap" ? "--onus-some-gap" : r.gap_label === "big_gap" ? "--onus-big-gap" : "--onus-text-secondary";
+  // Fill by On paper grade; COTR (no public policy) is hollow.
+  const rows = (await db.query("select i.slug, i.policy_found, s.paper_letter, s.gap_label, s.n_onus, s.n_public from public.institutions i left join public.institution_scores s on s.institution_id = i.id")).rows;
   const tokens: Record<string, string> = {};
-  for (const t of ["--onus-no-policy", "--onus-brand", "--onus-some-gap", "--onus-big-gap", "--onus-text-secondary"]) tokens[t] = await css(page, t);
-  const wrong = all.filter((f) => { const r = rows.find((x) => x.slug === f.slug); return !r || f.color !== tokens[tokenFor(r)]; });
-  check("each dot is coloured by its gap label", wrong.length === 0, wrong.map((w) => w.slug).join(","));
-  check("no-public-policy schools are grey (COTR)", all.find((f) => f.slug === "cotr")?.color === tokens["--onus-no-policy"]);
+  for (const t of ["--onus-no-policy", "--onus-page", "--onus-text", "--onus-some-gap", "--onus-big-gap", "--onus-info", "--onus-text-secondary", "--onus-grade-a", "--onus-grade-b", "--onus-grade-c", "--onus-grade-d", "--onus-grade-f"]) tokens[t] = await css(page, t);
+  const wrongFill = all.filter((f) => { const r = rows.find((x) => x.slug === f.slug); return !r || (r.policy_found && r.paper_letter && f.fill !== tokens[`--onus-grade-${r.paper_letter.toLowerCase()}`]); });
+  check("each dot is filled by its On paper grade", wrongFill.length === 0, wrongFill.map((w) => w.slug).join(","));
+  const cotr = all.find((f) => f.slug === "cotr");
+  check("no-public-policy schools are hollow (COTR)", cotr?.fill === tokens["--onus-page"] && cotr?.outline === tokens["--onus-no-policy"]);
+  // The ring: only with at least 5 real ratings (Onus + public records), never counting sample ratings.
+  const shouldRing = rows.filter((r) => r.policy_found && ["aligned", "some_gap", "big_gap", "better_in_practice"].includes(r.gap_label) && r.n_onus + r.n_public >= 5).map((r) => r.slug).sort();
+  const ringed = all.filter((f) => f.ring).map((f) => f.slug).sort();
+  check("rings only where a school has 5 or more real ratings", JSON.stringify(ringed) === JSON.stringify(shouldRing), `ringed: ${ringed.join(",") || "none"}`);
+  const ubc = all.find((f) => f.slug === "ubc-vancouver")!;
+  const ubcRow = rows.find((r) => r.slug === "ubc-vancouver")!;
+  if (ubcRow.gap_label === "some_gap") check("UBC Vancouver: some gap is a 3 px ink ring touching the dot", ubc.ring && ubc.ringWidth === 3 && ubc.ringColor === tokens["--onus-text"] && ubc.ringOffset === 1.25);
+  check("sample-only schools get no ring (UVic: 3 public records)", !all.find((f) => f.slug === "uvic")?.ring);
 
   // Filters.
   const colleges = (await db.query("select count(*)::int n from public.institutions where type = 'college'")).rows[0].n;
@@ -70,13 +75,6 @@ try {
   await page.waitForTimeout(300);
   check("University filter shows only universities", (await features(page)).length === total - colleges);
   await page.getByRole("radio", { name: "All" }).click();
-  await page.getByRole("radio", { name: "On paper" }).click();
-  await page.waitForTimeout(300);
-  const paper = await features(page);
-  const uvicLetter = (await db.query("select s.paper_letter from public.institution_scores s join public.institutions i on i.id = s.institution_id where i.slug = 'uvic'")).rows[0].paper_letter;
-  check("On paper mode labels each graded dot with its letter", paper.find((f) => f.slug === "uvic")?.label === uvicLetter, `uvic ${uvicLetter}`);
-  check("On paper mode doesn't use gap colours", paper.every((f) => ![tokens["--onus-brand"], tokens["--onus-some-gap"], tokens["--onus-big-gap"]].includes(f.color)));
-  await page.getByRole("radio", { name: "The gap" }).click();
 
   // Clicking a dot opens the panel with real grades.
   const pt = await page.evaluate(() => {
@@ -128,21 +126,20 @@ try {
 
   // Close button.
   await page.goto(`${BASE}/map/uvic`, { waitUntil: "load" });
-  await page.getByRole("button", { name: "Close" }).click();
+  await page.getByRole("button", { name: "Close", exact: true }).click();
   await page.waitForURL(/\/map$/);
   check("close button closes the panel", page.url().endsWith("/map"));
 
   // Live update: change a score in the database; the dot recolours without a reload (gap view).
   await mapReady(page);
-  await page.getByRole("radio", { name: "The gap" }).click();
   await page.waitForFunction(() => (window as unknown as { __onusRealtime?: string }).__onusRealtime === "SUBSCRIBED", null, { timeout: 20000 });
   const uvicId = (await db.query("select id from public.institutions where slug = 'uvic'")).rows[0].id;
-  await db.query("update public.institution_scores set gap_label = 'big_gap' where institution_id = $1", [uvicId]);
-  const live = await page.waitForFunction((red) => {
-    const m = (window as unknown as { __onusMap: { getSource: (id: string) => { serialize: () => { data: { features: { properties: { slug: string; color: string } }[] } } } } }).__onusMap;
-    return m.getSource("schools").serialize().data.features.find((f) => f.properties.slug === "uvic")?.properties.color === red;
-  }, tokens["--onus-big-gap"], { timeout: 15000 }).then(() => true).catch(() => false);
-  check("a score change in Supabase recolours the dot live (Realtime, no reload)", live);
+  await db.query("update public.institution_scores set paper_letter = 'A' where institution_id = $1", [uvicId]);
+  const live = await page.waitForFunction((a) => {
+    const m = (window as unknown as { __onusMap: { getSource: (id: string) => { serialize: () => { data: { features: { properties: { slug: string; fill: string } }[] } } } } }).__onusMap;
+    return m.getSource("schools").serialize().data.features.find((f) => f.properties.slug === "uvic")?.properties.fill === a;
+  }, tokens["--onus-grade-a"], { timeout: 15000 }).then(() => true).catch(() => false);
+  check("a grade change in Supabase reshades the dot live (Realtime, no reload)", live);
   await db.query("select public.refresh_scores($1)", [uvicId]); // restore the real values
 
   // Theme switch swaps the basemap.
@@ -195,7 +192,7 @@ try {
     await p4.waitForTimeout(1200);
     const z1 = await p4.evaluate(() => (window as unknown as { __onusMap: { getZoom: () => number } }).__onusMap.getZoom());
     check("the flight ends at about campus zoom within ~1.5 s", Math.abs(z1 - 13) < 0.05, z1.toFixed(2));
-    await p4.getByRole("button", { name: "Close" }).click();
+    await p4.getByRole("button", { name: "Close", exact: true }).click();
     // Wait for the navigation back to /map, then for the ease out to start and finish.
     await p4.waitForURL((u) => u.pathname === "/map", { timeout: 10000 });
     await p4.waitForFunction(() => (window as unknown as { __onusMap: { getZoom: () => number; isMoving: () => boolean } }).__onusMap.getZoom() < 12.9, null, { timeout: 5000 }).catch(() => {});

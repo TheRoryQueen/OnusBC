@@ -8,10 +8,11 @@ import { DotsPreview, INITIAL_BOUNDS, initialPadding } from "./dots-preview";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { gapDisplay, isGraded } from "@/lib/grades";
 import type { InstitutionSummary } from "@/lib/types";
 import { useMapState } from "./map-state";
+import { SupportSheet } from "./support-sheet";
 import { MAPPED, nearestSupport } from "@/lib/support";
+import { dotStyle } from "@/lib/map-style";
 
 const STYLE = {
   light: process.env.NEXT_PUBLIC_MAP_STYLE_LIGHT ?? "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -35,7 +36,7 @@ function supportRoute(slug: string | null) {
 type Hover = { school: InstitutionSummary; x: number; y: number } | null;
 
 export function OnusMap() {
-  const { schools, mode, typeFilter, pulse } = useMapState();
+  const { schools, typeFilter, pulse, setSupportId } = useMapState();
   const router = useRouter();
   const pathname = usePathname();
   const selected = pathname?.match(/^\/map\/([a-z0-9-]+)/)?.[1] ?? null;
@@ -46,36 +47,41 @@ export function OnusMap() {
   const [failed, setFailed] = useState(false);
   const [dotsDrawn, setDotsDrawn] = useState(false);
   const [hover, setHover] = useState<Hover>(null);
-  const latest = useRef({ schools, mode, typeFilter, selected });
+  const latest = useRef({ schools, typeFilter, selected });
   useEffect(() => {
-    latest.current = { schools, mode, typeFilter, selected };
-  }, [schools, mode, typeFilter, selected]);
+    latest.current = { schools, typeFilter, selected };
+  }, [schools, typeFilter, selected]);
 
   // Feature collection from current state; colours come from the CSS tokens of the active theme.
   const features = useCallback(() => {
-    const { schools, mode, typeFilter } = latest.current;
+    const { schools, typeFilter } = latest.current;
     return {
       type: "FeatureCollection" as const,
       features: schools
         .filter((s) => typeFilter === "all" || s.type === typeFilter)
         .map((s) => {
-          const graded = isGraded(s.scores, s.policy_found);
-          const gap = gapDisplay(s.scores?.gap_label ?? null, s.policy_found);
-          const letter = mode === "paper" ? s.scores?.paper_letter : mode === "practice" ? s.scores?.practice_letter : null;
-          const color = mode === "gap" ? token(gap.token) : s.policy_found ? token("--onus-text") : token("--onus-no-policy");
+          // Fill = On paper grade; ring = the gap, once there are enough real ratings (lib/map-style.ts).
+          const st = dotStyle(s);
           return {
             type: "Feature" as const,
             geometry: { type: "Point" as const, coordinates: [s.lng, s.lat] },
-            properties: { slug: s.slug, color, label: letter ?? "", graded, quiet: mode === "gap" && (gap.variant === "neutral") },
+            properties: {
+              slug: s.slug,
+              fill: st.hollow ? token("--onus-page") : token(st.fill!),
+              outline: token(st.hollow ? "--onus-no-policy" : "--onus-text"),
+              outlineWidth: st.hollow ? 2 : 1.25,
+              ring: !!st.ring,
+              ringColor: st.ring ? token(st.ring.token) : "rgba(0,0,0,0)",
+              ringWidth: st.ring?.width ?? 0,
+              // Distance from the dot's edge to the ring: none when touching, 3 px when detached.
+              ringOffset: st.ring ? 1.25 + (st.ring.detached ? 3 : 0) : 0,
+            },
           };
         }),
     };
   }, []);
 
   const addLayers = useCallback((map: MLMap) => {
-    // Reuse a font the basemap already ships, so labels never depend on a missing glyph set.
-    const font = map.getStyle().layers.map((l) => (l as { layout?: Record<string, unknown> }).layout?.["text-font"]).find(Boolean) as string[] | undefined;
-    const page = token("--onus-page");
     if (!map.getSource("schools")) map.addSource("schools", { type: "geojson", data: features() });
     // Sexual assault support (official sources; see data/support-centres.json): small purple dots, and a purple
     // line from the selected school to its nearest support, drawn under the school dots.
@@ -85,27 +91,30 @@ export function OnusMap() {
       features: MAPPED.map((e) => ({ type: "Feature" as const, geometry: { type: "Point" as const, coordinates: [e.lng, e.lat] }, properties: { id: e.id } })),
     } });
     if (!map.getSource("support-route")) map.addSource("support-route", { type: "geojson", data: supportRoute(latest.current.selected) });
+    map.addLayer({ id: "support-route-casing", type: "line", source: "support-route", layout: { "line-cap": "round", "line-join": "round" },
+      paint: { "line-color": token("--onus-page"), "line-width": 7 } });
     map.addLayer({ id: "support-route", type: "line", source: "support-route", layout: { "line-cap": "round", "line-join": "round" },
-      paint: { "line-color": support, "line-width": 3, "line-opacity": 0.9, "line-dasharray": ["case", ["get", "straight"], ["literal", [2, 2]], ["literal", [1, 0]]] } });
+      paint: { "line-color": support, "line-width": 4, "line-dasharray": ["case", ["get", "straight"], ["literal", [2, 2]], ["literal", [1, 0]]] } });
     map.addLayer({ id: "support-dot", type: "circle", source: "support-points",
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.5, 10, 6], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
     map.addLayer({ id: "school-selected", type: "circle", source: "schools", filter: ["==", ["get", "slug"], latest.current.selected ?? ""],
-      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 13, 10, 18], "circle-color": "rgba(0,0,0,0)", "circle-stroke-width": 2.5, "circle-stroke-color": token("--onus-text") } });
+      paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 14, 10, 17], "circle-color": "rgba(0,0,0,0)", "circle-stroke-width": 2.5, "circle-stroke-color": token("--onus-text") } });
+    map.addLayer({ id: "school-ring", type: "circle", source: "schools", filter: ["get", "ring"],
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, ["+", 4.5, ["get", "ringOffset"]], 10, ["+", 7.5, ["get", "ringOffset"]]],
+        "circle-color": "rgba(0,0,0,0)",
+        "circle-stroke-width": ["get", "ringWidth"],
+        "circle-stroke-color": ["get", "ringColor"],
+      } });
     map.addLayer({ id: "school-pulse", type: "circle", source: "schools", filter: ["==", ["get", "slug"], ""],
       paint: { "circle-radius": 8, "circle-color": token("--onus-brand"), "circle-opacity": 0 } });
     map.addLayer({ id: "school-dot", type: "circle", source: "schools",
       paint: {
-        "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 6.5, 10, 10],
-        "circle-color": ["get", "color"],
-        "circle-opacity": ["case", ["get", "quiet"], 0.45, 1],
-        "circle-stroke-width": 2,
-        "circle-stroke-color": page,
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 4.5, 10, 7.5],
+        "circle-color": ["get", "fill"],
+        "circle-stroke-width": ["get", "outlineWidth"],
+        "circle-stroke-color": ["get", "outline"],
       } });
-    if (font) {
-      map.addLayer({ id: "school-letter", type: "symbol", source: "schools",
-        layout: { "text-field": ["get", "label"], "text-font": font, "text-size": 13, "text-offset": [1.1, 0], "text-anchor": "left", "text-allow-overlap": true },
-        paint: { "text-color": token("--onus-text"), "text-halo-color": page, "text-halo-width": 1.5 } });
-    }
   }, [features]);
 
   // Create the map once.
@@ -158,6 +167,13 @@ export function OnusMap() {
         map.getCanvas().style.cursor = "pointer";
         if (school) setHover({ school, x: e.point.x, y: e.point.y });
       });
+      // Purple dots open the support info sheet.
+      map.on("click", "support-dot", (e: MapLayerMouseEvent) => {
+        const id = e.features?.[0]?.properties?.id as string | undefined;
+        if (id) setSupportId(id);
+      });
+      map.on("mouseenter", "support-dot", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "support-dot", () => { map.getCanvas().style.cursor = ""; });
       map.on("mouseleave", "school-dot", () => { map.getCanvas().style.cursor = ""; setHover(null); });
       map.on("click", "school-dot", (e: MapLayerMouseEvent) => {
         // Several schools under the tap (Vancouver, Victoria at the starting zoom): zoom in on them rather
@@ -184,18 +200,46 @@ export function OnusMap() {
       cleanup = () => { obs.disconnect(); map.remove(); mapRef.current = null; };
     })().catch(() => setFailed(true));
     return () => { cancelled = true; cleanup(); };
-  }, [addLayers, router]);
+  }, [addLayers, router, setSupportId]);
 
-  // Data, mode, filter changes.
+  // Data and filter changes.
   useEffect(() => {
     const src = mapRef.current?.getSource("schools") as GeoJSONSource | undefined;
     if (ready && src) src.setData(features());
-  }, [schools, mode, typeFilter, ready, features]);
+  }, [schools, typeFilter, ready, features]);
 
-  // The purple route for the selected school.
+  // The purple route for the selected school, drawn out from the campus like a directions app (about 1.2 s,
+  // after the camera move starts); with reduced motion it appears at once.
   useEffect(() => {
     const src = mapRef.current?.getSource("support-route") as GeoJSONSource | undefined;
-    if (ready && src) src.setData(supportRoute(selected));
+    if (!ready || !src) return;
+    const full = supportRoute(selected);
+    const line = full.features[0];
+    if (!line || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { src.setData(full); return; }
+    const pts = line.geometry.coordinates;
+    const seg = pts.slice(1).map((p, i) => Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]));
+    const total = seg.reduce((a, b) => a + b, 0) || 1;
+    const partial = (t: number) => {
+      let left = t * total;
+      const out: [number, number][] = [pts[0]];
+      for (let i = 0; i < seg.length; i++) {
+        if (left >= seg[i]) { out.push(pts[i + 1]); left -= seg[i]; continue; }
+        const f = seg[i] ? left / seg[i] : 0;
+        out.push([pts[i][0] + (pts[i + 1][0] - pts[i][0]) * f, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * f]);
+        break;
+      }
+      return { ...full, features: [{ ...line, geometry: { ...line.geometry, coordinates: out.length > 1 ? out : [pts[0], pts[0]] } }] };
+    };
+    src.setData(partial(0));
+    let raf = 0;
+    const start = performance.now() + 250;
+    const step = (now: number) => {
+      const p = Math.max(0, Math.min(1, (now - start) / 1200));
+      src.setData(partial(1 - Math.pow(1 - p, 3))); // ease out
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
   }, [selected, ready]);
 
   // Selection ring. Opening a school flies to it at about campus zoom (about 1 s); closing the panel eases
@@ -210,11 +254,17 @@ export function OnusMap() {
     const s = schools.find((x) => x.slug === selected);
     if (s && selected !== prevSelected.current) {
       // Within 40 km, show the whole route to the nearest support; farther away, fly to the campus.
+      // Only when that still means zooming in to street level (zoom 11+): on a phone the space between the
+      // filter bar and the sheet is small, and fitting a long route there would zoom out instead.
       const near = nearestSupport(s.slug, null);
-      if (near && near.distanceKm <= 40) {
-        const xs = near.route.geometry.coordinates.map((c) => c[0]), ys = near.route.geometry.coordinates.map((c) => c[1]);
-        const padding = desktop ? { top: 240, bottom: 100, left: 480, right: 120 } : { top: 300, bottom: window.innerHeight * 0.5, left: 40, right: 40 };
-        map.fitBounds([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], { padding, maxZoom: CAMPUS_ZOOM, duration: reduce ? 0 : 1000, essential: true });
+      const xs = near?.route.geometry.coordinates.map((c) => c[0]) ?? [], ys = near?.route.geometry.coordinates.map((c) => c[1]) ?? [];
+      const padding = desktop ? { top: 240, bottom: 100, left: 480, right: 120 } : { top: 170, bottom: window.innerHeight * 0.45, left: 32, right: 32 };
+      const fit = near && near.distanceKm <= 40
+        ? map.cameraForBounds([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], { padding, maxZoom: CAMPUS_ZOOM })
+        : undefined;
+      if (fit && (fit.zoom ?? 0) >= 11) {
+        if (reduce) map.jumpTo(fit);
+        else map.flyTo({ ...fit, duration: 1000, essential: true });
       } else {
         const target = { center: [s.lng, s.lat] as [number, number], zoom: Math.max(map.getZoom(), CAMPUS_ZOOM), offset: (desktop ? [200, 0] : [0, -window.innerHeight * 0.22]) as [number, number] };
         if (reduce) map.jumpTo(target);
@@ -249,12 +299,8 @@ export function OnusMap() {
   }, [pulse, ready]);
 
   const hoverInfo = hover ? (() => {
-    const s = hover.school;
-    const gap = gapDisplay(s.scores?.gap_label ?? null, s.policy_found);
-    if (mode === "gap" || !s.policy_found) return { text: gap.word, variant: gap.variant };
-    if (!isGraded(s.scores, s.policy_found)) return { text: "Grading in progress", variant: "neutral" as const };
-    const letter = mode === "paper" ? s.scores?.paper_letter : s.scores?.practice_letter;
-    return { text: letter ? `${mode === "paper" ? "On paper" : "In practice"} ${letter}` : "Not enough ratings yet", variant: "neutral" as const };
+    const st = dotStyle(hover.school);
+    return { text: st.label, variant: "neutral" as const };
   })() : null;
 
   return (
@@ -264,6 +310,7 @@ export function OnusMap() {
         <div ref={el} className="h-full w-full" />
       </div>
       {!ready && !failed && <div className="pointer-events-none absolute inset-0 bg-map-land" aria-hidden />}
+      <SupportSheet />
       <DotsPreview schools={schools.filter((x) => typeFilter === "all" || x.type === typeFilter)} hidden={dotsDrawn} />
       {failed && (
         <div className="absolute inset-0 grid place-items-center bg-page p-6 text-center">

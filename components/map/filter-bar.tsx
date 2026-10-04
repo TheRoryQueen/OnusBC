@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useMapState, type Mode, type TypeFilter } from "./map-state";
+import { MapLegend } from "./map-legend";
+import { useMapState, type TypeFilter } from "./map-state";
 
 function Segmented<T extends string>({ label, value, options, onChange }: {
   label: string; value: T; options: { value: T; label: string }[]; onChange: (v: T) => void;
@@ -28,50 +29,20 @@ function Segmented<T extends string>({ label, value, options, onChange }: {
   );
 }
 
-const LEGEND = [
-  { token: "bg-aligned", word: "Aligned" },
-  { token: "bg-some-gap", word: "Some gap" },
-  { token: "bg-big-gap", word: "Big gap" },
-  { token: "bg-no-policy", word: "No public policy" },
-];
 
 export function FilterBar({ reviewLine }: { reviewLine?: string }) {
-  const { mode, setMode, typeFilter, setTypeFilter, schools } = useMapState();
+  const { typeFilter, setTypeFilter, schools } = useMapState();
   return (
     <>
-      <div className="glass pointer-events-auto flex flex-col gap-2 rounded-[22px] p-2 md:flex-row md:items-center">
+      <div className="glass pointer-events-auto flex w-fit rounded-[22px] p-2">
         <Segmented<TypeFilter>
           label="Type of school"
           value={typeFilter}
           onChange={setTypeFilter}
           options={[{ value: "all", label: "All" }, { value: "college", label: "Colleges" }, { value: "university", label: "Universities" }]}
         />
-        <Segmented<Mode>
-          label="What the map shows"
-          value={mode}
-          onChange={setMode}
-          options={[{ value: "paper", label: "On paper" }, { value: "practice", label: "In practice" }, { value: "gap", label: "The gap" }]}
-        />
       </div>
-      {mode === "gap" && (
-        <ul className="glass pointer-events-auto mt-2 flex flex-wrap gap-x-3 gap-y-1 rounded-[18px] px-3 py-2 text-xs text-text-secondary" aria-label="Legend">
-          {LEGEND.map((l) => (
-            <li key={l.word} className="flex items-center gap-1.5">
-              <span className={cn("size-2.5 rounded-full", l.token)} aria-hidden />
-              {l.word}
-            </li>
-          ))}
-          <li className="flex items-center gap-1.5">
-            {/* Neutral grey covers both: no paper grade yet (grading in progress) and too few ratings. */}
-            <span className="size-2.5 rounded-full bg-text-secondary/45" aria-hidden />
-            Not graded yet
-          </li>
-          <li className="flex items-center gap-1.5">
-            <span className="size-2.5 rounded-full bg-support" aria-hidden />
-            Sexual assault support
-          </li>
-        </ul>
-      )}
+      <MapLegend />
       {reviewLine && (
         <p className="glass pointer-events-auto mt-2 rounded-[18px] px-3 py-2 text-xs text-text-secondary">
           {reviewLine} <a href="/how-it-works#review-clock" className="font-medium text-brand underline-offset-2 hover:underline">How this is counted</a>

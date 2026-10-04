@@ -4,16 +4,16 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { InstitutionSummary, Scores } from "@/lib/types";
 
-export type Mode = "gap" | "paper" | "practice";
 export type TypeFilter = "all" | "college" | "university";
 
 type MapState = {
   schools: InstitutionSummary[];
-  mode: Mode;
-  setMode: (m: Mode) => void;
   typeFilter: TypeFilter;
   setTypeFilter: (t: TypeFilter) => void;
   /** Slug of a school whose Onus count just went up, for a one-time pulse. */
+  /** The sexual assault support whose info sheet is open (a purple dot, or the panel's Nearest support). */
+  supportId: string | null;
+  setSupportId: (id: string | null) => void;
   pulse: { slug: string; at: number } | null;
 };
 
@@ -29,9 +29,8 @@ export function useMapState() {
 // When refresh_scores runs after a rating, the row update arrives here and the dot and panel update.
 export function MapStateProvider({ initial, children }: { initial: InstitutionSummary[]; children: React.ReactNode }) {
   const [schools, setSchools] = useState(initial);
-  // Opens on The gap: dots coloured by the gap between On paper and In practice (Farnaz's call, Oct 3).
-  const [mode, setMode] = useState<Mode>("gap");
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
+  const [supportId, setSupportId] = useState<string | null>(null);
   const [pulse, setPulse] = useState<MapState["pulse"]>(null);
 
   useEffect(() => {
@@ -64,6 +63,6 @@ export function MapStateProvider({ initial, children }: { initial: InstitutionSu
     };
   }, []);
 
-  const value = useMemo(() => ({ schools, mode, setMode, typeFilter, setTypeFilter, pulse }), [schools, mode, typeFilter, pulse]);
+  const value = useMemo(() => ({ schools, typeFilter, setTypeFilter, supportId, setSupportId, pulse }), [schools, typeFilter, supportId, pulse]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

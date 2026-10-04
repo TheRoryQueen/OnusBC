@@ -1,4 +1,4 @@
-import { gapDisplay } from "@/lib/grades";
+import { dotStyle } from "@/lib/map-style";
 import type { InstitutionSummary } from "@/lib/types";
 
 // The school dots, server-rendered into the first HTML so they show at first paint, before MapLibre
@@ -37,13 +37,23 @@ export function DotsPreview({ schools, hidden }: { schools: InstitutionSummary[]
     >
       <svg viewBox={`${r3(x0 * k)} ${r3(y0 * k)} ${r3((x1 - x0) * k)} ${r3((y1 - y0) * k)}`} preserveAspectRatio="xMidYMid meet" className="h-full w-full overflow-visible">
         {schools.map((sch) => {
-          const gap = gapDisplay(sch.scores?.gap_label ?? null, sch.policy_found);
+          const st = dotStyle(sch);
           const d = `M${r3(mx(sch.lng) * k)} ${r3(my(sch.lat) * k)}h0`;
+          // Same as the map at its starting zoom: a 4.5 px dot, outlined; the ring (if any) outside it.
+          const dot = 9, outline = st.hollow ? 2 : 1.25;
+          const inner = dot + 2 * outline + (st.ring?.detached ? 6 : 0);
+          const outer = st.ring ? inner + 2 * st.ring.width : 0;
           return (
             <g key={sch.slug}>
               {/* Zero-length round-capped strokes with non-scaling width draw a dot of exact pixel size. */}
-              <path d={d} stroke="var(--onus-page)" strokeWidth={17} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-              <path d={d} stroke={`var(${gap.token})`} strokeOpacity={gap.variant === "neutral" ? 0.45 : 1} strokeWidth={13} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+              {st.ring && (
+                <>
+                  <path d={d} stroke={`var(${st.ring.token})`} strokeWidth={outer} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                  <path d={d} stroke="var(--onus-map-land)" strokeWidth={inner} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                </>
+              )}
+              <path d={d} stroke={`var(${st.hollow ? "--onus-no-policy" : "--onus-text"})`} strokeWidth={dot + 2 * outline} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+              <path d={d} stroke={`var(${st.hollow ? "--onus-page" : st.fill})`} strokeWidth={dot} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
             </g>
           );
         })}

@@ -250,7 +250,7 @@ The map follows the Apple Maps pattern: the map fills the screen, and only contr
 
 - Muted base map that switches tiles with light and dark mode; colored dots are the loudest thing on screen.
 - Dot colors: teal Aligned, amber Some gap, red Big gap, grey No public policy. No banner or warning label on the map; instead each school's panel shows its rating count split by source (public, Onus, sample), so the mix is always visible. Every school is seeded so none looks empty.
-- Floating glass filter bar with capsule segmented controls: College / University, and On paper / In practice / The gap. The map opens on The gap, with dots coloured by the gap and no letters; On paper (each dot labelled with its letter) and In practice are one tap away.
+- Floating glass filter bar with one capsule segmented control: All / Colleges / Universities. There is no view toggle: each dot is filled by its On paper grade, green (A) to red (F), outlined in ink, and a ring shows the gap once the school has at least 5 real ratings (Onus plus public records, never sample). Ring thickness shows the size of the gap; a ring touching the dot means In practice is worse than the policy, a ring with a space before it means better; rings are ink (blue when better than the policy) so they never compete with the grade colours. No ring means not enough real ratings yet. Small purple dots are sexual assault support. The legend is one grade scale, "Ring: students' experience differs from the policy", and "Purple: sexual assault support". The panel still shows On paper, In practice and the gap.
 - Hover a dot: small card with school name and grade chip.
 - Each school has its own URL, so the back button works and the demo can jump straight to a school.
 
@@ -838,7 +838,7 @@ Skip Arc'teryx, AMD, Huawei, Transoft. Forced fits read as desperate.
 **Demo script (3 minutes)**
 
 1. Open: "BC requires every school to have a sexual violence policy. Nobody checks if it works."
-2. The map loads on The gap view, dots coloured by the gap. Tap a school to show its On paper grade next to what students report.
+2. The map loads with every dot shaded by its On paper grade, and a ring where enough real ratings show a gap. Tap a school to show its On paper grade next to what students report, and the purple line to its nearest sexual assault support.
 3. Expand one category; show the quoted clause and the rejected-quote check.
 4. Ask the voice agent: "If I report here, who finds out?" Cited answer, out loud.
 5. A judge signs in with the event code and rates a school; that school's Onus count ticks from 0 to 1 and the dot pulses, live.

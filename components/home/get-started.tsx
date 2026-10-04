@@ -8,7 +8,7 @@ import { usePrefersReducedMotion } from "./in-view";
 // left, five numbered steps on the right joined by a hairline. Steps fade up once as they scroll in.
 
 const STEPS: { title: string; body: string }[] = [
-  { title: "Find your school.", body: "Every public college and university in BC is on the map, colored by the gap between its policy and its practice." },
+  { title: "Find your school.", body: "Every public college and university in BC is on the map, coloured green to red by its On paper grade, with a ring where students' experience differs from the policy." },
   { title: "Read the policy, graded.", body: "Seventeen criteria, each backed by a quote from the school’s own policy. If the quote isn’t in the policy, the point doesn’t count." },
   { title: "Ask it anything.", body: "Type or talk. Answers come only from that school’s policy, with the section cited." },
   { title: "Rate your school.", body: "Sign in with your school email. Your answers are stored with no link to you." },

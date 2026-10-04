@@ -53,7 +53,7 @@ try {
     await page.getByRole("link", { name: "Explore the map" }).first().click();
     await page.waitForURL((u) => u.pathname === "/map", { timeout: 20000 });
     await mapReady(page);
-    check(`${s}: the map opens on the On paper view`, (await page.getByRole("radio", { name: "On paper" }).getAttribute("aria-checked")) === "true");
+    check(`${s}: the map shows one legend with the grade scale`, (await page.getByRole("group", { name: "Legend" }).getByText("On paper grade").count()) === 1);
 
     // 2. Open a school by tapping its dot (UBC Vancouver).
     const pt = await page.evaluate(() => {
