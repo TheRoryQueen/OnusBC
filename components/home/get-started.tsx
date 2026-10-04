@@ -34,7 +34,7 @@ export function GetStarted() {
             <Link href="/rate" prefetch={false} className="inline-flex min-h-12 items-center rounded-full bg-surface px-6 text-[15px] font-medium text-text ring-1 ring-inset ring-hairline transition-shadow hover:ring-text-secondary/40 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
               Rate your school
             </Link>
-            <Link href="/support" prefetch={false} className="inline-flex min-h-12 items-center px-3 text-[15px] font-medium text-support underline-offset-4 hover:underline">
+            <Link href="/support" prefetch={false} className="inline-flex min-h-12 items-center px-3 text-[15px] font-medium text-support underline-offset-4 underline decoration-current/35 hover:decoration-current">
               Get help
             </Link>
           </div>

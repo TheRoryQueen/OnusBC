@@ -64,7 +64,7 @@ function AnswerMessage({ data, listen }: { data: Answer; listen: Listen }) {
       {data.citations.length > 0 && <Citations citations={data.citations} translated={!!data.language && data.language !== "en"} />}
       <button type="button" onClick={listen.state === "idle" ? listen.onListen : listen.onStop}
         aria-label={listen.state === "idle" ? "Listen to this answer" : "Stop reading aloud"}
-        className="mt-3 inline-flex min-h-8 items-center gap-1.5 rounded-full bg-hairline/50 px-3 text-xs font-medium text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
+        className="hit mt-3 inline-flex min-h-8 items-center gap-1.5 rounded-full bg-hairline/50 px-3 text-xs font-medium text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
         {listen.state === "loading" ? <LoaderCircle className="size-3.5 animate-spin motion-reduce:animate-none" aria-hidden />
           : listen.state === "playing" ? <Square className="size-3 fill-current" aria-hidden /> : <Volume2 className="size-3.5" aria-hidden />}
         {listen.state === "idle" ? "Listen" : listen.state === "loading" ? "Preparing" : "Stop"}
@@ -164,12 +164,12 @@ function AskBox({ school, busy, onSend, voice, phase, onStopSpeaking }: {
         onClick={(e) => { e.stopPropagation(); if (phase === "listening") voice.stop(); else if (phase === "speaking") onStopSpeaking(); else void voice.start(); }}
         aria-label={phase === "listening" ? "Stop and ask" : phase === "speaking" ? "Stop speaking" : "Ask by voice"}
         title={phase === "listening" ? "Stop and ask" : phase === "speaking" ? "Stop speaking" : "Ask by voice"}
-        className={cn("grid size-10 shrink-0 place-items-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-brand disabled:opacity-50",
+        className={cn("hit grid size-10 shrink-0 place-items-center rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-brand disabled:opacity-50",
           phase === "listening" || phase === "speaking" ? "bg-brand-tint text-brand ring-2 ring-inset ring-brand" : "text-text-secondary hover:bg-hairline/60 hover:text-text")}>
         {phase === "listening" || phase === "speaking" ? <Square className="size-4 fill-current" aria-hidden /> : <Mic className="size-5" strokeWidth={1.75} aria-hidden />}
       </button>
       <button type="submit" disabled={!ready || live} aria-label="Send" title="Send"
-        className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-on-brand transition-[background-color,opacity] hover:bg-brand-hover active:scale-95 disabled:bg-hairline disabled:text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+        className="hit grid size-10 shrink-0 place-items-center rounded-full bg-brand text-on-brand transition-[background-color,opacity] hover:bg-brand-hover active:scale-95 disabled:bg-hairline disabled:text-text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
         <ArrowUp className="size-5" strokeWidth={2.25} aria-hidden />
       </button>
     </form>
@@ -228,7 +228,7 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="flex shrink-0 items-center gap-2 px-3 pb-3 pt-3 md:pt-4">
         <button type="button" onClick={onBack} aria-label={`Back to ${school}`}
-          className="grid size-9 place-items-center rounded-full bg-hairline/70 text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
+          className="hit grid size-9 place-items-center rounded-full bg-hairline/70 text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
           <ChevronLeft className="size-5" strokeWidth={2} aria-hidden />
         </button>
         <div className="min-w-0">
@@ -244,7 +244,7 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
             <div className="mt-4 flex flex-col items-start gap-2">
               {STARTERS.map((q) => (
                 <button key={q} type="button" disabled={busy} onClick={() => ask(q)}
-                  className="min-h-10 rounded-full bg-hairline/45 px-4 text-left text-sm text-text transition-colors hover:bg-hairline focus-visible:outline-2 focus-visible:outline-brand">
+                  className="min-h-11 rounded-full bg-hairline/45 px-4 text-left text-sm text-text transition-colors hover:bg-hairline focus-visible:outline-2 focus-visible:outline-brand">
                   {q}
                 </button>
               ))}
@@ -276,7 +276,7 @@ export function AskView({ slug, school, messages, setMessages, onBack, scrollRef
       <div className="shrink-0 px-3 pb-3 pt-2">
         <AskBox school={school} busy={busy} onSend={(q) => ask(q)} voice={voice} phase={phase} onStopSpeaking={player.stop} />
         <p className="mt-2 px-2 text-center text-[12px] leading-snug text-text-secondary">
-          Please don&apos;t share personal details. Questions aren&apos;t stored. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 hover:underline">Privacy</Link>
+          Please don&apos;t share personal details. Questions aren&apos;t stored. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Privacy</Link>
         </p>
       </div>
     </div>

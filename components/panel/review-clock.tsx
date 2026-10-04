@@ -30,7 +30,7 @@ export function ReviewClock({ date, note, weakest, lawUrl }: {
               <div className="border-b border-hairline px-4 py-3">
                 <p className="font-mono text-[12.5px] leading-relaxed text-text">&ldquo;{date.quote}&rdquo;</p>
                 <p className="mt-1.5 text-[12px] text-text-secondary">
-                  As printed in the school&apos;s {date.from === "procedures" ? "procedures" : "policy"}. <a href={date.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 hover:underline">Open the document</a>
+                  As printed in the school&apos;s {date.from === "procedures" ? "procedures" : "policy"}. <a href={date.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Open the document</a>
                 </p>
               </div>
             )}

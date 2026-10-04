@@ -61,7 +61,7 @@ function Summary({ r, recorded }: { r: RunResult; recorded?: boolean }) {
         </div>
       </div>
       <p className="mt-3 text-[13px] text-text-secondary">
-        {r.document.pages} pages, {r.document.sections} sections. {r.gemini_calls} Gemini call ({r.model}), {(r.ms / 1000).toFixed(0)} s. Not added to the BC map. <a href={r.source.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 hover:underline">Open the policy</a>
+        {r.document.pages} pages, {r.document.sections} sections. {r.gemini_calls} Gemini call ({r.model}), {(r.ms / 1000).toFixed(0)} s. Not added to the BC map. <a href={r.source.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Open the policy</a>
       </p>
     </div>
   );

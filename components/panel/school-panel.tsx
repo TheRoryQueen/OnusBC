@@ -113,7 +113,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
   return (
     <div className="relative px-5 pb-8 pt-5">
       <button type="button" onClick={onClose} aria-label="Close"
-        className="absolute right-4 top-4 grid size-8 place-items-center rounded-full bg-hairline/70 text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
+        className="hit absolute right-4 top-4 grid size-8 place-items-center rounded-full bg-hairline/70 text-text-secondary transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-brand">
         <X className="size-4" strokeWidth={2} aria-hidden />
       </button>
 
@@ -183,7 +183,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
         {docs.length > 0 && (
           <p className="mt-2 px-1 text-xs text-text-secondary">
             Graded from the school&apos;s {docs.map((d, i) => (
-              <span key={d.label}>{i > 0 && " and "}<a href={d.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 hover:underline">{d.label.toLowerCase()}</a></span>
+              <span key={d.label}>{i > 0 && " and "}<a href={d.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">{d.label.toLowerCase()}</a></span>
             ))}. Every point quotes its source.
           </p>
         )}
@@ -203,7 +203,7 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
             {school.public_records.map((r, i) => (
               <li key={i} className="flex items-baseline justify-between gap-3 border-b border-hairline px-4 py-3 last:border-b-0">
                 <span className="text-sm text-text">{r.metric} <span className="text-text-secondary">({r.year})</span></span>
-                <a href={r.source_url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-brand tabular-nums">{r.value}</a>
+                <a href={r.source_url} target="_blank" rel="noopener noreferrer" className="hit text-sm font-medium text-brand tabular-nums">{r.value}</a>
               </li>
             ))}
           </ul>
@@ -216,13 +216,13 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
         <h3 id="contact-heading" className="px-1 text-[13px] text-text-secondary">Who to contact</h3>
         <ul className="mt-2 overflow-hidden rounded-2xl bg-hairline/40 text-sm">
           {school.contact_office && <li className="border-b border-hairline px-4 py-3 text-text">{school.contact_office}</li>}
-          {school.contact_email && <li className="border-b border-hairline px-4 py-3"><a className="text-brand" href={`mailto:${school.contact_email}`}>{school.contact_email}</a></li>}
-          {school.contact_phone && phone && <li className="border-b border-hairline px-4 py-3"><a className="text-brand" href={phone}>{school.contact_phone}</a></li>}
-          {school.support_url && <li className="px-4 py-3"><a className="text-brand" href={school.support_url} target="_blank" rel="noopener noreferrer">Support page</a></li>}
+          {school.contact_email && <li className="border-b border-hairline"><a className="flex min-h-11 items-center px-4 py-2.5 text-brand" href={`mailto:${school.contact_email}`}>{school.contact_email}</a></li>}
+          {school.contact_phone && phone && <li className="border-b border-hairline"><a className="flex min-h-11 items-center px-4 py-2.5 text-brand" href={phone}>{school.contact_phone}</a></li>}
+          {school.support_url && <li><a className="flex min-h-11 items-center px-4 py-2.5 text-brand" href={school.support_url} target="_blank" rel="noopener noreferrer">Support page</a></li>}
         </ul>
       </section>
 
-      <Link href="/support" prefetch={false} className="mt-6 inline-block px-1 text-sm font-medium text-support underline-offset-4 hover:underline">Get help</Link>
+      <Link href="/support" prefetch={false} className="mt-4 inline-flex min-h-11 items-center px-1 text-sm font-medium text-support underline-offset-4 underline decoration-current/35 hover:decoration-current">Get help</Link>
     </div>
   );
 }
@@ -306,7 +306,7 @@ export function SchoolPanel({ school }: { school: InstitutionDetail }) {
       )}
     >
       <button type="button" data-sheet-handle onClick={() => setFull((f) => !f)} aria-label={full ? "Show less" : "Show more"}
-        className="mx-auto flex h-7 w-full shrink-0 touch-none items-center justify-center md:hidden">
+        className="hit mx-auto flex h-7 w-full shrink-0 touch-none items-center justify-center md:hidden">
         <span className="h-1.5 w-10 rounded-full bg-text-secondary/40" />
       </button>
       {asking ? (

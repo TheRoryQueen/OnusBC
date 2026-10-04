@@ -60,7 +60,7 @@ export function Numbers() {
           </p>
           <p className="mt-4 max-w-[40ch] text-[15px] leading-relaxed text-text">
             {review.old} of {review.total} published policies are more than three years old.{" "}
-            <a href="/how-it-works#review-clock" className="text-brand underline-offset-2 hover:underline">How this is counted</a>
+            <a href="/how-it-works#review-clock" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">How this is counted</a>
           </p>
           <p id="sources" className="mt-8 text-[12px] leading-relaxed text-text-secondary">
             Sources:{" "}

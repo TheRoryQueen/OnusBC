@@ -19,10 +19,10 @@ export function NearestSupport({ slug, city, from }: { slug: string; city: strin
       <h3 id="support-heading" className="px-1 text-[13px] text-text-secondary">Nearest support</h3>
       <div className="mt-2 rounded-2xl bg-hairline/40 px-4 py-3">
         <p className="flex items-center gap-2 text-[12px] font-medium text-support"><span className="size-2 rounded-full bg-support" aria-hidden />{kind}</p>
-        <button type="button" onClick={() => setSupportId(entry.id)} className="mt-1 text-left text-[15px] font-medium leading-snug text-text underline decoration-hairline underline-offset-4 hover:decoration-text">{entry.name}</button>
+        <button type="button" onClick={() => setSupportId(entry.id)} className="hit mt-1 text-left text-[15px] font-medium leading-snug text-text underline decoration-hairline underline-offset-4 hover:decoration-text">{entry.name}</button>
         <p className="mt-1 text-[14px] text-text-secondary">
           {distanceKm.toLocaleString("en-CA")} km {straight ? "straight-line distance" : `by road, about ${formatDrive(minutes!)} by car`}
-          <span aria-hidden> · </span><a href={tel} className="whitespace-nowrap text-text tabular-nums underline-offset-2 hover:underline">{entry.phone}</a>
+          <span aria-hidden> · </span><a href={tel} className="whitespace-nowrap text-text tabular-nums underline-offset-2 underline decoration-current/35 hover:decoration-current">{entry.phone}</a>
         </p>
         {entry.hours && <p className="mt-1 text-[13px] text-text-secondary">{entry.hours}</p>}
         <p className="mt-1 text-[13px] text-text-secondary">{entry.serves}</p>
@@ -46,7 +46,7 @@ export function NearestSupport({ slug, city, from }: { slug: string; city: strin
         </ul>
       )}
       <p className="mt-2 px-1 text-[12px] text-text-secondary">
-        <a href={entry.source_url} target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">Source</a>. Distance and drive time © OpenStreetMap contributors, computed with OSRM. Directions open Google Maps.
+        <a href={entry.source_url} target="_blank" rel="noopener noreferrer" className="underline-offset-2 underline decoration-current/35 hover:decoration-current">Source</a>. Distance and drive time © OpenStreetMap contributors, computed with OSRM. Directions open Google Maps.
       </p>
     </section>
   );

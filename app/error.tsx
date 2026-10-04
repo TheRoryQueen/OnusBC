@@ -11,7 +11,7 @@ export default function PageError({ reset }: { error: Error & { digest?: string 
         <p className="mt-3 text-[16px] text-text-secondary">It&apos;s probably a connection blip. Try again in a moment.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <button type="button" onClick={reset} className="inline-flex min-h-12 items-center rounded-full bg-brand px-6 text-[15px] font-medium text-on-brand hover:bg-brand-hover">Try again</button>
-          <Link href="/support" className="inline-flex min-h-12 items-center px-3 text-[15px] font-medium text-support underline-offset-4 hover:underline">Get help</Link>
+          <Link href="/support" className="inline-flex min-h-12 items-center px-3 text-[15px] font-medium text-support underline-offset-4 underline decoration-current/35 hover:decoration-current">Get help</Link>
         </div>
       </div>
     </main>

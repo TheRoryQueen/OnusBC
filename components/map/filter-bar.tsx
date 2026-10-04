@@ -18,7 +18,7 @@ function Segmented<T extends string>({ label, value, options, onChange }: {
           aria-checked={value === o.value}
           onClick={() => onChange(o.value)}
           className={cn(
-            "whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-brand",
+            "hit min-w-11 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-brand",
             value === o.value ? "bg-surface font-medium text-text shadow-sm" : "text-text-secondary hover:text-text"
           )}
         >
@@ -45,7 +45,7 @@ export function FilterBar({ reviewLine }: { reviewLine?: string }) {
       <MapLegend />
       {reviewLine && (
         <p className="glass pointer-events-auto mt-2 rounded-[18px] px-3 py-2 text-xs text-text-secondary">
-          {reviewLine} <a href="/how-it-works#review-clock" className="font-medium text-brand underline-offset-2 hover:underline">How this is counted</a>
+          {reviewLine} <a href="/how-it-works#review-clock" className="font-medium text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">How this is counted</a>
         </p>
       )}
       {/* The map canvas can't be tabbed through; these links give keyboard and screen reader users every school. */}

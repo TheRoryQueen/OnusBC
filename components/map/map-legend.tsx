@@ -46,7 +46,7 @@ export function MapLegend() {
     <div className="glass pointer-events-auto mt-2 w-fit max-w-full rounded-[20px] px-4 py-3">
       {/* Phones: collapsed behind one button so the map stays visible. */}
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="map-legend"
-        className="flex min-h-8 items-center gap-1.5 text-[13px] font-medium text-text md:hidden">
+        className="hit flex min-h-8 items-center gap-1.5 text-[13px] font-medium text-text md:hidden">
         Legend <ChevronDown className={cn("size-4 transition-transform motion-reduce:transition-none", open && "rotate-180")} aria-hidden />
       </button>
       <div id="map-legend" role="group" aria-label="Legend" className={cn("flex-wrap gap-x-6 gap-y-4 md:flex", open ? "mt-3 flex" : "hidden")}>

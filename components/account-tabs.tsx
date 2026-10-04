@@ -36,7 +36,7 @@ export function AccountTabs({ username, school, role, maskedEmail, isJudge, rate
       <div role="tablist" aria-label="My account" className="inline-flex rounded-full bg-hairline/50 p-1">
         {TABS.map((t) => (
           <button key={t} role="tab" id={`tab-${t}`} aria-selected={tab === t} aria-controls={`panel-${t}`} onClick={() => setTab(t)}
-            className={cn("min-h-10 rounded-full px-4 text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-brand",
+            className={cn("min-h-11 rounded-full px-4 text-[14px] transition-colors focus-visible:outline-2 focus-visible:outline-brand",
               tab === t ? "bg-surface font-medium text-text shadow-sm" : "text-text-secondary hover:text-text")}>
             {t}
           </button>
@@ -54,13 +54,13 @@ export function AccountTabs({ username, school, role, maskedEmail, isJudge, rate
         )}
         {tab === "Profile" && isJudge && (
           <p className="mt-6 text-[15px] text-text-secondary">
-            As a judge, you can watch Onus grade a policy from outside BC live. <Link href="/grade" className="text-brand underline-offset-2 hover:underline">Grade a policy</Link>
+            As a judge, you can watch Onus grade a policy from outside BC live. <Link href="/grade" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Grade a policy</Link>
           </p>
         )}
 
         {tab === "Privacy" && (
           <div className="space-y-5 text-[16px] leading-relaxed text-text-secondary">
-            <p>Your ratings are stored with no link to your account, so nobody at Onus can see which ratings are yours. Onus keeps your email (to sign you in), a random username, your school, and which schools you&apos;ve rated, not your answers. <Link href="/privacy" className="text-brand underline-offset-2 hover:underline">Read the privacy policy</Link>.</p>
+            <p>Your ratings are stored with no link to your account, so nobody at Onus can see which ratings are yours. Onus keeps your email (to sign you in), a random username, your school, and which schools you&apos;ve rated, not your answers. <Link href="/privacy" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Read the privacy policy</Link>.</p>
             <div className="border-t border-hairline pt-6">
               <h2 className="text-[17px] font-semibold text-text">Delete account</h2>
               <p className="mt-1">This removes your email and username. Your ratings stay, because they can&apos;t be traced to you; use your code first if you want to withdraw one. This can&apos;t be undone.</p>
@@ -88,13 +88,13 @@ export function AccountTabs({ username, school, role, maskedEmail, isJudge, rate
 
         {tab === "Reviews" && (
           rated.length === 0 ? (
-            <p className="text-[16px] text-text-secondary">You haven&apos;t rated a school yet. <Link href="/rate" className="text-brand underline-offset-2 hover:underline">Rate your school</Link>.</p>
+            <p className="text-[16px] text-text-secondary">You haven&apos;t rated a school yet. <Link href="/rate" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Rate your school</Link>.</p>
           ) : (
             <ul className="divide-y divide-hairline border-y border-hairline">
               {rated.map((r) => (
                 <li key={r.slug} className="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
                   <span className="text-[15px] text-text">You&apos;ve rated {r.name}</span>
-                  <Link href={`/rate/${r.slug}`} className="text-[14px] font-medium text-brand underline-offset-2 hover:underline">Change or withdraw with your code</Link>
+                  <Link href={`/rate/${r.slug}`} className="text-[14px] font-medium text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Change or withdraw with your code</Link>
                 </li>
               ))}
             </ul>

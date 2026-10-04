@@ -26,7 +26,7 @@ export default async function RatePage(props: PageProps<"/rate/[slug]">) {
       <div className="mx-auto w-full max-w-xl">
         <p className="text-[15px] leading-relaxed text-text-secondary">
           These questions are about how your school handles reports, not about what happened to you. Skip anything you want.{" "}
-          <Link href="/support" prefetch={false} className="font-medium text-support underline-offset-2 hover:underline">Get help</Link>
+          <Link href="/support" prefetch={false} className="font-medium text-support underline-offset-2 underline decoration-current/35 hover:decoration-current">Get help</Link>
         </p>
         <h1 className="mt-5 text-[32px] font-bold leading-tight tracking-tight text-text">Rate {school.name}</h1>
         {mismatch ? (

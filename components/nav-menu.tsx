@@ -25,7 +25,7 @@ export function NavMenu({ signedIn }: { signedIn: boolean }) {
   ];
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger aria-label="Open menu" className="grid size-10 place-items-center rounded-full text-text transition-colors hover:bg-hairline/60 focus-visible:outline-2 focus-visible:outline-brand sm:hidden">
+      <Dialog.Trigger aria-label="Open menu" className="hit grid size-10 place-items-center rounded-full text-text transition-colors hover:bg-hairline/60 focus-visible:outline-2 focus-visible:outline-brand sm:hidden">
         <Menu className="size-5" strokeWidth={1.75} aria-hidden />
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -33,7 +33,7 @@ export function NavMenu({ signedIn }: { signedIn: boolean }) {
         <Dialog.Popup onKeyDown={trapTab} className="fixed inset-x-0 top-0 z-50 rounded-b-[28px] bg-raised px-4 pb-6 pt-3 shadow-[0_24px_64px_-24px_rgb(0_0_0/0.35)] ring-1 ring-hairline transition-[opacity,transform] duration-200 ease-out data-[ending-style]:-translate-y-4 data-[ending-style]:opacity-0 data-[starting-style]:-translate-y-4 data-[starting-style]:opacity-0 motion-reduce:transition-none">
           <div className="flex h-10 items-center justify-between">
             <Dialog.Title className="text-lg font-semibold tracking-tight text-text">Onus</Dialog.Title>
-            <Dialog.Close aria-label="Close menu" className="grid size-10 place-items-center rounded-full text-text hover:bg-hairline/60 focus-visible:outline-2 focus-visible:outline-brand">
+            <Dialog.Close aria-label="Close menu" className="hit grid size-10 place-items-center rounded-full text-text hover:bg-hairline/60 focus-visible:outline-2 focus-visible:outline-brand">
               <X className="size-5" strokeWidth={1.75} aria-hidden />
             </Dialog.Close>
           </div>

@@ -46,7 +46,7 @@ export function SiteFooter() {
     <footer className="border-t border-hairline">
       <div className="mx-auto grid w-full max-w-6xl gap-x-12 gap-y-12 px-4 pb-10 pt-16 sm:px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
         <motion.div {...fade(0)}>
-          <Link href="/" className="text-lg font-semibold tracking-tight text-text">Onus</Link>
+          <Link href="/" className="hit text-lg font-semibold tracking-tight text-text">Onus</Link>
           <p className="mt-3 font-serif text-[1.75rem] italic leading-tight text-text">The onus is on them.</p>
           <p className="mt-3 text-[13px] text-text-secondary">Built solo at StormHacks 2026.</p>
         </motion.div>
@@ -55,17 +55,17 @@ export function SiteFooter() {
           {COLUMNS.map((col, i) => (
             <motion.nav key={col.title} aria-label={col.title} className={col.order} {...fade(i + 1)}>
               <p className={cn("text-[13px]", col.support ? "font-medium text-support" : "text-text-secondary")}>{col.title}</p>
-              <ul className="mt-3 space-y-2.5">
+              <ul className="mt-1.5">
                 {col.items.map((it) => (
                   <li key={it.label} className="text-[15px] leading-snug">
                     {it.external ? (
-                      <a href={it.href} className={cn("underline-offset-4 hover:underline", col.support ? "text-support" : "text-text")}>
+                      <a href={it.href} className={cn("inline-flex min-h-11 min-w-11 flex-col justify-center underline-offset-4 hover:underline", col.support ? "text-support" : "text-text")}>
                         {it.label}{it.number && <span className="block whitespace-nowrap tabular-nums">{it.number}</span>}
                       </a>
                     ) : (
-                      <Link href={it.href} prefetch={false} className={cn("underline-offset-4 hover:underline", col.support ? "text-support" : "text-text")}>{it.label}</Link>
+                      <Link href={it.href} prefetch={false} className={cn("inline-flex min-h-11 min-w-11 items-center underline-offset-4 hover:underline", col.support ? "text-support" : "text-text")}>{it.label}</Link>
                     )}
-                    {it.note && <span className="block text-[13px] text-text-secondary">{it.note}</span>}
+                    {it.note && <span className="block pb-1 text-[13px] text-text-secondary">{it.note}</span>}
                   </li>
                 ))}
               </ul>

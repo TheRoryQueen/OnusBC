@@ -39,7 +39,7 @@ function Question({ id, label, answered, onClear, children }: {
       <div className="mb-4 flex items-baseline justify-between gap-4">
         <p id={id} className="text-[17px] font-medium leading-snug text-text">{label}</p>
         <button type="button" onClick={onClear} tabIndex={answered ? 0 : -1} aria-hidden={!answered}
-          className={cn("shrink-0 text-sm text-text-secondary underline-offset-4 hover:text-text hover:underline", !answered && "invisible")}>
+          className={cn("shrink-0 text-sm text-text-secondary underline-offset-4 hover:text-text underline decoration-current/35 hover:decoration-current", !answered && "invisible")}>
           Clear
         </button>
       </div>
@@ -235,13 +235,13 @@ export function RatingForm({ slug, schoolName, alreadyRated }: { slug: string; s
       )}
 
       <p className="mt-4 border-t border-hairline pt-6 text-[13px] leading-relaxed text-text-secondary">
-        Your answers are stored with no link to your account. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 hover:underline">Privacy</Link>
+        Your answers are stored with no link to your account. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Privacy</Link>
       </p>
 
       {/* Floating bar: Get help and the one submit button stay in reach the whole way down. */}
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 px-4 pb-[max(16px,env(safe-area-inset-bottom))]">
         <div className="glass pointer-events-auto mx-auto flex max-w-xl items-center justify-between gap-3 rounded-full p-1.5 pl-5">
-          <Link href="/support" prefetch={false} className="inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium text-support underline-offset-4 hover:underline">
+          <Link href="/support" prefetch={false} className="inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium text-support underline-offset-4 underline decoration-current/35 hover:decoration-current">
             <LifeBuoy className="size-4" aria-hidden />Get help
           </Link>
           <div className="flex items-center gap-3">

@@ -19,7 +19,7 @@ export function Stat({ value, label, context, source, url }: { value: number; la
           {label}.{context ? <span className="text-text-secondary"> {context}.</span> : null}
         </p>
         <p className="mt-1.5 text-[12px] text-text-secondary">
-          <a href={url} target="_blank" rel="noopener noreferrer" className="underline-offset-4 hover:text-text hover:underline">{source}</a>
+          <a href={url} target="_blank" rel="noopener noreferrer" className="hit underline-offset-4 hover:text-text underline decoration-current/35 hover:decoration-current">{source}</a>
         </p>
       </div>
     </div>

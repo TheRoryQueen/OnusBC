@@ -76,7 +76,7 @@ export const AnimatedThemeToggler = ({
       onClick={toggleTheme}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className={cn(
-        "inline-flex size-9 items-center justify-center rounded-full text-text transition-colors hover:bg-brand-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+        "hit inline-flex size-9 items-center justify-center rounded-full text-text transition-colors hover:bg-brand-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
         className
       )}
       {...props}

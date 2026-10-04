@@ -38,10 +38,10 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
         {/* Crisis numbers on the map too (PRD: on every page). Wide screens: a caption along the bottom (the
             starting view keeps clear of it). Phones: a compact line above the map attribution. */}
         <p className="glass pointer-events-auto absolute bottom-4 left-1/2 z-10 hidden -translate-x-1/2 rounded-full px-3 py-1.5 text-xs text-text-secondary lg:block">
-          This map grades how schools handle sexual violence. In danger? <a href="tel:911" className="font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="font-medium text-support">Get help</Link>
+          This map grades how schools handle sexual violence. In danger? <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
         </p>
         <p className="glass pointer-events-auto absolute bottom-12 left-3 z-10 rounded-full px-3 py-1.5 text-xs text-text-secondary lg:hidden">
-          In danger? <a href="tel:911" className="font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="font-medium text-support">Get help</Link>
+          In danger? <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
         </p>
         {children}
       </main>

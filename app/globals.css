@@ -129,6 +129,21 @@
 /* Glass: frosted blur plus saturation plus a faint bright edge. Floating controls only, never glass on glass.
    A web approximation of Apple's material, not an Apple-issued style. Built from Tailwind's backdrop
    utilities: hand-written backdrop-filter declarations were dropped by the CSS optimizer. */
+/* 44 x 44 px tap targets (WCAG 2.5.5) without changing how a control looks: an invisible hit area centred
+   on it. For controls that sit apart from each other; stacked lists get real 44 px rows instead. */
+@utility hit {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
 @utility glass {
   background-color: var(--onus-glass);
   box-shadow: inset 0 0 0 1px var(--onus-glass-edge), 0 8px 32px rgb(0 0 0 / 0.08);
@@ -151,7 +166,7 @@
   overflow: hidden;
   @apply backdrop-blur-xl backdrop-saturate-[1.8];
 }
-.maplibregl-map .maplibregl-ctrl-group button { width: 36px; height: 36px; }
+.maplibregl-map .maplibregl-ctrl-group button { width: 44px; height: 44px; }
 .maplibregl-map .maplibregl-ctrl-group button + button { border-top: 1px solid var(--onus-hairline); }
 .maplibregl-map .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: none; }
 .dark .maplibregl-map .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
@@ -164,6 +179,9 @@
 }
 .maplibregl-map .maplibregl-ctrl-attrib a { color: var(--onus-text-secondary); }
 .dark .maplibregl-map .maplibregl-ctrl-attrib-button { filter: invert(1); }
+/* The attribution "i" keeps its 24 px look with a 44 px hit area. */
+.maplibregl-map .maplibregl-ctrl-attrib-button { position: relative; }
+.maplibregl-map .maplibregl-ctrl-attrib-button::after { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }
 /* Phones: pinch to zoom; the buttons would sit under the bottom sheet. */
 @media (max-width: 767px) {
   .maplibregl-ctrl-bottom-right .maplibregl-ctrl-group { display: none; }

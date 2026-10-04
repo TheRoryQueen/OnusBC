@@ -83,7 +83,7 @@ export default function Privacy() {
 
         <Block title="Your choices">
           <p>
-            You can withdraw a rating with your code, and delete your account from <Link href="/account" prefetch={false} className="text-brand underline-offset-2 hover:underline">My account</Link> at any time. Deleting your account removes your email and username; anonymous ratings remain because they can&apos;t be traced to you. Onus keeps no trace of a deleted account, not even a record that it existed.
+            You can withdraw a rating with your code, and delete your account from <Link href="/account" prefetch={false} className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">My account</Link> at any time. Deleting your account removes your email and username; anonymous ratings remain because they can&apos;t be traced to you. Onus keeps no trace of a deleted account, not even a record that it existed.
           </p>
         </Block>
       </article>

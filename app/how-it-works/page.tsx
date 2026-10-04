@@ -63,7 +63,7 @@ export default async function HowItWorks() {
 
         <Section id="criteria" title="The 17 criteria">
           <p>
-            Built from the <a href={sources.rubric.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 hover:underline">Students for Consent Culture minimum standards</a>, plus a few Onus additions that make a policy usable. Each criterion scores 0 (not addressed), 1 (mentioned but vague or optional, like &ldquo;may&rdquo;) or 2 (explicit and binding, like &ldquo;will&rdquo; or &ldquo;must&rdquo;). A category&apos;s score is its points over the points possible, times 4; the On paper grade is the average of the 5 categories.
+            Built from the <a href={sources.rubric.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Students for Consent Culture minimum standards</a>, plus a few Onus additions that make a policy usable. Each criterion scores 0 (not addressed), 1 (mentioned but vague or optional, like &ldquo;may&rdquo;) or 2 (explicit and binding, like &ldquo;will&rdquo; or &ldquo;must&rdquo;). A category&apos;s score is its points over the points possible, times 4; the On paper grade is the average of the 5 categories.
           </p>
           <p>When a school publishes its procedures as a separate document, Onus grades the policy and the procedures together as one text, and every quote shows which document and section it came from.</p>
           <div className="space-y-6 pt-2">
@@ -118,7 +118,7 @@ export default async function HowItWorks() {
 
         <Section id="review-clock" title="The review clock">
           <p>
-            BC law says a school &ldquo;must review its sexual misconduct policy (a) at least once every 3 years&rdquo; (<a href={sources.review_law.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 hover:underline">Sexual Violence and Misconduct Policy Act, s. 3 (1)</a>), and must consult students when it does (s. 4).
+            BC law says a school &ldquo;must review its sexual misconduct policy (a) at least once every 3 years&rdquo; (<a href={sources.review_law.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Sexual Violence and Misconduct Policy Act, s. 3 (1)</a>), and must consult students when it does (s. 4).
           </p>
           <p>
             For each school, Onus reads the effective, approved or last-revised date printed in its published policy (or, if the policy prints none, its procedures) and shows the exact line it came from. The next review date is that date plus three years. When a document prints no date, the panel says &ldquo;No date published.&rdquo;
@@ -139,17 +139,17 @@ export default async function HowItWorks() {
         </Section>
 
         <Section id="privacy" title="Privacy, plainly">
-          <p>Your rating is stored with no link to your account, dates are rounded to the week, and a school&apos;s results appear only after 5 ratings. You get a private code to change or withdraw your rating; we keep only a scrambled copy of it. There are no free-text boxes in the questionnaire, so no names or stories can be stored. <Link href="/privacy" className="text-brand underline-offset-2 hover:underline">Read the privacy policy</Link>.</p>
+          <p>Your rating is stored with no link to your account, dates are rounded to the week, and a school&apos;s results appear only after 5 ratings. You get a private code to change or withdraw your rating; we keep only a scrambled copy of it. There are no free-text boxes in the questionnaire, so no names or stories can be stored. <Link href="/privacy" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Read the privacy policy</Link>.</p>
         </Section>
 
         <Section id="limits" title="Limits">
           <p>AI can be wrong. The quote check stops it from inventing policy text, but it can still misjudge how strong a clause is. Every score shows its quote so you can judge for yourself.</p>
           <p>To measure this, Farnaz is hand-grading three schools and comparing her scores with the AI&apos;s. The agreement rate will be shown here once it&apos;s measured.</p>
-          <p>In practice is mostly sample data for now. The map opens on On paper for that reason.</p>
+          <p>In practice is mostly sample data for now, so the map colours each school by its On paper grade and only draws a gap ring once a school has 5 real ratings.</p>
         </Section>
 
         <Section id="sources" title="Sources">
-          <p>Every number, quote and policy on Onus links to where it came from. <Link href="/sources" className="text-brand underline-offset-2 hover:underline">See all sources</Link>.</p>
+          <p>Every number, quote and policy on Onus links to where it came from. <Link href="/sources" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">See all sources</Link>.</p>
         </Section>
       </article>
     </main>

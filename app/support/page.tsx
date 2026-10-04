@@ -23,7 +23,7 @@ export default async function SupportPage() {
         <h1 className="font-serif text-[2.75rem] leading-[1.05] text-text sm:text-[3.5rem]">
           {/* The number is set in the sans: Instrument Serif's 1 reads as an l, and 911 must be unmistakable. */}
           In danger right now?{" "}
-          <a href="tel:911" className="whitespace-nowrap font-sans font-semibold tracking-tight text-support underline-offset-8 hover:underline">Call 911.</a>
+          <a href="tel:911" className="whitespace-nowrap font-sans font-semibold tracking-tight text-support underline-offset-8 underline decoration-current/35 hover:decoration-current">Call 911.</a>
         </h1>
 
         <section aria-labelledby="victimlink" className="mt-12 border-t border-hairline pt-8">
@@ -40,7 +40,7 @@ export default async function SupportPage() {
         <section aria-labelledby="school-support" className="mt-12 border-t border-hairline pt-8">
           <h2 id="school-support" className="text-[19px] font-semibold tracking-tight text-text">Support at your school</h2>
           <p className="mt-1 text-[15px] leading-relaxed text-text-secondary">
-            Each school&apos;s sexual violence support office, as the school publishes it. The Province keeps its own <a href={sources.province_lists.support} target="_blank" rel="noopener noreferrer" className="text-support underline-offset-2 hover:underline">list of campus support</a>.
+            Each school&apos;s sexual violence support office, as the school publishes it. The Province keeps its own <a href={sources.province_lists.support} target="_blank" rel="noopener noreferrer" className="text-support underline-offset-2 underline decoration-current/35 hover:decoration-current">list of campus support</a>.
           </p>
           <div className="mt-6">
             <SupportList offices={offices} />

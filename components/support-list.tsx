@@ -31,17 +31,17 @@ export function SupportList({ offices }: { offices: Office[] }) {
             {o.office && <p className="mt-0.5 text-[14px] text-text-secondary">{o.office}</p>}
             <div className="mt-3 flex flex-wrap gap-2">
               {o.phone && (
-                <a href={telHref(o.phone)} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-support/12 px-4 text-[14px] font-medium text-support">
+                <a href={telHref(o.phone)} className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-support/12 px-4 text-[14px] font-medium text-support">
                   <Phone className="size-4" aria-hidden />{o.phone}
                 </a>
               )}
               {o.email && (
-                <a href={`mailto:${o.email}`} className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-[14px] font-medium text-text">
+                <a href={`mailto:${o.email}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-[14px] font-medium text-text">
                   <Mail className="size-4" aria-hidden />{o.email}
                 </a>
               )}
               {o.url && (
-                <a href={o.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-[14px] font-medium text-text">
+                <a href={o.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-[14px] font-medium text-text">
                   Support page<ExternalLink className="size-3.5" aria-hidden />
                 </a>
               )}

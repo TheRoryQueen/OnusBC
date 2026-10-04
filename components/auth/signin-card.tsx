@@ -18,7 +18,7 @@ const RESEND_AFTER_S = 30;
 
 const inputCls = "w-full rounded-full border border-hairline bg-surface px-4 py-3 text-[15px] text-text placeholder:text-text-secondary/80 focus:border-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/30";
 const primaryBtn = "w-full rounded-full bg-brand px-5 py-3 text-[15px] font-medium text-on-brand transition-colors hover:bg-brand-hover disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
-const quietLink = "text-sm text-text-secondary underline-offset-4 hover:text-text hover:underline";
+const quietLink = "hit text-sm text-text-secondary underline-offset-4 hover:text-text underline decoration-current/35 hover:decoration-current";
 
 const domainOf = (email: string) => email.trim().toLowerCase().split("@")[1] ?? "";
 
@@ -252,7 +252,7 @@ export function SignInCard({ next, finishEmail }: { next: string | null; finishE
             <div className="border-t border-hairline pt-4">
               <button type="submit" disabled={busy} className={primaryBtn}>{busy ? "Sending" : "Send code"}</button>
               <p className="mt-3 text-center text-xs leading-relaxed text-text-secondary">
-                We never show your email. Your ratings aren&apos;t linked to your account. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 hover:underline">Privacy</Link>
+                We never show your email. Your ratings aren&apos;t linked to your account. <Link href="/privacy" prefetch={false} className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">Privacy</Link>
               </p>
             </div>
           </form>
