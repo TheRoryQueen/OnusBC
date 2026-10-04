@@ -13,7 +13,7 @@ import { useMapState } from "./map-state";
 import { SupportSheet } from "./support-sheet";
 import { MAPPED, nearestSupport } from "@/lib/support";
 import { dotStyle } from "@/lib/map-style";
-import { HOSPITALS, HOSPITAL_MIN_ZOOM, nearestHospitals } from "@/lib/hospitals";
+import { HOSPITALS, HOSPITAL_MIN_ZOOM, nearestHospital, nearestHospitals } from "@/lib/hospitals";
 import { HospitalSheet } from "./hospital-sheet";
 
 const STYLE = {
@@ -34,6 +34,22 @@ function supportRoute(slug: string | null) {
     features: near ? [{ type: "Feature" as const, geometry: near.route.geometry, properties: { straight: near.straight } }] : [],
   };
 }
+
+// The selected school's route to its nearest hospital emergency department (precomputed, like the support route).
+function hospitalRoute(key: string | null) {
+  const near = nearestHospital(key);
+  return {
+    type: "FeatureCollection" as const,
+    features: near ? [{ type: "Feature" as const, geometry: near.route.geometry, properties: {} }] : [],
+  };
+}
+// Hospitals shown at every zoom while a school is selected: the three nearest, and the one its route goes to.
+const hospitalsNear = (s: InstitutionSummary | undefined, key: string | null) => {
+  if (!s) return [];
+  const ids = nearestHospitals(s);
+  const h = nearestHospital(key)?.hospital.id;
+  return h && !ids.includes(h) ? [...ids, h] : ids;
+};
 
 type Hover = { school: InstitutionSummary; x: number; y: number } | null;
 
@@ -127,6 +143,12 @@ export function OnusMap() {
       features: MAPPED.map((e) => ({ type: "Feature" as const, geometry: { type: "Point" as const, coordinates: [e.lng, e.lat] }, properties: { id: e.id } })),
     } });
     if (!map.getSource("support-route")) map.addSource("support-route", { type: "geojson", data: supportRoute(latest.current.selected) });
+    // The route to the nearest hospital emergency department: an ink dotted line, under the purple one.
+    if (!map.getSource("hospital-route")) map.addSource("hospital-route", { type: "geojson", data: hospitalRoute(latest.current.selected) });
+    map.addLayer({ id: "hospital-route-casing", type: "line", source: "hospital-route", layout: { "line-cap": "round", "line-join": "round" },
+      paint: { "line-color": token("--onus-page"), "line-width": 6 } });
+    map.addLayer({ id: "hospital-route", type: "line", source: "hospital-route", layout: { "line-cap": "round", "line-join": "round" },
+      paint: { "line-color": token("--onus-text"), "line-width": 3, "line-dasharray": [0.1, 2] } });
     map.addLayer({ id: "support-route-casing", type: "line", source: "support-route", layout: { "line-cap": "round", "line-join": "round" },
       paint: { "line-color": token("--onus-page"), "line-width": 7 } });
     map.addLayer({ id: "support-route", type: "line", source: "support-route", layout: { "line-cap": "round", "line-join": "round" },
@@ -152,7 +174,7 @@ export function OnusMap() {
     map.addLayer({ id: "hospital", type: "symbol", source: "hospitals", minzoom: HOSPITAL_MIN_ZOOM,
       layout: { "icon-image": "hospital-cross", "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "hospital-near", type: "symbol", source: "hospitals", maxzoom: HOSPITAL_MIN_ZOOM,
-      filter: ["in", ["get", "id"], ["literal", sel ? nearestHospitals(sel) : []]],
+      filter: ["in", ["get", "id"], ["literal", hospitalsNear(sel, latest.current.selected)]],
       layout: { "icon-image": "hospital-cross", "icon-allow-overlap": true, "icon-ignore-placement": true } });
     map.addLayer({ id: "support-dot", type: "circle", source: "support-points",
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 3.5, 10, 6], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
@@ -281,7 +303,8 @@ export function OnusMap() {
     const src = mapRef.current?.getSource("support-route") as GeoJSONSource | undefined;
     if (!ready || !src) return;
     const s = latest.current.schools.find((x) => x.slug === selected);
-    if (mapRef.current?.getLayer("hospital-near")) mapRef.current.setFilter("hospital-near", ["in", ["get", "id"], ["literal", s ? nearestHospitals(s) : []]]);
+    if (mapRef.current?.getLayer("hospital-near")) mapRef.current.setFilter("hospital-near", ["in", ["get", "id"], ["literal", hospitalsNear(s, selected)]]);
+    (mapRef.current?.getSource("hospital-route") as GeoJSONSource | undefined)?.setData(hospitalRoute(selected));
     const full = supportRoute(selected);
     const line = full.features[0];
     if (!line || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { src.setData(full); return; }
@@ -325,8 +348,11 @@ export function OnusMap() {
       // Within 40 km, show the whole route to the nearest support; farther away, fly to the campus.
       // Only when that still means zooming in to street level (zoom 11+): on a phone the space between the
       // filter bar and the sheet is small, and fitting a long route there would zoom out instead.
+      // Both routes (support and the nearest hospital) are framed together when they are close by.
       const near = nearestSupport(s.slug, null);
-      const xs = near?.route.geometry.coordinates.map((c) => c[0]) ?? [], ys = near?.route.geometry.coordinates.map((c) => c[1]) ?? [];
+      const hosp = nearestHospital(s.slug);
+      const pts = [...(near?.route.geometry.coordinates ?? []), ...(hosp && hosp.distanceKm <= 40 ? hosp.route.geometry.coordinates : [])];
+      const xs = pts.map((c) => c[0]), ys = pts.map((c) => c[1]);
       const padding = desktop ? { top: 240, bottom: 100, left: 480, right: 120 } : { top: 170, bottom: window.innerHeight * 0.45, left: 32, right: 32 };
       const fit = near && near.distanceKm <= 40
         ? map.cameraForBounds([[Math.min(...xs), Math.min(...ys)], [Math.max(...xs), Math.max(...ys)]], { padding, maxZoom: CAMPUS_ZOOM })

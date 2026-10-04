@@ -5,6 +5,8 @@ import { execFileSync } from "node:child_process";
 import { chromium } from "@playwright/test";
 import centres from "../data/support-centres.json" with { type: "json" };
 import routes from "../data/support-routes.json" with { type: "json" };
+import hospitalData from "../data/hospitals.json" with { type: "json" };
+import hospitalRoutes from "../data/hospital-routes.json" with { type: "json" };
 import { dbClient } from "./lib/db.mts";
 
 const BASE = process.env.SCREENSHOT_BASE ?? "http://localhost:3000";
@@ -27,7 +29,18 @@ check("every route target is a mapped entry", features.every((f) => entries.some
 
 const db = await dbClient();
 const { rows: campuses } = await db.query("select slug, city from public.institutions where sector = 'public' and slug not like 'zz-%'");
+// Routes to the nearest hospital emergency department: precomputed, one per campus, and only to a hospital
+// that its health authority lists as having an emergency department (never a care home or outpatient centre).
+type H = { name: string; ed?: boolean; ed_source?: string };
+const edList = (hospitalData as { hospitals: H[] }).hospitals;
+const hRoutes = (hospitalRoutes as unknown as { features: { properties: { campus: string; hospital: string; method: string } }[]; attribution: string });
+check("every hospital marked with an emergency department has an https source", edList.filter((h) => h.ed).every((h) => /^https:\/\//.test(h.ed_source ?? "")));
+check("care homes and outpatient buildings are not marked as emergency departments", edList.filter((h) => /Purdy|Banfield|Jim Pattison Outpatient|Holy Family/.test(h.name)).every((h) => h.ed === false));
+check("hospital routes carry OpenStreetMap attribution", /OpenStreetMap contributors/.test(hRoutes.attribution));
+check("every hospital route goes to an emergency department", hRoutes.features.every((f) => edList.find((h) => h.name === f.properties.hospital)?.ed === true));
+check("every hospital route is by road", hRoutes.features.every((f) => f.properties.method === "road"));
 check("every campus has a hospital sexual assault service route", campuses.every((c) => features.some((f) => f.properties.campus === c.slug && f.properties.kind === "hospital")));
+check("every campus has a route to its nearest emergency department", campuses.every((c) => hRoutes.features.some((f) => f.properties.campus === c.slug)));
 type H = E & { care_24h?: boolean; label?: string; hours?: string | null };
 const hospitals = entries.filter((e) => e.type === "hospital") as H[];
 check("'24 hours' only where the service itself is sourced as 24-hour (VCH, Fraser Health)", hospitals.filter((h) => /24 hours/.test(h.label ?? "")).every((h) => h.care_24h) && hospitals.filter((h) => h.care_24h).map((h) => h.id).sort().join() === "fh-abbotsford-regional,fh-surrey-memorial,vch-vgh-sas");
@@ -78,7 +91,12 @@ try {
   await page.waitForTimeout(2500);
   const panel = page.getByRole("complementary");
   check("the panel names the nearest support with distance and drive time", await panel.getByText("Sexual Assault Service at Vancouver General Hospital").isVisible() && await panel.getByText(/10\.3 km by road, about 18 min by car/).isVisible());
-  check("call and directions links", (await panel.getByRole("link", { name: "Call Sexual Assault Service at Vancouver General Hospital" }).getAttribute("href")) === "tel:6048752881" && /^https:\/\/www\.google\.com\/maps\/dir\//.test(await panel.getByRole("link", { name: /^Directions to / }).getAttribute("href") ?? ""));
+  check("call and directions links", (await panel.getByRole("link", { name: "Call Sexual Assault Service at Vancouver General Hospital" }).getAttribute("href")) === "tel:6048752881" && /^https:\/\/www\.google\.com\/maps\/dir\//.test(await panel.getByRole("link", { name: "Directions to Sexual Assault Service at Vancouver General Hospital" }).getAttribute("href") ?? ""));
+  check("the panel names the nearest emergency department by road (UBC Hospital)", await panel.getByText("Nearest emergency department").isVisible() && await panel.getByRole("button", { name: "UBC Hospital - Koerner Pavilion" }).isVisible());
+  const hr = await page.evaluate(() => ((window as unknown as { __onusMap: { getSource: (s: string) => { serialize: () => { data: { features: unknown[] } } } } }).__onusMap.getSource("hospital-route").serialize().data.features.length));
+  check("selecting a school draws one route to the nearest hospital", hr === 1, String(hr));
+  check("the hospital route is a dotted ink line, not purple", await page.evaluate(() => { const m = (window as unknown as { __onusMap: { getPaintProperty: (l: string, p: string) => unknown } }).__onusMap; return JSON.stringify(m.getPaintProperty("hospital-route", "line-dasharray")) === "[0.1,2]" && m.getPaintProperty("hospital-route", "line-color") !== m.getPaintProperty("support-route", "line-color"); }));
+  check("the legend lists the hospital route", await page.getByRole("group", { name: "Legend" }).getByText("Route to the nearest hospital").isVisible());
   check("Salal's 24-hour line is shown for a Vancouver campus", await panel.getByText("Salal Sexual Violence Support Centre").isVisible());
   // The info sheet: name, address, phone, Google Maps directions and website.
   await panel.getByRole("button", { name: "Sexual Assault Service at Vancouver General Hospital" }).click();

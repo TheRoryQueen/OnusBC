@@ -37,7 +37,7 @@ export default async function MapLayout({ children }: LayoutProps<"/map">) {
           )}
         </div>
         {/* The legend, with the crisis numbers as its last row (PRD: on every page). */}
-        <MapLegend />
+        <MapLegend hospitalRoutes />
         {children}
       </main>
     </MapStateProvider>

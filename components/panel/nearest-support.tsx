@@ -4,6 +4,8 @@ import { ExternalLink, Navigation, Phone } from "lucide-react";
 import { useMapState } from "@/components/map/map-state";
 import { ED_NOTE, campusSupport, directionsUrl, formatDrive, type Option, type SupportEntry } from "@/lib/support";
 import { telHref } from "@/lib/tel";
+import { nearestHospital } from "@/lib/hospitals";
+import { HospitalLine } from "@/components/map/map-legend";
 
 // Sexual assault support in a school's panel (order explained in lib/support.ts): the nearest emergency
 // department first where hospital sexual assault care is over 100 km away, then local phone lines, then the
@@ -60,9 +62,41 @@ function LocalLine({ e }: { e: SupportEntry }) {
   );
 }
 
-export function NearestSupport({ slug, city, from }: { slug: string; city: string | null; from: { lat: number; lng: number } }) {
-  const s = campusSupport(slug, city);
-  if (!s.ed && !s.nearest && !s.local.length) return null;
+// The nearest hospital emergency department by road (the dotted ink line on the map), from the health
+// authority's own emergency department list. Left out where the support above already is that hospital.
+function NearestHospitalCard({ campusKey, from, skip }: { campusKey: string; from: { lat: number; lng: number }; skip: ({ lat: number; lng: number } | undefined)[] }) {
+  const { setHospitalId, setSupportId } = useMapState();
+  const n = nearestHospital(campusKey);
+  if (!n) return null;
+  const h = n.hospital;
+  // The same hospital (support entries name the service, so compare places: within about 1 km).
+  if (skip.some((x) => x && Math.hypot(x.lat - h.lat, (x.lng - h.lng) * Math.cos((h.lat * Math.PI) / 180)) < 0.009)) return null;
+  const dest = encodeURIComponent(`${h.name}, ${h.address}`);
+  return (
+    <div className="rounded-2xl bg-hairline/40 px-4 py-3">
+      <p className="flex items-center gap-2 text-[12px] font-medium text-text-secondary"><HospitalLine />Nearest emergency department</p>
+      <button type="button" onClick={() => { setSupportId(null); setHospitalId(h.id); }} className="hit mt-1 text-left text-[15px] font-medium leading-snug text-text underline decoration-hairline underline-offset-4 hover:decoration-text">{h.name}</button>
+      <p className="mt-1 text-[13px] text-text-secondary">{h.address}</p>
+      <p className="mt-1 text-[14px] text-text-secondary">
+        {n.distanceKm.toLocaleString("en-CA")} km {n.straight ? "straight-line distance" : `by road, about ${formatDrive(n.minutes!)} by car`}
+        {h.phone && <><span aria-hidden> · </span><a href={telHref(h.phone)} className="whitespace-nowrap text-text tabular-nums underline decoration-current/35 underline-offset-2 hover:decoration-current">{h.phone}</a></>}
+      </p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <a href={`https://www.google.com/maps/dir/?api=1&origin=${from.lat},${from.lng}&destination=${dest}`} aria-label={`Directions to ${h.name}`} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-hairline/60 px-4 text-sm font-medium text-text">
+          <Navigation className="size-4" aria-hidden />Directions
+        </a>
+        <a href={h.status_url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-hairline/60 px-4 text-sm font-medium text-text">
+          <ExternalLink className="size-4" aria-hidden />Emergency department status
+        </a>
+      </div>
+      {h.ed_source && <p className="mt-2 text-[12px] text-text-secondary"><a href={h.ed_source} target="_blank" rel="noopener noreferrer" className="hit underline decoration-current/35 underline-offset-2 hover:decoration-current">Source</a></p>}
+    </div>
+  );
+}
+
+export function NearestSupport({ slug, campusKey = slug, city, from }: { slug: string; campusKey?: string; city: string | null; from: { lat: number; lng: number } }) {
+  const s = campusSupport(campusKey, city);
+  if (!s.ed && !s.nearest && !s.local.length && !nearestHospital(campusKey)) return null;
   return (
     <section className="mt-6" aria-labelledby="support-heading">
       <h3 id="support-heading" className="px-1 text-[13px] text-text-secondary">Nearest support</h3>
@@ -77,6 +111,7 @@ export function NearestSupport({ slug, city, from }: { slug: string; city: strin
         )}
         {s.local.length > 0 && <ul className="overflow-hidden rounded-2xl bg-hairline/40">{s.local.map((e) => <LocalLine key={e.id} e={e} />)}</ul>}
         {s.nearest && <Card o={s.nearest} from={from} />}
+        <NearestHospitalCard campusKey={campusKey} from={from} skip={[s.ed?.entry, s.nearest?.entry]} />
         {s.others.length > 0 && (
           <div className="px-1">
             <p className="text-[12px] text-text-secondary">Also nearby</p>

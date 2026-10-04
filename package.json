@@ -48,7 +48,8 @@
     "test:a11y": "tsx scripts/test-a11y.mts",
     "test:report-card": "tsx scripts/test-report-card.mts",
     "test:data": "tsx scripts/test-data.mts",
-    "test:viewer": "tsx scripts/test-viewer.mts"
+    "test:viewer": "tsx scripts/test-viewer.mts",
+    "hospital-routes": "tsx scripts/pipeline/hospital-routes.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
