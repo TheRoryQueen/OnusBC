@@ -3,6 +3,7 @@
 You are building Onus, a live map that grades how BC colleges and universities handle sexual violence. docs/PRD.md is the source of truth. docs/components.md holds the reference component code and how to adapt each piece.
 
 ## Start of every session
+Read docs/handoff.md at the start of every session.
 1. Read docs/PRD.md (at least the sections for the task at hand) and the current milestone in "Build handoff: order of work".
 2. Before any UI work, load the frontend-design and design-taste-frontend skills, and read the matching section of docs/components.md.
 3. Work one milestone at a time. Don't start the next until the current one passes its "Done when" check.
