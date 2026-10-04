@@ -41,7 +41,8 @@
     "review-dates": "tsx scripts/pipeline/dates.mts",
     "test:review-dates": "tsx scripts/test-review-dates.mts",
     "test:multilingual": "tsx scripts/test-multilingual.mts",
-    "test:grade": "tsx scripts/test-grade.mts"
+    "test:grade": "tsx scripts/test-grade.mts",
+    "test:ask-isolation": "tsx scripts/test-ask-isolation.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
