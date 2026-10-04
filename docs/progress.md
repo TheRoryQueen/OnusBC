@@ -10,8 +10,8 @@ with this file updated. Item 7 is the one called "item 6" in the request (the st
 | 3 | School panel: Call, Listen, Read the summary | Done | 561459a |
 | 4 | Nav: same destinations, footer links, phone menu bug, tabs | Done | f83ffa7 |
 | 5 | Rating flow and account | Done | b1c6898 |
-| 6 | Design pass: Get support and How it works | Done, tests not rerun (see below) | see git log (item 6) |
-| 7 | Stricter grading (stops after the rubric for approval) | Not started | |
+| 6 | Design pass: Get support and How it works | Done | 9e82c1a |
+| 7 | Stricter grading (stops after the rubric for approval) | Rubric proposed, waiting on Farnaz | see git log (item 7) |
 
 ## 1. Phone-only lines
 
@@ -167,10 +167,19 @@ Done (commit: "Get support and How it works in the homepage's layout").
 - How it works: the grade letters as a hairline-divided row (like the homepage numbers) instead of filled
   boxes; accepted and rejected quotes behind a coloured rule instead of tinted cards; the privacy line now
   says the code stays in your browser.
-- Left: I did not rerun the test suites after this item (test:fixes checks the support search; test:a11y
-  covers both pages) or run the design critique skill on it. Run npm run test:fixes and npm run test:a11y
-  before relying on it.
+- Verification on 3 October, late session: test:fixes 22 passed 0 failed, test:a11y 0 findings, both against the
+  running dev server. Design critique run on all eight after screenshots (both pages, both themes, 390 and
+  1440) against the PRD Design system and the anti-AI rules: no violations, no changes made. Notes for item
+  7: the how-it-works grade row, the gap legend and the "0 to 4 scale" line carry the old scale and change
+  with the recompute list.
 
 ## 7. Stricter grading
 
-Not started. The first step is to propose the rubric and stop for your approval.
+Rubric proposed on 3 October in docs/rubric-v2-proposal.md, waiting on Farnaz's approval. Nothing graded,
+nothing run, live grades untouched. The proposal holds: the v2 scoring rules and the 17 guides; the 0 to 100
+score with letters A 80 and up through F under 50; the quota plan (24 unique documents, 20 Gemini calls a
+day, two days, stop and report if the quota bites); the second auditor over 5 schools with an agreement
+rate; the In practice scale question (option A recommended); the backup and rollout order; and an estimate of
+the effect (today's B 6 and C 19 would read B 3, C 4, D 11, F 7 through the new bands alone, before any
+re-grading). Decisions Farnaz owes: approve the rubric, pick the In practice option, confirm or swap the five
+audit schools, and confirm the second auditor's model name for the honesty note.
