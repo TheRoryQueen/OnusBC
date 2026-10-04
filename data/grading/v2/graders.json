@@ -28,75 +28,75 @@
   "by": "gemini"
  },
  "jibc": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "kpu": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "langara": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "nic": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "nlc": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "nvit": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "okanagan": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "rru": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "selkirk": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "sfu": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "tru": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "ubc-okanagan": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "ubc-vancouver": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "ufv": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "unbc": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "uvic": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "vcc": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+    "model": "gemini-3.5-flash",
+    "by": "gemini"
  },
  "viu": {
-  "model": "claude-opus-5-5",
-  "by": "claude"
+   "model": "gemini-3.5-flash",
+   "by": "gemini"
  }
 }
