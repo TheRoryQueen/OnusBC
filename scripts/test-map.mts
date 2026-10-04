@@ -1,4 +1,4 @@
-// Milestone 5 checks in a real browser: dots coloured by gap, filters, clicking a dot opens the panel with
+// Milestone 5 checks in a real browser: dots coloured by gap, the school search, clicking a dot opens the panel with
 // real grades, /map/[slug] deep links and the back button, the phone bottom sheet, the theme switch,
 // and live updates from Supabase Realtime. Needs the dev server (npm run dev); uses the dev-only map hook.
 // Usage: npm run test:map
@@ -66,15 +66,23 @@ try {
   if (ubcRow.gap_label === "some_gap") check("UBC Vancouver: some gap is a 3 px ink ring touching the dot", ubc.ring && ubc.ringWidth === 3 && ubc.ringColor === tokens["--onus-text"] && ubc.ringOffset === 1.25);
   check("sample-only schools get no ring (UVic: 3 public records)", !all.find((f) => f.slug === "uvic")?.ring);
 
-  // Filters.
-  const colleges = (await db.query("select count(*)::int n from public.institutions where type = 'college'")).rows[0].n;
-  await page.getByRole("radio", { name: "Colleges" }).click();
-  await page.waitForTimeout(300);
-  check("College filter shows only colleges (institutes included)", (await features(page)).length === colleges, `${(await features(page)).length} of ${colleges}`);
-  await page.getByRole("radio", { name: "Universities" }).click();
-  await page.waitForTimeout(300);
-  check("University filter shows only universities", (await features(page)).length === total - colleges);
-  await page.getByRole("radio", { name: "All" }).click();
+  // No type filter any more; a search instead (name or short name flies to the school and opens its panel).
+  check("there is no All / Colleges / Universities filter", (await page.getByRole("radio", { name: "Colleges" }).count()) === 0);
+  const search = page.getByRole("combobox", { name: "Find a school" });
+  for (const [q, slug] of [["UBC", "ubc-vancouver"], ["sfu", "sfu"], ["BCIT", "bcit"], ["fraser valley", "ufv"], ["Kwantlen", "kpu"]]) {
+    await search.fill(q);
+    const first = await page.getByRole("listbox", { name: "Schools" }).getByRole("option").first().textContent();
+    await search.press("Enter");
+    await page.waitForURL(new RegExp(`/map/${slug}$`), { timeout: 10000 }).catch(() => {});
+    check(`search "${q}" opens ${slug}`, page.url().endsWith(`/map/${slug}`), `${first} -> ${page.url()}`);
+  }
+  await search.fill("ubc");
+  check("search \"ubc\" lists both UBC campuses", (await page.getByRole("option").count()) >= 2);
+  await search.fill("zzzz");
+  check("search with no match says so", await page.getByText(/No BC public college or university matches/).isVisible());
+  await search.press("Escape");
+  await page.goto(`${BASE}/map`, { waitUntil: "load" });
+  await mapReady(page);
 
   // Clicking a dot opens the panel with real grades.
   const pt = await page.evaluate(() => {

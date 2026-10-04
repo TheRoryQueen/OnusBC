@@ -22,7 +22,7 @@ export function HospitalSheet() {
   if (!h) return null;
   return (
     <section role="dialog" aria-modal="false" aria-labelledby="hospital-sheet-title"
-      className="glass pointer-events-auto absolute inset-x-3 bottom-3 z-30 rounded-[28px] p-5 md:inset-x-auto md:bottom-auto md:right-4 md:top-[248px] md:w-[380px]">
+      className="glass pointer-events-auto absolute inset-x-3 bottom-3 z-30 rounded-[28px] p-5 md:inset-x-auto md:bottom-auto md:right-4 md:top-[136px] md:w-[380px]">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[12px] font-medium text-text-secondary">Hospital · {h.health_authority}</p>

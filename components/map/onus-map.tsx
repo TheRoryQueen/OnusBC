@@ -5,7 +5,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 // DotsPreview shows the dots from the server-rendered HTML in the meantime.
 import type { GeoJSONSource, MapLayerMouseEvent, Map as MLMap } from "maplibre-gl";
 import { DotsPreview, INITIAL_BOUNDS, initialPadding } from "./dots-preview";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import type { InstitutionSummary } from "@/lib/types";
@@ -37,8 +37,43 @@ function supportRoute(slug: string | null) {
 
 type Hover = { school: InstitutionSummary; x: number; y: number } | null;
 
+// The card shown when a pointer rests on a school dot (wide screens): name and On paper grade only. It opens
+// above the dot, or below, left or right of it, whichever has room, and never under the school panel (which
+// covers the left 432 px when open). It is drawn above the floating controls.
+const GAP = 14, EDGE = 8, PANEL_RIGHT = 432;
+function HoverCard({ hover, panelOpen }: { hover: NonNullable<Hover>; panelOpen: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  // Placed straight on the element after it is measured (before paint), so it never flashes in the wrong spot.
+  useLayoutEffect(() => {
+    const card = ref.current, box = card?.parentElement;
+    if (!card || !box) return;
+    const W = box.clientWidth, H = box.clientHeight, w = card.offsetWidth, h = card.offsetHeight;
+    const minX = panelOpen ? PANEL_RIGHT : EDGE;
+    // The dot itself is under the panel: no card.
+    if (hover.x < minX) { card.style.visibility = "hidden"; return; }
+    const clampX = (x: number) => Math.min(Math.max(x, minX), W - w - EDGE);
+    const clampY = (y: number) => Math.min(Math.max(y, EDGE), H - h - EDGE);
+    const tries = [
+      { left: clampX(hover.x - w / 2), top: hover.y - GAP - h, ok: hover.y - GAP - h >= EDGE },
+      { left: clampX(hover.x - w / 2), top: hover.y + GAP, ok: hover.y + GAP + h <= H - EDGE },
+      { left: hover.x + GAP, top: clampY(hover.y - h / 2), ok: hover.x + GAP + w <= W - EDGE },
+      { left: hover.x - GAP - w, top: clampY(hover.y - h / 2), ok: hover.x - GAP - w >= minX },
+    ];
+    const pick = tries.find((t) => t.ok) ?? tries[0];
+    Object.assign(card.style, { left: `${pick.left}px`, top: `${pick.top}px`, visibility: "visible" });
+  }, [hover, panelOpen]);
+  return (
+    <div ref={ref} aria-hidden
+      className="glass pointer-events-none absolute z-[15] hidden w-max max-w-60 rounded-2xl px-3 py-2 md:block"
+      style={{ left: 0, top: 0, visibility: "hidden" }}>
+      <p className="text-sm font-semibold text-text">{hover.school.name}</p>
+      <Badge variant="neutral" className="mt-1">{dotStyle(hover.school).label}</Badge>
+    </div>
+  );
+}
+
 export function OnusMap() {
-  const { schools, typeFilter, pulse, setSupportId, setHospitalId } = useMapState();
+  const { schools, pulse, setSupportId, setHospitalId } = useMapState();
   const router = useRouter();
   const pathname = usePathname();
   const selected = pathname?.match(/^\/map\/([a-z0-9-]+)/)?.[1] ?? null;
@@ -49,18 +84,17 @@ export function OnusMap() {
   const [failed, setFailed] = useState(false);
   const [dotsDrawn, setDotsDrawn] = useState(false);
   const [hover, setHover] = useState<Hover>(null);
-  const latest = useRef({ schools, typeFilter, selected });
+  const latest = useRef({ schools, selected });
   useEffect(() => {
-    latest.current = { schools, typeFilter, selected };
-  }, [schools, typeFilter, selected]);
+    latest.current = { schools, selected };
+  }, [schools, selected]);
 
   // Feature collection from current state; colours come from the CSS tokens of the active theme.
   const features = useCallback(() => {
-    const { schools, typeFilter } = latest.current;
+    const { schools } = latest.current;
     return {
       type: "FeatureCollection" as const,
       features: schools
-        .filter((s) => typeFilter === "all" || s.type === typeFilter)
         .map((s) => {
           // Fill = On paper grade; ring = the gap, once there are enough real ratings (lib/map-style.ts).
           const st = dotStyle(s);
@@ -235,11 +269,11 @@ export function OnusMap() {
     return () => { cancelled = true; cleanup(); };
   }, [addLayers, router, setSupportId, setHospitalId]);
 
-  // Data and filter changes.
+  // Score changes (realtime).
   useEffect(() => {
     const src = mapRef.current?.getSource("schools") as GeoJSONSource | undefined;
     if (ready && src) src.setData(features());
-  }, [schools, typeFilter, ready, features]);
+  }, [schools, ready, features]);
 
   // The purple route for the selected school, drawn out from the campus like a directions app (about 1.2 s,
   // after the camera move starts); with reduced motion it appears at once.
@@ -333,11 +367,6 @@ export function OnusMap() {
     return () => cancelAnimationFrame(raf);
   }, [pulse, ready]);
 
-  const hoverInfo = hover ? (() => {
-    const st = dotStyle(hover.school);
-    return { text: st.label, variant: "neutral" as const };
-  })() : null;
-
   return (
     <div className="absolute inset-0">
       {/* MapLibre's stylesheet sets position: relative on its container, so it gets an inner element that fills this one. */}
@@ -347,7 +376,7 @@ export function OnusMap() {
       {!ready && !failed && <div className="pointer-events-none absolute inset-0 bg-map-land" aria-hidden />}
       <SupportSheet />
       <HospitalSheet />
-      <DotsPreview schools={schools.filter((x) => typeFilter === "all" || x.type === typeFilter)} hidden={dotsDrawn} />
+      <DotsPreview schools={schools} hidden={dotsDrawn} />
       {failed && (
         <div className="absolute inset-0 grid place-items-center bg-page p-6 text-center">
           <div>
@@ -356,15 +385,7 @@ export function OnusMap() {
           </div>
         </div>
       )}
-      {hover && hoverInfo && (
-        <div
-          className="glass pointer-events-none absolute z-10 hidden -translate-x-1/2 rounded-2xl px-3 py-2 md:block"
-          style={{ left: hover.x, top: hover.y - 14, transform: "translate(-50%, -100%)" }}
-        >
-          <p className="max-w-56 text-sm font-semibold text-text">{hover.school.name}</p>
-          <Badge variant={hoverInfo.variant} className="mt-1">{hoverInfo.text}</Badge>
-        </div>
-      )}
+      {hover && <HoverCard hover={hover} panelOpen={!!selected} />}
     </div>
   );
 }

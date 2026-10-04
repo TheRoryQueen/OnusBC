@@ -212,3 +212,9 @@
   outline: 2px solid var(--onus-brand);
   outline-offset: 2px;
 }
+
+/* Phones: the folded legend is docked along the bottom-left edge, so the zoom buttons and the attribution sit
+   just above it instead of beside it (they would overlap at 390 px). */
+@media (max-width: 767px) {
+  .maplibregl-map .maplibregl-ctrl-bottom-right { bottom: calc(env(safe-area-inset-bottom, 0px) + 56px); }
+}

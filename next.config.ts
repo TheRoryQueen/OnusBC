@@ -11,6 +11,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // The map legend is docked in the bottom-left corner, where the dev badge would cover it. Next still shows
+  // compile and runtime errors with the badge off.
+  devIndicators: false,
   // The live grader reads PDFs on the server with pdf.js, and its two sample policies ship with the function.
   serverExternalPackages: ["pdfjs-dist"],
   outputFileTracingIncludes: {

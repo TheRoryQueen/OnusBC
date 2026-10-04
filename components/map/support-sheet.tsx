@@ -27,7 +27,7 @@ export function SupportSheet() {
   const lines = [e.phone_24h ? { label: "24-hour line", phone: e.phone_24h } : null, { label: e.phone_24h ? "Office" : "Phone", phone: e.phone }].filter(Boolean) as { label: string; phone: string }[];
   return (
     <section role="dialog" aria-modal="false" aria-labelledby="support-sheet-title"
-      className="glass pointer-events-auto absolute inset-x-3 bottom-3 z-30 rounded-[28px] p-5 md:inset-x-auto md:bottom-auto md:right-4 md:top-[248px] md:w-[380px]">
+      className="glass pointer-events-auto absolute inset-x-3 bottom-3 z-30 rounded-[28px] p-5 md:inset-x-auto md:bottom-auto md:right-4 md:top-[136px] md:w-[380px]">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="flex items-center gap-2 text-[12px] font-medium text-support"><span className="size-2 rounded-full bg-support" aria-hidden />{kindLabel(e)}</p>
