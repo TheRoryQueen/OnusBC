@@ -17,6 +17,7 @@ import { reviewFor } from "@/lib/review-clock";
 import sources from "@/data/sources.json";
 import { ReviewClock } from "./review-clock";
 import { NearestSupport } from "./nearest-support";
+import { ReportCardListen } from "./report-card-listen";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
@@ -166,6 +167,8 @@ function PanelBody({ school, onClose, onAsk }: { school: InstitutionDetail; onCl
         <span className="tabular-nums">{live?.n_public ?? 0}</span> public records · <OnusCount value={live?.n_onus ?? 0} /> Onus · <span className="tabular-nums">{live?.n_sample ?? 0}</span> sample
         {live?.practice_everyone_only ? <><br />Fewer than 5 people went through the process, so In practice uses the questions everyone answered.</> : null}
       </p>
+
+      <ReportCardListen key={school.slug} school={school} />
 
       {school.about && <p className="mt-5 text-[15px] leading-relaxed text-text">{school.about}</p>}
 

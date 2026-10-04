@@ -45,7 +45,8 @@
     "test:ask-isolation": "tsx scripts/test-ask-isolation.mts",
     "support-routes": "tsx scripts/pipeline/support.mts",
     "test:support": "tsx scripts/test-support.mts",
-    "test:a11y": "tsx scripts/test-a11y.mts"
+    "test:a11y": "tsx scripts/test-a11y.mts",
+    "test:report-card": "tsx scripts/test-report-card.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
