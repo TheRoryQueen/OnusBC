@@ -1,0 +1,166 @@
+{
+  "slug": "douglas",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "2e651c67f44de952993b85cb001e2985b1b6421005ef7c764924d64108a13390",
+  "graded_at": "2026-10-04T08:40:05.628Z",
+  "paper_gpa": 63,
+  "paper_letter": "C",
+  "accepted": 15,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "This policy articulates the duty and commitment of Douglas College (the College) to support students and other members of the College Community who are affected by Sexual Violence or Sexual Misconduct; to create and make available programs and resources to educate students and other members of its Community on the prevention of Sexual Violence and Misconduct; and to provide a fair and effective process for responding to and investigating allegations of Sexual Violence and Misconduct.",
+      "document": "Policy",
+      "section": "A",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A student or any other member of the College Community who has experienced Sexual Violence or Sexual Misconduct, or who is otherwise affected by a violation of this policy, may file a Complaint under this policy with the Director, SSRM.",
+      "document": "Policy",
+      "section": "E.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 1,
+      "quote": "which includes but is not limited to protecting the Complainant from unreasonable and/or irrelevant questions, such as those pertaining to past sexual history or gender expression, complying with collective agreement provisions where applicable, and providing regular updates on the status of the process.",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 1,
+      "quote": "The Investigator will conduct the investigation using a procedurally fair and sensitive process, taking care to minimize or avoid circumstances that might reasonably be expected to cause participants distress (e.g., the Complainant having to come into direct contact with the Respondent).",
+      "document": "Policy",
+      "section": "E.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "However, this section does not prevent a. any participants in an investigation from disclosing information about themselves or from disclosing information that they have obtained outside the investigation; or b. College representatives from disclosing investigation-related information as authorized under this policy.",
+      "document": "Policy",
+      "section": "Confidentiality",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "A student or any other member of the College Community has the right to pursue other processes external to the College in connection with alleged incidents of Sexual Violence and Misconduct, such as reporting the matter to the police, initiating a civil action, or filing a complaint under the BC Human Rights Code.",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "A student or other Community member acting in good faith in making a Disclosure or reporting an incident of Sexual Violence or Sexual Misconduct will not be investigated by the College for consuming alcohol or drugs at the time of the disclosed or reported incident(s), even if they were under the legal age for such consumption or the substance was illegal.",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Except in exceptional circumstances, investigations (including the preparation of the Investigator’s report) will be completed within sixty (60) calendar days of an Investigator’s receipt of a Complaint.",
+      "document": "Policy",
+      "section": "E.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The College reserves the right to implement immediate interim measures as it considers appropriate to protect the safety of the College Community or any of its members during an evaluation of a Disclosure or Complaint or pending the completion of an investigation.",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "b. off College Property in connection with an event or activity sponsored, organized, led or\nrequired by the College, including but not limited to off-campus activity that students\nare required to participate in for successful completion of their studies (e.g., field trips,\npracticum placements);",
+      "document": "Policy",
+      "section": "B",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "the Complainant and the Respondent will be notified of the Investigator’s findings and the Respondent will be notified of the Responsible Administrator’s decision regarding disciplinary or other measures to be taken against the Respondent; and",
+      "document": "Policy",
+      "section": "E.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "preparation of statistical reports of Disclosures and Complaints of Sexual Violence and Misconduct made under this policy, as required by and in accordance with applicable legislation; and",
+      "document": "Policy",
+      "section": "E",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "regular reviews to evaluate the effectiveness of this policy, occurring at least once every three (3) years or as advised by the Minister responsible for advanced education.",
+      "document": "Policy",
+      "section": "E",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "When the College appoints an Investigator to conduct an investigation into a Complaint, consideration will be given to the subject matter of the Complaint and the expertise and training of the Investigator.",
+      "document": "Policy",
+      "section": "E.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "This policy articulates the duty and commitment of Douglas College (the College) to support students and other members of the College Community who are affected by Sexual Violence or Sexual Misconduct; to create and make available programs and resources to educate students and other members of its Community on the prevention of Sexual Violence and Misconduct; and to provide a fair and effective process for responding to and investigating allegations of Sexual Violence and Misconduct.",
+      "document": "Policy",
+      "section": "A",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

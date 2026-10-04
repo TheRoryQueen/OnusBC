@@ -1,0 +1,166 @@
+{
+  "slug": "coast-mountain",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "f4a3fde6a9f178a56f497b1e7d3375296ea6e227f39cc4eb91734d8d81a38448+c5ecfb9c603638ca6951c403fcebc9bbc697619502ea99cdbfccfeee3aee417c",
+  "graded_at": "2026-10-04T08:37:12.052Z",
+  "paper_gpa": 50,
+  "paper_letter": "D",
+  "accepted": 13,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "The College will respond to Disclosures and Formal Allegations of Sexual Violence in accordance with this policy and related procedures, ensuring that all parties involved are treated with dignity, respect, and Procedural Fairness throughout the process.",
+      "document": "Policy",
+      "section": "4.00",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "Where the Formal Allegation involves a Student, the Formal Allegation must be submitted to the Director of Student Health Services.",
+      "document": "Procedures",
+      "section": "6.00",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 1,
+      "quote": "An individual’s sexual history or reputation is not relevant to determining whether Consent was given.",
+      "document": "Policy",
+      "section": "6.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "The College respects the right of an individual who has experienced Sexual Violence to choose the services, supports, and options they feel are most appropriate, including whether or not to report the incident to the RCMP, make a Disclosure, submit a Formal Allegation to the College, or pursue other available options.",
+      "document": "Procedures",
+      "section": "5.00",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Where such policy violations are identified solely as a result of an individual seeking support, making a Disclosure, or submitting a Formal Allegation of Sexual Violence, punitive action will not be taken.",
+      "document": "Policy",
+      "section": "8.00",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The College will make reasonable efforts to respond to Disclosures and Formal Allegations in a timely manner.",
+      "document": "Procedures",
+      "section": "7.2",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Interim measures may be implemented, modified, or removed at any stage of the process, as appropriate to address safety, wellbeing, privacy, operational, or Procedural Fairness considerations.",
+      "document": "Procedures",
+      "section": "6.5",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "during College activities, including College-sponsored events, practicums, field education, off-site training and education, work terms required by a program of study at the College, and other activities connected to the College",
+      "document": "Policy",
+      "section": "3.00",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "be informed of the status of the Formal Allegation and, where appropriate, interim measures the College has taken or plans on taking, and the outcome of the process, subject to privacy and confidentiality obligations",
+      "document": "Policy",
+      "section": "11.00",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The College must make annual reports publicly available on its website.",
+      "document": "Policy",
+      "section": "17.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "This policy and its associated procedure, ADM-007P, Sexual Violence Prevention and Response Procedure, will be reviewed at least every three years, or sooner if required due to legislative, regulatory, operational, or organizational changes.",
+      "document": "Policy",
+      "section": "19.00",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "at least one Student of the College.",
+      "document": "Policy",
+      "section": "14.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "The College is committed to addressing and preventing Sexual Violence by making awareness, education, and training opportunities related to Sexual Violence available to members of the College Community and by actively promoting participation in these opportunities.",
+      "document": "Policy",
+      "section": "15.1",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

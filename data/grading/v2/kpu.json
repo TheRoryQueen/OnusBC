@@ -1,0 +1,167 @@
+{
+  "slug": "kpu",
+  "model": "claude-opus-5-5",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "4e68b2447ed643a051cb31fec6abdee644c19e4575c02601d42f449ba06d16b0+b5b3b850d5c1e08c258b3cd0985a23243af57373cb8c8076670b6ba6cf519504",
+  "source_url": "https://www.kpu.ca/sites/default/files/Policies/SR14%20Sexual%20Violence%20and%20Misconduct%20Policy.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "paper_gpa": 40,
+  "paper_letter": "F",
+  "accepted": 11,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "If the Respondent is a Student, the Complaint will be processed under the Student Conduct policy.",
+      "document": "Procedures",
+      "section": "B.2.3.5",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "The Act requires BC post-secondary institutions to establish, implement, and make publicly available a policy, with associated procedures, that addresses sexual misconduct, its prevention, and responses to sexual misconduct.",
+      "document": "Policy",
+      "section": "A",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Any member of the University community may file a Report about an incident of Sexual Violence and Misconduct, by contacting Campus Security.",
+      "document": "Procedures",
+      "section": "B.2.4.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "In most circumstances, the person will retain this control.",
+      "document": "Procedures",
+      "section": "B.1.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University will respond in a timely manner to Disclosures, Complaints, and Reports of Sexual Violence and Misconduct.",
+      "document": "Policy",
+      "section": "C.4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "During an evaluation of a Disclosure, Report or Complaint, or during an Investigation, the University may impose interim measures as deemed appropriate for the safety of the individuals involved and/or the University community.",
+      "document": "Procedures",
+      "section": "B.1.4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "The Policy applies in any situation where Sexual Violence and Misconduct occurs on University property or is related to University business, and includes activity that occurs in virtual environments including all forms of digital, electronic, or social media.",
+      "document": "Policy",
+      "section": "B.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "As required by the Act the University President must report to the Board on the implementation of the Policy.",
+      "document": "Procedures",
+      "section": "C",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "As per the Act, this Policy will be reviewed at least once every three years or as directed by the Minister of Advanced Education.",
+      "document": "Policy",
+      "section": "C.8",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "Students and employees will be consulted as part of this review.",
+      "document": "Policy",
+      "section": "C.8",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The University will invest in ongoing sexual violence education, awareness and prevention programming.",
+      "document": "Policy",
+      "section": "C.8",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

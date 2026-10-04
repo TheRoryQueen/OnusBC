@@ -1,0 +1,166 @@
+{
+  "slug": "bcit",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "3cd57eb82b492d68ba0e0a80f0ea4f03c78b23abbc69ffc4acb06fde1a4e9320+1d08d22635c01dc673adc854be064ba93a3325911b9504e9f348172a004f1d29",
+  "graded_at": "2026-10-04T08:27:22.558Z",
+  "paper_gpa": 36,
+  "paper_letter": "F",
+  "accepted": 9,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "If the Respondent is: a) a BCIT student or employee, the person makes a Report under Policy 7507, Harassment and Discrimination; or, b) if a BCIT student, the person makes a Report under Policy 5102, Student Code of Conduct (Non-Academic); or, c) if a BCIT employee, the person reports to the appropriate supervisor, manager, or human resources representative for investigation.",
+      "document": "Procedures",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "If the Respondent is: a) a BCIT student or employee, the person makes a Report under Policy 7507, Harassment and Discrimination; or, b) if a BCIT student, the person makes a Report under Policy 5102, Student Code of Conduct (Non-Academic); or, c) if a BCIT employee, the person reports to the appropriate supervisor, manager, or human resources representative for investigation.",
+      "document": "Procedures",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 1,
+      "quote": "When responding to Disclosures, individuals will refrain from questions or comments implying judgment or blaming of the person making the Disclosure (such as questions or comments about the dress, conduct, language, emotional disposition, past sexual history, consumption of alcohol or drugs, or about the timing of the Disclosure).",
+      "document": "Procedures",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "BCIT respects the right of the individual who has experienced Sexualized Violence to choose the most appropriate services and to independently determine whether to contact police and/or make a Report.",
+      "document": "Procedures",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Members can expect to have their workplace and academic needs, as well as living situations where Student Housing residents are impacted, accommodated on a case by case basis.",
+      "document": "Procedures",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "This Policy applies if: • Sexualized Violence is alleged to have occurred on BCIT property, or at BCIT sanctioned activities and events in person or online, including but not limited to practicums, field schools, co-ops, or conferences, or is alleged to have an adverse impact on another person’s reasonable participation in the programs, activities, or employment at the Institute;",
+      "document": "Policy",
+      "section": "Appendix A",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "SVRT will maintain annual statistics on Reports of Sexualized Violence on campus for the purposes of community education and any legislated reporting that may be required.",
+      "document": "Policy",
+      "section": "Appendix A",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "2026 Dec 05 (or sooner, if there are changes to the regulatory context or relevant operational circumstances).",
+      "document": "Policy",
+      "section": "4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "BCIT will provide ongoing awareness and education programs for the BCIT Community by collaborating with internal community members.",
+      "document": "Policy",
+      "section": "Appendix A",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

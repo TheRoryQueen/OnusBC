@@ -99,8 +99,8 @@ try {
     await page.screenshot({ path: "screenshots/grade-1440-light.png" });
   }
 
-  // A failed run shows the most recent real run as a recording (only if one exists).
-  const recorded = (await db.query("select finished_at from public.grading_runs where status = 'done' order by finished_at desc limit 1")).rows[0];
+  // A failed run shows the most recent real run as a recording (only one graded under rubric v2, if any exists).
+  const recorded = (await db.query("select finished_at from public.grading_runs where status = 'done' and finished_at >= '2026-10-04T07:20:00Z' order by finished_at desc limit 1")).rows[0];
   await page.getByRole("radio", { name: "Paste a PDF link" }).click();
   await page.getByLabel("Link to a policy PDF").fill("https://example.com/");
   await page.getByRole("button", { name: "Grade it live" }).click();

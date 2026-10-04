@@ -1,0 +1,167 @@
+{
+  "slug": "nvit",
+  "model": "claude-opus-5-5",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "16039ae03596d5825653c1bca864222b157041d93dafe532d73f17e1df5577ec",
+  "source_url": "https://www.nvit.ca/wp-content/uploads/2025/07/C.1.10-Sexual-Violence-Prevention-Response.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "paper_gpa": 45,
+  "paper_letter": "F",
+  "accepted": 11,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "The investigation and/or resolution process will be initiated according to the procedures under NVIT policy B.2.6 Human Rights.",
+      "document": "Policy",
+      "section": "3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A report will initiate an investigation and/or resolution process.",
+      "document": "Policy",
+      "section": "Response procedures",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "It is the right of those who experience sexual violence to decide whether to access available services and, if so, which services to access and whether to report to police or campus personnel.",
+      "document": "Policy",
+      "section": "Policy",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Establishing a fair, supportive and effective response to reports or disclosures of sexual violence or misconduct and that they are responded to appropriately and promptly.",
+      "document": "Policy",
+      "section": "Purpose",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Interim measures may include, but are not limited to:",
+      "document": "Policy",
+      "section": "Interim measures",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "In accordance with the Act, this policy outlines Nicola Valley Institute of Technology’s (NVIT) position on sexual violence and the response procedures for any incident occurring on or off campus involving any member of the NVIT community.",
+      "document": "Policy",
+      "section": "Scope",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The Associate Vice President, Students or Designate will follow up with a decision letter to the complainant and respondent.",
+      "document": "Policy",
+      "section": "3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The President will report to the Board of Governors on implementing this policy annually.",
+      "document": "Policy",
+      "section": "Policy review",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "To maintain the policy’s currency and relevance, the content will be revisited and updated every three (3) years or when relevant social, resource, or legal changes otherwise warrant any updates.",
+      "document": "Policy",
+      "section": "Policy review",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 2,
+      "quote": "NVIT will train persons responsible for addressing sexual misconduct on Trauma-Informed Approaches.",
+      "document": "Policy",
+      "section": "Policy",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "Provide education and awareness to the NVIT community about the prevention of sexual violence and misconduct.",
+      "document": "Policy",
+      "section": "Purpose",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

@@ -191,10 +191,10 @@ Item 7 is paused for the deploy. Steps: 1 clean tree, tests, build; 2 push main;
 
 | Step | Status |
 | --- | --- |
-| 1. Clean tree, all tests, npm run build | Blocked: the database was half-moved to 0 to 100 (migration 20261004000008 applied, code unfinished). Farnaz, Oct 4: finish the 0 to 100 strict grading across the whole site first, and delete the spam account ppm3@sfu.ca. |
-| 2. Push main to GitHub | Not started |
-| 3. Env var names (no values) | Not started |
-| 4. Click-by-click guide (docs/deploy-guide.md) | Not started |
+| 1. Clean tree, all tests, npm run build | Done Oct 4. Farnaz approved the v2 grades and ran the database write herself (the write was blocked for Claude). All 24 test suites pass against the dev server; npm run build and lint pass. ppm3@sfu.ca deleted (1 rating, the user, no profile left). |
+| 2. Push main to GitHub | Done Oct 4 |
+| 3. Env var names (no values) | Done: listed in docs/deploy-guide.md and given to Farnaz |
+| 4. Click-by-click guide (docs/deploy-guide.md) | Done: waiting on Farnaz's dashboard clicks |
 | 5. Smoke test on https://onusmap.tech | Waiting for "it's live" |
 
 ### Oct 4, deploy paused for the 0 to 100 grading (Farnaz: "finalize the 0-100 rating through the whole website, strict")

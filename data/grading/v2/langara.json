@@ -1,0 +1,167 @@
+{
+  "slug": "langara",
+  "model": "claude-opus-5-5",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "78530ff93723cf6e03a85e75f3b8d07db648abd8345fb8410f41593be4b8918b",
+  "source_url": "https://langara.ca/media/11361/download?inline=",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "paper_gpa": 36,
+  "paper_letter": "F",
+  "accepted": 10,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "Investigations will follow procedures outlined in College policy and/or employee collective agreements as applicable.",
+      "document": "Policy",
+      "section": "3.11.2",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "The College will make reasonable efforts to ensure that every member of the College community is aware of this policy.",
+      "document": "Policy",
+      "section": "3.15.2",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Any member of the College community may make a Formal Complaint about sexualized violence or misconduct that falls within the scope of this policy.",
+      "document": "Policy",
+      "section": "3.9.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "A person may report an incident of sexualized violence or misconduct to the police anytime.",
+      "document": "Policy",
+      "section": "3.3.3",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 1,
+      "quote": "anyone may freely and safely disclose cases involving alcohol, drugs, involvement in sex work, or any other behavior.",
+      "document": "Policy",
+      "section": "3.5.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The College may implement interim measures while it assesses or investigates a report of sexualized violence or misconduct, or where interim measures are deemed necessary.",
+      "document": "Policy",
+      "section": "3.8.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "on or off Langara College premises, including technology-facilitated behaviour, or at College-sponsored academic, athletic, or social events, and where the interaction between the individuals involved is an extension of their relationship to Langara College;",
+      "document": "Policy",
+      "section": "3.1.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "Both the person who experienced the sexualized violence or misconduct and the respondent will receive a verbal summary of the investigation findings.",
+      "document": "Policy",
+      "section": "3.12.2",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "To maintain accurate records for statistical and planning purposes, all members of the College community who receive information about an incident of sexualized violence or misconduct must provide relevant information, excluding personal identifiers, to:",
+      "document": "Policy",
+      "section": "3.17.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The College will provide education and training to students and employees to increase awareness of sexualized violence, misconduct, and rape culture, prevent incidents, and promote effective responses to sexualized violence or misconduct.",
+      "document": "Policy",
+      "section": "3.15.1",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

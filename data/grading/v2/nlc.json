@@ -1,0 +1,167 @@
+{
+  "slug": "nlc",
+  "model": "claude-opus-5-5",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "378ccb5eebea04304c1f35c298be4700ea10385285a4142ac6f38b8c29fb85e5",
+  "source_url": "https://www.nlc.bc.ca/wp-content/uploads/a-5_18.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "paper_gpa": 33,
+  "paper_letter": "F",
+  "accepted": 8,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "It outlines appropriate and fair processes for handling complaints of sexual violence or misconduct.",
+      "document": "Policy",
+      "section": "Purpose",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A student who has experienced sexual misconduct can make a complaint to the College’s Director of Student Services (see below), or any employee of the College with whom the student feels comfortable.",
+      "document": "Policy",
+      "section": "B.1",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "This policy does not replace the criminal process. Any individual who is a survivor of sexual misconduct or who witnesses criminal behaviour is encouraged to report that behaviour to the RCMP.",
+      "document": "Policy",
+      "section": "Scope",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Where the Director receives an actionable complaint, they will initiate an investigation within five business days.",
+      "document": "Policy",
+      "section": "D.2",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "At any time before or during an investigation, the College may take interim measures to ensure the well-being of any member of the College.",
+      "document": "Policy",
+      "section": "D.4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "This policy applies to sexual misconduct involving a student of the College, both on and off campus, that is in any way related to the student being a member of the College community",
+      "document": "Policy",
+      "section": "Scope",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "If the outcome of the investigation is that the allegation of sexual misconduct is unsubstantiated, the College will promptly notify the individuals involved.",
+      "document": "Policy",
+      "section": "D.4",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "Building a culture of consent, as defined in this policy, by offering ongoing education, awareness and training to the college community about preventing and responding to sexual misconduct.",
+      "document": "Policy",
+      "section": "Sexual misconduct prevention",
+      "verified": true,
+      "note": null
+    }
+  ]
+}

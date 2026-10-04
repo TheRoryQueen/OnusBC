@@ -169,7 +169,7 @@ export default async function HowItWorks() {
           </p>
           {audit.agreement && (
             <p>
-              As a check, Claude also graded {audit.audit.length === 1 ? "one of Gemini's schools" : `${audit.audit.length} of Gemini's schools`} on its own, from the policy text alone, before seeing Gemini&apos;s answers. That is a small sample: the check was planned for 5 schools, but 4 of them ended up graded by Claude. The two agreed exactly on {audit.agreement.exact} of {audit.agreement.criteria} criterion scores ({Math.round((100 * audit.agreement.exact) / audit.agreement.criteria)}%) and were within one point on {audit.agreement.within_one}. {audit.audit.map((a) => `${name(a.slug)}: Gemini ${a.gemini.score}, Claude ${a.claude.score}`).join("; ")}.
+              As a check, Claude also graded {audit.audit.length === 1 ? "one of Gemini's schools" : `${audit.audit.length} of Gemini's schools`} on its own, from the policy text alone, before seeing Gemini&apos;s answers. That is a small sample: the check was planned for 5 schools, but 4 of them ended up graded by Claude. The two agreed exactly on {audit.agreement.exact} of {audit.agreement.criteria} criterion scores ({Math.round((100 * audit.agreement.exact) / audit.agreement.criteria)}%) and were within one point on {audit.agreement.within_one === audit.agreement.criteria ? `all ${audit.agreement.criteria}` : audit.agreement.within_one}. {audit.audit.map((a) => `${name(a.slug)}: Gemini ${a.gemini.score}, Claude ${a.claude.score}`).join("; ")}.
             </p>
           )}
         </Section>

@@ -1,0 +1,166 @@
+{
+  "slug": "cnc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "cc5fc4fd8685802d2531f84f8e2a636d2acb3b70c9aba9e378ae3740564ba555",
+  "graded_at": "2026-10-04T08:35:03.095Z",
+  "paper_gpa": 25,
+  "paper_letter": "F",
+  "accepted": 6,
+  "rejected": 0,
+  "grades": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Any student who has experienced Sexual Misconduct has the right to pursue criminal or civil legal avenues whether they choose to take any steps under this policy.",
+      "document": "Policy",
+      "section": "F",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "document": "Policy",
+      "section": "D",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "This policy applies to all circumstances involving Sexual Misconduct where a student is involved and there is a reasonable connection to the College.",
+      "document": "Policy",
+      "section": "F",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Date of Next Review: November 2026",
+      "document": "Policy",
+      "section": "Preamble",
+      "verified": true,
+      "note": null
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": null,
+      "document": null,
+      "section": null,
+      "verified": false,
+      "note": null
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "C. Delivering education campaigns to students and employees to help them:",
+      "document": "Policy",
+      "section": "B",
+      "verified": true,
+      "note": null
+    }
+  ]
+}
