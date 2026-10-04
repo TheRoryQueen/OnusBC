@@ -1,16 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronUp } from "lucide-react";
 import { GRADES, RINGS, gradeToken } from "@/lib/map-style";
 import { cn } from "@/lib/utils";
+import { NAV_BREAKPOINT } from "@/lib/nav";
 
 // The map legend, docked to the bottom-left edge of the map (beside the school panel when one is open on a
 // wide screen), with the crisis line as its last row so the two can never overlap. The glyphs are drawn at
-// the map's own sizes (lib/map-style.ts). Phones: folded behind one button so the map stays visible. Wider
-// screens: open to start, with a button to fold it down.
+// the map's own sizes (lib/map-style.ts).
 const DOT = 5.5; // a touch larger than the map dot so the legend reads at a glance
 
 function Dot({ fill, hollow, ring }: { fill?: string; hollow?: boolean; ring?: { width: number; token: string; detached: boolean } }) {
@@ -69,50 +69,55 @@ export const HospitalCross = () => (
 );
 
 export function MapLegend({ hospitalRoutes = false }: { hospitalRoutes?: boolean }) {
-  const [open, setOpen] = useState(false); // phones: starts folded
-  const [wideOpen, setWideOpen] = useState(true); // md and up: starts open
+  // A drawer: the Legend header and the crisis line always show; the legend itself slides up under the header
+  // when opened and back down when folded. Open to start on wide screens, folded on phones.
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    // After the first paint, so the server and client markup match and the card slides up into view.
+    const id = requestAnimationFrame(() => { if (window.matchMedia(`(min-width: ${NAV_BREAKPOINT}px)`).matches) setOpen(true); });
+    return () => cancelAnimationFrame(id);
+  }, []);
   // A school panel is open (it fills the left side on wide screens): sit beside it, on the same bottom edge.
   const besidePanel = /^\/map\/[a-z0-9-]+/.test(usePathname() ?? "");
   return (
     <div
       className={cn(
-        "glass pointer-events-auto absolute bottom-0 left-0 z-10 max-w-[calc(100%-24px)] rounded-tr-[22px] px-4 pb-[calc(env(safe-area-inset-bottom,0px)+10px)] pt-2.5 md:w-[272px] md:pt-4",
+        "glass pointer-events-auto absolute bottom-0 left-0 z-10 max-w-[calc(100%-24px)] rounded-tr-[22px] px-4 pb-[calc(env(safe-area-inset-bottom,0px)+10px)] pt-1.5 md:w-[272px]",
         besidePanel && "md:left-[432px] md:rounded-tl-[22px]"
       )}
     >
-      <div id="map-legend" role="group" aria-label="Legend" className={cn("space-y-4 pb-3", open ? "block" : "hidden", wideOpen ? "md:block" : "md:hidden")}>
-        <Scale title="On paper grade">
-          {GRADES.map((g) => <Step key={g} label={g}><Dot fill={gradeToken(g)} /></Step>)}
-          <Step label="None"><Dot hollow /></Step>
-          <li className="sr-only">From A (green) to F (red). None: no public policy.</li>
-        </Scale>
-        <Scale title="Students compared with the policy" note="No ring: not enough real ratings yet.">
-          <Step label="Close"><Dot fill={gradeToken("C")} ring={RINGS.aligned} /></Step>
-          <Step label="Worse"><Dot fill={gradeToken("C")} ring={RINGS.some_gap} /></Step>
-          <Step label="Much worse"><Dot fill={gradeToken("C")} ring={RINGS.big_gap} /></Step>
-          <Step label="Better"><Dot fill={gradeToken("C")} ring={RINGS.better_in_practice} /></Step>
-        </Scale>
-        <ul className="space-y-1.5">
-          <Key label="Sexual assault support"><svg width={12} height={12} aria-hidden><circle cx={6} cy={6} r={4.5} fill="var(--onus-support)" stroke="var(--onus-page)" strokeWidth={1.5} /></svg></Key>
-          <Key label="Other campus (same grade)"><svg width={10} height={10} aria-hidden><circle cx={5} cy={5} r={3.25} fill={`var(${gradeToken("C")})`} stroke="var(--onus-text)" strokeWidth={1} /></svg></Key>
-          <Key label="Hospital"><HospitalCross /></Key>
-          <Key label="Route to sexual assault support"><SupportLine /></Key>
-          {hospitalRoutes && <Key label="Route to the nearest hospital"><HospitalLine /></Key>}
-        </ul>
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="map-legend"
+        className="hit flex min-h-10 w-full items-center justify-between gap-2 text-[13px] font-medium text-text">
+        Legend
+        <ChevronUp className={cn("size-4 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none", open && "rotate-180")} aria-hidden />
+      </button>
+      <div className={cn("grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none", open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
+        <div id="map-legend" role="group" aria-label="Legend" inert={!open} className="min-h-0 overflow-hidden">
+          <div className="space-y-4 pb-3 pt-1">
+            <Scale title="On paper grade">
+              {GRADES.map((g) => <Step key={g} label={g}><Dot fill={gradeToken(g)} /></Step>)}
+              <Step label="None"><Dot hollow /></Step>
+              <li className="sr-only">From A (green) to F (red). None: no public policy.</li>
+            </Scale>
+            <Scale title="Students compared with the policy" note="No ring: not enough real ratings yet.">
+              <Step label="Close"><Dot fill={gradeToken("C")} ring={RINGS.aligned} /></Step>
+              <Step label="Worse"><Dot fill={gradeToken("C")} ring={RINGS.some_gap} /></Step>
+              <Step label="Much worse"><Dot fill={gradeToken("C")} ring={RINGS.big_gap} /></Step>
+              <Step label="Better"><Dot fill={gradeToken("C")} ring={RINGS.better_in_practice} /></Step>
+            </Scale>
+            <ul className="space-y-1.5">
+              <Key label="Sexual assault support"><svg width={12} height={12} aria-hidden><circle cx={6} cy={6} r={4.5} fill="var(--onus-support)" stroke="var(--onus-page)" strokeWidth={1.5} /></svg></Key>
+              <Key label="Other campus (same grade)"><svg width={10} height={10} aria-hidden><circle cx={5} cy={5} r={3.25} fill={`var(${gradeToken("C")})`} stroke="var(--onus-text)" strokeWidth={1} /></svg></Key>
+              <Key label="Hospital"><HospitalCross /></Key>
+              <Key label="Route to sexual assault support"><SupportLine /></Key>
+              {hospitalRoutes && <Key label="Route to the nearest hospital"><HospitalLine /></Key>}
+            </ul>
+          </div>
+        </div>
       </div>
-      <div className={cn("flex items-center gap-3", wideOpen && "md:border-t md:border-hairline md:pt-2.5", open && "border-t border-hairline pt-2.5")}>
-        <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-controls="map-legend"
-          className="hit flex min-h-8 shrink-0 items-center gap-1 text-[13px] font-medium text-text md:hidden">
-          Legend <ChevronUp className={cn("size-4 transition-transform motion-reduce:transition-none", open && "rotate-180")} aria-hidden />
-        </button>
-        <button type="button" onClick={() => setWideOpen((o) => !o)} aria-expanded={wideOpen} aria-controls="map-legend"
-          className="hit hidden min-h-8 shrink-0 items-center gap-1 self-start text-[13px] font-medium text-text md:flex">
-          Legend <ChevronUp className={cn("size-4 transition-transform motion-reduce:transition-none", wideOpen && "rotate-180")} aria-hidden />
-        </button>
-        <p className="whitespace-nowrap text-[12px] leading-snug text-text-secondary md:whitespace-normal">
-          <span className="hidden md:inline">This map grades how schools handle sexual violence. </span>In danger? <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
-        </p>
-      </div>
+      <p className="border-t border-hairline pt-2 text-[12px] leading-snug text-text-secondary">
+        <span className="hidden md:inline">This map grades how schools handle sexual violence. </span>In danger? <a href="tel:911" className="hit font-medium text-support">Call 911.</a> <Link href="/support" prefetch={false} className="hit font-medium text-support">Get help</Link>
+      </p>
     </div>
   );
 }
