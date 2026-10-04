@@ -33,8 +33,8 @@ From `.env.local`:
 4. On **Configure Project**: Framework Preset shows **Next.js** (leave it). Root Directory: leave as `./`.
    Build and Output Settings: leave the defaults (`npm run build`; the prebuild step copies the map and PDF
    workers).
-5. Open **Environment Variables**. For each name marked Yes above: type the name, paste the value from your
-   1Password Onus vault, leave the environment as **Production** (also tick **Preview** if you want preview
+5. Open **Environment Variables**. For each name marked Yes above: type the name, paste the value (copy it from
+   your .env.local yourself), leave the environment as **Production** (also tick **Preview** if you want preview
    deploys to work), click **Add**. Set NEXT_PUBLIC_SITE_URL to `https://onusmap.tech`.
 6. Click **Deploy**. Wait for the build to finish (about 2 to 4 minutes). It should end on a
    "Congratulations" screen with a `*.vercel.app` URL. Copy that URL; it's needed in part 4.
