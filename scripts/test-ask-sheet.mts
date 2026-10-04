@@ -85,8 +85,8 @@ try {
   const chips = page.getByRole("button", { name: "Section 10, Policy" });
   check("citations collapse into one chip per section ('Section 10, Policy')", (await chips.count()) === 1);
   await chips.click();
-  const quote = page.locator("blockquote").first();
-  check("tapping the chip shows the quoted clause in mono", await quote.isVisible() && /mono/.test((await quote.getAttribute("class")) ?? ""));
+  const quote = page.getByRole("button", { name: /Open the (policy|procedures) at this quote/ }).first().locator("span[lang=en]");
+  check("tapping the chip shows the quoted clause in mono, as a link into the document", await quote.isVisible() && /mono/.test((await quote.getAttribute("class")) ?? ""));
   check("only slug and question are sent", JSON.stringify(Object.keys(sent[0] as object).sort()) === '["question","slug"]');
 
   await box.fill("What's the best pizza near campus?");
