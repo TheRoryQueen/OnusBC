@@ -21,31 +21,33 @@ export function SupportList({ offices }: { offices: Office[] }) {
       <div className="relative">
         <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-text-secondary" aria-hidden />
         <input id="school-search" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find your school" autoComplete="off"
-          className="min-h-12 w-full rounded-full bg-surface pl-11 pr-4 text-[15px] text-text ring-1 ring-inset ring-hairline placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-support/60" />
+          className="min-h-12 w-full rounded-full bg-surface/70 pl-11 pr-4 text-[15px] text-text ring-1 ring-inset ring-hairline placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-support/60" />
       </div>
       <p className="mt-3 px-1 text-[13px] text-text-secondary" aria-live="polite">{shown.length === offices.length ? `${offices.length} schools` : `${shown.length} of ${offices.length} schools`}</p>
-      <ul className="mt-2 divide-y divide-hairline">
+      <ul className="mt-4 divide-y divide-hairline border-t border-hairline">
         {shown.map((o) => (
-          <li key={o.slug} className="py-5">
-            <p className="text-[17px] font-semibold tracking-tight text-text">{o.name}</p>
-            {o.office && <p className="mt-0.5 text-[14px] text-text-secondary">{o.office}</p>}
-            <div className="mt-3 flex flex-wrap gap-2">
+          <li key={o.slug} className="grid gap-x-8 gap-y-1 py-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
+            <div>
+              <p className="text-[17px] font-medium tracking-tight text-text">{o.name}</p>
+              {o.office && <p className="mt-0.5 text-[14px] text-text-secondary">{o.office}</p>}
+            </div>
+            <ul className="-ml-1 flex flex-wrap items-center gap-x-4 sm:ml-0 sm:flex-col sm:items-end sm:gap-0">
               {o.phone && (
-                <a href={telHref(o.phone)} className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-support/12 px-4 text-[14px] font-medium text-support">
-                  <Phone className="size-4" aria-hidden />{o.phone}
-                </a>
+                <li><a href={telHref(o.phone)} aria-label={`Call ${o.name}, ${o.phone}`} className="inline-flex min-h-11 items-center gap-1.5 px-1 text-[15px] font-medium tabular-nums text-support underline-offset-4 hover:underline">
+                  <Phone className="size-3.5" aria-hidden />{o.phone}
+                </a></li>
               )}
               {o.email && (
-                <a href={`mailto:${o.email}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-[14px] font-medium text-text">
-                  <Mail className="size-4" aria-hidden />{o.email}
-                </a>
+                <li><a href={`mailto:${o.email}`} className="inline-flex min-h-11 items-center gap-1.5 px-1 text-[14px] text-text underline-offset-4 hover:underline">
+                  <Mail className="size-3.5 text-text-secondary" aria-hidden />{o.email}
+                </a></li>
               )}
               {o.url && (
-                <a href={o.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-hairline/50 px-4 text-[14px] font-medium text-text">
-                  Support page<ExternalLink className="size-3.5" aria-hidden />
-                </a>
+                <li><a href={o.url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 px-1 text-[14px] text-text underline-offset-4 hover:underline">
+                  Support page<ExternalLink className="size-3 text-text-secondary" aria-hidden />
+                </a></li>
               )}
-            </div>
+            </ul>
           </li>
         ))}
         {shown.length === 0 && <li className="py-6 text-[15px] text-text-secondary">No school matches that. Try a city or a shorter name.</li>}

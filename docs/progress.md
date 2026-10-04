@@ -9,8 +9,8 @@ with this file updated. Item 7 is the one called "item 6" in the request (the st
 | 2 | Map: hover cards, filter, search, legend, hospital routes, campuses | Done | e02cdca, 674057b, 196c7c5 |
 | 3 | School panel: Call, Listen, Read the summary | Done | 561459a |
 | 4 | Nav: same destinations, footer links, phone menu bug, tabs | Done | f83ffa7 |
-| 5 | Rating flow and account | Done | see git log (item 5) |
-| 6 | Design pass: Get support and How it works | Not started | |
+| 5 | Rating flow and account | Done | b1c6898 |
+| 6 | Design pass: Get support and How it works | Done, tests not rerun (see below) | see git log (item 6) |
 | 7 | Stricter grading (stops after the rubric for approval) | Not started | |
 
 ## 1. Phone-only lines
@@ -126,7 +126,7 @@ Done in f83ffa7.
 
 ## 5. Rating flow and account
 
-Done (commit: "Rating codes stay on the device; My account rebuilt").
+Done in b1c6898.
 - Done screen: no edit code. The thank-you line as written, Go to my account (opens Reviews) and Get
   support. Decision: I kept a quiet "Back to [School]" under a hairline, because the demo moment (the Onus
   count ticking up) depends on it. If the browser can't keep the code (private mode, storage blocked), the
@@ -153,3 +153,24 @@ Done (commit: "Rating codes stay on the device; My account rebuilt").
   account Privacy, Reviews, the delete dialog, the campus panel, the Listen strip). Screenshots of the done
   screen and every account section in both themes at 390 and 1440 checked; design critique run (one fix: the
   rating date was the UTC date, now the local date).
+
+## 6. Design pass
+
+Done (commit: "Get support and How it works in the homepage's layout").
+- Before and after screenshots, full page, both themes, 390 and 1440: screenshots/before/ and
+  screenshots/after/ (the screenshots folder is gitignored, so they are on this machine only).
+- Both pages now use the homepage's frame: 6xl width, full-width hairlines between sections, the serif
+  title on the left (sticky on wide screens) and the content on the right, stacked on phones.
+- Get support: 911 headline kept; "You don't have to report to get support." as the section's serif title
+  beside the VictimLinkBC number set large as display type (tap to call); the school list as plain rows with
+  the phone in purple and email and support page as quiet links (44 px targets), no filled chips.
+- How it works: the grade letters as a hairline-divided row (like the homepage numbers) instead of filled
+  boxes; accepted and rejected quotes behind a coloured rule instead of tinted cards; the privacy line now
+  says the code stays in your browser.
+- Left: I did not rerun the test suites after this item (test:fixes checks the support search; test:a11y
+  covers both pages) or run the design critique skill on it. Run npm run test:fixes and npm run test:a11y
+  before relying on it.
+
+## 7. Stricter grading
+
+Not started. The first step is to propose the rubric and stop for your approval.
