@@ -9,7 +9,10 @@ import { QuoteButton } from "@/components/documents/viewer-context";
 
 // The review clock in a school's panel. It only ever says what the published policy shows: a school may
 // have reviewed its policy without republishing it, so nothing here says a school broke the law.
-export function ReviewClock({ slug, school, date, note, weakest, lawUrl }: {
+const ordinal = (n: number) => `${n}${n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] ?? "th"}`;
+
+export function ReviewClock({ slug, school, date, note, weakest, lawUrl, rank }: {
+  rank: { place: number; of: number; tied: boolean } | null;
   slug: string; school: string; date: ReviewDate | null; note: string | null; weakest: Grade[]; lawUrl: string;
 }) {
   const [showQuote, setShowQuote] = useState(false);
@@ -53,7 +56,10 @@ export function ReviewClock({ slug, school, date, note, weakest, lawUrl }: {
 
       {weakest.length > 0 && (
         <div className="mt-4">
-          <h4 className="px-1 text-[13px] text-text-secondary">What to raise at the review</h4>
+          <h4 className="flex items-baseline justify-between gap-3 px-1 text-[13px] text-text-secondary">
+            <span>What to raise at the review</span>
+            {rank && <span className="tabular-nums">{rank.tied ? "Tied " : ""}{ordinal(rank.place)} of {rank.of} in BC on paper</span>}
+          </h4>
           <ul className="mt-2 overflow-hidden rounded-2xl bg-hairline/40">
             {weakest.map((g) => (
               <li key={g.criterion_id} className="border-b border-hairline px-4 py-3 last:border-b-0">

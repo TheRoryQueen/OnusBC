@@ -3,7 +3,7 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 // MapLibre (about 1 MB) is imported lazily after hydration, so the page and its controls never wait for it;
 // DotsPreview shows the dots from the server-rendered HTML in the meantime.
-import type { GeoJSONSource, MapLayerMouseEvent, Map as MLMap } from "maplibre-gl";
+import type { ExpressionSpecification, GeoJSONSource, MapLayerMouseEvent, Map as MLMap } from "maplibre-gl";
 import { DotsPreview, INITIAL_BOUNDS, initialPadding } from "./dots-preview";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -12,7 +12,10 @@ import type { InstitutionSummary } from "@/lib/types";
 import { useMapState } from "./map-state";
 import { SupportSheet } from "./support-sheet";
 import { MAPPED, nearestSupport } from "@/lib/support";
-import { dotStyle } from "@/lib/map-style";
+import { dotStyle, gradeToken } from "@/lib/map-style";
+
+// Below this zoom, overlapping schools merge; other campuses show from the zoom above it.
+const CLUSTER_MAX_ZOOM = 8;
 import { HOSPITALS, HOSPITAL_MIN_ZOOM, nearestHospital, nearestHospitals } from "@/lib/hospitals";
 import { HospitalSheet } from "./hospital-sheet";
 import { CAMPUSES, campusById, campusKey, parseMapPath, type Campus } from "@/lib/campuses";
@@ -130,6 +133,9 @@ export function OnusMap() {
             geometry: { type: "Point" as const, coordinates: [s.lng, s.lat] },
             properties: {
               slug: s.slug,
+              // For clusters: the On paper score (0 to 100) and whether there is one.
+              score: s.policy_found && s.scores?.paper_letter ? s.scores.paper_gpa ?? 0 : 0,
+              scored: s.policy_found && s.scores?.paper_letter ? 1 : 0,
               fill: st.hollow ? token("--onus-page") : token(st.fill!),
               outline: token(st.hollow ? "--onus-no-policy" : "--onus-text"),
               outlineWidth: st.hollow ? 2 : 1.25,
@@ -168,7 +174,10 @@ export function OnusMap() {
   }, []);
 
   const addLayers = useCallback((map: MLMap) => {
-    if (!map.getSource("schools")) map.addSource("schools", { type: "geojson", data: features() });
+    // Schools that overlap when zoomed out merge into one dot, coloured by the average On paper score of the
+    // graded schools inside it (same cutoffs as the letters). Support dots and hospitals aren't counted.
+    if (!map.getSource("schools")) map.addSource("schools", { type: "geojson", data: features(), cluster: true, clusterRadius: 14, clusterMaxZoom: CLUSTER_MAX_ZOOM,
+      clusterProperties: { score: ["+", ["get", "score"]], scored: ["+", ["get", "scored"]] } });
     if (!map.getSource("campuses")) map.addSource("campuses", { type: "geojson", data: campusFeatures() });
     // Sexual assault support (official sources; see data/support-centres.json): small purple dots, and a purple
     // line from the selected school to its nearest support, drawn under the school dots.
@@ -216,14 +225,14 @@ export function OnusMap() {
       paint: { "circle-radius": 16, "circle-color": "rgba(0,0,0,0)" } });
     map.addLayer({ id: "support-dot", type: "circle", source: "support-points",
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 5, 10, 8], "circle-color": support, "circle-stroke-width": 1.5, "circle-stroke-color": token("--onus-page") } });
-    map.addLayer({ id: "campus-dot", type: "circle", source: "campuses",
+    map.addLayer({ id: "campus-dot", type: "circle", source: "campuses", minzoom: CLUSTER_MAX_ZOOM + 1,
       paint: {
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 2.75, 10, 5],
         "circle-color": ["get", "fill"],
         "circle-stroke-width": ["get", "outlineWidth"],
         "circle-stroke-color": ["get", "outline"],
       } });
-    map.addLayer({ id: "campus-selected", type: "circle", source: "campuses", filter: ["==", ["get", "key"], latest.current.campus ? latest.current.key ?? "" : ""],
+    map.addLayer({ id: "campus-selected", type: "circle", source: "campuses", minzoom: CLUSTER_MAX_ZOOM + 1, filter: ["==", ["get", "key"], latest.current.campus ? latest.current.key ?? "" : ""],
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 10, 10, 12], "circle-color": "rgba(0,0,0,0)", "circle-stroke-width": 2.5, "circle-stroke-color": token("--onus-text") } });
     map.addLayer({ id: "school-selected", type: "circle", source: "schools", filter: ["==", ["get", "slug"], latest.current.campus ? "" : latest.current.selected ?? ""],
       paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 14, 10, 17], "circle-color": "rgba(0,0,0,0)", "circle-stroke-width": 2.5, "circle-stroke-color": token("--onus-text") } });
@@ -236,7 +245,16 @@ export function OnusMap() {
       } });
     map.addLayer({ id: "school-pulse", type: "circle", source: "schools", filter: ["==", ["get", "slug"], ""],
       paint: { "circle-radius": 8, "circle-color": token("--onus-brand"), "circle-opacity": 0 } });
-    map.addLayer({ id: "school-dot", type: "circle", source: "schools",
+    const avg: ExpressionSpecification = ["/", ["get", "score"], ["max", 1, ["get", "scored"]]];
+    map.addLayer({ id: "school-cluster", type: "circle", source: "schools", filter: ["has", "point_count"],
+      paint: {
+        "circle-radius": ["interpolate", ["linear"], ["get", "point_count"], 2, 7, 6, 10, 12, 13],
+        "circle-color": ["case", ["==", ["get", "scored"], 0], token("--onus-page"),
+          ["step", ["floor", ["+", avg, 0.5]], token(gradeToken("F")), 50, token(gradeToken("D")), 60, token(gradeToken("C")), 70, token(gradeToken("B")), 80, token(gradeToken("A"))]],
+        "circle-stroke-width": ["case", ["==", ["get", "scored"], 0], 2, 1.5],
+        "circle-stroke-color": ["case", ["==", ["get", "scored"], 0], token("--onus-no-policy"), token("--onus-text")],
+      } });
+    map.addLayer({ id: "school-dot", type: "circle", source: "schools", filter: ["!", ["has", "point_count"]],
       paint: {
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 4, 4.5, 10, 7.5],
         "circle-color": ["get", "fill"],
@@ -301,7 +319,7 @@ export function OnusMap() {
       // Purple dots open the support info sheet; hospital crosses open the hospital popup.
       map.on("click", "support-hit", (e: MapLayerMouseEvent) => {
         // A school or campus right under the tap wins over the wider purple tap area.
-        if (map.queryRenderedFeatures(e.point, { layers: ["school-dot", "campus-dot"].filter((l) => map.getLayer(l)) }).length) return;
+        if (map.queryRenderedFeatures(e.point, { layers: ["school-dot", "school-cluster", "campus-dot"].filter((l) => map.getLayer(l)) }).length) return;
         const id = e.features?.[0]?.properties?.id as string | undefined;
         if (id) { setHospitalId(null); setSupportId(id); }
       });
@@ -315,6 +333,16 @@ export function OnusMap() {
       }
       map.on("mouseenter", "support-hit", () => { map.getCanvas().style.cursor = "pointer"; });
       map.on("mouseleave", "support-hit", () => { map.getCanvas().style.cursor = ""; });
+      // A merged dot: zoom in until it splits.
+      map.on("click", "school-cluster", async (e: MapLayerMouseEvent) => {
+        const f = e.features?.[0];
+        if (!f) return;
+        const zoom = await (map.getSource("schools") as GeoJSONSource).getClusterExpansionZoom(f.properties?.cluster_id);
+        const target = { center: (f.geometry as GeoJSON.Point).coordinates as [number, number], zoom };
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) map.jumpTo(target); else map.easeTo({ ...target, duration: 600 });
+      });
+      map.on("mouseenter", "school-cluster", () => { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "school-cluster", () => { map.getCanvas().style.cursor = ""; });
       map.on("click", (e: MapLayerMouseEvent) => {
         // Schools first, then campuses. Several places under the tap (Vancouver, Victoria at the starting
         // zoom): zoom in on them rather than opening whichever dot happens to be on top.

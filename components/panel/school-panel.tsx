@@ -232,7 +232,12 @@ function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDeta
         const review = reviewFor(school.slug);
         // The three weakest criteria: lowest score first, then rubric order.
         const weakest = [...school.grades].sort((a, b) => a.score - b.score || a.sort - b.sort).slice(0, 3);
-        return <ReviewClock slug={school.slug} school={school.name} date={review.date} note={review.note} weakest={graded ? weakest : []} lawUrl={sources.review_law.url} />;
+        // Where this policy ranks in BC on paper: one more than the number of graded schools that score higher,
+        // so tied schools share a rank.
+        const paper = schools.filter((s) => isGraded(s.scores, s.policy_found)).map((s) => s.scores!.paper_gpa ?? 0);
+        const mine = live?.paper_gpa ?? null;
+        const rank = graded && mine != null ? { place: paper.filter((p) => p > mine).length + 1, of: paper.length, tied: paper.filter((p) => p === mine).length > 1 } : null;
+        return <ReviewClock rank={rank} slug={school.slug} school={school.name} date={review.date} note={review.note} weakest={graded ? weakest : []} lawUrl={sources.review_law.url} />;
       })()}
 
       {school.public_records.length > 0 && (
