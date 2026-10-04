@@ -56,7 +56,7 @@ function Summary({ r, recorded }: { r: RunResult; recorded?: boolean }) {
       <div className="mt-2 flex items-end gap-5">
         <p className="font-serif text-[4.5rem] leading-none text-text" aria-label={`On paper grade ${r.paper_letter}`}>{r.paper_letter}</p>
         <div className="pb-2 text-[15px] leading-relaxed text-text-secondary">
-          <p><span className="text-text">{r.paper_gpa.toFixed(2)} of 4</span> on paper, {r.source.label}</p>
+          <p><span className="text-text">{Math.round(r.paper_gpa)} of 100</span> on paper, {r.source.label}</p>
           <p>{r.quotes_checked} quotes checked: {r.quotes_verified} found word for word, {r.quotes_rejected} rejected</p>
         </div>
       </div>

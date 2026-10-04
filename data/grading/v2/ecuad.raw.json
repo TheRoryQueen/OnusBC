@@ -1,0 +1,148 @@
+{
+  "slug": "ecuad",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "c5c69c6d3e17070cf851dec80e941eb2653c85f5f4aa64cf1228a6be544ac3b6+d8fd2d1804a029346e3273efcb1f8dc46624687992c3baa87100a00e0c927a00",
+  "graded_at": "2026-10-04T08:45:13.755Z",
+  "usage": {
+    "promptTokenCount": 15494,
+    "candidatesTokenCount": 1695,
+    "totalTokenCount": 25425,
+    "cachedContentTokenCount": 11996,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 15494
+      }
+    ],
+    "cacheTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 11996
+      }
+    ],
+    "thoughtsTokenCount": 8236,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "These Procedures outline the process the University will follow when a member of the University community chooses to disclose or report an incident(s) of sexual or gender based violence or misconduct",
+      "section": "Procedures 1",
+      "reason": "The policy has its own dedicated procedures and process for students, independent of the general student conduct policy."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "Student Services will support the creation and dissemination of accessible information about the policy, the support and response options as well as training opportunities through information guides and online resources.",
+      "section": "Procedures A.10.1",
+      "reason": "The policy mentions disseminating information about the policy through online resources, but does not explicitly commit to posting the policy itself on the website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "Reports can be made to, Threat Assessment Team directly or via the Co-Ordinator of the Threat Assessment Team.",
+      "section": "Procedures C.3",
+      "reason": "The policy sets out clear steps on who to contact and outlines the subsequent assessment and investigation process."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 2,
+      "quote": "Complainants and respondents will not have to engage or communicate with each other directly during a report and investigation process. This includes not being in the same space as part of the process.",
+      "section": "Procedures C.3.3",
+      "reason": "The policy guarantees that complainants will not have to face the respondent or be in the same space during the process."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy requires all parties involved in an investigation to keep all information confidential, rather than protecting complainants from gag orders."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "Victim/Survivors have the right to determine what and how much they choose to disclose about their experience, and to decide whether they would like to make a Report to the University and/or the police.",
+      "section": "Policy Disclosure + Reporting",
+      "reason": "The right to choose between processes is hedged by broad institutional overrides allowing the university to report to police or investigate without consent."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Any Student who makes a Disclosure or makes a Report, stating that they were an individual who experienced or witnessed Sexual/Gender-based Violence and Misconduct while under the influence of drugs and/or alcohol will not be cited for violations under any University policies dealing with non-academic misconduct in relation to the use of drugs or alcohol.",
+      "section": "Policy Policy principles",
+      "reason": "The policy commits in binding language that students who report will not be cited for drug or alcohol violations."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University shall endeavour to complete any investigation it undertakes into a Report of Sexual/Gender-based Violence or Misconduct within a timely manner.",
+      "section": "Policy Policy principles",
+      "reason": "The timeline for completing investigations is vague and permissive (\"endeavour\", \"timely manner\")."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "As part of an investigation process, the University may impose or facilitate interim measures that are determined as necessary and appropriate for the safety of individuals involved and the University community.",
+      "section": "Procedures C.4",
+      "reason": "The implementation of interim measures is discretionary (\"may impose\")."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "Off-Campus Activity: refers to University-related activity at any location where curricular activities occur.",
+      "section": "Policy Definitions",
+      "reason": "Off-campus activity is covered in general terms, without explicitly naming co-op, internships, or work placements."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "An appointed member of TAT will inform the Complainant in writing of the outcome of the investigation, but not necessarily the details of any disciplinary action taken against the respondent, unless sharing that information is necessary for the protection of the complainant’s health and safety.",
+      "section": "Procedures A.6",
+      "reason": "Informing the complainant of the specific sanctions is hedged and restricted."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The Threat Assessment Team will provide an annual report to the Board of Governors on the implementation of this policy at the University in accordance with Section 6 (2) of the Sexual Violence and Misconduct Policy Act.",
+      "section": "Policy Policy review and annual report",
+      "reason": "The policy commits to an annual report to the Board of Governors, but does not commit to publishing numbers publicly."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "This Policy will be reviewed every three years.",
+      "section": "Policy Policy review and annual report",
+      "reason": "The policy is reviewed on a three-year cycle, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "The University will develop a Sexual/Gender-Based Violence and Misconduct Advisory Committee made up of members of the University community, including students.",
+      "section": "Policy Policy principles",
+      "reason": "Student representation is required on the advisory committee, but no specific minimum percentage is mandated."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "The University will make every effort to obtain investigators who are trained in trauma, anti-oppression, anti-racism informed approaches.",
+      "section": "Procedures C.3.4",
+      "reason": "The requirement for trained investigators is permissive and vague (\"make every effort\")."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The University will work in collaboration with the Emily Carr Student’s Union and other on and off campus community partners to develop and deliver Sexual/Gender-based Violence and Miscondcut education that is based on evidence-informed approaches, research and subject matter expert advice.",
+      "section": "Policy Education and training",
+      "reason": "The university commits in binding language to develop and deliver prevention education to the community."
+    }
+  ]
+}

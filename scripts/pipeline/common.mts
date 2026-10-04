@@ -1,13 +1,16 @@
 // Shared helpers for the grading pipeline (crawl, extract, grade, verify, embed).
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { readFileSync, existsSync, writeFileSync } from "node:fs";
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { requireEnv } from "../lib/db.mts";
 
 export const ROOT = new URL("../../", import.meta.url).pathname;
 export const POLICIES = `${ROOT}data/policies/`;
 export const EXTRACTED = `${ROOT}data/extracted/`;
-export const GRADING = `${ROOT}data/grading/`;
+// GRADING_VERSION=v2 writes and reads rubric v2's output in data/grading/v2/, so the v1 files stay as the
+// backup until Farnaz approves the new grades.
+export const GRADING = `${ROOT}data/grading/${process.env.GRADING_VERSION === "v2" ? "v2/" : ""}`;
+if (!existsSync(GRADING)) mkdirSync(GRADING, { recursive: true });
 export const MANIFEST = `${POLICIES}manifest.json`;
 
 export type Institution = { slug: string; name: string; policy_url: string };

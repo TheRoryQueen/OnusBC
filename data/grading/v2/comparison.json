@@ -1,0 +1,359 @@
+{
+  "generated_at": "2026-10-04T09:00:43.573Z",
+  "schools": [
+    {
+      "slug": "bcit",
+      "grader": "gemini-3.5-flash",
+      "v1": {
+        "gpa": 1.77,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 36,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "camosun",
+      "grader": "gemini-3.5-flash",
+      "v1": {
+        "gpa": 2.41,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 57,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "capilano",
+      "grader": "gemini-3.5-flash",
+      "v1": {
+        "gpa": 2.12,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 49,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "cnc",
+      "grader": "gemini-3.5-flash",
+      "v1": {
+        "gpa": 1.46,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 25,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "coast-mountain",
+      "grader": "gemini-3.5-flash",
+      "v1": {
+        "gpa": 2.55,
+        "letter": "B"
+      },
+      "v2": {
+        "score": 50,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "douglas",
+      "grader": "gemini-3.5-flash",
+      "v1": {
+        "gpa": 2.62,
+        "letter": "B"
+      },
+      "v2": {
+        "score": 63,
+        "letter": "C",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "ecuad",
+      "grader": "gemini-3.5-flash",
+      "v1": {
+        "gpa": 2.28,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 58,
+        "letter": "D",
+        "quotes_rejected": 1
+      }
+    },
+    {
+      "slug": "jibc",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.27,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 50,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "kpu",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 1.71,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 40,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "langara",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 1.71,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 36,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "nic",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.34,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 56,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "nlc",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 1.61,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 33,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "nvit",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.31,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 45,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "okanagan",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.37,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 55,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "rru",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 1.69,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 29,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "selkirk",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 1.78,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 37,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "sfu",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.16,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 44,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "tru",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.24,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 51,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "ubc-okanagan",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.83,
+        "letter": "B"
+      },
+      "v2": {
+        "score": 58,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "ubc-vancouver",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.83,
+        "letter": "B"
+      },
+      "v2": {
+        "score": 58,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "ufv",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.38,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 46,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "unbc",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.25,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 47,
+        "letter": "F",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "uvic",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.63,
+        "letter": "B"
+      },
+      "v2": {
+        "score": 72,
+        "letter": "B",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "vcc",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.37,
+        "letter": "C"
+      },
+      "v2": {
+        "score": 50,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    },
+    {
+      "slug": "viu",
+      "grader": "claude-opus-5-5",
+      "v1": {
+        "gpa": 2.8,
+        "letter": "B"
+      },
+      "v2": {
+        "score": 58,
+        "letter": "D",
+        "quotes_rejected": 0
+      }
+    }
+  ],
+  "audit": [
+    {
+      "slug": "bcit",
+      "gemini": {
+        "score": 36,
+        "letter": "F"
+      },
+      "claude": {
+        "score": 39,
+        "letter": "F"
+      }
+    }
+  ],
+  "agreement": {
+    "criteria": 17,
+    "exact": 16,
+    "within_one": 17
+  },
+  "disagreements": [
+    {
+      "slug": "bcit",
+      "criterion": "PR-1",
+      "label": "Reasonable, binding timelines",
+      "gemini": 0,
+      "claude": 1,
+      "gemini_quote": null,
+      "claude_quote": "identify a consistent process for responding to a Disclosure or Report that is Trauma-Informed and grounded in an intersectional approach, supportive, prompt, consistent, and fair;"
+    }
+  ]
+}

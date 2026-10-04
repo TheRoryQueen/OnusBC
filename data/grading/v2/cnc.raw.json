@@ -1,0 +1,141 @@
+{
+  "slug": "cnc",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "cc5fc4fd8685802d2531f84f8e2a636d2acb3b70c9aba9e378ae3740564ba555",
+  "graded_at": "2026-10-04T08:35:03.095Z",
+  "usage": {
+    "promptTokenCount": 5356,
+    "candidatesTokenCount": 1206,
+    "totalTokenCount": 13738,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 5356
+      }
+    ],
+    "thoughtsTokenCount": 7176,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "section": "D",
+      "reason": "The policy is a dedicated sexual misconduct policy with its own independent procedures."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not mention any commitment to make the policy publicly available."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not outline specific steps for how a student can file a report or who to contact."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address questioning the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protecting the complainant from face-to-face contact with the respondent."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address non-disclosure agreements or the complainant's right to speak."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "Any student who has experienced Sexual Misconduct has the right to pursue criminal or civil legal avenues whether they choose to take any steps under this policy.",
+      "section": "Scope",
+      "reason": "The policy explicitly guarantees the student's right to choose external legal avenues regardless of whether they use the institutional process."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address disciplinary amnesty for drug or alcohol use when reporting."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Engaging in intake, investigative inquiry and resolution of complaints (through the associated Sexual Misconduct procedures) that are prompt, fair, equitable and independent of other investigations that may occur;",
+      "section": "D",
+      "reason": "The policy uses the vague term \"prompt\" rather than setting specific, binding timelines."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to interim measures such as class, residence, or work changes."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "This policy applies to all circumstances involving Sexual Misconduct where a student is involved and there is a reasonable connection to the College.",
+      "section": "Scope",
+      "reason": "The policy covers off-campus activity in general terms but does not explicitly name co-ops, internships, or work placements."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address informing the complainant of the outcome of the process."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address public annual reporting of sexual misconduct statistics."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Date of Next Review: November 2026",
+      "section": "Preamble",
+      "reason": "The policy indicates a review cycle of three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation on policy review committees."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address training for investigators or decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "C. Delivering education campaigns to students and employees to help them:",
+      "section": "B",
+      "reason": "Prevention education is mentioned as a purpose of the policy rather than as a direct, binding institutional obligation."
+    }
+  ]
+}

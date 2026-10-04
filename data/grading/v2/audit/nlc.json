@@ -1,0 +1,25 @@
+{
+  "slug": "nlc",
+  "auditor": "Claude (claude-opus-5-5), Anthropic, via Claude Code",
+  "graded_at": "2026-10-04",
+  "note": "Second auditor: graded from the extracted policy text alone, under rubric v2, before reading Gemini's v2 answer for this school.",
+  "items": [
+    { "criterion_id": "AC-1", "score": 2, "quote": "It outlines appropriate and fair processes for handling complaints of sexual violence or misconduct.", "section": "Policy Purpose" },
+    { "criterion_id": "AC-2", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "AC-3", "score": 2, "quote": "A student who has experienced sexual misconduct can make a complaint to the College’s Director of Student Services (see below), or any employee of the College with whom the student feels comfortable.", "section": "Policy B.1" },
+    { "criterion_id": "SR-1", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "SR-2", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "SR-3", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "SR-4", "score": 1, "quote": "This policy does not replace the criminal process. Any individual who is a survivor of sexual misconduct or who witnesses criminal behaviour is encouraged to report that behaviour to the RCMP.", "section": "Policy Scope" },
+    { "criterion_id": "SR-5", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "PR-1", "score": 1, "quote": "Where the Director receives an actionable complaint, they will initiate an investigation within five business days.", "section": "Policy D.2" },
+    { "criterion_id": "PR-2", "score": 1, "quote": "At any time before or during an investigation, the College may take interim measures to ensure the well-being of any member of the College.", "section": "Policy D.4" },
+    { "criterion_id": "PR-3", "score": 1, "quote": "This policy applies to sexual misconduct involving a student of the College, both on and off campus, that is in any way related to the student being a member of the College community", "section": "Policy Scope" },
+    { "criterion_id": "AB-1", "score": 1, "quote": "If the outcome of the investigation is that the allegation of sexual misconduct is unsubstantiated, the College will promptly notify the individuals involved.", "section": "Policy D.4" },
+    { "criterion_id": "AB-2", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "AB-3", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "AB-4", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "TR-1", "score": 0, "quote": "", "section": "" },
+    { "criterion_id": "TR-2", "score": 1, "quote": "Building a culture of consent, as defined in this policy, by offering ongoing education, awareness and training to the college community about preventing and responding to sexual misconduct.", "section": "Policy Sexual misconduct prevention" }
+  ]
+}

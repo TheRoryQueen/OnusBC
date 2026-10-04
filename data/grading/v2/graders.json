@@ -1,0 +1,102 @@
+{
+ "bcit": {
+  "model": "gemini-3.5-flash",
+  "by": "gemini"
+ },
+ "camosun": {
+  "model": "gemini-3.5-flash",
+  "by": "gemini"
+ },
+ "capilano": {
+  "model": "gemini-3.5-flash",
+  "by": "gemini"
+ },
+ "cnc": {
+  "model": "gemini-3.5-flash",
+  "by": "gemini"
+ },
+ "coast-mountain": {
+  "model": "gemini-3.5-flash",
+  "by": "gemini"
+ },
+ "douglas": {
+  "model": "gemini-3.5-flash",
+  "by": "gemini"
+ },
+ "ecuad": {
+  "model": "gemini-3.5-flash",
+  "by": "gemini"
+ },
+ "jibc": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "kpu": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "langara": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "nic": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "nlc": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "nvit": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "okanagan": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "rru": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "selkirk": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "sfu": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "tru": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "ubc-okanagan": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "ubc-vancouver": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "ufv": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "unbc": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "uvic": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "vcc": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ },
+ "viu": {
+  "model": "claude-opus-5-5",
+  "by": "claude"
+ }
+}

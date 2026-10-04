@@ -53,8 +53,11 @@ export async function quotaCheck(): Promise<{ ok: true; usedToday: number } | { 
   return { ok: true, usedToday: used };
 }
 
+// Live runs under the strict rubric (v2, 0 to 100) started on Oct 4, 2026; an earlier recorded run used the
+// 0 to 4 scale and the old rubric, so it is never shown as a fallback next to today's grades.
+const V2_SINCE = "2026-10-04T07:20:00Z";
 export async function latestRecorded(): Promise<RunResult | null> {
-  const { data } = await createAdminClient().from("grading_runs").select("result").eq("status", "done").order("finished_at", { ascending: false }).limit(1).maybeSingle();
+  const { data } = await createAdminClient().from("grading_runs").select("result").eq("status", "done").gte("finished_at", V2_SINCE).order("finished_at", { ascending: false }).limit(1).maybeSingle();
   return (data?.result as RunResult | null) ?? null;
 }
 

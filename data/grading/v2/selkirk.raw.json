@@ -1,0 +1,131 @@
+{
+  "slug": "selkirk",
+  "model": "claude-opus-5-5",
+  "grader": "Claude (claude-opus-5-5, Anthropic), via Claude Code",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "6a5557d0f45faf4ead85604648c7b562f357c578e51f311a71cc1bd07a85ca87",
+  "source_url": "https://selkirk.ca/sites/default/files/documents/6030-Sexualized-Violence-Prevention-and-Response.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "note": "Graded by Claude, not Gemini: gemini-3.5-flash's free daily quota ran out after 7 of the 24 policies on Oct 4 (overload retries counted against it). Same rubric v2, same verbatim quote check. Decided by Farnaz, Oct 4.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "Adopting clear and fair procedures for responding to incidents of sexualized violence, and",
+      "section": "Policy A.4",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "It should include a record of the date(s), time(s), and nature of the incident(s) and the names of the witnesses, if applicable.",
+      "section": "Policy D",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "Investigations will be bound by Rape Shield provisions; survivors or those impacted by sexualized violence will not be asked about their previous sexual history.",
+      "section": "Policy C.11",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "Selkirk College will provide support services and accommodations to members of the College Community who Disclose or Report sexualized violence, including supporting the rights of people who make Disclosures to choose whether to access support, whether to make a Report, or whether to pursue external processes such as criminal or civil action.",
+      "section": "Policy C.7",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "As a result, Selkirk College will not subject any individual who discloses or reports sexualized violence to disciplinary action for alcohol or substance use occurring at or near the time of the incident(s).",
+      "section": "Policy C.11",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Investigation will be undertaken in a timely manner and may result in disciplinary action.",
+      "section": "Policy D",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "During such a time, Selkirk College will continue to provide support to members of the College Community as per the terms of this policy, this could include interim measures pending the outcome of the criminal process.",
+      "section": "Policy B.7",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "the alleged conduct must have a real and substantial connection to Selkirk College.",
+      "section": "Policy B.2",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "Developing, implementing, and actively promoting education & training programs related to awareness and prevention of sexualized violence, consent, healthy relationships and supports for survivors.",
+      "section": "Policy A.1",
+      "reason": ""
+    }
+  ]
+}

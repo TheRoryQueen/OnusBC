@@ -1,0 +1,131 @@
+{
+  "slug": "nic",
+  "model": "claude-opus-5-5",
+  "grader": "Claude (claude-opus-5-5, Anthropic), via Claude Code",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "690ca8b0f3ebcf3a56657c45cb47fe7f18cd1c2b67ff1c0cf6a5a0a2c0742a1b",
+  "source_url": "https://www.nic.bc.ca/_resources/pdf/policy-3-34-sexualized-violence-prevention-and-response.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "note": "Graded by Claude, not Gemini: gemini-3.5-flash's free daily quota ran out after 7 of the 24 policies on Oct 4 (overload retries counted against it). Same rubric v2, same verbatim quote check. Decided by Farnaz, Oct 4.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "When a Report comes forward involving only students, the Director of Student Affairs, or their designate will be advised and will authorize an investigation.",
+      "section": "Policy 6.2",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "If the Claimant is a student a Report of sexualized violence should be made through NIC counselling services or the Office of Student Affairs.",
+      "section": "Policy 4",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "investigations will be bound by Rape Shield provisions; survivors or those impacted by sexualized violence will not be asked about their previous sexual history.",
+      "section": "Policy 6.4.5",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 1,
+      "quote": "Investigations are not adversarial processes.",
+      "section": "Policy 6.4.1",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "Survivors and those impacted by sexualized violence are free to tell the story of their own experiences.",
+      "section": "Policy 12",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "NIC will provide support services and accommodations to members of the College Community who Disclose or Report sexualized violence, including supporting the rights of people who make Disclosures to choose whether to access support, whether to make a Report, or whether to pursue external processes such as criminal or civil action.",
+      "section": "Policy 7",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "As a result, NIC will not subject any individual who Discloses or Reports sexualized violence to disciplinary action for alcohol or substance use occurring at or near the time of the incident(s).",
+      "section": "Policy 9",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where requested by the Claimant for safety reasons, or where NIC receives information that requires it to act to protect the health or safety of members of the College Community, or to protect NIC property, NIC may impose interim measures before an investigation is concluded.",
+      "section": "Policy 7",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "the alleged conduct must have a real and substantial connection to NIC.",
+      "section": "Policy Scope and application",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "As a result, Claimants and Respondents will be offered the option of receiving a copy of the report.",
+      "section": "Policy 11",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "Reports will be logged anonymously as incidents in the annual report to the President who, in turn, provides an annual report to the Board of Governors.",
+      "section": "Policy 4.3",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "NIC is committed to ensuring that internal investigators and decision makers receive sexualized violence training at least once every 3 years.",
+      "section": "Policy Guidelines",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "implementing and actively promoting education and training programs to the College Community that are pertinent to this policy, including programs aimed at awareness and prevention of sexualized violence that support survivors and those impacted by sexualized violence in a trauma-informed manner;",
+      "section": "Policy Purpose statement",
+      "reason": ""
+    }
+  ]
+}

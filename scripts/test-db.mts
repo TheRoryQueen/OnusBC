@@ -339,9 +339,9 @@ try {
     const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
     const meanDefined = (xs: (number | null)[]) => mean(xs.filter((x): x is number => x !== null));
     const r2 = (x: number) => Math.round(x * 100) / 100;
-    const letter = (x: number) => { const v = Math.round(x * 10) / 10; return v >= 3.5 ? "A" : v >= 2.5 ? "B" : v >= 1.5 ? "C" : v >= 0.5 ? "D" : "F"; };
+    const letter = (x: number) => { const v = Math.floor(x + 0.5); return v >= 80 ? "A" : v >= 70 ? "B" : v >= 60 ? "C" : v >= 50 ? "D" : "F"; };
     const cats = [...new Set(crit.map((c) => c.category))];
-    const paper = mean(cats.map((cat) => { const cs = crit.filter((c) => c.category === cat); return (cs.reduce((a, c) => a + paperScores[c.id], 0) / (2 * cs.length)) * 4; }))!;
+    const paper = Math.floor(mean(cats.map((cat) => { const cs = crit.filter((c) => c.category === cat); return (cs.reduce((a, c) => a + paperScores[c.id], 0) / (2 * cs.length)) * 100; }))! + 0.5);
     function expected(rows: R[]) {
       const inc = rows.filter((r) => !r.withdrawn);
       const everyone = meanDefined([
@@ -356,7 +356,7 @@ try {
         mean(proc.filter((r) => r.time).map((r) => timeScore[r.time!])),
         mean(proc.filter((r) => r.cons === "yes" || r.cons === "no").map((r) => (r.cons === "yes" ? 4 : 0))),
       ]);
-      const practice = inc.length < 5 ? null : proc.length >= 5 ? 0.4 * everyone! + 0.6 * process! : everyone;
+      const practice = inc.length < 5 ? null : Math.floor((proc.length >= 5 ? 0.4 * everyone! + 0.6 * process! : everyone!) * 25 + 0.5);
       return { n_onus: inc.filter((r) => r.source === "onus").length, n_sample: inc.filter((r) => r.source === "sample").length, n_process: proc.length, practice };
     }
 
@@ -370,8 +370,8 @@ try {
     check("paper grade matches the PRD formula", Number(s.paper_gpa) === r2(paper) && s.paper_letter === letter(paper), `got ${s.paper_gpa} ${s.paper_letter}, expected ${r2(paper)} ${letter(paper)}`);
     check("practice grade matches the PRD formula", Number(s.practice_gpa) === r2(e.practice!) && s.practice_letter === letter(e.practice!), `got ${s.practice_gpa} ${s.practice_letter}, expected ${r2(e.practice!)} ${letter(e.practice!)}`);
     check("fewer than 5 process responses: Everyone block only, flagged", s.practice_everyone_only === (e.n_process < 5));
-    const gap = r2(paper) - r2(e.practice!);
-    const label = Math.abs(gap) <= 0.5 ? "aligned" : gap < -0.5 ? "better_in_practice" : gap <= 1.5 ? "some_gap" : "big_gap";
+    const gap = paper - e.practice!;
+    const label = Math.abs(gap) <= 12.5 ? "aligned" : gap < -12.5 ? "better_in_practice" : gap <= 37.5 ? "some_gap" : "big_gap";
     check("gap and label follow the PRD table", Number(s.gap) === r2(gap) && s.gap_label === label, `got ${s.gap} ${s.gap_label}, expected ${r2(gap)} ${label}`);
 
     // Add one more went-through sample so the process block has 5 responses and the 40/60 blend applies.

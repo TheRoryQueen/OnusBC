@@ -1,0 +1,110 @@
+{
+  "slug": "viu",
+  "auditor": "Claude (claude-opus-5-5), Anthropic, via Claude Code",
+  "graded_at": "2026-10-04",
+  "note": "Second auditor: graded from the extracted policy text alone, under rubric v2, before reading Gemini's v2 answer for this school.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "When a Complainant makes a Report VIU has a responsibility to investigate to the extent required to facilitate the safety of the VIU community and to assess the need for disciplinary action.",
+      "section": "Procedures 3.2"
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "The Act requires BC post-secondary institutions to establish, implement, and make publicly available a policy, with associated procedures, that addresses Sexual Misconduct, its prevention, and responses to sexual misconduct.",
+      "section": "Policy Preamble"
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A Report may be made only to VIU’s Diversity, Equity and Human Rights Office directly or to a Third Party Reporting Agency with a request that the Third Party Reporting Agency submit the Report to VIU’s Diversity, Equity and Human Rights Office.",
+      "section": "Procedures part of"
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 1,
+      "quote": "Have reasonable actions taken to prevent further unwanted contact with the other person involved in the incident;",
+      "section": "Procedures 2.2"
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 1,
+      "quote": "This does not prevent such individuals from disclosing information about themselves or information that they obtained outside of the investigation.",
+      "section": "Procedures 8"
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "Personal agency means that an individual is the decision-maker about making a Disclosure and/or Report, pursuing external processes such as criminal or civil action and accessing support services, including Accommodations.",
+      "section": "Policy 2.1"
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "VIU will respond to and address Disclosures and Reports and conduct investigations of Reports in a timely manner.",
+      "section": "Policy 2.1"
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "While the University is engaged in the risk and threat assessment process, and throughout a subsequent investigation should one be undertaken, action to address the safety concerns of the Complainant, while also considering the interests of the Respondent, may be taken such as:",
+      "section": "Procedures 3.1"
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "The policy applies to activities on all university campuses and properties and at any university event on or off campus, whether in person or virtual that impacts the learning, living and working environment for members of the University community.",
+      "section": "Policy Preamble"
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "b) the Complainant and the Respondent have the right to know the outcome of the investigation including the reasons for the decisions rendered as a result of a Report;",
+      "section": "Procedures 8.2"
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 2,
+      "quote": "VIU will compile anonymized data related to Reports and will make this data available to the public annually.",
+      "section": "Policy 2.1"
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "VIU will review the policy every three years as per the Act.",
+      "section": "Policy Preamble"
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 2,
+      "quote": "VIU will ensure that individuals receiving, investigating and adjudicating Reports of Sexual Misconduct have adequate training and competency to understand sexualized violence, and fundamentals of Trauma-informed practice.",
+      "section": "Policy 2.1"
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "VIU is committed to providing comprehensive and inclusive Sexual Misconduct prevention initiatives for Members of the VIU Community, including education and awareness programs, safety measures and campus communications.",
+      "section": "Policy 2.1"
+    }
+  ]
+}

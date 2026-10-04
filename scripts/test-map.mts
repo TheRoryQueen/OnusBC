@@ -103,7 +103,7 @@ try {
   const uvic = (await db.query("select s.paper_letter, s.paper_gpa from public.institution_scores s join public.institutions i on i.id = s.institution_id where i.slug = 'uvic'")).rows[0];
   const panel = page.getByRole("complementary", { name: "University of Victoria" });
   check("deep link /map/uvic opens the panel", await panel.isVisible());
-  check("panel shows the stored On paper grade", (await panel.textContent())?.includes(`${Number(uvic.paper_gpa).toFixed(2)} of 4`) ?? false, `${uvic.paper_letter} ${uvic.paper_gpa}`);
+  check("panel shows the stored On paper grade", (await panel.textContent())?.includes(`${Math.round(Number(uvic.paper_gpa))} of 100`) ?? false, `${uvic.paper_letter} ${uvic.paper_gpa}`);
   await panel.getByRole("button", { name: /Survivor rights/ }).click();
   const q = (await db.query("select g.quote, g.document, g.section from public.grades g join public.institutions i on i.id = g.institution_id where i.slug = 'uvic' and g.criterion_id = 'SR-2'")).rows[0];
   check("expanding a category shows the verified quote", (await panel.textContent())?.includes(q.quote) ?? false);

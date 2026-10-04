@@ -1,0 +1,110 @@
+{
+  "slug": "bcit",
+  "auditor": "Claude (claude-opus-5-5), Anthropic, via Claude Code",
+  "graded_at": "2026-10-04",
+  "note": "Second auditor: graded from the extracted policy text alone, under rubric v2, before reading Gemini's v2 answer for this school.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "Where a person wishes to pursue a Report, investigation procedures and remediation/resolution of experiences of Sexualized Violence will be followed based on the position of the Respondent within the BCIT Community.",
+      "section": "Procedures Preamble"
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "BCIT Community members impacted by Sexualized Violence are encouraged to Disclose their experiences to the Sexualized Violence Response Team (SVRT), or a trusted faculty or staff member.",
+      "section": "Procedures Preamble"
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 1,
+      "quote": "When responding to Disclosures, individuals will refrain from questions or comments implying judgment or blaming of the person making the Disclosure (such as questions or comments about the dress, conduct, language, emotional disposition, past sexual history, consumption of alcohol or drugs, or about the timing of the Disclosure).",
+      "section": "Procedures Preamble"
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "BCIT respects the right of the individual who has experienced Sexualized Violence to choose the most appropriate services and to independently determine whether to contact police and/or make a Report.",
+      "section": "Procedures Preamble"
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "identify a consistent process for responding to a Disclosure or Report that is Trauma-Informed and grounded in an intersectional approach, supportive, prompt, consistent, and fair;",
+      "section": "Policy Preamble"
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Members can expect to have their workplace and academic needs, as well as living situations where Student Housing residents are impacted, accommodated on a case by case basis.",
+      "section": "Procedures Preamble"
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "Sexualized Violence is alleged to have occurred on BCIT property, or at BCIT sanctioned activities and events in person or online, including but not limited to practicums, field schools, co-ops, or conferences,",
+      "section": "Policy Appendix A"
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "SVRT will maintain annual statistics on Reports of Sexualized Violence on campus for the purposes of community education and any legislated reporting that may be required.",
+      "section": "Policy Appendix A"
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "This committee considers issues related to Sexualized Violence and regularly reviews the current policy and procedures, providing advice, and making any necessary recommendations.",
+      "section": "Policy Appendix A"
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "BCIT will provide ongoing awareness and education programs for the BCIT Community by collaborating with internal community members.",
+      "section": "Policy Appendix A"
+    }
+  ]
+}

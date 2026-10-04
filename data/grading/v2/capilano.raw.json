@@ -1,0 +1,141 @@
+{
+  "slug": "capilano",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "ebbbeb7abafc27e1073f848c097cc796dcdc4af6444876ca4c962eb3d1415b3f",
+  "graded_at": "2026-10-04T08:29:09.025Z",
+  "usage": {
+    "promptTokenCount": 8022,
+    "candidatesTokenCount": 1661,
+    "totalTokenCount": 17319,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 8022
+      }
+    ],
+    "thoughtsTokenCount": 7636,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "The procedures for investigating and responding to a Report are set out in B.401.1 – Sexual Violence Procedure.",
+      "section": "Policy 7.2",
+      "reason": "The policy has its own dedicated procedures for investigating and responding to reports, independent of the general student code of conduct."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to being publicly posted or available on the institution's website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "The procedures for investigating and responding to a Report are set out in B.401.1 – Sexual Violence Procedure.",
+      "section": "Policy 7.2",
+      "reason": "The policy identifies who is responsible for reports but leaves the specific steps to the separate procedures document."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address questions regarding the complainant's past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address protections from face-to-face contact or direct cross-examination."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not explicitly protect complainants from being required to sign non-disclosure agreements or stay silent."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "All Survivors have the right to pursue criminal and/or civil legal remedies and exercise any other legal rights they may have, including the right to file a complaint with the BC Human Rights Tribunal, whether or not they choose to make a Report under this Policy.",
+      "section": "Policy 5.9",
+      "reason": "The policy outlines the right to pursue external processes, but this choice is hedged by broad institutional overrides where safety concerns exist."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 1,
+      "quote": "Survivors will not be discriminated against if they have engaged in illegal activities or perceived illegal activities that do not pertain to the Sexual Violence incident disclosed, such as sex work or illegal substance use.",
+      "section": "Policy 6.6",
+      "reason": "The policy offers protection from discrimination for substance use, but the language is vague and conditional rather than an explicit disciplinary amnesty."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "Timeliness of investigation and response will vary based on factors including the availability of witnesses or evidence and/or involvement in other investigations and legal proceedings.",
+      "section": "Policy 7.5",
+      "reason": "The policy does not set specific binding timelines and explicitly states that timelines are subject to change."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The University may impose or facilitate appropriate interim measures for the safety of the individuals involved and the University community.",
+      "section": "Policy 8",
+      "reason": "The policy states that the university may impose interim measures, which is permissive rather than binding, and does not list specific changes."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "“University-related Activity” includes an activity or event conducted under the authority of the University at any location, on or off campus including online forum.",
+      "section": "Policy 3",
+      "reason": "Off-campus activities are covered in general terms, but co-op, practicum, internship, or work placements are not explicitly named."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The Complainant has the right to know the outcome of the investigation, but not the details of any sanctions that may have been applied to the Respondent unless sharing that information is necessary for the protection of the Complainant’s health or safety;",
+      "section": "Policy 4.4",
+      "reason": "The complainant's right to know the outcome is hedged and explicitly excludes the details of sanctions unless necessary for safety."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "A public annual report including the annual budget assigned to Sexual Violence prevention and response will be produced by the Office of Student Affairs in collaboration with Human Resources and the Capilano Students’ Union (CSU).",
+      "section": "Policy 15.2",
+      "reason": "The policy commits to a public annual report, but is vague about whether it will include specific numbers of disclosures, reports, and outcomes."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "In accordance with the Sexual Violence and Misconduct Policy Act this Policy will be reviewed every three years or when directed to by the Ministry.",
+      "section": "Policy 15.1",
+      "reason": "The policy requires review every three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "A Sexual Violence Advisory Commitee has been established under this policy, made up of Members of the University Community including Students, Employees and community based partners.",
+      "section": "Policy 2.6",
+      "reason": "Student representation is required on the advisory committee, but there is no requirement for students to make up at least 30% of the committee."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "Members of the University Community who are responsible for formally receiving Disclosures, Reports, conducting investigations, or making outcome decisions or responding to appeals, will receive specialized training.",
+      "section": "Policy 12.2",
+      "reason": "Training is mandatory for decision-makers, but the policy does not explicitly require this training to be trauma-informed."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The Office of Student Affairs and Human Resources will work in collaboration with the Capilano Student’s Union (CSU) and other on- and off-campus partners to implement an education and prevention plan that is based on evidence informed approaches, research, and subject mater advice.",
+      "section": "Policy 12.1",
+      "reason": "The institution commits in binding language to implementing an education and prevention plan in collaboration with the student union."
+    }
+  ]
+}

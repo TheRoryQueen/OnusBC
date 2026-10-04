@@ -1,0 +1,141 @@
+{
+  "slug": "camosun",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "2bb60e455beb9c08a0151c8267ea8920c1b36696270dc3575ed11d354f278582+ef10931879199f460bf905bb4d36fde30fc1bb0cacf86767361076ef172a17d3",
+  "graded_at": "2026-10-04T08:28:16.481Z",
+  "usage": {
+    "promptTokenCount": 9512,
+    "candidatesTokenCount": 1559,
+    "totalTokenCount": 18878,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 9512
+      }
+    ],
+    "thoughtsTokenCount": 7807,
+    "serviceTier": "standard"
+  },
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "The College may, however, determine that another process is more appropriate in the circumstances.",
+      "section": "Policy POLICY application, scope, and limits",
+      "reason": "The policy allows the college to determine that another process is more appropriate, making its coverage permissive."
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not commit to being publicly available or posted on the website."
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "A Student who has experienced Sexual Violence may make a Report by contacting a Student Support Manager in the Office of Student Support, Student Affairs. A Report may be made in writing by e-mail or letter or in-person to the Office of Student Support.",
+      "section": "Policy Reporting Sexual Violence to the College",
+      "reason": "The policy sets out clear, specific, and enforceable steps to report, including contact details and the next steps."
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "The College will not subject individuals to questions regarding their past sexual history.",
+      "section": "Policy Commitments to Support and Academic Consideration",
+      "reason": "The policy explicitly and bindingly prohibits questioning individuals about their past sexual history."
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not guarantee protection from face-to-face contact or direct cross-examination during proceedings."
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 1,
+      "quote": "A person experiencing Sexual Violence has the right to determine what, when and how much they choose to disclose about an experience of Sexual Violence.",
+      "section": "Policy Commitments to Support and Academic Consideration",
+      "reason": "The policy protects the survivor's right to choose what to disclose, but does not explicitly address non-disclosure agreements or gag orders."
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 2,
+      "quote": "A person experiencing Sexual Violence has the right to decide whether to make a Disclosure or Report to College or Report to Police.",
+      "section": "Policy Commitments to Support and Academic Consideration",
+      "reason": "The policy guarantees the survivor's right to choose between institutional and external reporting processes."
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Any person who makes a Disclosure or Report of Sexual Violence will not subject to disciplinary action for any alcohol or substance use that occurred at or near the time of the incident(s).",
+      "section": "Policy Commitments to Support and Academic Consideration",
+      "reason": "The policy commits in binding language to drug and alcohol amnesty for individuals who disclose or report."
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The College will endeavor to have Investigations concluded in 60 days from time the investigator receives a Report.",
+      "section": "Policy Investigation",
+      "reason": "The timeline is slower than the 45-day benchmark and uses permissive language."
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The College may impose a no contact direction or require a No Contact Undertaking to facilitate the provision of interim measures of support.",
+      "section": "Policy Commitments to Support and Academic Consideration",
+      "reason": "Interim measures are discretionary and described using permissive language."
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "This Policy applies to Sexual Violence that is alleged to have occurred at any Camosun location, to have a real or substantial connection to the College, to have occurred during online College activities or at College-related functions, whether or not on College property.",
+      "section": "Policy POLICY application, scope, and limits",
+      "reason": "Off-campus activities are covered in general terms without explicitly naming co-ops, internships, or work placements."
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "Camosun supports the right of Complainants and Respondents to be informed of processes and decisions relating to Reports, Investigations and Outcomes, except where precluded by law.",
+      "section": "Policy Principles",
+      "reason": "Informing the complainant of the outcome is framed as supporting a right rather than a binding obligation, and reasons are provided only where possible."
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The Office of Student Support will make an annual update available to the College Community.",
+      "section": "Policy Annual Reporting",
+      "reason": "The policy commits to an annual update but is vague about publishing specific numbers of disclosures, reports, and outcomes."
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "The College will consult with students every three years regarding the implementation, application and review of this Policy.",
+      "section": "Policy Student Consultation",
+      "reason": "The review cycle is set to three years, which is longer than the two-year benchmark."
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": "The policy does not address student representation percentages on review committees."
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "The Investigation and decision-making process will be conducted using a trauma informed approach, recognizing the impact of sexual violence on a person.",
+      "section": "Policy Investigation",
+      "reason": "The policy states the process will be trauma-informed but does not explicitly mandate trauma-informed training for decision-makers."
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The College will establish education, training and awareness opportunities for the College Community regarding Sexual Violence Policies and Procedures, prevention and response.",
+      "section": "Policy Education, Training and Awareness",
+      "reason": "The college commits in binding language to providing prevention education and training opportunities for the college community."
+    }
+  ]
+}

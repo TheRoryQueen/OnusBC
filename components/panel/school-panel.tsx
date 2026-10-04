@@ -22,6 +22,7 @@ import { ListenAction, ListenStrip, useReportCard } from "./report-card-listen";
 import { FreeCounselling } from "./free-counselling";
 import { cn } from "@/lib/utils";
 import { campusKey, campusesOf, type Campus } from "@/lib/campuses";
+import { graderLabel, graderOf } from "@/lib/graders";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
 const SCORE_WORD = ["Not addressed", "Mentioned, not binding", "Explicit and binding"];
@@ -59,14 +60,14 @@ function OnusCount({ value }: { value: number }) {
 function CategoryRow({ category, grades, slug, school }: { category: string; grades: Grade[]; slug: string; school: string }) {
   const [open, setOpen] = useState(false);
   const earned = grades.reduce((a, g) => a + g.score, 0);
-  const score = grades.length ? (earned / (2 * grades.length)) * 4 : 0;
+  const score = grades.length ? (earned / (2 * grades.length)) * 100 : 0;
   return (
     <li className="border-b border-hairline last:border-b-0">
       <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open}
         className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand">
         <span className="text-[15px] text-text">{category}</span>
         <span className="flex items-center gap-2 text-sm text-text-secondary tabular-nums">
-          {score.toFixed(1)} of 4
+          {Math.round(score)} of 100
           <ChevronRight className={cn("size-4 transition-transform motion-reduce:transition-none", open && "rotate-90")} aria-hidden />
         </span>
       </button>
@@ -180,7 +181,7 @@ function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDeta
         <div className="px-1">
           <p className="text-xs text-text-secondary">On paper</p>
           <p className="mt-1 text-2xl font-semibold text-text">{graded ? live?.paper_letter : "None"}</p>
-          <p className="text-xs text-text-secondary tabular-nums">{graded ? `${live?.paper_gpa?.toFixed(2)} of 4` : school.policy_found ? "Grading in progress" : "No policy"}</p>
+          <p className="text-xs text-text-secondary tabular-nums">{graded ? `${Math.round(Number(live?.paper_gpa))} of 100` : school.policy_found ? "Grading in progress" : "No policy"}</p>
           {school.policy_found && (
             <button type="button" onClick={() => openDocument({ slug: school.slug, school: school.name })}
               className="hit mt-1.5 text-xs font-medium text-brand underline decoration-current/35 underline-offset-2 hover:decoration-current">
@@ -191,12 +192,12 @@ function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDeta
         <div className="px-1">
           <p className="text-xs text-text-secondary">In practice</p>
           <p className="mt-1 text-2xl font-semibold text-text">{live?.practice_letter ?? "None"}</p>
-          <p className="text-xs text-text-secondary tabular-nums">{live?.practice_gpa !== null && live?.practice_gpa !== undefined ? `${live.practice_gpa.toFixed(2)} of 4` : "Not enough ratings yet"}</p>
+          <p className="text-xs text-text-secondary tabular-nums">{live?.practice_gpa !== null && live?.practice_gpa !== undefined ? `${Math.round(Number(live.practice_gpa))} of 100` : "Not enough ratings yet"}</p>
         </div>
         <div className="flex flex-col items-center px-1">
           <p className="text-xs text-text-secondary">The gap</p>
           <Badge variant={gap.variant} className="mt-2 h-auto whitespace-normal py-1 text-center leading-tight">{gap.word}</Badge>
-          {live?.gap !== null && live?.gap !== undefined && <p className="mt-1 text-xs text-text-secondary tabular-nums">{Math.abs(live.gap).toFixed(1)} points</p>}
+          {live?.gap !== null && live?.gap !== undefined && <p className="mt-1 text-xs text-text-secondary tabular-nums">{Math.abs(Math.round(Number(live.gap)))} points</p>}
         </div>
       </div>
       <p className="mt-2 text-center text-xs text-text-secondary">
@@ -222,7 +223,7 @@ function PanelBody({ school, campus, onClose, onAsk }: { school: InstitutionDeta
           <p className="mt-2 px-1 text-xs text-text-secondary">
             Graded from the school&apos;s {docs.map((d, i) => (
               <span key={d.label}>{i > 0 && " and "}<a href={d.url} target="_blank" rel="noopener noreferrer" className="text-brand underline-offset-2 underline decoration-current/35 hover:decoration-current">{d.label.toLowerCase()}</a></span>
-            ))}. Every point quotes its source.
+            ))}{graderOf(school.slug) ? <> by {graderLabel(graderOf(school.slug)!)} under the strict rubric</> : null}. Every point quotes its source, checked word for word.
           </p>
         )}
       </section>

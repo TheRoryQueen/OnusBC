@@ -1,0 +1,110 @@
+{
+  "slug": "sfu",
+  "auditor": "Claude (claude-opus-5-5), Anthropic, via Claude Code",
+  "graded_at": "2026-10-04",
+  "note": "Second auditor: graded from the extracted policy text alone, under rubric v2, before reading Gemini's v2 answer for this school.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 1,
+      "quote": "Where the Report is about a Respondent who is a Student, the Student Conduct Policy (S 10.05) will apply and the Office of Student Support, Rights and Responsibilities will respond to the Report in accordance with the processes and procedures under the Student Conduct Policy (S 10.05).",
+      "section": "Procedures Conduct"
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "A Survivor may make a Report to the Sexual Violence Support and Prevention Office alone or the with assistance of a support person of their choice.",
+      "section": "Policy 8.0"
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "A Survivor who Discloses to the Sexual Violence Support and Prevention Office that they have experienced Sexualized Violence is entitled to decide whether to:",
+      "section": "Policy 7.0"
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University shall deal with all Reports of Sexualized Violence in a fair, unbiased, and timely manner and in accordance with relevant collective agreements and other applicable University policies.",
+      "section": "Policy 9.0"
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The Responsible Office may impose interim measures on the Respondent. Interim measures will be reassessed on a weekly basis.",
+      "section": "Procedures 10.0"
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "At or during an in-person or virtual meeting, event, or activity that is sponsored by or under the auspices of the University, or in furtherance of University business; or",
+      "section": "Policy 3.0"
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The University will provide a Complainant who initiates a process under section 8.5.2 with the outcome of the Report that was made.",
+      "section": "Policy 10.0"
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "systematically collect data and maintain annual statistics, without identifying information, on the number of Disclosed and Reported incidents of Sexualized Violence under this policy for the purposes of community education and for reporting to the University Community;",
+      "section": "Policy 5.0"
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "Reviewing this policy at least once every three years, in consultation with students and other members of the University Community.",
+      "section": "Policy 15.0"
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "Reviewing this policy at least once every three years, in consultation with students and other members of the University Community.",
+      "section": "Policy 15.0"
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "An impartial and appropriately qualified and trained person shall investigate Reports of Sexualized Violence.",
+      "section": "Policy 9.0"
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "The Sexual Violence Support and Prevention Office will facilitate the inclusion of educational materials related to Sexualized Violence in student and employee orientation and will be available to consult with individual faculty members, departments, and faculties in the development of course materials and program curriculum.",
+      "section": "Policy 6.0"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import "server-only";
+import { graderLabel, graderOf } from "@/lib/graders";
 import { createClient } from "@supabase/supabase-js";
 import { formatDate, isPastDue, nextReviewBy, reviewFor } from "@/lib/review-clock";
 
@@ -11,7 +12,7 @@ export const LICENSE = "Free to use with credit to Onus (onusmap.tech).";
 export type SchoolRow = {
   slug: string; name: string; type: string; city: string | null; policy_found: boolean;
   policy_url: string | null; procedures_url: string | null;
-  on_paper_gpa: number | null; on_paper_letter: string | null;
+  on_paper_score: number | null; on_paper_letter: string | null; graded_by: string | null;
   last_revised: string | null; last_revised_quote: string | null; last_revised_from: string | null;
   next_review_by: string | null; next_review_passed: boolean | null;
 };
@@ -41,7 +42,7 @@ export async function openData() {
     schools.push({
       slug: r.slug, name: r.name, type: r.type, city: r.city, policy_found: r.policy_found,
       policy_url: r.policy_url, procedures_url: r.procedures_url,
-      on_paper_gpa: sc?.paper_gpa != null ? Number(sc.paper_gpa) : null, on_paper_letter: sc?.paper_letter ?? null,
+      on_paper_score: sc?.paper_gpa != null ? Number(sc.paper_gpa) : null, on_paper_letter: sc?.paper_letter ?? null, graded_by: graderOf(r.slug) ? graderLabel(graderOf(r.slug)!) : null,
       last_revised: rv?.iso ?? null, last_revised_quote: rv?.quote ?? null, last_revised_from: rv?.url ?? null,
       next_review_by: rv ? nextReviewBy(rv.iso) : null, next_review_passed: rv ? isPastDue(rv.iso) : null,
     });

@@ -24,10 +24,10 @@ for (const r of (data ?? []) as Row[]) {
   const spoken = reportCardText(school), written = reportCardText(school, { spoken: false });
   check(`${r.slug}: no em dashes`, !/—/.test(spoken + written));
   if (sc?.paper_letter) {
-    check(`${r.slug}: grade matches the panel (${sc.paper_letter}, ${Number(sc.paper_gpa).toFixed(2)})`, written.includes(` ${sc.paper_letter}, ${Number(sc.paper_gpa).toFixed(2).replace(/\.?0+$/, "")} out of 4`), written.slice(0, 120));
+    check(`${r.slug}: grade matches the panel (${sc.paper_letter}, ${Math.round(Number(sc.paper_gpa))})`, written.includes(` ${sc.paper_letter}, ${Math.round(Number(sc.paper_gpa))} out of 100`), written.slice(0, 120));
     const cats = new Map<string, number[]>();
     for (const g of school.grades) cats.set(g.category, [...(cats.get(g.category) ?? []), g.score]);
-    const scores = [...cats].map(([c, s]) => [c, (s.reduce((a, b) => a + b, 0) / (2 * s.length)) * 4] as const);
+    const scores = [...cats].map(([c, s]) => [c, (s.reduce((a, b) => a + b, 0) / (2 * s.length)) * 100] as const);
     const best = Math.max(...scores.map((x) => x[1])), worst = Math.min(...scores.map((x) => x[1]));
     check(`${r.slug}: names a top-scoring category as strongest`, scores.some(([c, v]) => v === best && written.includes(`strongest category is ${c}`)));
     check(`${r.slug}: names a lowest-scoring category as weakest`, scores.some(([c, v]) => v === worst && written.includes(`weakest is ${c}`)));

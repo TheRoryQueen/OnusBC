@@ -1,5 +1,5 @@
 // The nav: pinned at the top on every page; the same destinations on desktop (tabs) and phones (the menu);
-// the wordmark goes to the map; the current tab has aria-current and an underline; keyboard focus moves the
+// the wordmark goes to the homepage; the current tab has aria-current and an underline; keyboard focus moves the
 // highlight; Privacy and Sources in the footer and at the bottom of the phone menu; the phone menu (labelled
 // button, focus trapped, closes on Escape, on a tap outside, when a link is chosen and when the window is
 // widened past the breakpoint).
@@ -28,7 +28,7 @@ try {
     const main = page.getByRole("navigation", { name: "Main" });
     const desktopLabels = (await main.getByRole("link").allInnerTexts()).map((t) => t.trim());
     check("desktop: Map, Rate your school, How it works, Get support, Sign in", JSON.stringify(desktopLabels) === JSON.stringify(["Map", "Rate your school", "How it works", "Get support", "Sign in"]), desktopLabels.join(", "));
-    check("the Onus wordmark goes to the map", (await page.locator("header").getByRole("link", { name: /^Onus/ }).getAttribute("href")) === "/map");
+    check("the Onus wordmark goes to the homepage", (await page.locator("header").getByRole("link", { name: /^Onus/ }).getAttribute("href")) === "/");
     for (const [path, label] of [["/how-it-works", "How it works"], ["/support", "Get support"], ["/map", "Map"], ["/map/sfu", "Map"]] as const) {
       await page.goto(BASE + path, { waitUntil: "load" });
       const cur = await main.locator('[aria-current="page"]').allInnerTexts();

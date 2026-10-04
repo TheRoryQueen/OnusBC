@@ -50,7 +50,8 @@
     "test:data": "tsx scripts/test-data.mts",
     "test:viewer": "tsx scripts/test-viewer.mts",
     "hospital-routes": "tsx scripts/pipeline/hospital-routes.mts",
-    "build:campuses": "tsx scripts/pipeline/build-campuses.mts"
+    "build:campuses": "tsx scripts/pipeline/build-campuses.mts",
+    "compare:v2": "tsx scripts/pipeline/compare-v2.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

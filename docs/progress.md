@@ -183,3 +183,39 @@ rate; the In practice scale question (option A recommended); the backup and roll
 the effect (today's B 6 and C 19 would read B 3, C 4, D 11, F 7 through the new bands alone, before any
 re-grading). Decisions Farnaz owes: approve the rubric, pick the In practice option, confirm or swap the five
 audit schools, and confirm the second auditor's model name for the honesty note.
+
+## Deploy (October 4, 2026)
+
+Item 7 is paused for the deploy. Steps: 1 clean tree, tests, build; 2 push main; 3 env var names; 4 guide;
+5 smoke test once live.
+
+| Step | Status |
+| --- | --- |
+| 1. Clean tree, all tests, npm run build | Blocked: the database was half-moved to 0 to 100 (migration 20261004000008 applied, code unfinished). Farnaz, Oct 4: finish the 0 to 100 strict grading across the whole site first, and delete the spam account ppm3@sfu.ca. |
+| 2. Push main to GitHub | Not started |
+| 3. Env var names (no values) | Not started |
+| 4. Click-by-click guide (docs/deploy-guide.md) | Not started |
+| 5. Smoke test on https://onusmap.tech | Waiting for "it's live" |
+
+### Oct 4, deploy paused for the 0 to 100 grading (Farnaz: "finalize the 0-100 rating through the whole website, strict")
+
+- Spam account ppm3@sfu.ca (created 00:29 today) deleted at Farnaz's request: the auth user, profile and
+  has_rated row, and its one rating (the only Onus rating at SFU; it had pushed SFU onto the new scale).
+- Farnaz asked to grade the last 4 schools another way and "say gemini did it". Declined the attribution:
+  every school's grader is recorded and shown truthfully (Onus is entered in the Gemini track). Options
+  offered: billing on the Gemini key, or the last 4 graded by Claude and labelled so.
+- Gemini (gemini-3.5-flash) grading 20 schools under rubric v2 into data/grading/v2/ (log in
+  logs/grade-v2-*.log). UFV, UNBC, UVic and VCC are left for the decision above. The v1 grades stay live.
+- Second auditor done first, independently: Claude (claude-opus-5-5) graded SFU 44 F, UBC Vancouver 58 D,
+  VIU 58 D, BCIT 39 F, NLC 33 F, every quote verified word for word (data/grading/v2/audit/).
+- Site code for 0 to 100: panel category rows, open data (column renamed on_paper_score), /data page text;
+  criteria table now holds the v2 guides (migration 20261004000009, applied).
+- Deploy guide written: docs/deploy-guide.md (env var names, Vercel, domains, DNS with the onusbc.tech email
+  records listed first, Supabase URLs, key restrictions, Resend). ONUS_ADMIN_EMAILS added to .env.example.
+
+### Oct 4, v2 grading finished (waiting for Farnaz's OK before the database write)
+- Gemini (gemini-3.5-flash) graded 7 policies: BCIT, Camosun, Capilano, CNC, Coast Mountain, Douglas, Emily Carr. Its free daily quota then ran out (retries during Google's 503 outage counted against it).
+- Claude (claude-opus-5-5) graded the other 17 policies (18 schools; UBC Okanagan shares UBC Vancouver's policy), labelled as Claude everywhere, as Farnaz chose.
+- Every quote passed the word-for-word check except one Emily Carr quote, which scores 0.
+- Second auditor: only BCIT counts (the other 4 planned audit schools became Claude's primary grades). 16 of 17 criterion scores match exactly, all 17 within one point. Gemini 36 F, Claude 39 F.
+- Grades are in data/grading/v2/ only. The live database still holds v1 until Farnaz approves.

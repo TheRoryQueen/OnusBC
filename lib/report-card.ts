@@ -5,7 +5,7 @@ import { formatDate, isPastDue, nextReviewBy, reviewFor } from "@/lib/review-clo
 import type { InstitutionDetail } from "@/lib/types";
 
 const CATEGORIES = ["Accessible", "Survivor rights", "Process", "Accountability", "Training"];
-// As the panel shows them: the grade to two decimals, categories to one.
+// As the panel shows them: whole numbers out of 100, categories to one decimal.
 const say = (n: number, digits = 1) => n.toFixed(digits).replace(/\.?0+$/, "");
 // Spoken phone numbers: digits grouped as written, so text to speech reads them digit by digit.
 const spokenPhone = (p: string) => p.replace(/ext\.?/i, "extension").replace(/[.\-]/g, " ").replace(/(\d)/g, "$1 ").replace(/\s+/g, " ").trim();
@@ -16,15 +16,15 @@ export function reportCardText(s: InstitutionDetail, { spoken = true, today = ne
   if (!s.policy_found || !s.scores?.paper_letter) {
     parts.push(`${s.name}. Onus could not find a public sexual violence policy for this school, so it has no On paper grade.`);
   } else {
-    parts.push(`${s.name}. On paper, its sexual violence policy gets ${/^[AF]/.test(s.scores.paper_letter) ? "an" : "a"} ${s.scores.paper_letter}, ${say(s.scores.paper_gpa!, 2)} out of 4.`);
+    parts.push(`${s.name}. On paper, its sexual violence policy gets ${/^[AF]/.test(s.scores.paper_letter) ? "an" : "a"} ${s.scores.paper_letter}, ${say(s.scores.paper_gpa!)} out of 100.`);
     const cats = CATEGORIES.map((c) => {
       const g = s.grades.filter((x) => x.category === c);
-      return { c, score: g.length ? (g.reduce((a, x) => a + x.score, 0) / (2 * g.length)) * 4 : null };
+      return { c, score: g.length ? (g.reduce((a, x) => a + x.score, 0) / (2 * g.length)) * 100 : null };
     }).filter((x): x is { c: string; score: number } => x.score !== null);
     if (cats.length) {
       const best = cats.reduce((a, b) => (b.score > a.score ? b : a));
       const worst = cats.reduce((a, b) => (b.score < a.score ? b : a));
-      parts.push(`Its strongest category is ${best.c}, at ${say(best.score)} out of 4. Its weakest is ${worst.c}, at ${say(worst.score)} out of 4.`);
+      parts.push(`Its strongest category is ${best.c}, at ${say(best.score)} out of 100. Its weakest is ${worst.c}, at ${say(worst.score)} out of 100.`);
     }
     const r = reviewFor(s.slug);
     if (r.date) {

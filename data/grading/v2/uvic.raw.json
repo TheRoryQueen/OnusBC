@@ -1,0 +1,131 @@
+{
+  "slug": "uvic",
+  "model": "claude-opus-5-5",
+  "grader": "Claude (claude-opus-5-5, Anthropic), via Claude Code",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "3cf651f45cb85859ad0d9a6109a5f40a8a3bf439c062f011aae7e8d0d774044b",
+  "source_url": "https://www.uvic.ca/universitysecretary/assets/docs/policies/GV0245.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "note": "Graded by Claude, not Gemini: gemini-3.5-flash's free daily quota ran out after 7 of the 24 policies on Oct 4 (overload retries counted against it). Same rubric v2, same verbatim quote check. Decided by Farnaz, Oct 4.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "“Equity and Human Rights” or “EQHR” is the unit at the University with institutional accountability for receiving and responding to Consultations, requests for Voluntary Process, and Reports, including conducting and overseeing investigations.",
+      "section": "Policy Definitions",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 1,
+      "quote": "The University will create and maintain a Sexualized Violence website that provides information about the Policy as well as support and response options and an up-to-date list of Sexualized Violence Education opportunities.",
+      "section": "Policy Sexualized violence education framework",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "Filling a Report means completing a Report form and filing it with EQHR with the intention of having the University initiate an investigation of an incident(s) of Sexualized Violence.",
+      "section": "Policy Procedures for filing a report",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 2,
+      "quote": "The Complainant and Respondent will not be required to meet as part of the investigation.",
+      "section": "Policy Procedures for investigating a report",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "University Community Members who are participating in a Voluntary Process, investigation, or review are free to speak about their own experiences but must not disclose information that they learn solely as a result of their participation in Policy processes, because this Personal Information belongs to another individual.",
+      "section": "Policy Statement on confidentiality and privacy",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "A Survivor has the right to determine if and when they choose to make a Disclosure and will not be required or pressured to make a Report to the University.",
+      "section": "Policy 3",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Hence, the University will not subject any individual who makes a Disclosure or Report or witnesses Sexualized Violence to disciplinary action for their personal use of alcohol or substance use occurring at or near the time of the incident(s).",
+      "section": "Policy 18",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "If a preliminary assessment is conducted, the Director will notify the Complainant within ten (10) University business days of receiving the Report of either the decision to not investigate or the decision to investigate.",
+      "section": "Policy Procedures for investigating a report",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "The University may apply Interim Measures where the University believes it must act to protect a University Community Member’s health or safety or University property.",
+      "section": "Policy 16",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "(d) placements (including co-op and practica);",
+      "section": "Policy Definitions",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "the Complainant has the right to know and will be informed of the outcome of the investigation. However, the Complainant is not entitled to know whether the Respondent was disciplined or which corrective actions were imposed.",
+      "section": "Policy Statement on confidentiality and privacy",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 2,
+      "quote": "While maintaining confidentiality where required by the Policy, EQHR shall submit an annual report to the President of the University. This report will be publicly available online and will contain:",
+      "section": "Policy 25",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "In any event, the University will review the Policy at least once every three years, and when directed to do so by the provincial government.",
+      "section": "Policy 26",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 1,
+      "quote": "This should include consultation with Students, staff, faculty, and librarians.",
+      "section": "Policy 26",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "General Counsel Office will compile and maintain a roster of investigators who:",
+      "section": "Policy Unit roles and responsibilities",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 2,
+      "quote": "In addition, the University will provide Sexualized Violence Education, which may include but is not limited to:",
+      "section": "Policy Sexualized violence education framework",
+      "reason": ""
+    }
+  ]
+}

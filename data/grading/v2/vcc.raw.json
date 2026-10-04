@@ -1,0 +1,131 @@
+{
+  "slug": "vcc",
+  "model": "claude-opus-5-5",
+  "grader": "Claude (claude-opus-5-5, Anthropic), via Claude Code",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "fab03feb37c1f03916267f3215e064bd9af6068798f15cbf1121f3421bc7ebee+d699b8aa325df3388e1bd48fa717868816822a00a51a9bf5bf67118cfd7b149f",
+  "source_url": "https://www.vcc.ca/media/vancouver-community-college/content-assets/documents/policies/Sexual-Violence-and-Misconduct-Policy-A.3.10.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "note": "Graded by Claude, not Gemini: gemini-3.5-flash's free daily quota ran out after 7 of the 24 policies on Oct 4 (overload retries counted against it). Same rubric v2, same verbatim quote check. Decided by Farnaz, Oct 4.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "It outlines a process for Disclosing and Reporting incidents of Sexual Violence or Misconduct to the College and makes clear the College’s responsibilities and procedures for reporting and investigating those incidents.",
+      "section": "Policy Context and purpose",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 2,
+      "quote": "College Members who wish to make a Report of Sexual Violence or Misconduct must contact the Department of Safety, Security, Risk and Privacy. Reports can be made in person, through phone or email, or through the College’s secure and encrypted online reporting system.",
+      "section": "Procedures 17",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 2,
+      "quote": "VCC will never inquire about a survivor's sexual history when they Disclose or Report Sexual Violence or Misconduct.",
+      "section": "Policy Statement of policy principles",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 2,
+      "quote": "At no time during the investigation or any appeal process will the Survivor be required to be present at the same time and place as the Person Accused/Respondent.",
+      "section": "Procedures 30",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "VCC is committed to respecting the rights of those who Disclose Sexual Violence or Misconduct to make their own decisions about accessing support services, making a Report, or pursuing external processes such as criminal or civil actions.",
+      "section": "Policy Statement of policy principles",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 2,
+      "quote": "Survivors who experience Sexual Violence or Misconduct while engaging in activities that violate other College policies will not be subject to sanctions for those violations that took place at the same time as the Sexual Violence or Misconduct.",
+      "section": "Policy Statement of policy principles",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The College aims to acknowledge the receipt of a Report the same day a Report is made, and no later than one business day after the Report is made. Any investigation resulting from a Report will be conducted in as timely a manner as possible.",
+      "section": "Procedures 17",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where appropriate to do so, the College may put Interim Measures and/or Accommodations into place pending the disposition of the complaint.",
+      "section": "Procedures 21",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 1,
+      "quote": "engaging in a College-Related Activity;",
+      "section": "Policy Scope and limits",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The relevant Vice President or Associate Vice President will inform the Survivor and Person Accused/Respondent in writing of the outcome of the investigation with detail and rationale, up to what is permitted under individuals’ privacy and confidentiality rights.",
+      "section": "Procedures 30",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "The President will report to the Board of Governors on the implementation of this Policy on an annual basis.",
+      "section": "Policy Context and purpose",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "In accordance with the Sexual Violence and Misconduct Policy Act, this Policy will be reviewed at least once every three years.",
+      "section": "Policy Context and purpose",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "VCC is committed to providing comprehensive and inclusive Sexual Violence or Misconduct prevention and response training to College Members.",
+      "section": "Policy 10",
+      "reason": ""
+    }
+  ]
+}

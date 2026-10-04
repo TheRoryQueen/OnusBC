@@ -10,7 +10,7 @@ export const revalidate = 3600;
 export default async function DataPage() {
   const { schools, criteria } = await openData();
   const files = [
-    { href: "/data/onus-schools.csv", name: "Schools (CSV)", rows: `${schools.length} schools`, body: "One row per school: On paper grade, policy and procedures links, the date its published policy was last revised (with the exact line it came from) and when the next review is required." },
+    { href: "/data/onus-schools.csv", name: "Schools (CSV)", rows: `${schools.length} schools`, body: "One row per school: On paper score (0 to 100) and letter, policy and procedures links, the date its published policy was last revised (with the exact line it came from) and when the next review is required." },
     { href: "/data/onus-criteria.csv", name: "Criteria (CSV)", rows: `${criteria.length} rows`, body: "One row per school and criterion: score (0, 1 or 2), the quote it rests on, and the document and section the quote is in." },
     { href: "/data/onus.json", name: "Everything (JSON)", rows: "both tables", body: "Both tables in one file, with the license and a short description." },
   ];

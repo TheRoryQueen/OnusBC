@@ -1,0 +1,131 @@
+{
+  "slug": "unbc",
+  "model": "claude-opus-5-5",
+  "grader": "Claude (claude-opus-5-5, Anthropic), via Claude Code",
+  "prompt_version": "2026-10-04.2",
+  "policy_sha256": "54cd7d323ec1bdf1bb6ad057ad1a50e277316b13feaf012eecc09ba05c3b00cb",
+  "source_url": "https://www.unbc.ca/sites/default/files/sections/policy/sexual-violence-misconduct-prevention-response-policy-procedures.pdf",
+  "graded_at": "2026-10-04T09:00:00.000Z",
+  "note": "Graded by Claude, not Gemini: gemini-3.5-flash's free daily quota ran out after 7 of the 24 policies on Oct 4 (overload retries counted against it). Same rubric v2, same verbatim quote check. Decided by Farnaz, Oct 4.",
+  "items": [
+    {
+      "criterion_id": "AC-1",
+      "score": 2,
+      "quote": "To the extent that any of these Policies conflict with the provisions and subject matter in this Policy, this Policy shall prevail.",
+      "section": "Policy 7",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AC-3",
+      "score": 1,
+      "quote": "Members of the University Community who wish to make a Sexual Violence or Misconduct Report should contact the Response and Support Team at www.unbc.ca/sexual-violence. A report may be made at any time.",
+      "section": "Policy 7",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-1",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-2",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-3",
+      "score": 2,
+      "quote": "Survivors/persons affected by Sexual Violence or Misconduct are free to tell the story of their own experiences.",
+      "section": "Policy 12",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-4",
+      "score": 1,
+      "quote": "Survivors/persons affected by Sexual Violence or Misconduct are entitled to choose the process that is best for them.",
+      "section": "Policy 5",
+      "reason": ""
+    },
+    {
+      "criterion_id": "SR-5",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-1",
+      "score": 1,
+      "quote": "The University will promptly respond to Reports of Sexual Violence or Misconduct made under this or any other University Policy.",
+      "section": "Policy 7",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-2",
+      "score": 1,
+      "quote": "Where the University receives information that requires it to act to protect the health and safety of the Members of the University Community, or University property, the University may impose interim measures before an investigation is concluded.",
+      "section": "Policy 9",
+      "reason": ""
+    },
+    {
+      "criterion_id": "PR-3",
+      "score": 2,
+      "quote": "Co-op, internships and practicum placements",
+      "section": "Policy 5",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-1",
+      "score": 1,
+      "quote": "The complainant has the right to know the outcome of the investigation, but not the details of any disciplinary actions that may have been taken against the respondent unless disclosing that information is necessary for health or safety reasons or because it affects the Survivor/person affected by Sexual Violence or Misconduct.",
+      "section": "Policy 11",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-2",
+      "score": 1,
+      "quote": "Providing information to the University Community about Sexual Violence and Misconduct on any of UNBC’s campuses, through the appropriate and allowable collection of data.",
+      "section": "Policy 3",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-3",
+      "score": 1,
+      "quote": "The University is committed to reviewing the Policy at least once every three years and/or when directed to do so by the Minister of Advanced Education.",
+      "section": "Policy 14",
+      "reason": ""
+    },
+    {
+      "criterion_id": "AB-4",
+      "score": 0,
+      "quote": "",
+      "section": "",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-1",
+      "score": 1,
+      "quote": "Endeavour to train members of units and offices most likely to receive Sexual Violence or Misconduct Disclosures or Reports.",
+      "section": "Policy 3",
+      "reason": ""
+    },
+    {
+      "criterion_id": "TR-2",
+      "score": 1,
+      "quote": "Coordinating education and training programs pertaining to preventing and responding to incidents of Sexual Violence and Misconduct for the Members of the University Community.",
+      "section": "Policy 3",
+      "reason": ""
+    }
+  ]
+}

@@ -10,9 +10,9 @@ No Canadian dataset tracks, school by school, how reports are handled. So we bui
 
 ## What it does
 
-Onus ([onusmap.tech](https://onusmap.tech)) is a live map of every public college and university in BC, 26 campuses in all. Each school gets two grades on the same 0 to 4 scale:
+Onus ([onusmap.tech](https://onusmap.tech)) is a live map of every public college and university in BC, 26 campuses in all. Each school gets two grades on the same 0 to 100 scale (A 80 and up, B 70s, C 60s, D 50s, F under 50):
 
-- **On paper:** the school's own published policy, graded by AI against 17 criteria built from the Students for Consent Culture minimum standards. Every point has to quote the policy word for word, or it doesn't count.
+- **On paper:** the school's own published policy, graded by AI against 17 criteria built from the Students for Consent Culture minimum standards. The rubric is strict: full credit only for an explicit, specific, enforceable commitment, at most partial credit for permissive wording like "may" or "will endeavour", and nothing if it's missing. Every point has to quote the policy word for word, or it doesn't count.
 - **In practice:** short, anonymous, multiple-choice ratings from people with that school's email address.
 - **The gap** is the distance between the two.
 
@@ -24,11 +24,11 @@ More in every school's panel:
 - **Ask in your own language.** Questions in Farsi, French, Punjabi, Mandarin and more are answered in that language, while every citation stays the policy's exact English. Voice detects the language too.
 - **Nearest sexual assault support.** Purple dots mark 14 hospitals with published 24-hour sexual assault or forensic nurse care and the community sexual assault support programs with public addresses, all from official sources. Selecting a school draws the road route to the nearest one that serves its city, with call, website and Google Maps directions.
 - **Listen to this report card.** A spoken summary of the grade, the strongest and weakest category, the review clock and where to get help, built only from stored data.
-- **Grade a policy, live.** Judges can watch Onus grade a real policy from outside BC with the same quote check, streamed criterion by criterion. A live run of McMaster University's policy scored a B (2.47 of 4) in 6 seconds, with 13 quotes verified and 3 rejected.
+- **Grade a policy, live.** Judges can watch Onus grade a real policy from outside BC with the same quote check, streamed criterion by criterion.
 
 ## How we built it
 
-- **The grading pipeline:** a crawler finds each school's policy (and separate procedures, where a school publishes them) from the Province's list; an extractor turns PDFs and web pages into clean text; Gemini grades the 17 criteria; and a verifier checks every quote against the policy text. Of 312 quotes checked, 311 were found word for word and 1 was rejected (the AI wrote "Gender-Based" where the policy says "Gender based"). Zero unverified quotes are stored. 25 schools are graded; one school's policy sits behind a staff login, so it shows as "No public policy" with that note.
+- **The grading pipeline:** a crawler finds each school's policy (and separate procedures, where a school publishes them) from the Province's list; an extractor turns PDFs and web pages into clean text; an AI model grades the 17 criteria; and a verifier checks every quote against the policy text. Gemini (gemini-3.5-flash) graded 7 policies before its free daily quota ran out; Claude (claude-opus-5-5, Anthropic) graded the other 17 with the same rubric and the same quote check, and each school's panel names its grader. Of 287 quotes checked, 286 were found word for word and 1 was rejected. Zero unverified quotes are stored. As a cross-check, Claude graded one of Gemini's schools (BCIT) on its own: the two agreed exactly on 16 of 17 criteria and were within one point on all 17. That is a sample of one school, and we say so on the site. 25 schools are graded; one school's policy sits behind a staff login, so it shows as "No public policy" with that note.
 - **Ask:** the policies are split into 967 passages and embedded; each question pulls the closest passages and Gemini answers only from them. Code rejects any answer whose quotes aren't in the retrieved text, and falls back from the main model to a lighter one, then to a verified cached answer, then to a refusal with the school's contact. Voice uses ElevenLabs speech to text and text to speech, through the same pipeline.
 - **The app:** Next.js 16, Tailwind v4, Supabase (Postgres with row level security, email-code sign-in, Realtime), MapLibre with CARTO basemaps.
 - **Privacy by design:** the ratings table has no user ID column at all. Ratings are written only through database functions, dates are rounded to the week, a school's results appear only after 5 ratings, and edit codes are stored as hashes. There are no free-text fields in the questionnaire, so no names or stories can be stored.
@@ -45,7 +45,7 @@ More in every school's panel:
 ## Accomplishments that we're proud of
 
 - Every graded point is backed by a quote that a script checked word for word.
-- The first school-by-school comparison of BC sexual violence policies we know of. No school earns an A on paper; the highest grade is a B (both UBC campuses, 2.83 of 4) and the lowest a C (1.46 of 4).
+- The first school-by-school comparison of BC sexual violence policies we know of. No school earns an A on paper. Only one earns a B (UVic, 72 of 100) and one a C (Douglas, 63); 11 get a D and 12 fail, down to 25 of 100.
 - Real public-record numbers from schools' own annual reports, each linked, including UBC's Investigations Office report, checked against press coverage.
 - A full end-to-end browser test of the demo, from the homepage through a live rating, at phone and desktop size.
 
@@ -72,7 +72,7 @@ More in every school's panel:
 
 **MLH Best Use of ElevenLabs.** Ask works out loud: ElevenLabs speech to text detects the language, the answer comes back in the Sarah voice (Flash v2.5, or Eleven v3 for Farsi and Punjabi), and every school's report card can be heard, generated once and cached.
 
-**MLH Best Use of Gemini.** Gemini grades 17 criteria per policy with structured output and answers questions from retrieved passages with gemini-embedding-001. Code checks every quote: of 312 grading quotes, 311 were found word for word, and Ask refuses any answer it can't cite.
+**MLH Best Use of Gemini.** Gemini grades 17 criteria per policy with structured output (it graded 7 of the 24 published policies before its free quota ran out; Claude graded the rest, labelled) and answers questions from retrieved passages with gemini-embedding-001. Code checks every quote: of Gemini's 85 grading quotes, 84 were found word for word, and Ask refuses any answer it can't cite.
 
 **MLH Best .Tech Domain.** Onus lives at onusmap.tech, a short name that says what it is: a map that puts the onus on schools.
 
