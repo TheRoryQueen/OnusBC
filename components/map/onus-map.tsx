@@ -85,11 +85,11 @@ function HoverCard({ hover, panelOpen }: { hover: NonNullable<Hover>; panelOpen:
   }, [hover, panelOpen]);
   return (
     <div ref={ref} aria-hidden
-      className="glass pointer-events-none absolute z-[15] hidden w-max max-w-60 rounded-2xl px-3 py-2 md:block"
+      className="glass pointer-events-none absolute z-[15] hidden w-max max-w-[23rem] rounded-2xl px-3 py-2 md:block"
       style={{ left: 0, top: 0, visibility: "hidden" }}>
       <p className="text-sm font-semibold text-text">{hover.school.name}</p>
       {hover.campus && <p className="text-[13px] text-text-secondary">{hover.campus.name}</p>}
-      <Badge variant="neutral" className="mt-1">{dotStyle(hover.school).label}</Badge>
+      <Badge variant="neutral" className="mt-1 h-auto max-w-full whitespace-normal py-0.5 text-left leading-snug">{dotStyle(hover.school).label}</Badge>
     </div>
   );
 }
