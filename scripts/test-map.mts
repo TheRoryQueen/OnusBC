@@ -50,21 +50,20 @@ try {
   check("every school has a dot", all.length === total, `${all.length} of ${total}`);
 
   // Fill by On paper grade; COTR (no public policy) is hollow.
-  const rows = (await db.query("select i.slug, i.policy_found, s.paper_letter, s.gap_label, s.n_onus, s.n_public from public.institutions i left join public.institution_scores s on s.institution_id = i.id")).rows;
+  const rows = (await db.query("select i.slug, i.policy_found, s.paper_letter, s.gap_label, s.n_onus, s.n_public, s.n_sample from public.institutions i left join public.institution_scores s on s.institution_id = i.id")).rows;
   const tokens: Record<string, string> = {};
   for (const t of ["--onus-no-policy", "--onus-page", "--onus-text", "--onus-some-gap", "--onus-big-gap", "--onus-info", "--onus-text-secondary", "--onus-grade-a", "--onus-grade-b", "--onus-grade-c", "--onus-grade-d", "--onus-grade-f"]) tokens[t] = await css(page, t);
   const wrongFill = all.filter((f) => { const r = rows.find((x) => x.slug === f.slug); return !r || (r.policy_found && r.paper_letter && f.fill !== tokens[`--onus-grade-${r.paper_letter.toLowerCase()}`]); });
   check("each dot is filled by its On paper grade", wrongFill.length === 0, wrongFill.map((w) => w.slug).join(","));
   const cotr = all.find((f) => f.slug === "cotr");
   check("no-public-policy schools are hollow (COTR)", cotr?.fill === tokens["--onus-page"] && cotr?.outline === tokens["--onus-no-policy"]);
-  // The ring: only with at least 5 real ratings (Onus + public records), never counting sample ratings.
-  const shouldRing = rows.filter((r) => r.policy_found && ["aligned", "some_gap", "big_gap", "better_in_practice"].includes(r.gap_label) && r.n_onus + r.n_public >= 5).map((r) => r.slug).sort();
+  // The ring: at least 5 ratings (Onus + public records + sample, the hackathon demo rule).
+  const shouldRing = rows.filter((r) => r.policy_found && ["aligned", "some_gap", "big_gap", "better_in_practice"].includes(r.gap_label) && r.n_onus + r.n_public + r.n_sample >= 5).map((r) => r.slug).sort();
   const ringed = all.filter((f) => f.ring).map((f) => f.slug).sort();
-  check("rings only where a school has 5 or more real ratings", JSON.stringify(ringed) === JSON.stringify(shouldRing), `ringed: ${ringed.join(",") || "none"}`);
+  check("rings only where a school has 5 or more ratings", JSON.stringify(ringed) === JSON.stringify(shouldRing), `ringed: ${ringed.join(",") || "none"}`);
   const ubc = all.find((f) => f.slug === "ubc-vancouver")!;
   const ubcRow = rows.find((r) => r.slug === "ubc-vancouver")!;
-  if (ubcRow.gap_label === "some_gap") check("UBC Vancouver: some gap is a 3 px ink ring touching the dot", ubc.ring && ubc.ringWidth === 3 && ubc.ringColor === tokens["--onus-text"] && ubc.ringOffset === 1.25);
-  check("sample-only schools get no ring (UVic: 3 public records)", !all.find((f) => f.slug === "uvic")?.ring);
+  if (ubcRow.gap_label === "big_gap") check("UBC Vancouver: much worse is a 3 px red ring touching the dot", ubc.ring && ubc.ringWidth === 3 && ubc.ringColor === tokens["--onus-grade-f"] && ubc.ringOffset === 1.25);
 
   // No type filter any more; a search instead (name or short name flies to the school and opens its panel).
   check("there is no All / Colleges / Universities filter", (await page.getByRole("radio", { name: "Colleges" }).count()) === 0);
